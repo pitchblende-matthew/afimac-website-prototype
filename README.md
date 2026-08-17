@@ -125,15 +125,20 @@ This repo follows Webflow's official Astro contract
 
 ### Deploying
 
+[![Deploy to Webflow](https://webflow.com/img/deploy-dark.svg)](https://webflow.com/dashboard/cloud/deploy?repo=https://github.com/pitchblende-matthew/afimac-website-prototype)
+
+Creating the Cloud project and connecting the repo is a dashboard step — it
+needs the GitHub App authorization, so there is no API or CLI shortcut for it.
 In the Webflow dashboard, under the **pitchblende.net** site → **Webflow Cloud**:
 
 1. Create a project and connect this GitHub repo.
-2. Set the mount path for the environment (e.g. `/afimac-cstl`) and bind it to
-   the branch you want that environment to track.
-3. Publish the site once after creating the project so the mount path is served.
+2. Set the environment's mount path (e.g. `/afimac-cstl`) and point it at the
+   branch that environment should track.
+3. Publish the site once after creating the project, so the mount path is served.
 
-Pushes to the tracked branch build and deploy automatically. `npm run deploy`
-(`webflow cloud deploy`) deploys from the CLI once the project exists.
+Pushes to the tracked branch then build and deploy automatically. Once the
+project exists, `npm run deploy` (`webflow cloud deploy`) deploys from the CLI,
+and `webflow apps env-vars` manages environment variables.
 
 ---
 
