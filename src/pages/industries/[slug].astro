@@ -1,21 +1,152 @@
 ---
 import Prototype from "../../layouts/Prototype.astro";
 import Block from "../../components/Block.astro";
-import { INDUSTRIES } from "../../data/industries";
+import { u } from "../../lib/base";
+import { bars } from "../../lib/wireframe";
+import { INDUSTRIES, EXISTING } from "../../data/industries";
 import { industryPage } from "../../lib/industry-page";
+import type { Block as BlockType } from "../../lib/types";
 
 // Rendered on demand — `output: "server"` is the Webflow Cloud contract, so
 // there is no getStaticPaths here; unknown slugs 404 below.
 const { slug } = Astro.params;
-const industry = slug ? INDUSTRIES[slug] : undefined;
+const built = slug ? INDUSTRIES[slug] : undefined;
+const existing = slug && !built ? EXISTING[slug] : undefined;
 
-if (!industry) {
+if (!built && !existing) {
   return new Response(null, { status: 404, statusText: "Not found" });
 }
 
-const { blocks, ...page } = industryPage(industry);
+/**
+ * Live industry pages with no CSTL update copy yet. All seven run the same
+ * template, captured here from the published Automotive page, so the shape of
+ * what an update would be changing is visible.
+ */
+const liveTemplate = (label: string): BlockType[] => [
+  {
+    cls: "dark",
+    n: "BLOCK 01 · HERO — AS LIVE",
+    h: `
+  <h1>${label} Travel Labor</h1>
+  <p class="lead">When timing is critical, AFIMAC is the premier resource for leading ${label.replace(/&amp;/g, "and").toLowerCase()} companies looking to bridge labor gaps and overcome shortages.</p>
+  <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Talk to AFIMAC</a></div>
+  <div class="note">Headline and body are the live page’s, paraphrased to the shared pattern. <b>Check the exact wording on the page before editing it.</b></div>`,
+    spec: `<b>Elementor:</b> Container · Heading ×2 · Text Editor · Button. All seven live industry pages run this hero.`,
+  },
+  {
+    n: "BLOCK 02 · THE INDUSTRY’S WORKFORCE CHALLENGE — AS LIVE",
+    h: `<h2>${label} faces growing workforce continuity challenges</h2>${bars(5)}
+  <div class="note">A cited industry-analyst passage, then the AFIMAC turn. On Automotive it is S&amp;P Global Mobility; on Chemicals &amp; Plastics it is Accenture. <b>Each page cites its own source — keep those citations live through any update.</b></div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor. This is the block a CSTL update would most likely rewrite.`,
+  },
+  {
+    cls: "wash",
+    n: "BLOCK 03 · CRITICAL SITUATIONS WE ADDRESS — AS LIVE",
+    h: `
+  <div class="g2">
+   <div class="duo"><div class="duohead">Critical Situations We Handle:</div>
+    <div class="duobody"><ul class="check"><li>Initial line start-up</li><li>Production shortfalls</li><li>Plant relocation</li><li>Health emergencies</li><li>Disaster response</li></ul></div></div>
+   <div class="duo risk"><div class="duohead">Risks We Help You Mitigate:</div>
+    <div class="duobody"><ul class="warn">${Array.from({ length: 5 }, () => `<li><span class="ph" style="display:block;background:rgba(255,255,255,.28);margin:5px 0"></span></li>`).join("")}</ul></div></div>
+  </div>
+  <div class="note">The left card is identical on every industry page and on the Overview. <b>The right card is the only industry-specific content in this block</b> — Automotive runs Production bottlenecks · R&amp;D + EV transition delays · Supply chain disruptions · Quality + safety issues · Market share loss.</div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · Heading ×2 · EK Icon List ×2. Shared saved section with the Overview.`,
+  },
+  {
+    n: "BLOCK 04 · WORKFORCE GAPS WE FILL — AS LIVE",
+    h: `
+  <h2>${label} workforce gaps we fill</h2>
+  <div class="g3" style="margin-top:26px">
+   <div><div class="catbar mfg">MANUFACTURING</div><ul class="check"><li>CNC Operators</li><li>Fabricators</li><li>Injection Mold Operators</li><li>Instrumentation Techs</li><li>Machine Operators &amp; Technicians</li></ul></div>
+   <div><div class="catbar whs">WAREHOUSING</div><ul class="check"><li>Forklift Operators</li><li>Heavy Equipment Operators</li><li>Inventory Control Specialists</li><li>Material Handlers</li><li>Shipping and Receiving Clerks</li></ul></div>
+   <div><div class="catbar log">LOGISTICS</div><ul class="check"><li>Logistics Coordinators</li><li>Supply Chain Managers</li><li>Transportation Managers</li><li>Shipping and Receiving Clerks</li><li>CDL Truck Drivers</li></ul></div>
+  </div>
+  <div class="note stop"><b>The heading says “${label}” and the roles underneath are generic.</b> These fifteen roles are byte-identical to the Overview’s and to every other industry page’s. <b>This is the single clearest thing a CSTL update fixes</b> — see <a href="${u("/industries/automotive")}">Automotive</a>, where the update proposes six roles that are actually automotive.</div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · Heading ×3 · EK Icon List ×3. Currently one shared saved section reused on seven pages.`,
+  },
+  {
+    cls: "center",
+    n: "BLOCK 05 · AFIMAC CREDIBILITY — AS LIVE",
+    h: `
+  <h2>AFIMAC Credibility</h2>
+  <p class="lead">We bring unmatched responsiveness, expertise, and resources to ${label.replace(/&amp;/g, "and").toLowerCase()}.</p>
+  <p class="lead">AFIMAC is the premier resource for Fortune 500 manufacturing, warehousing, and logistics organizations facing labor shortages with critical time constraints. We deliver on-demand specialized labor crews to help businesses ensure operational continuity and reduce financial risk.</p>
+  <div class="g4" style="margin-top:40px">
+   ${["Years", "Industry Deployments", "Companies Served", "Laborers Provided"]
+     .map((l) => `<div class="counter"><div class="stat" style="color:var(--ph)">—</div><div class="statlabel">${l}</div></div>`)
+     .join("")}
+  </div>
+  <div class="note">Four counters here, three on the Overview, and only Years appears on both. <b>Figures not captured</b> — the counters animate from zero, so the numbers are not in the page source.</div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · EK Funfact ×4. The industry-specific first line is the pattern the <a href="${u("/industries")}">hub</a> gets wrong.`,
+  },
+  {
+    cls: "wash",
+    n: "BLOCK 06 · RELATED NEWS + INSIGHT — AS LIVE",
+    h: `<h2>Related News + Insight</h2>
+  <div class="g3" style="margin-top:22px">${[1, 2, 3].map(() => `<div class="postcard"><div class="photo thumb">1280×720 featured image</div><div class="pbody"><div class="ph t"></div>${bars(2)}<a class="readmore" href="${u("/overview")}">Read More »</a></div></div>`).join("")}</div>`,
+    spec: `<b>Elementor:</b> EK Post Grid (3-up). Hand-picked per page today, not category-filtered.`,
+  },
+  {
+    cls: "sky",
+    n: "BLOCK 07 · TALK TO AFIMAC — AS LIVE",
+    h: `
+  <div class="g2">
+   <div class="center"><h2>Talk to AFIMAC.</h2>
+    <p>Let’s talk today and we’ll provide solutions matched to your needs:</p>
+    <ul class="check" style="display:inline-block;text-align:left"><li>Available labor resources</li><li>Rapid deployment timing</li><li>Ballpark costs</li><li>Estimated ROI impact</li></ul></div>
+   <div class="formpanel"><div class="form">
+    <div><label>First Name<i>*</i></label><input></div><div><label>Last Name<i>*</i></label><input></div>
+    <div><label>Email<i>*</i></label><input></div><div><label>Phone Number<i>*</i></label><input></div>
+    <div class="full"><label>Company<i>*</i></label><input></div>
+    <div class="full"><label>Message</label><textarea rows="3"></textarea></div>
+    <div class="full sub"><a class="btn" href="${u("/get-in-touch")}">Submit</a></div>
+   </div></div>
+  </div>`,
+    spec: `<b>Elementor:</b> Metform, Mobilization Sky band. Same block as the hub — and like the hub, it drops the Urgency Level field the Overview form carries.`,
+  },
+];
+
+const page = built ? industryPage(built) : null;
+const blocks: BlockType[] = built
+  ? page!.blocks
+  : [
+      {
+        n: "STATUS · LIVE, NO CSTL UPDATE WRITTEN",
+        h: `
+  <h2>${existing!.label}</h2>
+  <p class="lead">This page is live on afimacglobal.com and carries the copy below today. <b>No CSTL update has been written for it</b> — it is one of five in that position. The page’s single H1 is the live page’s own, in the hero block below.</p>
+  <div class="tscroll"><table class="cmp" style="max-width:900px"><tbody>
+   <tr><th>Live URL</th><td>${existing!.url}</td></tr>
+   <tr><th>SEO title today</th><td>${existing!.seoTitle} <span style="color:var(--spec)">(${existing!.seoTitle.replace(/&amp;/g, "&").length} chars · target 50–60)</span></td></tr>
+   <tr><th>Meta description today</th><td>${existing!.seoDesc} <span style="color:var(--spec)">(${existing!.seoDesc.length} chars · target 145–160)</span></td></tr>
+  </tbody></table></div>
+  ${existing!.note ? `<div class="note">${existing!.note}</div>` : ""}
+  <div class="btns"><a class="btn ghost" href="${u("/industries/automotive")}">See what an update looks like →</a></div>`,
+        spec: `Wireframed below is the live page as it stands, so the scope of an update is visible. <b>Nothing here is new copy.</b>`,
+      },
+      ...liveTemplate(existing!.label),
+    ];
 ---
 
-<Prototype {...page}>
-  {blocks.map((b) => <Block {...b} />)}
-</Prototype>
+{
+  built ? (
+    <Prototype {...page!}>
+      {blocks.map((b) => <Block {...b} />)}
+    </Prototype>
+  ) : (
+    <Prototype
+      title={existing!.label}
+      crumb={`Solutions › CSTL › Industries › ${existing!.label}`}
+      url={existing!.url}
+      status="live"
+      active={`/industries/${existing!.slug}`}
+      meta={{
+        t: existing!.seoTitle,
+        d: existing!.seoDesc,
+        k: "[keyword set from the SEO audit — not yet assigned]",
+      }}
+    >
+      {blocks.map((b) => <Block {...b} />)}
+    </Prototype>
+  )
+}

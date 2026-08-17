@@ -8,12 +8,23 @@
  */
 import { bars, photo } from "./wireframe";
 import { u } from "./base";
-import { B } from "../data/nav";
 import type { Industry } from "../data/industries";
 import type { Block, PageProps } from "./types";
 
 export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
-  const numbersFirst = o.slug === "logistics";
+  const numbersFirst = o.slug === "logistics-warehousing";
+  const isNew = o.liveH1 === null;
+
+  /** Says plainly whether this page replaces live copy or creates a new page. */
+  const scope: Block = {
+    n: isNew ? "SCOPE · NEW PAGE" : "SCOPE · UPDATE TO A LIVE PAGE",
+    h: isNew
+      ? `<div class="note stop" style="margin-top:0"><b>This is the only new page in the industry cluster.</b> There is no live ${o.short} page and no slot for one in the agreed CSTL sub-nav. Everything below is new copy and new layout at a new URL, <code>${o.url}</code>.</div>`
+      : `<div class="note" style="margin-top:0"><b>This updates a page that is already live, it does not replace it.</b> The live page sits at <code>${o.url}</code> and its H1 today reads “${o.liveH1}”. It keeps that URL — see the <a href="${u("/industries")}">URL conflict</a> raised on the hub. What changes is the argument: the live page runs the same fifteen generic roles as every other industry page, and the update below replaces them with ${o.roles.length} that are actually ${o.short}.</div>`,
+    spec: isNew
+      ? `Needs a sub-nav slot, a URL sign-off, and the full asset set — nothing can be inherited.`
+      : `Everything the live page already has — hero, situations cards, credibility block, post grid, form — stays in place unless a block below explicitly replaces it.`,
+  };
 
   const gap: Block = {
     cls: "wash",
@@ -118,7 +129,7 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
   return {
     title: o.title,
     crumb: "Solutions › CSTL › Industries › " + o.short,
-    url: `${B}${o.slug2}/`,
+    url: o.url,
     status: "build",
     active: `/industries/${o.slug}`,
     meta: {
@@ -127,6 +138,7 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
       k: "[keyword set from the SEO audit]",
     },
     blocks: [
+      scope,
       {
         cls: "dark",
         n: "BLOCK 02 · HERO",

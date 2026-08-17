@@ -13,8 +13,10 @@ const { active = "" } = Astro.props;
 const isActive = (item: NavItem) =>
   active === item.route || (item.kids ?? []).some((kid) => kid.route === active);
 
-/** Status dot. Prototype chrome — see the legend in the WIP bar. */
-const dot = (status: string) => `<span class="sdot s-${status}"></span>`;
+/** Status dot: fill shows the work state, a green ring means the page is
+    already live. Prototype chrome — see the legend in the WIP bar. */
+const dot = (n: { work: string; live?: boolean }) =>
+  `<span class="sdot s-${n.work}${n.live ? " is-live" : ""}"></span>`;
 ---
 
 <nav class="subnav" id="subnav">
@@ -31,16 +33,14 @@ const dot = (status: string) => `<span class="sdot s-${status}"></span>`;
               class="snlink"
               href={u(item.route)}
               set:html={
-                dot(item.status) +
-                item.label +
-                (item.kids ? '<span class="caret">▼</span>' : "")
+                dot(item) + item.label + (item.kids ? '<span class="caret">▼</span>' : "")
               }
             />
             {item.kids && (
               <div class="dd">
                 <div class="ddhead" set:html={statusCaption(item.kids)} />
                 {item.kids.map((kid) => (
-                  <a href={u(kid.route)} set:html={dot(kid.status) + kid.label} />
+                  <a href={u(kid.route)} set:html={dot(kid) + kid.label} />
                 ))}
               </div>
             )}

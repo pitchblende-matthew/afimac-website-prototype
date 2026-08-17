@@ -3,7 +3,7 @@ import "../styles/prototype.css";
 import SubNav from "../components/SubNav.astro";
 import PageMeta from "../components/PageMeta.astro";
 import { u } from "../lib/base";
-import { STATUS_LABEL, sectionTotals, type PageStatus } from "../data/nav";
+import { WORK_LABEL, sectionTotals, type Work } from "../data/nav";
 import type { PageProps } from "../lib/types";
 
 type Props = PageProps;
@@ -12,7 +12,7 @@ const { title, crumb, url, status, meta, active } = Astro.props;
 
 const plainTitle = title.replace(/&amp;/g, "&");
 
-const KEYS: PageStatus[] = ["live", "ready", "partial", "todo"];
+const KEYS: Work[] = ["settled", "ready", "partial", "todo"];
 const totals = sectionTotals();
 ---
 
@@ -84,14 +84,19 @@ const totals = sectionTotals();
         <div class="statuskey">
           <b>Build status</b>
           {
-            KEYS.map((s) => (
+            KEYS.map((w) => (
               <span class="k">
-                <span class={`sdot s-${s}`} />
-                <Fragment set:html={STATUS_LABEL[s]} />
-                <span class="n">{totals[s]}</span>
+                <span class={`sdot s-${w}`} />
+                <Fragment set:html={WORK_LABEL[w]} />
+                <span class="n">{totals.work[w]}</span>
               </span>
             ))
           }
+          <span class="k">
+            <span class="sdot s-todo is-live" />
+            Green ring = already live, so the work is an update
+            <span class="n">{totals.live}</span>
+          </span>
         </div>
       </div>
     </div>

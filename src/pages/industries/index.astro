@@ -1,75 +1,201 @@
 ---
 /**
- * INDUSTRIES HUB — live on afimacglobal.com today.
+ * INDUSTRIES HUB — live on afimacglobal.com, replicated here section for
+ * section from the published page, the same way the Overview is.
  *
- * The CSTL cluster adds industry pages beneath it; three are wireframed, five
- * have nothing yet. The status of the five is the open question on this page.
+ * Source: /solutions/critical-situation-travel-labor/industries/
  */
 import Prototype from "../../layouts/Prototype.astro";
 import Block from "../../components/Block.astro";
 import { u } from "../../lib/base";
-import { B, NAV } from "../../data/nav";
+import { B } from "../../data/nav";
+import { INDUSTRIES, EXISTING, INDUSTRY_ORDER } from "../../data/industries";
 import type { Block as BlockType } from "../../lib/types";
 
-const industries = NAV.find((n) => n.route === "/industries")!.kids!;
+/** The seven tiles as the live page orders them, plus the one that isn't there. */
+const TILES = INDUSTRY_ORDER.map((slug) => {
+  const built = INDUSTRIES[slug];
+  const existing = EXISTING[slug];
+  return {
+    slug,
+    label: existing?.label ?? built.short,
+    live: Boolean(existing) || slug === "automotive" || slug === "food-beverage",
+    route: `/industries/${slug}`,
+  };
+});
 
-const TAG: Record<string, string> = {
-  live: '<span class="tag live">LIVE</span>',
-  ready: '<span class="tag build">READY</span>',
-  partial: '<span class="tag build">WIREFRAMED</span>',
-  todo: '<span class="tag build">NOT STARTED</span>',
-};
+const LIVE_TILES = TILES.filter((t) => t.live);
+
+// Table rows are built here rather than inline: nesting a template literal
+// three deep inside a block's `h` string trips the Astro frontmatter parser.
+const UPDATE_ROWS = INDUSTRY_ORDER.map((slug) => {
+  const built = INDUSTRIES[slug];
+  const ex = EXISTING[slug];
+  const label = ex ? ex.label : built.short;
+  const livecell = ex || built.liveH1 ? "Live" : "<i>None — new page</i>";
+  const href = u("/industries/" + slug);
+  const update = built
+    ? '<a href="' + href + '">Wireframed, copy outstanding →</a>'
+    : "Not started";
+  return `<tr><th>${label}</th><td>${livecell}</td><td class="hl">${update}</td></tr>`;
+}).join("");
+
+const SEO_ROWS = Object.values(EXISTING)
+  .map((e) => {
+    const n = e.seoTitle.replace(/&amp;/g, "&").length;
+    const flag = n < 50 || n > 60 ? " ⚠" : "";
+    return `<tr><th>${e.label}</th><td>${e.seoTitle}</td><td class="hl">${n}${flag}</td></tr>`;
+  })
+  .join("");
 
 const blocks: BlockType[] = [
   {
-    n: "THE INDUSTRY CLUSTER",
+    cls: "dark center",
+    n: "BLOCK 01 · HERO",
     h: `
-  <h1>CSTL Industries</h1>
-  <p class="lead">This hub is live on afimacglobal.com. The eight entries below are the Industries dropdown as agreed in the IA deck — three now have CSTL industry pages wireframed, five have nothing yet, and one still has no slot in the sub-nav at all.</p>
-  <div class="g3" style="margin-top:30px">
-   ${industries
-     .map((i) => {
-       const built = i.route !== "/industries";
-       const label = i.label.replace(/ — .*$/, "");
-       return built
-         ? `<a class="card" style="text-decoration:none;display:block" href="${u(i.route)}">
-             <h3 style="margin-bottom:10px"><span class="sdot s-${i.status}"></span>${label}</h3>
-             <p style="font-size:12.5px;color:var(--spec);word-break:break-all">…/${i.route.replace("/industries/", "")}/</p>
-             ${TAG[i.status]}</a>`
-         : `<div class="card">
-             <h3 style="margin-bottom:10px"><span class="sdot s-${i.status}"></span>${label}</h3>
-             <p style="font-size:12.5px;color:var(--spec)">No CSTL page written</p>
-             ${TAG[i.status]}</div>`;
-     })
+  <p class="eyebrow">Critical Situation Travel Labor</p>
+  <h1>Critical Situation Travel Labor:<br>Industries We Serve</h1>
+  <div class="note" style="max-width:760px;margin-left:auto;margin-right:auto">The live hero carries the H1 and nothing else — no sub-headline, no body copy, no CTA. <b>It is the thinnest hero in the section</b>, on the page that has to route visitors to seven others.</div>`,
+    spec: `<b>Elementor:</b> Container · Heading. Replicated from the live page. If the industry updates go ahead, this hero is the cheapest place to add a line of orientation copy.`,
+  },
+
+  {
+    n: "BLOCK 02 · INDUSTRIES WE SERVE",
+    h: `
+  <div class="g3" style="margin-top:6px">
+   ${LIVE_TILES.map(
+     (t) => `<a class="card" style="text-decoration:none;display:block" href="${u(t.route)}">
+     <div class="photo" style="min-height:150px">Industry tile image</div>
+     <h3 style="margin-top:16px;margin-bottom:8px">${t.label}</h3>
+     <span class="readmore">Learn More »</span></a>`,
+   ).join("")}
+  </div>
+  <div class="note"><b>Seven tiles, seven live pages.</b> Logistics &amp; Warehousing is not among them — it has no live page and no slot in the agreed sub-nav, and it is the only genuinely new page in this cluster. Everything else here is an update to a page that already exists.</div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Image Box ×7. Seven into a 3-col grid leaves an orphan on the last row; adding Logistics &amp; Warehousing makes it eight and squares the grid — a small argument for building it.`,
+  },
+
+  {
+    cls: "wash center",
+    n: "BLOCK 03 · SERVICE CTA",
+    h: `
+  <h2>Learn More About Our Critical Situation Travel Labor Service</h2>
+  <div class="btns" style="justify-content:center"><a class="btn" href="${u("/overview")}">Learn More</a></div>`,
+    spec: `<b>Elementor:</b> Heading · Button. Points back to the CSTL pillar.`,
+  },
+
+  {
+    cls: "center",
+    n: "BLOCK 04 · AFIMAC CREDIBILITY",
+    h: `
+  <h2>AFIMAC Credibility</h2>
+  <p class="lead">We bring unmatched responsiveness, expertise, and resources to aerospace, aviation, and defense.</p>
+  <p class="lead">AFIMAC is the premier resource for Fortune 500 manufacturing, warehousing, and logistics organizations facing labor shortages with critical time constraints. We deliver on-demand specialized labor crews to help businesses ensure operational continuity and reduce financial risk.</p>
+  <div class="g4" style="margin-top:44px">
+   ${["Years", "Industry Deployments", "Companies Served", "Laborers Provided"]
+     .map(
+       (l) =>
+         `<div class="counter"><div class="stat" style="color:var(--ph)">—</div><div class="statlabel">${l}</div></div>`,
+     )
      .join("")}
-  </div>`,
-    spec: `<b>Elementor:</b> Container (3-col) · EK Image Box ×8. Add a tile per cluster page as it publishes. <a href="${u("/how-it-works")}">How It Works</a> is the hub; these are the spokes.`,
+  </div>
+  <div class="note stop"><b>The lead line names one industry on a page that lists seven.</b> “…responsiveness, expertise, and resources to <i>aerospace, aviation, and defense</i>” is the Aerospace page’s line — the Automotive page runs the same sentence ending “…to the automotive industry”. The hub is running an industry page’s credibility block. <b>It needs its own sentence.</b></div>
+  <div class="note stop"><b>Four counters here; three on the Overview.</b> This page counts <b>Years · Industry Deployments · Companies Served · Laborers Provided</b>. The Overview counts <b>Years · Skilled Laborers · Industries</b> — 40, 20,000 and 26. Two credibility blocks one click apart, sharing one metric. <a href="${u("/brand-check")}">All conflicts →</a></div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · EK Funfact / Counter ×4. <b>Figures not captured:</b> the counters animate from zero on scroll, so the four numbers are not in the page source. Confirm all four before this block is reused anywhere.`,
   },
 
   {
     cls: "wash",
-    n: "OPEN ITEM · WHAT THE OTHER FIVE ENTRIES POINT AT",
+    n: "BLOCK 05 · GATED EBOOK",
     h: `
-  <div class="note stop" style="margin-top:0"><b>The Industries dropdown has eight entries and three CSTL pages.</b> Aerospace &amp; Defense, Chemicals &amp; Plastics, Consumer Goods, Industrial Equipment and Oil &amp; Energy have no CSTL page written — in this prototype they resolve here, to the hub.</div>
-  <div class="g2" style="margin-top:24px">
-   <div class="card"><h3>Option A · point them at the existing pages</h3><p style="margin:0">AFIMAC already has general industry pages on the site. The dropdown links out to those, and the CSTL cluster stays three pages deep. Cheap, ships now — but a visitor in the CSTL sub-nav lands on a page with no travel-labor framing, and the sub-nav stops meaning “CSTL”.</p></div>
-   <div class="card"><h3>Option B · write five more CSTL pages</h3><p style="margin:0">Each gets the same treatment as Automotive, Food &amp; Beverage and Logistics. Consistent and it holds the keyword split — but it is five more copy decks and five more sets of assets, on top of the seven role pages already queued.</p></div>
-  </div>
-  <div class="note"><b>Worth resolving early.</b> The prototype’s own overview copy refers to “the seven live industry pages”, which suggests Option A was the original assumption — but the three CSTL industry pages already written are clearly Option B. <b>Right now the section is doing both.</b></div>`,
-    spec: `Put this to Maria with the sub-nav slot question below — one decision, not two.`,
+  <div class="g2">
+   <div>
+    <h2>Bridging the Manufacturing Labor Gap</h2>
+    <p class="lead">Uncover the strategies business leaders are leveraging to overcome workforce shortages and unlock growth potential.</p>
+    <div class="btns"><a class="btn" href="${u("/resources")}">Get the eBook</a></div>
+   </div>
+   <div class="photo" style="min-height:230px">Existing eBook cover art · Manuf_Labor_Gap webp, 1024×923 · already on the site</div>
+  </div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · Heading · Text Editor · Image · Metform. Same block as the Overview and the Welders role page — one saved section, three placements.`,
   },
 
   {
-    n: "OPEN ITEM · THE MISSING SLOT",
+    cls: "sky",
+    n: "BLOCK 06 · GET THE NUMBERS",
     h: `
-  <div class="note stop" style="margin-top:0"><b>Logistics &amp; Warehousing has no entry under Industries in the agreed CSTL sub-nav</b>, but the page is written and wireframed. It needs a slot before launch — it is currently reachable in this prototype only because the dropdown was extended to show it.</div>`,
-    spec: `Add to the Industries dropdown in the Elementor header template.`,
+  <div class="g2">
+   <div class="center">
+    <h2>Get the Numbers</h2>
+    <p>Let’s talk today and we’ll provide solutions matched to your needs:</p>
+    <ul class="check" style="display:inline-block;text-align:left"><li>Available labor resources</li><li>Rapid deployment timing</li><li>Ballpark costs</li><li>Estimated ROI impact</li></ul>
+   </div>
+   <div class="formpanel"><div class="form">
+    <div><label>First Name<i>*</i></label><input></div>
+    <div><label>Last Name<i>*</i></label><input></div>
+    <div><label>Email<i>*</i></label><input></div>
+    <div><label>Phone Number<i>*</i></label><input></div>
+    <div><label>Title</label><input></div>
+    <div><label>Company<i>*</i></label><input></div>
+    <div class="full"><label>Message</label><textarea rows="3"></textarea></div>
+    <div class="full sub"><a class="btn" href="${u("/get-in-touch")}">Submit</a></div>
+   </div></div>
+  </div>`,
+    spec: `<b>Elementor:</b> Metform on a Mobilization Sky band. Identical to the Overview’s Block 09 <b>except that this one drops the Urgency Level field</b> — the segmentation question that feeds lead scoring. Worth adding here, or the two forms score differently.`,
+  },
+
+  {
+    n: "OPEN ITEM · THE URL CONFLICT",
+    h: `
+  <h2>The industry pages already have URLs</h2>
+  <p class="lead">All seven live at <code>/industries/{slug}/</code>. The CSTL copy decks proposed new slugs sitting one level up, which would replace rather than update them.</p>
+  <div class="tscroll"><table class="cmp"><thead><tr><th>Page</th><th>Live URL today</th><th>Deck proposed</th><th class="hl">This prototype now uses</th></tr></thead><tbody>
+   <tr><th>Automotive</th><td>…/industries/automotive/</td><td>…/automotive-manufacturing/</td><td class="hl">The live URL</td></tr>
+   <tr><th>Food &amp; Beverage</th><td>…/industries/food-beverage/</td><td>…/food-beverage-manufacturing/</td><td class="hl">The live URL</td></tr>
+   <tr><th>Logistics &amp; Warehousing</th><td><i>no live page</i></td><td>…/logistics-warehousing/</td><td class="hl">…/industries/logistics-warehousing/</td></tr>
+  </tbody></table></div>
+  <div class="note stop"><b>Changed in the prototype, flagged for sign-off.</b> Since the brief is to update these pages rather than replace them, they keep their existing URLs and their existing search equity. The proposed slugs would have meant new URLs, redirects, and starting over on ranking for pages that already rank. <b>Logistics is the one genuinely new URL, and it is placed under <code>/industries/</code> to match its siblings.</b></div>`,
+    spec: `If the team does want the shorter slugs, that is a redirect plan and an SEO decision, not a copy decision — raise it before build, not after.`,
+  },
+
+  {
+    cls: "wash",
+    n: "OPEN ITEM · WHAT THE UPDATES COVER",
+    h: `
+  <div class="tscroll"><table class="cmp"><thead><tr><th>Industry</th><th>Live page</th><th class="hl">CSTL update</th></tr></thead><tbody>
+   ${UPDATE_ROWS}
+  </tbody></table></div>
+  <div class="note"><b>Two of eight have update copy.</b> Automotive and Food &amp; Beverage are wireframed with copy still outstanding; Logistics is wireframed and new. The remaining five live pages have had no CSTL update written — they carry today’s copy until they do.</div>`,
+    spec: `The five untouched pages are the next copy commission after the role cluster.`,
+  },
+
+  {
+    n: "OPEN ITEM · SEO ON THE FIVE UNTOUCHED PAGES",
+    h: `
+  <p class="lead">Reading the live pages against the section’s own three SEO formulas — title 50–60 characters, exactly one H1, meta description 145–160 — the five that have had no update are uneven.</p>
+  <div class="tscroll"><table class="cmp"><thead><tr><th>Page</th><th>SEO title today</th><th class="hl">Chars</th></tr></thead><tbody>
+   ${SEO_ROWS}
+  </tbody></table></div>
+  <div class="note stop"><b>Oil &amp; Energy is the worst of them.</b> A 12-character title, and a meta description that is the generic AFIMAC boilerplate — it never mentions oil or energy. <b>Industrial Equipment</b> is a bare 20-character title with no descriptor and no brand suffix. <b>Consumer Goods is the one to copy</b>: its description is written for the industry and lands in the target range.</div>
+  <div class="note">Every one of these is a title-and-description edit, not a rewrite. <b>Cheapest measurable win in the section</b> — worth doing whether or not the full CSTL updates are commissioned.</div>`,
+    spec: `Rank Math fields only. No layout or copy-deck work required.`,
+  },
+
+  {
+    cls: "wash",
+    n: "OPEN ITEM · THE NAMING SPLIT",
+    h: `
+  <div class="tscroll"><table class="cmp"><thead><tr><th>Where</th><th class="hl">What it says</th></tr></thead><tbody>
+   <tr><th>Live industry page</th><td class="hl">Aerospace, Aviation &amp; Defense</td></tr>
+   <tr><th>Agreed CSTL sub-nav</th><td class="hl">Aerospace &amp; Defense</td></tr>
+   <tr><th>Overview industry row</th><td class="hl">Aerospace &amp; Defense <i>and</i> Aviation Defense, as two separate entries</td></tr>
+  </tbody></table></div>
+  <div class="note">One industry, three namings, and the overview row counts it twice. The sub-nav in this prototype now uses the live page’s name. <b>Fixing the overview row also moves the industry count</b>, which is already one of the open conflicts.</div>`,
+    spec: `Fold into the industry-count decision rather than raising it separately.`,
   },
 ];
 ---
 
 <Prototype
-  title="CSTL Industries"
+  title="Critical Situation Travel Labor: Industries We Serve"
   crumb="Solutions › CSTL › Industries"
   url={`${B}industries/`}
   status="live"

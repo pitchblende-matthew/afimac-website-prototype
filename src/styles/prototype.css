@@ -84,11 +84,14 @@ p{margin:0 0 1.1em}
 
 /* build-status dots in the sub-nav — prototype chrome, not proposed site UI.
    Legend lives in the WIP bar. */
+/* fill = how far the work has got · green ring = page is already live */
 .sdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:9px;vertical-align:middle;flex:none}
-.s-live{background:#1c7a4c}
+.s-settled{background:#1c7a4c}
 .s-ready{background:var(--cta)}
 .s-partial{background:var(--premium-gold)}
 .s-todo{background:#fff;box-shadow:inset 0 0 0 1.5px #b3bcc7}
+.sdot.is-live{box-shadow:0 0 0 2px #fff,0 0 0 3.5px #1c7a4c;margin-right:12px}
+.s-todo.is-live{box-shadow:inset 0 0 0 1.5px #b3bcc7,0 0 0 2px #fff,0 0 0 3.5px #1c7a4c}
 
 .crumb{background:var(--white-glove);border-bottom:1px solid var(--line);font-size:13px;color:var(--spec)}
 .crumb .wrap{padding-top:11px;padding-bottom:11px}
