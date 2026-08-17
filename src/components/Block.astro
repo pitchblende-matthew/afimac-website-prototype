@@ -14,7 +14,7 @@ const { cls = "", n = "", id, h, spec, raw = false } = Astro.props;
   ) : (
     <section class={`block ${cls}`} id={id}>
       <div class="wrap">
-        <div class="blocknum" set:html={n} />
+        <div class="blocknum blocklabel" set:html={n} />
         <Fragment set:html={h} />
         {spec && <div class="spec" set:html={spec} />}
       </div>

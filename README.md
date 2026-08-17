@@ -26,7 +26,27 @@ check at 390px.
 | Gold `note` | An observation or a link opportunity |
 | Coral `note stop` | A conflict that blocks final copy |
 | `LIVE` / `BUILD` tag | Whether the page exists on the site today |
-| Dashed "Elementor:" line | Build note — which widgets the block maps to. Toggle off with the checkbox in the pink bar |
+| Dashed "Elementor:" line | Build note — which widgets the block maps to |
+
+### The control bar
+
+A pink bar sits above the site chrome on every page — prototype controls, not
+proposed site UI. Four independent toggles hide each kind of annotation:
+
+| Toggle | Hides |
+| :--- | :--- |
+| Build notes | The dashed "Elementor:" line under each block, and the hero photo spec |
+| Notes & conflicts | The gold and coral callouts |
+| SEO & page meta | The title / description / slug table at the top of BUILD pages |
+| Block labels | The `BLOCK 01 · HERO` captions |
+
+**Clean view** switches all four off, which renders the pages as a real site with
+no annotation — the view to share when the point is the design rather than the
+build. **Show everything** switches them back on. Choices persist across pages
+and sessions, and are applied before first paint so nothing flashes.
+
+The same bar carries the build-status legend: dot fill is how far the work has
+got, a green ring means the page is already live so the work is an update.
 
 Colours were sampled off the live CSTL page and checked against the Brand
 Identity guide (22 July 2025). Where they disagree it is flagged — see

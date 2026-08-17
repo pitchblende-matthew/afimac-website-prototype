@@ -14,6 +14,17 @@ const plainTitle = title.replace(/&amp;/g, "&");
 
 const KEYS: Work[] = ["settled", "ready", "partial", "todo"];
 const totals = sectionTotals();
+
+/**
+ * Prototype chrome the reviewer can switch off. `cls` is added to <body> when
+ * the box is UNchecked, so the default (all on) needs no class at all.
+ */
+const TOGGLES = [
+  { cls: "nospec", label: "Build notes", hint: "Elementor mapping under each block" },
+  { cls: "nonotes", label: "Notes &amp; conflicts", hint: "Observations and open items" },
+  { cls: "nometa", label: "SEO &amp; page meta", hint: "Title, description and slug table" },
+  { cls: "nolabels", label: "Block labels", hint: "BLOCK 01 · HERO captions" },
+];
 ---
 
 <!doctype html>
@@ -32,6 +43,62 @@ const totals = sectionTotals();
     />
   </head>
   <body>
+    <script is:inline>
+      /* Applied before first paint so a saved "clean view" doesn't flash the
+         chrome on every navigation. The module script below syncs the boxes. */
+      try {
+        var saved = JSON.parse(localStorage.getItem("afimac-cstl:chrome") || "{}");
+        for (var cls in saved) if (!saved[cls]) document.body.classList.add(cls);
+      } catch (e) {}
+    </script>
+
+    <div class="protobar">
+      <div class="wrap">
+        <div class="row">
+          <span class="lbl">Prototype · work in progress</span>
+          <span>
+            Colours sampled from the live page. Type falls back to Zilla Slab / Mulish
+            without Museo installed. Grey bars = copy not written · dashed panels =
+            photography to source.
+          </span>
+        </div>
+
+        <div class="row">
+          <span class="lbl">Show</span>
+          {
+            TOGGLES.map((t) => (
+              <label title={t.hint}>
+                <input type="checkbox" data-toggle={t.cls} checked />
+                <Fragment set:html={t.label} />
+              </label>
+            ))
+          }
+          <span class="acts">
+            <button type="button" id="chromeOff">Clean view</button>
+            <button type="button" id="chromeOn">Show everything</button>
+          </span>
+        </div>
+
+        <div class="row statuskey">
+          <span class="lbl">Build status</span>
+          {
+            KEYS.map((w) => (
+              <span class="k">
+                <span class={`sdot s-${w}`} />
+                <Fragment set:html={WORK_LABEL[w]} />
+                <span class="n">{totals.work[w]}</span>
+              </span>
+            ))
+          }
+          <span class="k">
+            <span class="sdot s-todo is-live" />
+            Green ring = already live, so the work is an update
+            <span class="n">{totals.live}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
     <div class="crisisbar">
       <div class="wrap">
         <a href={u("/get-in-touch")}>&#9889; I have a critical labor situation</a>
@@ -70,37 +137,6 @@ const totals = sectionTotals();
       </div>
     </div>
 
-    <div class="wip">
-      <div class="wrap">
-        <strong>Prototype · work in progress.</strong>
-        <span>
-          Colours sampled from the live page. Type falls back to Zilla Slab / Mulish
-          without Museo installed. Grey bars = copy not written · dashed panels =
-          photography to source.
-        </span>
-        <label>
-          <input type="checkbox" id="spectoggle" checked /> Show Elementor build notes
-        </label>
-        <div class="statuskey">
-          <b>Build status</b>
-          {
-            KEYS.map((w) => (
-              <span class="k">
-                <span class={`sdot s-${w}`} />
-                <Fragment set:html={WORK_LABEL[w]} />
-                <span class="n">{totals.work[w]}</span>
-              </span>
-            ))
-          }
-          <span class="k">
-            <span class="sdot s-todo is-live" />
-            Green ring = already live, so the work is an update
-            <span class="n">{totals.live}</span>
-          </span>
-        </div>
-      </div>
-    </div>
-
     <main id="app">
       {meta && <PageMeta meta={meta} url={url} />}
       <slot />
@@ -133,24 +169,45 @@ const totals = sectionTotals();
     </footer>
 
     <script>
-      /* ---- Elementor build-note toggle ----------------------------------
-         Persisted, because the prototype now navigates between real pages
-         rather than hash routes — without this the toggle would reset on
-         every click. */
-      const SPEC_KEY = "afimac-cstl:showspec";
-      const specToggle = document.getElementById("spectoggle") as HTMLInputElement | null;
+      /* ---- prototype chrome toggles -------------------------------------
+         Persisted, because the prototype navigates between real pages rather
+         than hash routes — without this every toggle would reset on each
+         click. The inline script at the top of <body> applies the saved state
+         before paint; this syncs the checkboxes and handles changes. */
+      const CHROME_KEY = "afimac-cstl:chrome";
+      const boxes = Array.from(
+        document.querySelectorAll<HTMLInputElement>(".protobar input[data-toggle]"),
+      );
 
-      if (specToggle) {
-        const stored = localStorage.getItem(SPEC_KEY);
-        const show = stored === null ? true : stored === "1";
-        specToggle.checked = show;
-        document.body.classList.toggle("nospec", !show);
+      const save = () =>
+        localStorage.setItem(
+          CHROME_KEY,
+          JSON.stringify(Object.fromEntries(boxes.map((b) => [b.dataset.toggle!, b.checked]))),
+        );
 
-        specToggle.addEventListener("change", () => {
-          document.body.classList.toggle("nospec", !specToggle.checked);
-          localStorage.setItem(SPEC_KEY, specToggle.checked ? "1" : "0");
-        });
-      }
+      const apply = () => {
+        boxes.forEach((b) => document.body.classList.toggle(b.dataset.toggle!, !b.checked));
+        save();
+      };
+
+      let saved: Record<string, boolean> = {};
+      try {
+        saved = JSON.parse(localStorage.getItem(CHROME_KEY) || "{}");
+      } catch {}
+
+      boxes.forEach((b) => {
+        const cls = b.dataset.toggle!;
+        if (cls in saved) b.checked = saved[cls];
+        b.addEventListener("change", apply);
+      });
+      apply();
+
+      const setAll = (on: boolean) => {
+        boxes.forEach((b) => (b.checked = on));
+        apply();
+      };
+      document.getElementById("chromeOff")?.addEventListener("click", () => setAll(false));
+      document.getElementById("chromeOn")?.addEventListener("click", () => setAll(true));
 
       /* ---- mobile sub-nav ---- */
       document.getElementById("mobtoggle")?.addEventListener("click", () => {
