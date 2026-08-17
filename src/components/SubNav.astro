@@ -1,6 +1,7 @@
 ---
-import { NAV } from "../data/nav";
+import { NAV, statusCaption } from "../data/nav";
 import { u } from "../lib/base";
+import type { NavItem } from "../data/nav";
 
 interface Props {
   /** Route of the current page, e.g. "/how-it-works". */
@@ -9,8 +10,11 @@ interface Props {
 
 const { active = "" } = Astro.props;
 
-const isActive = (item: (typeof NAV)[number]) =>
-  active === item.route || (item.kids ?? []).some(([, route]) => route === active);
+const isActive = (item: NavItem) =>
+  active === item.route || (item.kids ?? []).some((kid) => kid.route === active);
+
+/** Status dot. Prototype chrome — see the legend in the WIP bar. */
+const dot = (status: string) => `<span class="sdot s-${status}"></span>`;
 ---
 
 <nav class="subnav" id="subnav">
@@ -21,18 +25,22 @@ const isActive = (item: (typeof NAV)[number]) =>
       {
         NAV.map((item) => (
           <div class={`snitem${isActive(item) ? " active" : ""}`}>
-            {/* Label and caret are set as one HTML string: separate children would
-                have JSX whitespace between them, which shows as a gap before the caret. */}
+            {/* Label, dot and caret are set as one HTML string: separate children
+                would have JSX whitespace between them, which shows as a gap. */}
             <a
               class="snlink"
               href={u(item.route)}
-              set:html={item.label + (item.kids ? '<span class="caret">▼</span>' : "")}
+              set:html={
+                dot(item.status) +
+                item.label +
+                (item.kids ? '<span class="caret">▼</span>' : "")
+              }
             />
             {item.kids && (
               <div class="dd">
-                {item.head && <div class="ddhead">{item.head}</div>}
-                {item.kids.map(([label, route]) => (
-                  <a href={u(route)} set:html={label} />
+                <div class="ddhead" set:html={statusCaption(item.kids)} />
+                {item.kids.map((kid) => (
+                  <a href={u(kid.route)} set:html={dot(kid.status) + kid.label} />
                 ))}
               </div>
             )}

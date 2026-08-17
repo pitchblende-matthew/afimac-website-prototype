@@ -1,5 +1,79 @@
 ---
-import NotBuilt from "../../components/NotBuilt.astro";
+/**
+ * INDUSTRIES HUB — live on afimacglobal.com today.
+ *
+ * The CSTL cluster adds industry pages beneath it; three are wireframed, five
+ * have nothing yet. The status of the five is the open question on this page.
+ */
+import Prototype from "../../layouts/Prototype.astro";
+import Block from "../../components/Block.astro";
+import { u } from "../../lib/base";
+import { B, NAV } from "../../data/nav";
+import type { Block as BlockType } from "../../lib/types";
+
+const industries = NAV.find((n) => n.route === "/industries")!.kids!;
+
+const TAG: Record<string, string> = {
+  live: '<span class="tag live">LIVE</span>',
+  ready: '<span class="tag build">READY</span>',
+  partial: '<span class="tag build">WIREFRAMED</span>',
+  todo: '<span class="tag build">NOT STARTED</span>',
+};
+
+const blocks: BlockType[] = [
+  {
+    n: "THE INDUSTRY CLUSTER",
+    h: `
+  <h1>CSTL Industries</h1>
+  <p class="lead">This hub is live on afimacglobal.com. The eight entries below are the Industries dropdown as agreed in the IA deck — three now have CSTL industry pages wireframed, five have nothing yet, and one still has no slot in the sub-nav at all.</p>
+  <div class="g3" style="margin-top:30px">
+   ${industries
+     .map((i) => {
+       const built = i.route !== "/industries";
+       const label = i.label.replace(/ — .*$/, "");
+       return built
+         ? `<a class="card" style="text-decoration:none;display:block" href="${u(i.route)}">
+             <h3 style="margin-bottom:10px"><span class="sdot s-${i.status}"></span>${label}</h3>
+             <p style="font-size:12.5px;color:var(--spec);word-break:break-all">…/${i.route.replace("/industries/", "")}/</p>
+             ${TAG[i.status]}</a>`
+         : `<div class="card">
+             <h3 style="margin-bottom:10px"><span class="sdot s-${i.status}"></span>${label}</h3>
+             <p style="font-size:12.5px;color:var(--spec)">No CSTL page written</p>
+             ${TAG[i.status]}</div>`;
+     })
+     .join("")}
+  </div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Image Box ×8. Add a tile per cluster page as it publishes. <a href="${u("/how-it-works")}">How It Works</a> is the hub; these are the spokes.`,
+  },
+
+  {
+    cls: "wash",
+    n: "OPEN ITEM · WHAT THE OTHER FIVE ENTRIES POINT AT",
+    h: `
+  <div class="note stop" style="margin-top:0"><b>The Industries dropdown has eight entries and three CSTL pages.</b> Aerospace &amp; Defense, Chemicals &amp; Plastics, Consumer Goods, Industrial Equipment and Oil &amp; Energy have no CSTL page written — in this prototype they resolve here, to the hub.</div>
+  <div class="g2" style="margin-top:24px">
+   <div class="card"><h3>Option A · point them at the existing pages</h3><p style="margin:0">AFIMAC already has general industry pages on the site. The dropdown links out to those, and the CSTL cluster stays three pages deep. Cheap, ships now — but a visitor in the CSTL sub-nav lands on a page with no travel-labor framing, and the sub-nav stops meaning “CSTL”.</p></div>
+   <div class="card"><h3>Option B · write five more CSTL pages</h3><p style="margin:0">Each gets the same treatment as Automotive, Food &amp; Beverage and Logistics. Consistent and it holds the keyword split — but it is five more copy decks and five more sets of assets, on top of the seven role pages already queued.</p></div>
+  </div>
+  <div class="note"><b>Worth resolving early.</b> The prototype’s own overview copy refers to “the seven live industry pages”, which suggests Option A was the original assumption — but the three CSTL industry pages already written are clearly Option B. <b>Right now the section is doing both.</b></div>`,
+    spec: `Put this to Maria with the sub-nav slot question below — one decision, not two.`,
+  },
+
+  {
+    n: "OPEN ITEM · THE MISSING SLOT",
+    h: `
+  <div class="note stop" style="margin-top:0"><b>Logistics &amp; Warehousing has no entry under Industries in the agreed CSTL sub-nav</b>, but the page is written and wireframed. It needs a slot before launch — it is currently reachable in this prototype only because the dropdown was extended to show it.</div>`,
+    spec: `Add to the Industries dropdown in the Elementor header template.`,
+  },
+];
 ---
 
-<NotBuilt active="/industries" />
+<Prototype
+  title="CSTL Industries"
+  crumb="Solutions › CSTL › Industries"
+  url={`${B}industries/`}
+  status="live"
+  active="/industries"
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

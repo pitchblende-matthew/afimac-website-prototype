@@ -3,6 +3,7 @@ import "../styles/prototype.css";
 import SubNav from "../components/SubNav.astro";
 import PageMeta from "../components/PageMeta.astro";
 import { u } from "../lib/base";
+import { STATUS_LABEL, sectionTotals, type PageStatus } from "../data/nav";
 import type { PageProps } from "../lib/types";
 
 type Props = PageProps;
@@ -10,6 +11,9 @@ type Props = PageProps;
 const { title, crumb, url, status, meta, active } = Astro.props;
 
 const plainTitle = title.replace(/&amp;/g, "&");
+
+const KEYS: PageStatus[] = ["live", "ready", "partial", "todo"];
+const totals = sectionTotals();
 ---
 
 <!doctype html>
@@ -77,6 +81,18 @@ const plainTitle = title.replace(/&amp;/g, "&");
         <label>
           <input type="checkbox" id="spectoggle" checked /> Show Elementor build notes
         </label>
+        <div class="statuskey">
+          <b>Build status</b>
+          {
+            KEYS.map((s) => (
+              <span class="k">
+                <span class={`sdot s-${s}`} />
+                <Fragment set:html={STATUS_LABEL[s]} />
+                <span class="n">{totals[s]}</span>
+              </span>
+            ))
+          }
+        </div>
       </div>
     </div>
 
