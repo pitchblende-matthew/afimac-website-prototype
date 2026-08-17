@@ -5,6 +5,8 @@ Critical Situation Travel Labor (CSTL) section — the sub-nav component, the
 wireframed pages, the approved copy where it exists, and the open decisions
 flagged in place.
 
+**Deployed:** https://www.pitchblende.net/client-apps/afimac-website-prototype/overview
+
 **This is a review artifact, not a production site.** Every page renders
 `noindex, nofollow`. The intended production URLs are shown in the breadcrumb
 bar of each page; the live section lives at
@@ -132,8 +134,8 @@ needs the GitHub App authorization, so there is no API or CLI shortcut for it.
 In the Webflow dashboard, under the **pitchblende.net** site → **Webflow Cloud**:
 
 1. Create a project and connect this GitHub repo.
-2. Set the environment's mount path (e.g. `/afimac-cstl`) and point it at the
-   branch that environment should track.
+2. Set the environment's mount path and point it at the branch that environment
+   should track. This project is mounted at `/client-apps/afimac-website-prototype`.
 3. Publish the site once after creating the project, so the mount path is served.
 
 Pushes to the tracked branch then build and deploy automatically. Once the
