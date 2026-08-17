@@ -1,0 +1,15 @@
+---
+import Stub from "../components/Stub.astro";
+import { B } from "../data/nav";
+---
+
+<Stub
+  title="Pricing &amp; ROI Calculator"
+  crumb="Solutions › CSTL › Pricing &amp; ROI"
+  url={`${B}pricing-roi-calculator/`}
+  status="build"
+  active="/pricing-roi"
+  intro="Direct link in the sub-nav, no dropdown. Opens the calculator."
+  items={[["Pricing &amp; ROI Calculator", "…/pricing-roi-calculator/"]]}
+  note="Calculator logic and inputs are not scoped. Metform alone will not do this — it needs a custom HTML/JS widget or a third-party calculator plugin. <b>Scope this before it goes on the nav.</b>"
+/>

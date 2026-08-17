@@ -1,0 +1,46 @@
+---
+import type { PageMetaData } from "../lib/types";
+
+interface Props {
+  meta: PageMetaData;
+  url: string;
+}
+
+const { meta, url } = Astro.props;
+
+// Character counts are measured on the rendered text, so entities like &amp;
+// count as the single character the search engine sees.
+const plain = (s: string) => s.replace(/&amp;/g, "&");
+---
+
+<section class="block wash">
+  <div class="wrap">
+    <div class="blocknum">PAGE META · SEO &amp; SETUP</div>
+    <div class="tscroll">
+      <table class="cmp" style="max-width:900px">
+        <tbody>
+          <tr><th>URL slug</th><td>{url}</td></tr>
+          <tr>
+            <th>SEO title</th>
+            <td>
+              <Fragment set:html={meta.t} />
+              <span style="color:var(--spec)">({plain(meta.t).length} chars · target 50–60)</span>
+            </td>
+          </tr>
+          <tr>
+            <th>Meta description</th>
+            <td>
+              <Fragment set:html={meta.d} />
+              <span style="color:var(--spec)">({plain(meta.d).length} chars · target 145–160)</span>
+            </td>
+          </tr>
+          <tr><th>Keywords</th><td><Fragment set:html={meta.k} /></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="spec">
+      <b>Every BUILD page inherits the three SEO formulas:</b> title 50–60 characters
+      · exactly one H1 · meta description 145–160 characters.
+    </div>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+---
+import type { Block } from "../lib/types";
+
+type Props = Block;
+
+const { cls = "", n = "", id, h, spec, raw = false } = Astro.props;
+---
+
+{
+  raw ? (
+    <section class={`block ${cls}`} id={id}>
+      <Fragment set:html={h} />
+    </section>
+  ) : (
+    <section class={`block ${cls}`} id={id}>
+      <div class="wrap">
+        <div class="blocknum" set:html={n} />
+        <Fragment set:html={h} />
+        {spec && <div class="spec" set:html={spec} />}
+      </div>
+    </section>
+  )
+}

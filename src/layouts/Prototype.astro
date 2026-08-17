@@ -1,0 +1,171 @@
+---
+import "../styles/prototype.css";
+import SubNav from "../components/SubNav.astro";
+import PageMeta from "../components/PageMeta.astro";
+import { u } from "../lib/base";
+import type { PageProps } from "../lib/types";
+
+type Props = PageProps;
+
+const { title, crumb, url, status, meta, active } = Astro.props;
+
+const plainTitle = title.replace(/&amp;/g, "&");
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>AFIMAC CSTL prototype · {plainTitle}</title>
+    <link rel="icon" href={u("/favicon.svg")} type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700;800&family=Zilla+Slab:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="crisisbar">
+      <div class="wrap">
+        <a href={u("/get-in-touch")}>&#9889; I have a critical labor situation</a>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="wrap">
+        <span class="logo">AFIMAC<sup>&#9673;</sup></span>
+        <ul>
+          <li><a href={u("/overview")}>Home</a></li>
+          <li><a href={u("/overview")}>Solutions &#9662;</a></li>
+          <li><a href={u("/overview")}>Insights</a></li>
+          <li><a href={u("/overview")}>About &#9662;</a></li>
+          <li><a href={u("/get-in-touch")}>Contact</a></li>
+        </ul>
+        <span class="hicons">&#9906; &nbsp; in &nbsp; f</span>
+      </div>
+    </header>
+
+    <SubNav active={active} />
+
+    <div class="crumb">
+      <div class="wrap" id="crumb">
+        <a href={u("/overview")}>Home</a> › <Fragment set:html={crumb} />
+        <span style="float:right">
+          {
+            status === "live" ? (
+              <span class="tag live">LIVE</span>
+            ) : (
+              <span class="tag build">BUILD</span>
+            )
+          }
+          <span style="color:#b3bcc7">{url}</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="wip">
+      <div class="wrap">
+        <strong>Prototype · work in progress.</strong>
+        <span>
+          Colours sampled from the live page. Type falls back to Zilla Slab / Mulish
+          without Museo installed. Grey bars = copy not written · dashed panels =
+          photography to source.
+        </span>
+        <label>
+          <input type="checkbox" id="spectoggle" checked /> Show Elementor build notes
+        </label>
+      </div>
+    </div>
+
+    <main id="app">
+      {meta && <PageMeta meta={meta} url={url} />}
+      <slot />
+    </main>
+
+    <footer class="site">
+      <div class="wrap">
+        <div><span class="logo" style="color:#fff">AFIMAC<sup>&#9673;</sup></span></div>
+        <div>
+          <h5>Quick Links</h5>
+          <ul>
+            <li><a href={u("/overview")}>Home</a></li>
+            <li><a href={u("/overview")}>Solutions</a></li>
+            <li><a href={u("/overview")}>Insights</a></li>
+            <li><a href={u("/get-in-touch")}>Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Legal</h5>
+          <ul>
+            <li><a href={u("/overview")}>Privacy Policy</a></li>
+            <li><a href={u("/overview")}>Terms Of Use</a></li>
+          </ul>
+        </div>
+        <div class="hicons" style="color:#fff">in &nbsp; f</div>
+        <div class="fine">
+          AFIMAC Global — CSTL section prototype · pitchblende · v0.3 · not for publication
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      /* ---- Elementor build-note toggle ----------------------------------
+         Persisted, because the prototype now navigates between real pages
+         rather than hash routes — without this the toggle would reset on
+         every click. */
+      const SPEC_KEY = "afimac-cstl:showspec";
+      const specToggle = document.getElementById("spectoggle") as HTMLInputElement | null;
+
+      if (specToggle) {
+        const stored = localStorage.getItem(SPEC_KEY);
+        const show = stored === null ? true : stored === "1";
+        specToggle.checked = show;
+        document.body.classList.toggle("nospec", !show);
+
+        specToggle.addEventListener("change", () => {
+          document.body.classList.toggle("nospec", !specToggle.checked);
+          localStorage.setItem(SPEC_KEY, specToggle.checked ? "1" : "0");
+        });
+      }
+
+      /* ---- mobile sub-nav ---- */
+      document.getElementById("mobtoggle")?.addEventListener("click", () => {
+        document.body.classList.toggle("menuopen");
+      });
+
+      /* ---- count-up on the stat blocks, as the live page does ---- */
+      document.querySelectorAll<HTMLElement>(".stat[data-count]").forEach((el) => {
+        const target = parseInt(el.dataset.count!, 10);
+        const suffix = el.dataset.suffix || "";
+        const fmt = (n: number) => n.toLocaleString("en-US") + suffix;
+
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          el.textContent = fmt(target);
+          return;
+        }
+
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              io.disconnect();
+              const dur = 1200;
+              const t0 = performance.now();
+              const tick = (now: number) => {
+                const p = Math.min((now - t0) / dur, 1);
+                el.textContent = fmt(Math.round(target * (1 - Math.pow(1 - p, 3))));
+                if (p < 1) requestAnimationFrame(tick);
+              };
+              requestAnimationFrame(tick);
+            });
+          },
+          { threshold: 0.4 },
+        );
+        io.observe(el);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+---
+import { NAV } from "../data/nav";
+import { u } from "../lib/base";
+
+interface Props {
+  /** Route of the current page, e.g. "/how-it-works". */
+  active?: string;
+}
+
+const { active = "" } = Astro.props;
+
+const isActive = (item: (typeof NAV)[number]) =>
+  active === item.route || (item.kids ?? []).some(([, route]) => route === active);
+---
+
+<nav class="subnav" id="subnav">
+  <div class="wrap">
+    <span class="mark">CSTL</span>
+    <button class="mobtoggle" id="mobtoggle">CSTL menu &#9662;</button>
+    <div id="subnavItems" style="display:contents">
+      {
+        NAV.map((item) => (
+          <div class={`snitem${isActive(item) ? " active" : ""}`}>
+            {/* Label and caret are set as one HTML string: separate children would
+                have JSX whitespace between them, which shows as a gap before the caret. */}
+            <a
+              class="snlink"
+              href={u(item.route)}
+              set:html={item.label + (item.kids ? '<span class="caret">▼</span>' : "")}
+            />
+            {item.kids && (
+              <div class="dd">
+                {item.head && <div class="ddhead">{item.head}</div>}
+                {item.kids.map(([label, route]) => (
+                  <a href={u(route)} set:html={label} />
+                ))}
+              </div>
+            )}
+          </div>
+        ))
+      }
+    </div>
+    <a class="snCta" href={u("/get-in-touch")}>Get in Touch</a>
+  </div>
+</nav>

@@ -1,0 +1,35 @@
+---
+/**
+ * Placeholder page. Not wireframed yet — these exist so the sub-nav resolves
+ * and the URL structure can be reviewed ahead of copy and layout.
+ */
+import Prototype from "../layouts/Prototype.astro";
+import Block from "./Block.astro";
+import type { PageProps } from "../lib/types";
+
+interface Props extends PageProps {
+  intro: string;
+  /** [label, intended URL] — the URL renders as text, not a link. */
+  items: [string, string][];
+  note?: string;
+}
+
+const { intro, items, note, ...page } = Astro.props;
+
+const h = `<h1>${page.title}</h1><p class="lead">${intro}</p>
+  <div class="g3" style="margin-top:28px">${items
+    .map(
+      ([t, url]) =>
+        `<div class="card"><h3>${t}</h3><p style="font-size:12.5px;color:var(--spec);word-break:break-all">${url}</p><span class="tag build">BUILD</span></div>`,
+    )
+    .join("")}</div>
+  ${note ? `<div class="note">${note}</div>` : ""}`;
+---
+
+<Prototype {...page}>
+  <Block
+    n="PLACEHOLDER PAGE"
+    h={h}
+    spec="Not wireframed yet. Listed here so the sub-nav resolves and the URL structure can be reviewed."
+  />
+</Prototype>

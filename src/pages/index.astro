@@ -1,0 +1,8 @@
+---
+// The section root has no page of its own — Overview is the entry point.
+import { u } from "../lib/base";
+
+const overview = u("/overview");
+
+return Astro.redirect(overview, 302);
+---

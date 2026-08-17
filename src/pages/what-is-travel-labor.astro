@@ -1,0 +1,165 @@
+---
+/** WHAT IS TRAVEL LABOR — copy from the June-05 content package. */
+import Prototype from "../layouts/Prototype.astro";
+import Block from "../components/Block.astro";
+import { u } from "../lib/base";
+import { B } from "../data/nav";
+import { photo, roleList } from "../lib/wireframe";
+import type { Block as BlockType } from "../lib/types";
+
+const BENEFITS: [string, string][] = [
+  ["Access to national talent pools", "Local labor pools are limited by geography. When a facility needs assemblers, CNC machinists, welders, or forklift operators and the local market can’t supply enough of them, travel labor draws from a much wider footprint, bringing in workers whose skills may not exist nearby at all."],
+  ["Faster mobilization than traditional hiring", "Travel labor workers are typically experienced professionals who have done similar work at other sites, which means they can step onto a production line or into a facility with little to no ramp-up. When traditional hiring requires an extended timeline, a faster time-to-fill can save lost output."],
+  ["Flexibility to scale without a long-term commitment", "Workforce needs tied to demand spikes, seasonal peaks, or unplanned disruptions don’t always call for a permanent headcount change. Travel labor can scale up or down to match the actual need."],
+  ["Less logistical burden on internal teams", "Travel labor arrangements typically include housing support, travel allowances, and per diem, so the logistics sit with the arrangement itself rather than falling to internal HR or operations staff."],
+  ["Continuity without a permanent staffing shift", "Travel labor bridges a gap, it doesn’t replace a workforce. Leaders lean on this solution to fill a shortage while stabilizing production, throughput, or output without adding excess permanent headcount."],
+];
+
+const FAQ: [string, string][] = [
+  ["How is travel labor different from local staffing agencies?", "Local staffing agencies source workers from within a defined geographic area, which works well for steady or flexible-timeline needs. Travel labor draws from a much wider, often national pool, so it can supply semi-skilled or skilled workers even when the local market doesn’t have enough of them."],
+  ["How quickly can travel labor workers be deployed?", "Timelines vary by provider and role, but a key advantage of travel labor is speed relative to direct hiring. Because travel labor workers are typically pre-vetted and experienced in the roles they fill, they can often be mobilized in a matter of days rather than weeks."],
+  ["Is travel labor only used in healthcare and construction?", "No. The same model now applies wherever a skilled labor gap has a direct, immediate impact on operations, including manufacturing, food and beverage, and logistics and distribution."],
+  ["How are travel labor workers vetted before deployment?", "Reputable providers screen workers before they’re deployed, which typically includes background checks and confirmation of relevant skills and experience for the role."],
+  ["Can a travel labor deployment change size once it’s underway?", "Yes. As the underlying need changes, the size of the deployed team can scale up or down to match it."],
+];
+
+const blocks: BlockType[] = [
+  {
+    cls: "dark",
+    n: "BLOCK 01 · HERO",
+    h: `
+  <p class="eyebrow">Critical Situation Travel Labor · Educational</p>
+  <h1>What Is Travel Labor? Benefits, Roles &amp; How It Works</h1>
+  <p class="lead">When an employee is hired to travel to a temporary job site located in a different area than where they live, that is travel labor.</p>
+  <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Let’s talk</a></div>`,
+    spec: `<b>Elementor:</b> Container (centred) · Breadcrumbs · Heading ×2 · Text Editor · Button. Text-led — this reader is researching, not shopping.`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 02 · ON-PAGE JUMP RAIL",
+    h: `
+  <h3 style="margin-bottom:14px">On this page</h3>
+  <ul class="tick" style="columns:2;column-gap:40px">
+   <li>What is travel labor?</li><li>What are the benefits of travel labor?</li><li>Why skilled labor gaps are growing</li>
+   <li>What travel labor looks like</li><li>Travel labor in manufacturing</li><li>Travel labor in logistics and distribution</li>
+   <li>Travel labor in food and beverage</li><li>Sources of temporary and travel labor</li><li>FAQ: travel labor</li>
+  </ul>`,
+    spec: `<b>Elementor:</b> the copy doc asks for a linked sections / progress bar. ElementsKit has no reading-progress widget on this licence — use the Elementor Pro <b>Progress Tracker</b> plus a Table of Contents widget, or an HTML widget with scroll-spy. <b>Decision needed.</b>`,
+  },
+
+  {
+    n: "BLOCK 03 · WHAT IS TRAVEL LABOR?",
+    h: `
+  <h2>What is travel labor?</h2>
+  <p class="lead">When an employee is hired to travel to a temporary job site located in a different area than where they live, that is travel labor. While travel labor is most common in healthcare and construction, many employers also use it in manufacturing, food and beverage, automotive, and logistics and distribution.</p>
+  <h3 style="margin-top:28px">What is critical situation travel labor?</h3>
+  <p>Critical Situation Travel Labor (CSTL) is a specific type of travel labor used when a workforce gap is urgent, requires specialized skills, and is larger than the local labor market can fill on its own. It sits apart from permanent hiring and from conventional local staffing because it isn’t meant to add headcount or take the place of an existing workforce. CSTL keeps operations running while the underlying gap gets resolved.</p>
+  <div class="btns"><a class="btn ghost" href="${u("/resources")}">Download the eBook: Critical Situation Travel Labor</a></div>`,
+    spec: `<b>Elementor:</b> Heading ×3 · Text Editor · Button. The eBook CTA points at a gated resource that does not exist yet — see Resources.`,
+  },
+
+  {
+    n: "BLOCK 04 · BENEFITS",
+    h: `
+  <h2>What are the benefits of travel labor?</h2>
+  <p class="lead">HR and operations leaders turn to travel labor to address the types of workforce gaps that hurt operations and achieve advantages they can’t get with local hiring or conventional staffing.</p>
+  <div class="g2" style="margin-top:28px">
+   ${BENEFITS.map(([t, b]) => `<div class="card"><h3>${t}</h3><p style="margin:0">${b}</p></div>`).join("")}
+  </div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · EK Icon Box ×5. Five into two columns leaves an orphan — either add a sixth benefit or run it 1-col with icons left.`,
+  },
+
+  {
+    cls: "blue",
+    n: "BLOCK 05 · WHY SKILLED LABOR GAPS ARE GROWING",
+    h: `
+  <h2>Why skilled labor gaps are growing</h2>
+  <div class="g2" style="margin-top:20px">
+   <div><p>The pressure behind today’s skilled labor gaps is structural, not temporary. Deloitte and The Manufacturing Institute project a need for 3.8 million manufacturing workers between 2024 and 2033, with as many as 1.9 million of those roles potentially going unfilled.</p>
+   <p>Three forces are driving the gap. An aging skilled-trades workforce is retiring faster than a new generation is entering it. The training pipeline that once fed these roles has thinned, as vocational and trade programs were de-emphasized for decades. And perception hasn’t caught up to reality: people respect manufacturing careers but few would choose one for themselves.</p></div>
+   <div><div class="stat">3.8M</div><p>manufacturing workers needed, 2024–2033</p><div class="stat" style="margin-top:24px">1.9M</div><p>of those roles potentially unfilled</p></div>
+  </div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · Text Editor · EK Funfact ×2. <b>Cited stats — keep the outbound links live</b> (Manufacturing Institute, BLS, Cato). Do not restate them as AFIMAC figures.`,
+  },
+
+  {
+    n: "BLOCK 06 · WHAT TRAVEL LABOR LOOKS LIKE",
+    h: `
+  <h2>What travel labor looks like</h2>
+  <p class="lead">Travel labor typically moves through four phases, from initial request to wind-down: assessment, mobilization, deployment, and demobilization. Some engagements last a few weeks; others run for months, supporting an extended recovery or a sustained period of elevated demand. Team size can move up or down during the engagement as the underlying need changes.</p>
+  <div style="margin-top:24px">${photo("Reuse the four-phase timeline SVG from How It Works · 2400×600 (4:1) · do not draw a second one")}</div>`,
+    spec: `<b>Elementor:</b> Text Editor + the shared timeline graphic. Same asset as How It Works — build it as a global widget so the two pages can’t drift.`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 07–09 · BY INDUSTRY",
+    h: `
+  <h2>Travel labor by industry</h2>
+  <div style="margin-top:24px">
+   <h3>Manufacturing</h3>
+   <p>Manufacturing operations run on tight production schedules, and a skilled labor gap shows up fast. Production slows and the cost compounds the longer the seat stays empty.</p>
+   ${roleList(["Assembly Line Workers", "CNC Operators", "CNC Machinists", "Electricians", "Fabrication Specialists", "Fabricators", "Industrial Engineers", "Injection Mold Operators", "Instrumentation Technicians", "Machine Operators", "Maintenance Technicians", "Manufacturing Managers", "Quality Control Inspectors", "Plant Managers", "Plumbers", "Production Supervisors"])}
+   <h3 style="margin-top:34px">Logistics and distribution</h3>
+   <p>Logistics and distribution operations are built around throughput. A gap in skilled labor here doesn’t just slow one task down; it backs up the whole flow, from receiving to fulfillment to shipping.</p>
+   ${roleList(["CDL Truck Drivers", "Forklift Operators", "Heavy Equipment Operators", "Inventory Control Specialists", "Logistics Coordinators", "Material Handlers", "Shipping &amp; Receiving Clerks", "Supply Chain Managers", "Transportation Managers"])}
+   <h3 style="margin-top:34px">Food and beverage</h3>
+   <p>Food and beverage production runs on a schedule that doesn’t bend. Perishable goods, safety and sanitation standards, and delivery windows all move on their own timeline, regardless of whether the workforce is fully staffed.</p>
+   ${roleList(["Food Managers", "Chefs", "Assistant Chefs", "Line Cooks", "Line Prep", "Dish/bus", "Sanitation Staff", "Quality Control Inspectors"])}
+  </div>
+  <div class="note">Two open items from the copy doc: the food &amp; beverage CTA still reads “Learn more about travel [TBD] travel”, and each role list needs its links wired to the eight role pages once they publish.</div>`,
+    spec: `<b>Elementor:</b> Heading ×3 · Text Editor · EK Icon List ×3 (2-col). Long page — consider EK Tabs for the three industries instead of stacking them.`,
+  },
+
+  {
+    n: "BLOCK 10 · SOURCES OF TEMPORARY AND TRAVEL LABOR",
+    h: `
+  <h2>Sources of temporary and travel labor</h2>
+  <p class="lead">When a skilled labor gap opens up, employers typically look to one of three sources to fill it. Each is built for a different kind of need.</p>
+  <div class="g3" style="margin-top:26px">
+   <div class="card"><h3>Local staffing agencies</h3><p>Strong for steady, ongoing coverage or temp-to-hire pipelines where the timeline is flexible. Their limitation is geography.</p></div>
+   <div class="card"><h3>National temporary staffing agencies</h3><p>Wider pool than a single local market. Limitations show up in specialization and speed.</p></div>
+   <div class="card"><h3>Operational continuity partners</h3><p>Built specifically for urgent, skilled, time-bound gaps, drawing from a national network of pre-vetted, travel-ready workers and managing the full engagement.</p></div>
+  </div>
+  <div class="btns"><a class="btn ghost" href="${u("/vs-local-staffing")}">See: Compare 3 Ways to Fill a Workforce Gap</a></div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×3 · Button. Note the tone: local agencies are framed as partners, not competitors — hold that in any design that visually ranks the three.`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 11 · FAQ",
+    h: `
+  <h2>FAQ: travel labor</h2>
+  <div class="acc" style="margin-top:22px">
+  ${FAQ.map(
+    ([q, a], i) =>
+      `<details${i === 0 ? " open" : ""}><summary>${q}</summary><div class="ans">${a}</div></details>`,
+  ).join("")}
+  </div>`,
+    spec: `<b>Elementor:</b> EK Accordion (5 items) + FAQPage schema. Watch for FAQ overlap with the How It Works page — Google will pick one. Keep the question wording distinct.`,
+  },
+
+  {
+    cls: "sky",
+    n: "BLOCK 12 · LEAD FORM",
+    h: `<h2>Have a situation? Let’s scope it.</h2><p class="lead">Shared form block.</p><div class="btns"><a class="btn" href="${u("/get-in-touch")}">Talk to a specialist</a></div>`,
+    spec: `<b>Elementor:</b> global Metform section, same as every other CSTL page.`,
+  },
+];
+---
+
+<Prototype
+  title="What Is Travel Labor? Benefits, Roles &amp; How It Works"
+  crumb="Solutions › CSTL › What Is Travel Labor"
+  url={`${B}what-is-travel-labor/`}
+  status="build"
+  active="/what-is-travel-labor"
+  meta={{
+    t: "What Is Travel Labor? Benefits, Roles &amp; How It Works | AFIMAC Global",
+    d: "Learn what travel labor is, its benefits, and how it helps manufacturing, logistics, and food and beverage employers close skilled labor gaps.",
+    k: "what is travel labor · what are the benefits of travel labor · skilled labor gap",
+  }}
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

@@ -1,0 +1,78 @@
+---
+/**
+ * BRAND CHECK — internal working page, not part of the site IA.
+ * Every colour was sampled off the live CSTL page and compared against the
+ * Brand Identity guide dated 22 July 2025.
+ */
+import Prototype from "../layouts/Prototype.astro";
+import Block from "../components/Block.astro";
+import type { Block as BlockType } from "../lib/types";
+
+const blocks: BlockType[] = [
+  {
+    n: "PALETTE — SAMPLED FROM THE LIVE PAGE",
+    h: `
+  <h1>Brand check</h1>
+  <p class="lead">Not a site page. Every colour below was sampled out of the live CSTL page and compared against the Brand Identity guide dated 22 July 2025.</p>
+  <h2 style="margin-top:44px">The structural palette is already correct</h2>
+  <div class="tscroll"><table class="cmp"><thead><tr><th>Where</th><th>Live</th><th>Guide</th><th class="hl">Verdict</th></tr></thead><tbody>
+   <tr><th>Headings, nav, phase bars</th><td>#0d4a7c</td><td>CSTL Blue #0a4b7c</td><td class="hl">Match</td></tr>
+   <tr><th>Footer, logistics bar</th><td>#196aaf</td><td>Readiness Blue #196baf</td><td class="hl">Match</td></tr>
+   <tr><th>Counters, form band</th><td>#27aae1</td><td>Mobilization Sky #26a9e1</td><td class="hl">Match</td></tr>
+   <tr><th>Section bands, form panels</th><td>#e4ecef</td><td>White Glove #e4ebee</td><td class="hl">Match</td></tr>
+   <tr><th>Warehousing bar</th><td>#c4872c</td><td>Premium Gold #c4872c</td><td class="hl">Exact</td></tr>
+   <tr><th>Card header bars</th><td>#09365a</td><td>CSTL Blue, 20% darker</td><td class="hl">Allowed tint</td></tr>
+  </tbody></table></div>
+  <div class="note"><b>This settles the bigger question.</b> The guide isn’t aspirational — the site is already built on it. Applying the palette to the new CSTL pages is a prototype detail, not a site-wide change order.</div>`,
+    spec: `Set these six as Elementor Global Colors under the guide’s names so the new pages inherit them.`,
+  },
+
+  {
+    cls: "wash",
+    n: "WHERE THE LIVE SITE DIVERGES",
+    h: `
+  <h2>Three colours that aren’t in the guide</h2>
+  <div class="g3" style="margin-top:26px">
+   <div class="card"><div class="catbar" style="background:#ff5544">#ff5544</div><h4>The CTA coral</h4><p style="margin:0">Every button and every Read More link. The guide’s Urgency Orange is <b>#ed6344</b> — noticeably softer. This one colour appears more often than any other accent on the site.</p></div>
+   <div class="card"><div class="catbar" style="background:#ff7a59">#ff7a59</div><h4>A second CTA coral</h4><p style="margin:0">The eBook form’s Submit button only. Lighter again. Two corals on a single page, neither the guide’s.</p></div>
+   <div class="card"><div class="catbar" style="background:#c75949">#c75949</div><h4>The manufacturing bar</h4><p style="margin:0">Its two siblings are Premium Gold and Readiness Blue, both straight from the guide. This one is a brick red with no entry. The Risks card body, <code>#1a66c0</code>, is a fourth.</p></div>
+  </div>
+  <div class="note"><b>My call:</b> keep <code>#ff5544</code> and add it to the guide as the CTA colour, rather than repainting every button on the site to <code>#ed6344</code>. It’s working, it’s consistent almost everywhere, and the cheaper fix is amending the document. The one worth actually changing is the eBook Submit, which is a straight inconsistency.</div>`,
+    spec: `Prototype currently renders #ff5544 for CTAs — i.e. it matches the site, not the guide. Say the word and I’ll flip it.`,
+  },
+
+  {
+    n: "TYPE — CONFIRMED",
+    h: `
+  <h2>Museo and Museo Sans are live</h2>
+  <p class="lead">Read off the letterforms at high magnification: the headings carry the slab terminals of <b>Museo</b>, and body copy is <b>Museo Sans</b>. Both are already loaded as Elementor Custom Fonts, so the new pages inherit them with no licensing step.</p>
+  <p>One gap the guide leaves open: it specifies both faces at 300/500/700 but never says which does what. The live site has settled it in practice — Museo for headings, Museo Sans for everything else. Worth writing that into the guide so it can’t drift.</p>
+  <div class="note">This prototype requests both, then falls back to Zilla Slab and Mulish so it renders for anyone without the licensed fonts installed. On a machine with Museo, it will look right.</div>`,
+    spec: `No action needed for the build — this was the one open question that turned out already answered.`,
+  },
+
+  {
+    cls: "wash",
+    n: "CONTENT CONFLICTS STILL OPEN",
+    h: `
+  <h2>Four still to resolve</h2>
+  <div class="g2" style="margin-top:24px">
+   <div class="card"><div class="blocknum">01 · INDUSTRY COUNT</div><h3>26 or 18?</h3><p style="margin:0">The credibility counter says <b>26 Industries</b>. The list higher up the same page has <b>18</b>. One of three credibility figures on the page, contradicted within a single scroll.</p></div>
+   <div class="card"><div class="blocknum">02 · NETWORK SIZE</div><h3>20,000+ or 12,000+?</h3><p style="margin:0">The live page, eBook, comparison sheet and Messaging brief all say <b>20,000+</b>. The Brand Foundation terminology page instructs pairing screened-and-drug-tested with <b>12,000+</b>. The number appears on nine pages in this build.</p></div>
+   <div class="card"><div class="blocknum">03 · DEPLOYMENT SPEED</div><h3>72 hours, 2–7 days, or 6–7 days?</h3><p style="margin:0">eBook and comparison sheet say <b>72 hours or less</b>. Brand Foundation defines Rapid Response as <b>2–7 days</b>. The live process graphic says <b>6-7 days from consultation</b>. The new pages hedge with “within days,” which is safe but discards the sharpest claim AFIMAC has.</p></div>
+   <div class="card"><div class="blocknum">04 · PHASE 1 NAME</div><h3>Assessment or Consultation?</h3><p style="margin:0">Now confirmed in three forms on one screen: the infographic reads <b>“Assessment + Consultation”</b>, the card beneath it reads <b>Consultation</b>, and the new copy reads <b>Assessment</b>.</p></div>
+  </div>
+  <div class="note stop">All four are one email, not four. None of them block design — all of them block final copy.</div>`,
+    spec: `Suggest putting these to Maria as a single decision list at structure sign-off.`,
+  },
+];
+---
+
+<Prototype
+  title="Brand check"
+  crumb="Prototype › Brand check"
+  url="(internal — not a site page)"
+  status="build"
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

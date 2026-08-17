@@ -1,0 +1,19 @@
+---
+import Stub from "../components/Stub.astro";
+import { B } from "../data/nav";
+---
+
+<Stub
+  title="CSTL Resources"
+  crumb="Solutions › CSTL › Resources"
+  url={`${B}resources/`}
+  status="build"
+  active="/resources"
+  intro="CSTL-specific proof, gated. Three sub-pages."
+  items={[
+    ["White Papers", "…/resources/white-papers/"],
+    ["Named Case Studies", "…/resources/case-studies/"],
+    ["Salesheets &amp; One-Pagers", "…/resources/salesheets/"],
+  ]}
+  note="The <b>Critical Situation Travel Labor</b> eBook and the <b>Compare 3 Ways to Fill a Workforce Gap</b> sheet are both written and both need a home here — two CTAs already point at them."
+/>

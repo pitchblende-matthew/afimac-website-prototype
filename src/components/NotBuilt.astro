@@ -1,0 +1,25 @@
+---
+/**
+ * Pages on the CSTL build sheet with no wireframe or copy yet. They exist so
+ * every sub-nav link resolves and the agreed URL structure can be walked.
+ */
+import Stub from "./Stub.astro";
+import { B } from "../data/nav";
+
+interface Props {
+  /** Sub-nav route this page should highlight. */
+  active?: string;
+}
+
+const { active } = Astro.props;
+---
+
+<Stub
+  title="Not built yet"
+  crumb="Solutions › CSTL"
+  url={B}
+  status="build"
+  active={active}
+  intro="This page is in the CSTL build sheet but has no wireframe or copy yet. Use the sub-nav to move around the pages that do."
+  items={[["Back to the CSTL overview", "/overview"]]}
+/>

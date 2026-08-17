@@ -1,0 +1,200 @@
+---
+/** HOW IT WORKS — full approved copy from the content package. */
+import Prototype from "../layouts/Prototype.astro";
+import Block from "../components/Block.astro";
+import { u } from "../lib/base";
+import { B } from "../data/nav";
+import { photo } from "../lib/wireframe";
+import type { Block as BlockType } from "../lib/types";
+
+const FAQ: [string, string][] = [
+  ["How does travel labor work?", "AFIMAC sources, screens, travels, houses, and supervises a team, then deploys them to your site for the length of the situation. You get a working crew and a single point of contact, not a stack of resumes to manage."],
+  ["How fast can a team be on site?", "For most roles, within days of a signed plan. Exact timing depends on role, headcount, location, and compliance requirements."],
+  ["How is this different from a staffing agency?", "A staffing agency hands you candidates to manage. AFIMAC manages the team on site, including travel, housing, safety onboarding, and supervision."],
+  ["How long do crews stay?", "As long as the gap lasts. Engagements are temporary by design and end with a planned demobilization when your permanent workforce recovers."],
+  ["What does it cost?", "Cost depends on roles, headcount, shift coverage, location, and duration. AFIMAC provides a scoped estimate during the consultation, including the risk-avoided impact."],
+  ["Who supervises the workers?", "AFIMAC provides on-site supervision and a single point of contact, working alongside your team."],
+  ["What kinds of roles can you staff?", "Skilled, semi-skilled, and general labor roles, across manufacturing, food &amp; beverage, logistics, and more."],
+  ["Can you handle a strike or work stoppage?", "Yes. Rapid, managed workforce continuity during labor disputes is a core CSTL use case."],
+];
+
+const RELATED: [string, string][] = [
+  ["CSTL vs. Local Staffing: Which is Right for Your Situation?", "directional"],
+  ["When AFIMAC is the Right Fit", "confirmed live"],
+  ["Ready on Day 1: The Case for Travel Labor at Your Next Line Launch", "directional"],
+];
+
+const blocks: BlockType[] = [
+  {
+    cls: "dark",
+    n: "BLOCK 01 · HERO",
+    h: `
+  <p class="eyebrow">Critical Situation Travel Labor · How It Works</p>
+  <h1>How Critical Situation Travel Labor Works</h1>
+  <p class="sub">From first call to a working crew on your floor, one accountable partner.</p>
+  <p class="lead">When local hiring can’t move fast enough, Critical Situation Travel Labor (CSTL) puts a vetted team with the right skills on your floor in days. Read on to find out how the process works, what’s included, and when to call.</p>
+  <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Let’s talk</a><a class="btn ghost" href="#process">See the process</a></div>
+  <div style="margin-top:34px">${photo("Full-bleed hero · 2560×1440 JPG (min 2000px wide) · documentary shot of a crew mobilizing, hi-vis, first light · navy scrim over full frame · focal area centre-left · mobile crop 1080×1350")}</div>`,
+    spec: `<b>Elementor:</b> Container (centred, bg image + navy overlay) · Breadcrumbs · Heading ×3 · Text Editor · Button ×2. <b>Note the wireframe says text-led with no hero photo</b> — the copy doc specs a full-bleed image. Pick one before build; the photo is shown here because it is the harder of the two to source.`,
+  },
+
+  {
+    n: "BLOCK 02 · WHAT IS CSTL?",
+    h: `
+  <h2>A highly-mobile, turnkey workforce</h2>
+  <div class="g2" style="margin-top:24px">
+   <div><p>Critical Situation Travel Labor (CSTL) is a distinct workforce category that exists for the moments when the required speed, skill, and scale exceed what any single local market can supply. It isn’t a way to add headcount. It’s a way to protect continuity. AFIMAC recruits, screens, travels, houses, and manages skilled, semi-skilled, and general labor teams, then deploys them to your site until the situation is resolved.</p>
+   <div class="note">Copy fix carried into the build: the source doc reads “(CSTL) A distinct workforce category”; an “is a” was added. Flagged to Kavitha.</div></div>
+   ${photo("Mobilization map · SVG square, art 960×960, min render 640×640 · stylized North America, origins converging on one site marker · waypoints in order: Recruits · Screens · Travels · Houses · Manages · Deploys · flat isometric, greys with safety-orange and blue")}
+  </div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · Image (SVG). The wireframe calls for three pillar cards under the definition — the copy doc has no card copy, so cards are held until it exists.`,
+  },
+
+  {
+    id: "process",
+    cls: "wash",
+    n: "BLOCK 03 · HOW THE CSTL PROCESS WORKS",
+    h: `
+  <h2>The four-phase process</h2>
+  <p class="lead">Every engagement follows the same proven path. Timing varies by role and location, but the sequence does not.</p>
+  <div style="margin:26px 0">${photo("Deployment timeline · SVG 2400×600 (4:1), stacks vertically under 768px · day-scale bar with tick marks · Assessment (1–2 days) · Mobilization (2–3 days) · Deployment (team on site in days) · Demobilization (2–3 days) · crew-live marker at the Deployment tick")}</div>
+  <div class="g4">
+   <div class="card"><div class="blocknum">PHASE 1 · 1–2 DAYS</div><h3>Assessment</h3><ul class="tick"><li>Assess the situation and labor needs</li><li>Align on roles, shift coverage, and site requirements</li><li>Scope timeline, costs, and success measures</li><li>Finalize the deployment plan</li></ul></div>
+   <div class="card"><div class="blocknum">PHASE 2 · 2–3 DAYS</div><h3>Mobilization</h3><ul class="tick"><li>Source and screen candidates from a 20,000+ talent network</li><li>Background, credential, and role checks</li><li>Arrange travel and housing</li><li>Site-specific safety and role onboarding</li></ul></div>
+   <div class="card"><div class="blocknum">PHASE 3 · ON SITE IN DAYS</div><h3>Deployment</h3><ul class="tick"><li>Team arrives and starts work</li><li>On-site AFIMAC supervision and a single point of contact</li><li>Daily feedback loop and output tracking</li><li>Scale the team up or down as the situation changes</li></ul></div>
+   <div class="card"><div class="blocknum">PHASE 4 · 2–3 DAYS</div><h3>Demobilization</h3><ul class="tick"><li>Final performance review</li><li>Support the transition back to your permanent workforce</li><li>Release travel crews and close out the engagement</li></ul></div>
+  </div>
+  <div class="note">Phase 1 is “Assessment” here and “Consultation” on the live CSTL page and in the meta description. Adjust once Maria’s preference is confirmed — Kavitha’s flag.</div>`,
+    spec: `<b>Elementor:</b> EK Advanced Timeline (4 steps) or HTML widget for the bar · EK Icon Box ×4 for the phase cards. Four across is tight at 1180px — drop to 2×2 under 1024px.`,
+  },
+
+  {
+    n: "BLOCK 04 · TRAVEL LABOR VS. THE ALTERNATIVES",
+    h: `
+  <h2>How CSTL compares</h2>
+  <div class="tscroll"><table class="cmp"><thead><tr><th></th><th>Direct local hire</th><th>Staffing agency</th><th class="hl">AFIMAC CSTL</th></tr></thead><tbody>
+  <tr><th>Speed to on-site crew</th><td>45 to 90 days</td><td>14 to 35 days</td><td class="hl">Within days</td></tr>
+  <tr><th>Who manages the crew</th><td>You</td><td>You</td><td class="hl">AFIMAC, on site</td></tr>
+  <tr><th>Travel &amp; housing handled</th><td>No</td><td>Rarely</td><td class="hl">Yes</td></tr>
+  <tr><th>Screening &amp; safety onboarding</th><td>You</td><td>Partial</td><td class="hl">AFIMAC</td></tr>
+  <tr><th>Scales for surges</th><td>Slow</td><td>Limited</td><td class="hl">Built for it</td></tr>
+  <tr><th>Best for</th><td>Steady headcount</td><td>Short local gaps</td><td class="hl">Critical, time-sensitive gaps</td></tr>
+  </tbody></table></div>`,
+    spec: `<b>Elementor:</b> Text Editor (native table) or TablePress — <b>not</b> an image, so it stays crawlable for the comparison keywords. Scrolls horizontally on mobile.`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 05 · WHEN TO CALL",
+    h: `
+  <h2>Signs you need travel labor, not another job posting</h2>
+  <p class="lead">CSTL is built for situations where the cost of waiting is higher than the cost of acting.</p>
+  <div class="g2" style="margin-top:28px">
+   <div>
+    <h3>Operational triggers</h3>
+    <ul class="tick"><li>A deadline or launch is at risk</li><li>A backlog is growing faster than you can clear it</li><li>Absenteeism or turnover has thinned a shift</li><li>The local labor market is tapped out</li><li>A labor disruption looms</li></ul>
+    <h3 style="margin-top:26px">Business stakes</h3>
+    <ul class="tick"><li>Penalties, chargebacks, or missed SLAs</li><li>Lost customers or contracts</li><li>Idle equipment or facilities</li><li>Overtime and burnout on your core team</li><li>Reputational and market-share risk</li></ul>
+   </div>
+   ${photo("1200×1500 JPG (4:5) · a thinned shift, empty workstations on a live line · muted tone · no staged distress")}
+  </div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · EK Icon List ×2 · Image. Wireframe called this “six trigger cards”; the copy is two lists of five, so it builds as lists.`,
+  },
+
+  {
+    cls: "blue",
+    n: "BLOCK 06 · WHAT’S INCLUDED",
+    h: `
+  <h2>One partner, the whole engagement</h2>
+  <p class="lead">CSTL is turnkey. You bring the site and the goal; AFIMAC handles the rest.</p>
+  <div class="g2" style="margin-top:24px">
+   <ul class="tick"><li>Recruiting and sourcing from a national skilled and semi-skilled talent network</li><li>Background, credential, and role screening</li><li>Travel, lodging, and logistics</li><li>Site-specific safety and compliance onboarding</li></ul>
+   <ul class="tick"><li>On-site supervision and a single point of contact</li><li>Daily reporting, with crews that scale up or down</li><li>Demobilization and transition support</li></ul>
+  </div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · EK Icon List with check icons. <b>Asset gap:</b> seven line icons, SVG 96×96, matching the existing CSTL page icon style — not yet drawn.`,
+  },
+
+  {
+    n: "BLOCK 07 · INDUSTRIES WE SERVE",
+    h: `
+  <h2>Where CSTL is deployed</h2>
+  <p class="lead">The process is the same across sectors; the roles change. Explore the industry pages for role-level detail.</p>
+  <div class="g3" style="margin-top:26px">
+   <a class="card" style="text-decoration:none;display:block" href="${u("/industries/automotive")}">${photo("1200×1500 · automotive line")}<h3 style="margin-top:16px">Automotive manufacturing</h3></a>
+   <a class="card" style="text-decoration:none;display:block" href="${u("/industries/food-beverage")}">${photo("1200×1500 · F&amp;B production floor")}<h3 style="margin-top:16px">Food &amp; beverage manufacturing</h3></a>
+   <a class="card" style="text-decoration:none;display:block" href="${u("/industries/logistics")}">${photo("1200×1500 · warehouse racking aisle")}<h3 style="margin-top:16px">Logistics, warehousing &amp; distribution</h3></a>
+  </div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Image Box ×3. Add a tile per cluster page as it publishes. This page is the hub; the cluster pages are the spokes.`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 08 · FAQ",
+    h: `
+  <h2>Travel labor FAQ</h2>
+  <div class="acc" style="margin-top:22px">
+  ${FAQ.map(
+    ([q, a], i) =>
+      `<details${i === 0 ? " open" : ""}><summary>${q}</summary><div class="ans">${a}</div></details>`,
+  ).join("")}
+  </div>
+  <div class="note">“Consultation” appears in the cost answer — same naming flag as Phase 1.</div>`,
+    spec: `<b>Elementor:</b> EK Accordion (8 items) + FAQPage structured data. This block carries the question-cluster keywords the page targets, so the schema is not optional.`,
+  },
+
+  {
+    n: "BLOCK 09 · RELATED INSIGHTS",
+    h: `
+  <h2>Related insights</h2>
+  <div class="g3" style="margin-top:22px">
+   ${RELATED.map(
+     ([t, s]) =>
+       `<div class="card">${photo("1280×720 (16:9)")}<h3 style="margin-top:16px">${t}</h3><p style="font-size:12.5px;color:var(--spec)">${s}</p></div>`,
+   ).join("")}
+  </div>`,
+    spec: `<b>Elementor:</b> EK Post Grid (3-up). Titles are directional per the source doc — pull the three most relevant live posts at build.`,
+  },
+
+  {
+    cls: "sky",
+    n: "BLOCK 10 · READY TO TALK (LEAD FORM)",
+    h: `
+  <div class="g2">
+   <div>
+    <h2>Have a situation? Let’s scope it.</h2>
+    <p>Tell us what you’re facing and we’ll come back with:</p>
+    <ul class="tick"><li>The roles and team size we’d deploy</li><li>A realistic timeline to a working team</li><li>A ballpark cost</li></ul>
+    <p style="margin-top:22px"><b style="color:#fff">Urgent line</b> · 1.800.554.4622</p>
+    <div style="margin-top:22px">${photo("1200×1200 flat isometric vector · routes converging on a facility · greys with safety-orange and blue · distinct subject from the Executive Protection form illustration")}</div>
+   </div>
+   <div>
+    <div class="form">
+     <input placeholder="First name"><input placeholder="Last name">
+     <input class="full" placeholder="Company">
+     <input placeholder="Work email"><input placeholder="Phone">
+     <input class="full" placeholder="Site location (City, State/Province)">
+     <textarea class="full" rows="4" placeholder="Tell us about your situation"></textarea>
+     <div class="full"><a class="btn" href="${u("/how-it-works")}">Talk to a specialist</a></div>
+     <p class="full" style="font-size:12.5px">By submitting, you agree to AFIMAC’s Privacy Policy. We respond within one business day.</p>
+    </div>
+   </div>
+  </div>`,
+    spec: `<b>Elementor:</b> Metform · EK Icon List · Button, navy band. Same form block on every CSTL page — build it once as a global widget or a saved section, not per page.`,
+  },
+];
+---
+
+<Prototype
+  title="How Critical Situation Travel Labor Works"
+  crumb="Solutions › CSTL › How It Works"
+  url={`${B}how-it-works/`}
+  status="build"
+  active="/how-it-works"
+  meta={{
+    t: "How Travel Labor Works: The CSTL Process | AFIMAC Global",
+    d: "Learn how Critical Situation Travel Labor (CSTL) works, step by step, from consultation to a working crew on your floor in days. AFIMAC’s proven process for critical staffing when local hiring can’t keep up.",
+    k: "how does travel labor work · CSTL process · critical staffing process",
+  }}
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

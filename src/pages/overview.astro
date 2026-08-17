@@ -1,0 +1,212 @@
+---
+/**
+ * OVERVIEW — matched to the live page, section for section.
+ * This is the only LIVE page in the prototype; everything else is BUILD.
+ */
+import Prototype from "../layouts/Prototype.astro";
+import Block from "../components/Block.astro";
+import { u } from "../lib/base";
+import { B } from "../data/nav";
+import type { Block as BlockType } from "../lib/types";
+
+const IND = [
+  "Aerospace &amp; Defense", "Automotive", "Aviation Defense", "Chemicals &amp; Plastics",
+  "Commercial Trucking", "Consumer Goods", "Energy", "Food &amp; Beverage",
+  "Industrial &amp; Heavy Equipment", "Metals", "Mining", "Newspaper",
+  "Packaging &amp; Paper Products", "Printing", "Pulp &amp; Paper", "Refining",
+  "Utilities", "Warehousing &amp; Logistics",
+];
+
+const POSTS = [
+  "From the Desk of the CFO",
+  "From the Desk of the CEO",
+  "Everything You Need to Know About the Growing Skills Gap (video)",
+  "What Does the Push for Reshoring Mean for U.S. Automotive Manufacturers?",
+  "Manufacturing’s Persistent Labor Challenge",
+  "Everything You Need to Know About the Skills Gap in the U.S.",
+];
+
+const blocks: BlockType[] = [
+  {
+    cls: "hero",
+    raw: true,
+    h: `
+  <div class="heroimg"><div class="wrap">
+   <p class="eyebrow">Critical Situation Travel Labor</p>
+   <h1>Production Deadline? Near-Term Labor Shortage? Initial Line Start-up?</h1>
+   <p class="lead">AFIMAC delivers skilled production workforces to keep your North American manufacturing, warehousing, and logistics operations on track.</p>
+   <div class="btns" style="justify-content:center"><a class="btn" href="${u("/get-in-touch")}">Get the Numbers</a></div>
+  </div>
+  <div class="herospec">Full-bleed hero photograph · warehouse floor, workers in hi-vis · warm/teal grade · centred text, no scrim panel</div>
+  </div>`,
+  },
+
+  {
+    cls: "center",
+    n: "BLOCK 02 · INTRO &amp; THE TWO CARDS",
+    h: `
+  <p class="lead">You manage labor challenges every day – turnover, scarcity, underperformance, but what do you do when the labor challenge becomes unmanageable? AFIMAC rapidly delivers a turnkey production workforce when labor resources pose a significant risk to the business and timing is critical.</p>
+  <div class="g2" style="margin-top:46px">
+   <div class="duo"><div class="duohead">Critical Situations We Handle:</div>
+    <div class="duobody"><ul class="check"><li>Initial line start-up</li><li>Production shortfalls</li><li>Plant relocation</li><li>Health emergencies</li><li>Disaster response</li></ul></div></div>
+   <div class="duo risk"><div class="duohead">Risks We Help You Mitigate:</div>
+    <div class="duobody"><ul class="warn"><li>Loss of revenue</li><li>Key client defection</li><li>Missed growth opportunity</li><li>Reputational damage</li><li>Closure</li></ul></div></div>
+  </div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · Heading ×2 · EK Icon List ×2. Two colours here aren’t in the brand guide: the Risks card body is <code>#1a66c0</code>, brighter than CSTL Blue. Header bars are CSTL Blue at 20% darker, which the guide does allow.`,
+  },
+
+  {
+    cls: "center",
+    n: "BLOCK 03 · WORKFORCE GAPS WE FILL",
+    h: `
+  <h2>AFIMAC’s Network of Laborers Is Ready to Work</h2>
+  <p class="lead">Over the last 40 years, we have deployed teams to hundreds of operations in North America, drawing on our network of 20,000+ skilled and unskilled workers.</p>
+  <h3 style="margin-top:50px">Workforce Gaps We Fill</h3>
+  <div class="g3" style="margin-top:26px">
+   <div><div class="photo" style="min-height:230px">Isometric illustration · robotic assembly line on a pale blue ellipse</div>
+    <div class="catbar mfg">MANUFACTURING</div>
+    <ul class="check"><li>CNC Operators</li><li>Fabricators</li><li>Injection Mold Operators</li><li>Instrumentation Techs</li><li>Machine Operators &amp; Technicians</li></ul></div>
+   <div><div class="photo" style="min-height:230px">Isometric illustration · forklift and pallet handling</div>
+    <div class="catbar whs">WAREHOUSING</div>
+    <ul class="check"><li>Forklift Operators</li><li>Heavy Equipment Operators</li><li>Inventory Control Specialists</li><li>Material Handlers</li><li>Shipping and Receiving Clerks</li></ul></div>
+   <div><div class="photo" style="min-height:230px">Isometric illustration · box truck and dispatch pair</div>
+    <div class="catbar log">LOGISTICS</div>
+    <ul class="check"><li>Logistics Coordinators</li><li>Supply Chain Managers</li><li>Transportation Managers</li><li>Shipping and Receiving Clerks</li><li>CDL Truck Drivers</li></ul></div>
+  </div>
+  <h2 style="margin-top:60px">Industries We Serve</h2>
+  <div class="inds">${IND.map((i) => `<span>${i}</span>`).join("")}</div>
+  <div class="note"><b>Link opportunity, and the cheapest one on the section.</b> Every role above now has a role page in the build sheet, and this industry row overlaps the seven live industry pages. Wire both as pages publish.</div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · Image ×3 · Heading ×3 (the coloured bars) · EK Icon List ×3, then an EK Icon List inline for the industries row. Live and unchanged.`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 04 · HOW WE DELIVER",
+    h: `
+  <div class="g2">
+   <div>
+    <h2>How We Deliver Teams on Demand</h2>
+    <p>When there’s a risk to your operation, there’s no time to waste. We deliver the labor resources and support you need fast to help minimize the impact on your business. Getting back on track doesn’t take several weeks or months – AFIMAC bridges your labor gap in days.</p>
+    <a class="btn wide" href="${u("/get-in-touch")}" style="margin-top:22px">Let's Talk</a>
+   </div>
+   <div class="photo" style="min-height:340px">Circular four-stage process infographic · numbered 1–4 around a red→yellow→green arc · North America map, aircraft, forklift · labels: Assessment + Consultation · Mobilization · Rapid Deployment · Hassle-Free Demobilization</div>
+  </div>
+  <div class="g4" style="margin-top:52px">
+   <div class="phase"><div class="num">1</div><div class="bar">Consultation</div><ul><li>Assess needs</li><li>Align on desired services</li><li>Finalize strategic deployment plan</li><li>Timeframe: 2-3 days</li></ul></div>
+   <div class="phase"><div class="num">2</div><div class="bar">Mobilization</div><ul><li>Select candidates</li><li>Finalize travel scope</li><li>Project imperatives training</li><li>Timeframe: 2-3 days</li></ul></div>
+   <div class="phase"><div class="num">3</div><div class="bar">Deployment</div><ul><li>Establish feedback loop</li><li>Measure and optimize performance</li><li>Guide self-managed operations</li><li>Timeframe: Deploy in 6-7 days from consultation</li></ul></div>
+   <div class="phase"><div class="num">4</div><div class="bar">Demobilization</div><ul><li>Complete final assessment</li><li>Support transition planning</li><li>Release support teams</li><li>Timeframe: 2-3 days</li></ul></div>
+  </div>
+  <div class="note stop"><b>The infographic and the cards disagree with each other.</b> The graphic labels stage 1 “Assessment + Consultation”; the card below it says “Consultation”; the new CSTL copy says “Assessment”. And three deployment promises are now live across AFIMAC material — 6-7 days here, 72 hours in the eBook, 2–7 days in the Brand Foundation. <a href="${u("/brand-check")}">All conflicts →</a></div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · Image · Button (full-width) · Container (4-col) · Heading ×4 · Text Editor ×4, on a White Glove band. The new pages reuse this exact phase-card pattern.`,
+  },
+
+  {
+    cls: "center",
+    n: "BLOCK 05 · AFIMAC CREDIBILITY",
+    h: `
+  <h2>AFIMAC Credibility</h2>
+  <p class="lead">AFIMAC is the premier resource for Fortune 500 manufacturing, warehousing, and logistics organizations facing labor shortages with critical time constraints. We deliver on-demand specialized labor crews with unmatched readiness, empowering operational continuity and reducing financial risk.</p>
+  <div class="g3" style="margin-top:44px">
+   <div class="counter"><div class="stat" data-count="40">0</div><div class="statlabel">Years</div></div>
+   <div class="counter"><div class="stat" data-count="20000">0</div><div class="statlabel">Skilled Laborers</div></div>
+   <div class="counter"><div class="stat" data-count="26">0</div><div class="statlabel">Industries</div></div>
+  </div>
+  <div class="note stop"><b>The counter says 26 industries. The list two sections up has 18.</b> Whichever is right, the page currently contradicts itself within one scroll — and the industries figure is one of only three credibility numbers on the page.</div>`,
+    spec: `<b>Elementor:</b> EK Funfact / Counter ×3, Mobilization Sky figures on white, CSTL Blue labels. Counters animate on scroll.`,
+  },
+
+  {
+    cls: "center",
+    n: "BLOCK 06 · CLIENT SUCCESS STORIES",
+    h: `
+  <h2>Client Success Stories</h2>
+  <div class="g2" style="margin-top:34px">
+   <div style="display:flex;gap:22px"><div class="photo" style="min-width:130px;min-height:130px;padding:10px">Isometric spot illustration</div>
+    <div><p>Confronted with a significant customer order backlog, this Fortune 500 agricultural equipment manufacturer brought in multiple staffing providers. AFIMAC quickly distinguished itself as the sole non-local partner retained, supplying skilled assemblers and machinists. Over a two-year engagement, AFIMAC’s workforce helped stabilize operations and return the company to on-time order fulfillment.</p><p><b><i>Fortune 500 Agricultural Equipment Manufacturer</i></b></p></div></div>
+   <div style="display:flex;gap:22px"><div class="photo" style="min-width:130px;min-height:130px;padding:10px">Isometric spot illustration</div>
+    <div><p>A major labor disruption at a global food production facility threatened safety and halted operations. AFIMAC deployed 99 personnel, including security and skilled workers such as packaging operators, forklift drivers, boiler operators, and wastewater treatment technicians. With AFIMAC’s support, the client maintained full production and avoided operational downtime throughout the crisis.</p><p><b><i>Global Food Manufacturer</i></b></p></div></div>
+  </div>
+  <p style="margin-top:26px;color:var(--spec);font-size:14px">‹ &nbsp; • • • • • • &nbsp; › &nbsp; — six cases, two at a time</p>
+  <div class="note"><b>Four of the six are manufacturing, one food, one building materials. Nothing here fits the Logistics page.</b> Each new industry page needs a featured case plus two or three supporting, so bundle that into the case-study request.</div>`,
+    spec: `<b>Elementor:</b> carousel, two slides visible, arrows plus dots. Note this is the Swiper instance that broke on the Elementor 4.x asset-loading change — worth regression-testing after any header template edit.`,
+  },
+
+  {
+    n: "BLOCK 07 · GATED EBOOK",
+    h: `
+  <div class="g2">
+   <div>
+    <h2>Bridging the Manufacturing Labor Gap</h2>
+    <p class="lead">Uncover the strategies business leaders are leveraging to overcome workforce shortages and unlock growth potential.</p>
+    <div class="photo" style="min-height:250px;margin-top:26px">eBook cover mockup · angled two-page spread</div>
+   </div>
+   <div class="formpanel"><div class="form">
+    <div><label>First Name<i>*</i></label><input placeholder=""></div>
+    <div><label>Last Name<i>*</i></label><input placeholder=""></div>
+    <div class="full"><label>Work Email<i>*</i></label><input placeholder=""></div>
+    <div class="full"><label>Title</label><input placeholder=""></div>
+    <div class="full"><label>Company<i>*</i></label><input placeholder=""></div>
+    <div class="full"><label>Urgency of Need</label>
+     <ul class="check" style="margin:6px 0 0"><li>Urgent / Critical Need</li><li>Non-Urgent Need / Contingency Planning</li></ul></div>
+    <div class="full sub"><a class="btn" href="${u("/resources")}">Submit</a></div>
+   </div></div>
+  </div>
+  <div class="note"><b>This Submit button is a different coral to every other CTA on the page</b> — <code>#ff7a59</code> here against <code>#ff5544</code> everywhere else. Neither is the guide’s <code>#ed6344</code>. Three corals in circulation.</div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · Heading · Text Editor · Image · Metform. The urgency checkboxes are the segmentation field that feeds lead scoring — carry the same field onto the new pages’ forms so scoring stays consistent.`,
+  },
+
+  {
+    cls: "wash center",
+    n: "BLOCK 08 · RELATED NEWS + INSIGHTS",
+    h: `
+  <h2>Related News + Insights</h2>
+  <div class="g3" style="margin-top:34px">
+   ${POSTS.map(
+     (t) =>
+       `<div class="postcard"><div class="photo thumb">1280×720 featured image</div><div class="pbody"><h4>${t}</h4><a class="readmore" href="${u("/overview")}">Read More »</a></div></div>`,
+   ).join("")}
+  </div>
+  <p style="margin-top:30px">« Previous &nbsp; <b>1</b> &nbsp; <a href="${u("/overview")}">2</a> &nbsp; <a href="${u("/overview")}">3</a> &nbsp; <a href="${u("/overview")}">Next »</a></p>`,
+    spec: `<b>Elementor:</b> EK Post Grid, 3-up, paginated across three pages. The new CSTL pages use the same widget at 3-up with a category filter and no pagination.`,
+  },
+
+  {
+    cls: "sky",
+    n: "BLOCK 09 · GET THE NUMBERS",
+    h: `
+  <div class="g2">
+   <div class="center">
+    <h2>Get the Numbers</h2>
+    <p>Let’s talk today and we’ll provide solutions matched to your needs:</p>
+    <ul class="check" style="display:inline-block;text-align:left"><li>Available labor resources</li><li>Rapid deployment timing</li><li>Ballpark costs</li><li>Estimated ROI impact</li></ul>
+    <div class="photo" style="min-height:250px;margin-top:24px">Isometric US map illustration · forklift, pallets, dispatch figures</div>
+   </div>
+   <div class="formpanel"><div class="form">
+    <div><label>First Name<i>*</i></label><input></div>
+    <div><label>Last Name<i>*</i></label><input></div>
+    <div><label>Email<i>*</i></label><input></div>
+    <div><label>Phone Number<i>*</i></label><input></div>
+    <div><label>Title</label><input></div>
+    <div><label>Company<i>*</i></label><input></div>
+    <div class="full"><label>Urgency Level<i>*</i></label>
+     <ul class="check" style="margin:6px 0 0;color:var(--ink)"><li>I have a critical situation</li><li>I'm planning for contingencies</li></ul></div>
+    <div class="full"><label>Message</label><textarea rows="3"></textarea></div>
+    <div class="full" style="font-size:14px">If you are interested in AFIMAC employment opportunities, please visit the <a href="${u("/overview")}">AFIMAC Careers page</a> for more information on how to apply to AFIMAC roles.</div>
+    <div class="full sub"><a class="btn" href="${u("/get-in-touch")}">Submit</a></div>
+   </div></div>
+  </div>`,
+    spec: `<b>Elementor:</b> Metform on a Mobilization Sky band, White Glove form panel, anchor <code>#CSTL-form</code>. Reuse this whole block as a saved section on every CSTL page rather than rebuilding it seven times — including the careers redirect line, which is what keeps jobseekers out of the sales queue.`,
+  },
+];
+---
+
+<Prototype
+  title="Critical Situation Travel Labor"
+  crumb="Solutions › CSTL › Overview"
+  url={B}
+  status="live"
+  active="/overview"
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

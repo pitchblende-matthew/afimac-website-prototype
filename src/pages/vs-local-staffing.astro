@@ -1,0 +1,135 @@
+---
+/** CSTL VS. LOCAL STAFFING — bottom-funnel comparison page. */
+import Prototype from "../layouts/Prototype.astro";
+import Block from "../components/Block.astro";
+import { u } from "../lib/base";
+import { B } from "../data/nav";
+import { bars, photo } from "../lib/wireframe";
+import type { Block as BlockType } from "../lib/types";
+
+const blocks: BlockType[] = [
+  {
+    n: "BLOCK 02 · HERO",
+    h: `
+  <p class="eyebrow">Critical Situation Travel Labor · Compare</p>
+  <h1>CSTL vs. Local Staffing</h1>
+  <div class="ph t"></div>${bars(3)}
+  <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Let’s talk</a><a class="btn ghost" href="#compare">See the comparison</a></div>`,
+    spec: `<b>Elementor:</b> Container (centred) · Breadcrumbs · Heading ×3 · Text Editor · Button ×2. Light, text-led, no hero photo — this buyer already understands travel labor. <b>Copy not written.</b>`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 03 · FRAME THE DECISION",
+    h: `
+  <h2>Three ways to fill a workforce gap</h2>
+  <div class="g3" style="margin-top:24px">
+   <div class="card"><h3>Traditional hiring</h3><p>Building your permanent workforce.</p></div>
+   <div class="card"><h3>Local staffing agencies</h3><p>Ongoing, flexible capacity from the labor market around your operation.</p></div>
+   <div class="card" style="border-color:var(--cstl-blue);border-width:2px"><h3>AFIMAC travel labor</h3><p>Urgent, time-bound, skilled workforce gaps, anywhere in North America.</p></div>
+  </div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×3. Copy lifted from the approved comparison sheet — safe to use as is.`,
+  },
+
+  {
+    id: "compare",
+    n: "BLOCK 04 · CSTL VS. LOCAL STAFFING",
+    h: `
+  <h2>How the three compare when the pressure is on</h2>
+  <div class="tscroll"><table class="cmp"><thead><tr><th></th><th>Traditional hiring</th><th>Local staffing agencies</th><th class="hl">AFIMAC travel labor</th></tr></thead><tbody>
+  <tr><th>Lead time</th><td>30–90 days from requisition to first day, longer for skilled trades</td><td>Days to weeks, depending on the local labor pool</td><td class="hl">Within days, as fast as 72 hours</td></tr>
+  <tr><th>Reach</th><td>Your local labor market</td><td>Typically within ~50 miles of your facility</td><td class="hl">National pool of 20,000+ travel-ready personnel</td></tr>
+  <tr><th>Skilled trades under pressure</th><td>You’re competing for the same candidates with other employers</td><td>Strong for general labor; skilled trades depend on local talent pool</td><td class="hl">Nationally sourced general, semi-, and highly-skilled workers</td></tr>
+  <tr><th>During an active disruption</th><td>Hiring can’t move at the speed of the disruption</td><td>The local pool may be the same one affected by the disruption</td><td class="hl">Personnel travel from outside the situation, and can deploy alongside security</td></tr>
+  <tr><th>Vetting</th><td>Your process, your timeline</td><td>Varies by agency; speed and depth trade off when demand spikes</td><td class="hl">Background-checked, drug-tested, fully insured before they arrive</td></tr>
+  <tr><th>On-site management</th><td>Your supervisors</td><td>Agency places workers; your team manages them</td><td class="hl">Dedicated on-site workforce manager</td></tr>
+  <tr><th>Commitment</th><td>Permanent headcount</td><td>Time-based contracts, terms vary</td><td class="hl">Scale from 1 to 500+ and ramp down the day you no longer need us</td></tr>
+  </tbody></table></div>`,
+    spec: `<b>Elementor:</b> Text Editor (native table) or TablePress · EK Progress Bar ×2 for the speed-to-crew bars above it. Nine rows is long for mobile — consider splitting “speed” out as bars and keeping the table to seven rows.`,
+  },
+
+  {
+    n: "BLOCK 05 · WHEN LOCAL HIRING CAN’T WORK",
+    h: `
+  <h2>When local hiring can’t work</h2>
+  <div class="g2" style="margin-top:24px"><div><h3>Travel labor</h3>${bars(5)}</div><div><h3>Local labor</h3>${bars(5)}</div></div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · EK Icon List ×2. <b>Copy not written.</b> Keep the tone from the brief: local agencies are partners, not competitors.`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 06 · CONTRACT VS. PERMANENT LABOR",
+    h: `
+  <h2>Match commitment to need</h2><div class="ph t"></div>${bars(2)}
+  <div class="tscroll"><table class="cmp" style="margin-top:22px"><thead><tr><th></th><th>Contract</th><th class="hl">Permanent</th></tr></thead><tbody>
+  ${[1, 2, 3, 4].map(() => `<tr><th><div class="ph xs" style="margin:0"></div></th><td><div class="ph s" style="margin:0"></div></td><td class="hl"><div class="ph s" style="margin:0"></div></td></tr>`).join("")}
+  </tbody></table></div>`,
+    spec: `<b>Elementor:</b> Text Editor (native table) or TablePress. <b>Copy not written.</b>`,
+  },
+
+  {
+    cls: "blue",
+    n: "BLOCK 07 · THE REAL COST OF WAITING",
+    h: `
+  <h2>The real cost of waiting</h2>
+  <div class="g3" style="margin-top:26px">
+   <div><div class="stat">$2.3M</div><p>per hour — idle automotive assembly</p></div>
+   <div><div class="stat">$36K</div><p>per hour lost on fast-moving consumer goods lines</p></div>
+   <div><div class="stat">~2 months</div><p>national average time-to-fill</p></div>
+  </div>
+  <p style="margin-top:24px">Against figures like these, the premium attached to skilled travel labor is small relative to the cost of a line that is not running.</p>`,
+    spec: `<b>Elementor:</b> Container (2-col) · EK Icon List ×2 or EK Funfact ×3, blue band. <b>Sourced stats</b> (Siemens TCOD 2024; HR Dive / Employ 2025) — attribute them on the page.`,
+  },
+
+  {
+    n: "BLOCK 08 · WHICH SHOULD YOU CHOOSE?",
+    h: `
+  <h2>Which should you choose?</h2>
+  <div class="tscroll"><table class="cmp" style="margin-bottom:26px"><thead><tr><th>If your situation is…</th><th>Choose</th><th>Because</th></tr></thead><tbody>
+  ${[1, 2, 3, 4].map(() => `<tr><td><div class="ph s" style="margin:0"></div></td><td><div class="ph xs" style="margin:0"></div></td><td><div class="ph s" style="margin:0"></div></td></tr>`).join("")}
+  </tbody></table></div>
+  <div class="g2">
+   <div class="card"><h3>Go local when…</h3>${bars(3)}</div>
+   <div class="card" style="border-color:var(--cstl-blue);border-width:2px"><h3>Call AFIMAC when…</h3>${bars(3)}<div class="btns"><a class="btn" href="${u("/get-in-touch")}">Talk to a specialist</a></div></div>
+  </div>`,
+    spec: `<b>Elementor:</b> Text Editor (native table) or TablePress · Container (2-col) · Button. <b>Copy not written.</b>`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 09 · FAQ",
+    h: `
+  <h2>Frequently asked questions</h2>
+  <div class="acc" style="margin-top:22px">${[1, 2, 3, 4, 5, 6].map(() => `<details><summary><span class="ph xs" style="width:280px;margin:0"></span></summary><div class="ans">${bars(2)}</div></details>`).join("")}</div>`,
+    spec: `<b>Elementor:</b> EK Accordion (6 items) + FAQPage schema. <b>Questions not written.</b> Keep them distinct from the How It Works FAQ.`,
+  },
+
+  {
+    n: "BLOCK 10 · RELATED INSIGHTS",
+    h: `<h2>Related insights</h2><div class="g3" style="margin-top:22px">${[1, 2, 3].map(() => `<div class="card">${photo("1280×720")}<div class="ph t" style="margin-top:16px"></div>${bars(2)}</div>`).join("")}</div>`,
+    spec: `<b>Elementor:</b> EK Post Grid (3-up).`,
+  },
+
+  {
+    cls: "sky",
+    n: "BLOCK 11 · READY TO TALK",
+    h: `<h2>Ready to talk</h2><p class="lead">Shared lead-form block.</p><div class="btns"><a class="btn" href="${u("/get-in-touch")}">Talk to a specialist</a></div>`,
+    spec: `<b>Elementor:</b> Metform · EK Icon List · Button. Global block.`,
+  },
+];
+---
+
+<Prototype
+  title="CSTL vs. Local Staffing"
+  crumb="Solutions › CSTL › CSTL vs. Local Staffing"
+  url={`${B}vs-local-staffing/`}
+  status="build"
+  active="/vs-local-staffing"
+  meta={{
+    t: "[SEO title not written — 50–60 chars]",
+    d: "[meta description not written — 145–160 chars]",
+    k: "[bottom-funnel comparison cluster]",
+  }}
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

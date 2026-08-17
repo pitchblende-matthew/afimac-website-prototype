@@ -1,0 +1,24 @@
+---
+import Stub from "../components/Stub.astro";
+import { B } from "../data/nav";
+---
+
+<Stub
+  title="CSTL Roles"
+  crumb="Solutions › CSTL › Roles"
+  url={`${B}roles/`}
+  status="build"
+  active="/roles"
+  intro="Eight role pages, skilled trades plus production. None are wireframed yet — this hub exists so the sub-nav and the URL structure can be signed off."
+  items={[
+    ["CNC Operator Staffing", "…/roles/cnc-operator-staffing/"],
+    ["Forklift Operator Temp Labor", "…/roles/forklift-operator-temp-labor/"],
+    ["Welder Travel Crews", "…/roles/welder-travel-crews/"],
+    ["Machinist Staffing", "…/roles/machinist-staffing/"],
+    ["Assembler &amp; Production Associates", "…/roles/production-associates/"],
+    ["Packaging Operator Staffing", "…/roles/packaging-operators/"],
+    ["Sanitation Crew Staffing", "…/roles/sanitation-crews/"],
+    ["Warehouse &amp; Logistics Associates", "…/roles/warehouse-logistics/"],
+  ]}
+  note="The role lists on the live overview page and on What Is Travel Labor should link here as each page publishes."
+/>

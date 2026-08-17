@@ -1,0 +1,21 @@
+---
+import Prototype from "../../layouts/Prototype.astro";
+import Block from "../../components/Block.astro";
+import { INDUSTRIES } from "../../data/industries";
+import { industryPage } from "../../lib/industry-page";
+
+// Rendered on demand — `output: "server"` is the Webflow Cloud contract, so
+// there is no getStaticPaths here; unknown slugs 404 below.
+const { slug } = Astro.params;
+const industry = slug ? INDUSTRIES[slug] : undefined;
+
+if (!industry) {
+  return new Response(null, { status: 404, statusText: "Not found" });
+}
+
+const { blocks, ...page } = industryPage(industry);
+---
+
+<Prototype {...page}>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>
