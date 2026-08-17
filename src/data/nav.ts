@@ -22,7 +22,7 @@ export const NAV: NavItem[] = [
   {
     label: "How It Works",
     route: "/how-it-works",
-    head: "6 · build",
+    head: "6 · build · FAQ needs a slot",
     kids: [
       ["What Is Travel Labor", "/what-is-travel-labor"],
       ["How Travel Labor Works", "/how-it-works"],
@@ -30,6 +30,7 @@ export const NAV: NavItem[] = [
       ["Travel Labor vs. Local Staffing", "/vs-local-staffing"],
       ["Day 1 Ready", "/day-1-ready"],
       ["Pre-Deployment Checklist", "/pre-deployment"],
+      ["Travel Labor FAQ — needs a slot", "/faq"],
     ],
   },
   {
@@ -50,16 +51,16 @@ export const NAV: NavItem[] = [
   {
     label: "Roles",
     route: "/roles",
-    head: "8 · build",
+    head: "8 · 7 written · 1 to go",
     kids: [
-      ["CNC Operators", "/roles"],
-      ["Forklift Operators", "/roles"],
-      ["Welders (travel crews)", "/roles"],
-      ["Machinists", "/roles"],
-      ["Assemblers &amp; Production", "/roles"],
-      ["Packaging Operators", "/roles"],
-      ["Sanitation Crews", "/roles"],
-      ["Warehouse &amp; Logistics", "/roles"],
+      ["CNC Operators", "/roles/cnc-operators"],
+      ["Forklift Operators", "/roles/forklift-operators"],
+      ["Welders &amp; Fabricators", "/roles/welders"],
+      ["Machinists", "/roles/machinists"],
+      ["Assemblers &amp; Production", "/roles/assemblers-production"],
+      ["Packaging Operations", "/roles/packaging-operations"],
+      ["Sanitation Crews", "/roles/sanitation-crews"],
+      ["Warehouse &amp; Logistics — no copy yet", "/roles"],
     ],
   },
   {

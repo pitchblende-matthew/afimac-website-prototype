@@ -1,24 +1,98 @@
 ---
-import Stub from "../components/Stub.astro";
+/**
+ * ROLES HUB — index of the eight role pages in the CSTL cluster.
+ * Seven now have approved copy and are wireframed; Warehouse & Logistics
+ * has neither.
+ */
+import Prototype from "../layouts/Prototype.astro";
+import Block from "../components/Block.astro";
+import { u } from "../lib/base";
 import { B } from "../data/nav";
+import type { Block as BlockType } from "../lib/types";
+
+/** [title, route or null, production slug, the page's own angle] */
+const ROLES: [string, string | null, string, string][] = [
+  ["CNC Operators &amp; Machinists", "/roles/cnc-operators", "roles/cnc-operators/", "The hardest seats on the floor to fill. Process runs as a card row."],
+  ["Forklift Operators", "/roles/forklift-operators", "roles/forklift-operators/", "Equipment classes and dock throughput. Process runs as a vertical rail."],
+  ["Welders &amp; Fabricators", "/roles/welders", "roles/welders/", "Weld processes and a who-brings-what split. Process runs as a chip strip."],
+  ["Machinists", "/roles/machinists", "roles/machinists/", "Manual, toolroom and maintenance work. Process runs as a numbered strip."],
+  ["Assemblers &amp; Production", "/roles/assemblers-production", "roles/assemblers-production/", "Scale, not depth — a few seats to a whole line. Process runs as a table."],
+  ["Sanitation Crews", "/roles/sanitation-crews", "roles/sanitation-crews/", "The shift that makes every other shift possible. Process runs as a definition list."],
+  ["Packaging Operations", "/roles/packaging-operations", "roles/packaging-operations/", "Ship windows and retail stakes. Process runs as a dot stepper."],
+  ["Warehouse &amp; Logistics Associates", null, "roles/warehouse-logistics/", "On the build sheet. No copy deck written yet."],
+];
+
+const blocks: BlockType[] = [
+  {
+    n: "THE ROLE CLUSTER",
+    h: `
+  <h1>CSTL Roles</h1>
+  <p class="lead">Eight role pages, skilled trades plus production. Seven now have approved copy and are wireframed below; the eighth is still to be written.</p>
+  <div class="g3" style="margin-top:30px">
+   ${ROLES.map(([title, route, slug, angle]) =>
+     route
+       ? `<a class="card" style="text-decoration:none;display:block" href="${u(route)}">
+           <h3 style="margin-bottom:10px">${title}</h3>
+           <p style="font-size:14px;color:var(--ink);margin-bottom:12px">${angle}</p>
+           <p style="font-size:12.5px;color:var(--spec);word-break:break-all">…/${slug}</p>
+           <span class="tag build">BUILD · WIREFRAMED</span></a>`
+       : `<div class="card">
+           <h3 style="margin-bottom:10px">${title}</h3>
+           <p style="font-size:14px;color:var(--ink);margin-bottom:12px">${angle}</p>
+           <p style="font-size:12.5px;color:var(--spec);word-break:break-all">…/${slug}</p>
+           <span class="tag build">NO COPY YET</span></div>`,
+   ).join("")}
+  </div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Image Box ×8. This hub is a spoke off <a href="${u("/how-it-works")}">How It Works</a>; every role page links back to it, to the pillar, and to its siblings.`,
+  },
+
+  {
+    cls: "wash",
+    n: "OPEN ITEM · THE SLUG PATTERN",
+    h: `
+  <div class="note stop" style="margin-top:0"><b>Every one of the seven decks carries the same open item: confirm the <code>/roles/</code> slug pattern against the site IA deck before the cluster builds.</b> The industries cluster uses <code>/industries/</code>, so the convention is consistent as drafted — but it has never actually been signed off, and eight URLs is an expensive thing to change after publication.</div>`,
+    spec: `Decide this at structure sign-off, with the industries slugs, in one pass.`,
+  },
+
+  {
+    n: "OPEN ITEM · TWO NAMES DRIFTED",
+    h: `
+  <div class="tscroll"><table class="cmp"><thead><tr><th>Agreed sub-nav label</th><th>Copy deck title</th><th class="hl">Which to use</th></tr></thead><tbody>
+   <tr><th>Welders (travel crews)</th><td>Welders &amp; Fabricators</td><td class="hl">Deck — fabricators are a named role on the page</td></tr>
+   <tr><th>Packaging Operators</th><td>Packaging Operations</td><td class="hl">Deck — the page covers the line, not just the operator</td></tr>
+  </tbody></table></div>
+  <div class="note">The sub-nav above now uses the deck titles. Both are defensible and neither is a big change, but <b>the nav labels and the page H1s should be decided together</b>, not page by page.</div>`,
+    spec: `Update the Industries/Roles dropdown in the Elementor header template once the labels are fixed.`,
+  },
+
+  {
+    cls: "wash",
+    n: "OPEN ITEM · KEYWORD SPLITS TO HOLD",
+    h: `
+  <p class="lead">Three pairs of pages sit close enough to compete with each other in search. The decks resolve each one, and the resolutions only hold if the cross-links get built.</p>
+  <div class="g3" style="margin-top:26px">
+   <div class="card"><h3>CNC Operators ↔ Machinists</h3><p style="margin:0">CNC page owns the CNC terms; Machinists owns manual, toolroom and maintenance. <b>Cross-link both ways, and never point a CNC-specific anchor at Machinists.</b></p></div>
+   <div class="card"><h3>Assemblers ↔ Packaging</h3><p style="margin:0">Packaging keywords moved off the Assemblers page to Packaging Operations, which keeps assembler, production and general labor. The Assemblers deck was revised in step.</p></div>
+   <div class="card"><h3>Sanitation ↔ Food &amp; Beverage</h3><p style="margin:0">Sanitation owns sanitation, deep-clean and wash-down staffing; the industry page keeps the plant-level framing.</p></div>
+  </div>`,
+    spec: `These are internal-linking rules, not copy. Worth writing into the build sheet so they survive the hand-off.`,
+  },
+
+  {
+    n: "SHARED ASSET GAP",
+    h: `
+  <div class="note" style="margin-top:0"><b>The role cluster needs one icon set and seven form illustrations before it can go live.</b> Every page specs 96×96 line icons in the existing CSTL style — five or six per page, roughly forty in total — plus a 1200×1200 isometric form illustration each, all specified as distinct subjects. On top of that: seven hero photographs, five bespoke infographics and four case images. <b>Commission the icon set once, as a set.</b></div>`,
+    spec: `Only the Welders resource card reuses an existing asset (the eBook cover from the live pillar). Everything else on these seven pages is new.`,
+  },
+];
 ---
 
-<Stub
+<Prototype
   title="CSTL Roles"
   crumb="Solutions › CSTL › Roles"
   url={`${B}roles/`}
   status="build"
   active="/roles"
-  intro="Eight role pages, skilled trades plus production. None are wireframed yet — this hub exists so the sub-nav and the URL structure can be signed off."
-  items={[
-    ["CNC Operator Staffing", "…/roles/cnc-operator-staffing/"],
-    ["Forklift Operator Temp Labor", "…/roles/forklift-operator-temp-labor/"],
-    ["Welder Travel Crews", "…/roles/welder-travel-crews/"],
-    ["Machinist Staffing", "…/roles/machinist-staffing/"],
-    ["Assembler &amp; Production Associates", "…/roles/production-associates/"],
-    ["Packaging Operator Staffing", "…/roles/packaging-operators/"],
-    ["Sanitation Crew Staffing", "…/roles/sanitation-crews/"],
-    ["Warehouse &amp; Logistics Associates", "…/roles/warehouse-logistics/"],
-  ]}
-  note="The role lists on the live overview page and on What Is Travel Labor should link here as each page publishes."
-/>
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

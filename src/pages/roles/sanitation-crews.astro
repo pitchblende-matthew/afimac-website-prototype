@@ -1,0 +1,167 @@
+---
+/**
+ * SANITATION CREWS — role page, full approved copy (v1 deck).
+ * Process device: stacked definition list (the sixth presentation).
+ *
+ * No compliance outcomes are promised anywhere on this page — the copy stays
+ * on staffing the program the client already runs. Keep that line at build.
+ */
+import Prototype from "../../layouts/Prototype.astro";
+import Block from "../../components/Block.astro";
+import { u } from "../../lib/base";
+import { B } from "../../data/nav";
+import { photo } from "../../lib/wireframe";
+import {
+  roleHero, roleGrid, faqBlock, insightsBlock, leadFormBlock,
+  CONSULTATION_FLAG, COST_ANSWER, SUPERVISION_ANSWER,
+} from "../../lib/role-blocks";
+import type { Block as BlockType } from "../../lib/types";
+
+const PHASES: [string, string][] = [
+  ["ASSESSMENT · 1 TO 2 DAYS", "Map your sanitation program, rooms, shift windows &amp; site requirements, then finalize the deployment plan."],
+  ["MOBILIZATION · 2 TO 3 DAYS", "Source and screen the crew from a 20,000+ talent network; credential and role checks, travel, housing &amp; site-specific safety onboarding."],
+  ["DEPLOYMENT · CREW ON SITE IN DAYS", "The crew works your sanitation windows under AFIMAC supervision, with a single point of contact and daily reporting."],
+  ["DEMOBILIZATION · 2 TO 3 DAYS", "Final performance review and a planned handoff back to your permanent team."],
+];
+
+const blocks: BlockType[] = [
+  roleHero({
+    h1: "Sanitation Crews That Keep You Audit-Ready",
+    sub: "Sanitation Shortfall? Deep Clean Overdue? Third Shift Running Thin?",
+    body: "Sanitation is the shift that makes every other shift possible. When the crew that resets your plant runs short, AFIMAC deploys screened, travel-ready sanitation workers in days, and manages the team, housing included, for as long as the gap lasts.",
+    cta2: "See the roles",
+    cta2Href: "#roles",
+    img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a sanitation crew in wash-down gear working a production room under night-shift lighting, wet stainless surfaces carrying the light · muted industrial tone under the navy scrim · focal area centre · mobile crop 1080×1350",
+    spec: `<b>Elementor:</b> Container (centred, bg image + navy overlay) · Breadcrumbs · Heading ×3 · Text Editor · Button ×2. The only night-lit hero in the cluster — brief the photographer separately.`,
+  }),
+
+  {
+    n: "BLOCK 02 · THE SANITATION GAP",
+    h: `
+  <h2>What’s actually at stake when the third shift runs short</h2>
+  <p class="lead">A short sanitation shift doesn’t announce itself the way a down line does. It shows up later, as a changeover that can’t start, a deep clean pushed another week, an audit finding you saw coming. Sanitation and deep-clean staffing gaps are one of the named triggers AFIMAC’s food and beverage clients call about, because the roles are hard to fill locally and the work can’t wait for a hiring cycle.</p>
+  <ul class="tick stakes" style="margin-top:28px">
+   <li>Audit &amp; compliance findings (GMP, HACCP)</li>
+   <li>Sanitation lapses</li>
+   <li>Spoilage &amp; lost perishable inventory</li>
+   <li>A changeover or new line launch that can’t start</li>
+   <li>Overtime and burnout on your core team</li>
+  </ul>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · EK Icon List (2-col). Stakes follow the approved Food &amp; Beverage risk list; the changeover item extends its named situations. <b>No compliance outcome is promised — the page staffs the program, it doesn’t warrant the result.</b>`,
+  },
+
+  {
+    id: "roles",
+    cls: "wash",
+    n: "BLOCK 03 · ROLES WE DEPLOY",
+    h: `
+  <h2>The whole sanitation shift, covered</h2>
+  ${roleGrid([
+    "Sanitation (SSOP) crews",
+    "Deep-clean &amp; changeover teams",
+    "Wash-down &amp; CIP operators",
+    "GMP compliance support",
+    "Industrial cleaning &amp; facility crews",
+    "Wastewater treatment technicians",
+  ])}
+  <div class="note">The first four are verbatim from the approved Food &amp; Beverage page copy’s Sanitation &amp; GMP group, and wastewater treatment technicians appear in the published cluster roles. <b>Industrial cleaning extends the group to non-food plants — confirm that extension and the full taxonomy with AFIMAC ops before build.</b></div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×6. <b>Asset gap:</b> six line icons, SVG 96×96, from the shared CSTL set.`,
+  },
+
+  {
+    n: "BLOCK 04 · THE NIGHTLY RESET",
+    h: `
+  <h2>How a sanitation crew turns the plant around</h2>
+  <div class="g2" style="margin-top:24px">
+   <div>
+    <p>Every production day ends with the same race: break the line down, clean it, sanitize it, verify it, and hand it back before the first shift arrives. AFIMAC crews run that reset to your documented sanitation program, under AFIMAC supervision, with your standards as the finish line.</p>
+    <div class="note" style="margin-top:22px">The loop describes the standard sanitation sequence generically — <b>it names no specific chemicals, hold times, or regulatory steps.</b> Crews work to the client’s own program, which is the claim the copy makes.</div>
+   </div>
+   ${photo("Nightly reset loop · SVG square, art 960×960, min render 640×640 · a circular cycle with five stations around the loop: Production ends · Breakdown &amp; wash-down · Clean &amp; sanitize · Verify &amp; document · Line released · a clock cue at the centre marks the overnight window · flat isometric, greys with safety-orange and blue · first circular device in the cluster")}
+  </div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · Heading · Text Editor · Image (SVG).`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 05 · THE PROCESS",
+    h: `
+  <h2>Four phases, sanitation edition</h2>
+  <dl class="deflist">
+   ${PHASES.map(([name, body]) => `<dt>${name}</dt><dd>${body}</dd>`).join("")}
+  </dl>
+  <div class="note">Phase names and durations follow the approved process doc, carrying its open <b>Assessment vs. Consultation</b> naming flag. <a href="${u("/brand-check")}">All conflicts →</a></div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor (definition list). Link the H2 to <a href="${u("/how-it-works")}">How It Works</a>. Sixth of seven distinct process presentations.`,
+  },
+
+  {
+    n: "BLOCK 06 · PROOF IT WORKS",
+    h: `
+  <h2>Trusted inside food plants at full scale</h2>
+  <div class="g2" style="margin-top:24px">
+   <div class="card">
+    <div class="blocknum">PROOF 01</div>
+    <p style="margin:0">When a Fortune 500 food manufacturer needed its production facility fully staffed on short notice, AFIMAC deployed 99 personnel across the operation and kept it running until the client’s workforce recovered.</p>
+   </div>
+   <div class="card">
+    <div class="blocknum">PROOF 02</div>
+    <p style="margin:0">Engagements run as long as the gap does: published AFIMAC deployments range from multi-month assignments to a two-year manufacturing partnership.</p>
+   </div>
+  </div>
+  <div class="note">Two short cards rather than a featured-case layout, because the 99-personnel case already leads on <a href="${u("/roles/forklift-operators")}">Forklift Operators</a> and <a href="${u("/roles/assemblers-production")}">Assemblers &amp; Production</a>. Here it evidences food-plant trust rather than headcount. <b>Link both to the pillar and match its published framing at build.</b></div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · EK Icon Box ×2. No case image on this page by design — the proof is borrowed weight, not the argument.`,
+  },
+
+  faqBlock({
+    n: "BLOCK 07 · FAQ",
+    cls: "",
+    h2: "Sanitation staffing questions, answered",
+    items: [
+      ["How fast can a sanitation crew be on site?", "For most sanitation roles, within days of a signed plan. Exact timing depends on role, headcount, location, and compliance requirements."],
+      ["Do your crews follow our sanitation program?", "Yes. Crews work to your documented sanitation program and standards, with site-specific safety and role onboarding completed before the first shift. The Assessment phase maps your program, rooms, and shift windows so the crew fits the way your plant runs."],
+      ["Can you staff third-shift and weekend sanitation windows?", "Yes. Shift coverage is scoped during Assessment, and crews are built for the windows your plant sanitizes in, including overnight and weekend resets."],
+      ["Who supervises the crew?", SUPERVISION_ANSWER],
+      ["What does it cost?", COST_ANSWER],
+    ],
+    note: `${CONSULTATION_FLAG} The <a href="${u("/faq")}">FAQ page</a> is final and doesn’t take these questions; they live on this page’s schema only.`,
+    spec: `<b>Elementor:</b> EK Accordion (5 items) + FAQPage structured data.`,
+  }),
+
+  insightsBlock({
+    n: "BLOCK 08 · RELATED INSIGHTS",
+    titles: [
+      "The Labor Gap Took Decades to Build. Solving It Requires a New Playbook.",
+      "Manufacturing’s Persistent Labor Challenge",
+      "Ready on Day One",
+    ],
+    spec: `<b>Elementor:</b> EK Post Grid (3-up). All three are live posts. Sixth distinct combination; the first links on to the Labor Gap perspective paper, which speaks directly to food and beverage operators. <b>Note the title differs by one word from the Forklift and CNC rails</b> — “Solving It” here, “Closing It” there. One of them is wrong; check the live post.`,
+  }),
+
+  leadFormBlock({
+    n: "BLOCK 09 · TALK TO AFIMAC (LEAD FORM)",
+    h2: "Sanitation shift short? Let’s reset it.",
+    bullets: [
+      "The sanitation roles and crew size we’d send",
+      "A realistic timeline to a covered shift",
+      "A ballpark cost",
+    ],
+    illo: "1200×1200 flat isometric vector beside the form · a wash-down bay motif with stainless equipment and a hose reel · greys with safety-orange and blue · distinct subject from every form illustration in the cluster",
+    spec: `<b>Elementor:</b> Metform · EK Icon List · Button, Mobilization Sky band. Global section.`,
+  }),
+];
+---
+
+<Prototype
+  title="Sanitation Crews That Keep You Audit-Ready"
+  crumb="Solutions › CSTL › Roles › Sanitation Crews"
+  url={`${B}roles/sanitation-crews/`}
+  status="build"
+  active="/roles/sanitation-crews"
+  meta={{
+    t: "Sanitation Crew Staffing &amp; Travel Labor | AFIMAC Global",
+    d: "Sanitation shift running short? AFIMAC deploys screened, travel-ready sanitation crews to food and industrial plants in days, with housing handled.",
+    k: "sanitation crew staffing · sanitation staffing — secondary: food plant sanitation crews · deep-clean staffing · SSOP sanitation workers · CIP operator staffing · third-shift sanitation labor",
+  }}
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

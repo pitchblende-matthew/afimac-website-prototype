@@ -1,0 +1,151 @@
+---
+/**
+ * MACHINISTS — role page, full approved copy (v1 deck).
+ * Process device: a single numbered strip, one bold-lead line per phase.
+ *
+ * Keyword split with the CNC Operators page is load-bearing here: that page
+ * owns "CNC operator/machinist staffing"; this one owns "machinist staffing"
+ * broadly — manual, toolroom and maintenance work. Cross-link both ways, and
+ * never point a CNC-specific anchor at this page.
+ */
+import Prototype from "../../layouts/Prototype.astro";
+import Block from "../../components/Block.astro";
+import { u } from "../../lib/base";
+import { B } from "../../data/nav";
+import { photo } from "../../lib/wireframe";
+import {
+  roleHero, roleGrid, faqBlock, insightsBlock, leadFormBlock,
+  CONSULTATION_FLAG, COST_ANSWER, SUPERVISION_ANSWER,
+} from "../../lib/role-blocks";
+import type { Block as BlockType } from "../../lib/types";
+
+const STRIP: [string, string][] = [
+  ["1 · Assessment:", "your parts, tolerances, machines &amp; shift plan, mapped in 1 to 2 days."],
+  ["2 · Mobilization:", "machinists screened from a 20,000+ talent network, with credential and role checks, travel &amp; housing booked, in 2 to 3 days."],
+  ["3 · Deployment:", "the crew at your machines in days, under AFIMAC supervision with a single point of contact."],
+  ["4 · Demobilization:", "a planned handoff back to your permanent team when the work is caught up."],
+];
+
+const blocks: BlockType[] = [
+  roleHero({
+    h1: "Machinists Who Travel to the Work",
+    sub: "Toolroom Stretched Thin? Manual Work Piling Up? Retirements Outrunning Hires?",
+    body: "The machinists who can hold a tolerance on a manual machine are the hardest hires in the trade. AFIMAC deploys screened, travel-ready machinists to your shop and manages the crew, housing included, until the work is caught up.",
+    cta2: "See what we cover",
+    cta2Href: "#coverage",
+    img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a machinist at a manual mill, hands on the handwheels, chips on the table, toolroom depth behind · muted industrial tone under the navy scrim · focal area centre · mobile crop 1080×1350 · deliberately a manual machine, not a CNC control, to separate this page’s imagery from CNC Operators",
+    spec: `<b>Elementor:</b> Container (centred, bg image + navy overlay) · Breadcrumbs · Heading ×3 · Text Editor · Button ×2.`,
+  }),
+
+  {
+    id: "coverage",
+    n: "BLOCK 02 · CAPABILITIES &amp; ROLES",
+    h: `
+  <h2>Machining coverage across the shop</h2>
+  <div style="margin:26px 0">${photo("Capability spectrum · SVG 2400×600 (4:1), stacks vertically under 768px · one horizontal band in four labelled segments: Manual mills &amp; lathes · Toolroom support · Maintenance machining · CNC support · the last segment carries a link chip to the CNC Operators page · flat isometric, greys with safety-orange and blue")}</div>
+  ${roleGrid([
+    "Manual machinists (mills &amp; lathes)",
+    "Toolroom &amp; repair support",
+    "Maintenance machinists",
+    "CNC support machinists",
+    "Quality &amp; inspection support",
+  ])}
+  <div class="btns"><a class="btn ghost" href="${u("/roles/cnc-operators")}">Dedicated CNC crews → CNC Operators</a></div>
+  <div class="note"><b>The keyword split is the whole reason both pages exist.</b> This page owns manual, toolroom and maintenance machining; CNC Operators owns the CNC terms. The spectrum graphic’s fourth segment is the hand-off point — wire that link chip at build, and never point a CNC-specific anchor here.</div>`,
+    spec: `<b>Elementor:</b> Heading · Image (SVG with a linked region, or HTML widget) · Container (3-col) · EK Icon Box ×5 · Button. Machinists appear by name in AFIMAC’s published cases and role lists; the toolroom/maintenance breakdown is standard shop taxonomy — <b>confirm with ops before build.</b>`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 03 · THE MACHINIST GAP",
+    h: `
+  <h2>The trade is retiring faster than it’s replacing itself</h2>
+  <div class="g2" style="margin-top:24px">
+   <div>
+    <p>A journeyman machinist represents years of accumulated feel that no job posting can replace on short notice. As experienced hands retire, the manual and toolroom work they carried lands on fewer people, and in most markets there’s no bench to hire from. Machinists sit alongside CNC operators and welders among the roles AFIMAC’s manufacturing clients ask for most.</p>
+    <p>That’s where Critical Situation Travel Labor comes in. AFIMAC recruits, screens, travels, houses, and manages machining crews from a national network, then deploys them to your shop until the situation is resolved.</p>
+   </div>
+   ${photo("1200×1500 JPG (4:5) beside the intro · a quiet toolroom, one occupied machine in a row of idle ones · muted tone · no staged distress")}
+  </div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · Image. Same article-intro pattern as the CNC and Sanitation pages, one band later in the order.`,
+  },
+
+  {
+    n: "BLOCK 04 · HOW IT WORKS",
+    h: `
+  <h2>The same four phases, machinist edition</h2>
+  <ul class="numstrip">
+   ${STRIP.map(([lead, rest]) => `<li><b>${lead}</b> ${rest}</li>`).join("")}
+  </ul>
+  <div class="note">Phase names and durations follow the approved process doc, carrying its open <b>Assessment vs. Consultation</b> naming flag. <a href="${u("/brand-check")}">All conflicts →</a></div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor (styled list). The most compressed of the seven process treatments after the Welders chip strip — link the H2 to <a href="${u("/how-it-works")}">How It Works</a> for full phase detail.`,
+  },
+
+  {
+    n: "BLOCK 05 · PROOF IT WORKS",
+    h: `
+  <h2>A two-year machinist engagement that held the schedule</h2>
+  <div class="casecard">
+   ${photo("1600×1000 JPG (8:5) on the case card · machinists at manual machines in a production shop, a working shot with nothing posed")}
+   <div class="body">
+    <div class="blocknum">FEATURED CASE</div>
+    <p>Confronted with a significant customer order backlog, a Fortune 500 agricultural equipment manufacturer brought in multiple staffing providers. AFIMAC distinguished itself as the sole non-local partner retained, supplying skilled assemblers and machinists. Over a two-year engagement, AFIMAC’s workforce helped stabilize operations and return the company to on-time order fulfillment.</p>
+   </div>
+  </div>
+  <p style="margin-top:24px">Machinists also anchored the crew that cut a Fortune 500 manufacturer’s past-due sales by 73.4%. <a href="${u("/overview")}">Read the case on the CSTL page.</a></p>`,
+    spec: `<b>Elementor:</b> Container (2-col) · Image · Heading · Text Editor. This case runs as a <i>supporting</i> case on CNC Operators; here it leads. Link both references to the pillar rather than duplicating standalone case pages.`,
+  },
+
+  faqBlock({
+    n: "BLOCK 06 · FAQ",
+    cls: "wash",
+    h2: "Machinist staffing questions, answered",
+    items: [
+      ["How fast can machinists be on site?", "For most machining roles, within days of a signed plan. Exact timing depends on role, headcount, location, and compliance requirements."],
+      ["Can your machinists run manual machines?", `Yes. Manual mills and lathes, toolroom work, and maintenance machining are the core of this role page. For dedicated CNC crews, see the <a href="${u("/roles/cnc-operators")}">CNC Operators page</a>.`],
+      ["How are machinists screened?", "Every machinist clears background, credential, and role checks before travel. The Assessment phase maps your parts, tolerances, and machines so the crew fits the work in your shop."],
+      ["Who supervises the crew?", SUPERVISION_ANSWER],
+      ["What does it cost?", COST_ANSWER],
+    ],
+    note: CONSULTATION_FLAG,
+    spec: `<b>Elementor:</b> EK Accordion (5 items) + FAQPage structured data. The second answer carries the cross-link that keeps the two machining pages out of each other’s search results — don’t drop it.`,
+  }),
+
+  insightsBlock({
+    n: "BLOCK 07 · RELATED INSIGHTS",
+    titles: [
+      "For U.S. Automotive Manufacturers, Reshoring Depends on Skilled Labor",
+      "Manufacturing’s Persistent Labor Challenge",
+      "Debunking the Top Five Travel Labor Myths",
+    ],
+    spec: `<b>Elementor:</b> EK Post Grid (3-up). All three are live posts. Fourth distinct combination across the role pages; filtered to manufacturing and skilled labor.`,
+  }),
+
+  leadFormBlock({
+    n: "BLOCK 08 · TALK TO AFIMAC (LEAD FORM)",
+    h2: "Work stacking up? Let’s get it moving.",
+    bullets: [
+      "The machining roles and crew size we’d send",
+      "A realistic timeline to machinists at your machines",
+      "A ballpark cost",
+    ],
+    illo: "1200×1200 flat isometric vector beside the form · a toolroom motif with a manual mill · greys with safety-orange and blue · distinct subject from the machining cell, dock and fab bay illustrations",
+    spec: `<b>Elementor:</b> Metform · EK Icon List · Button, Mobilization Sky band. Global section.`,
+  }),
+];
+---
+
+<Prototype
+  title="Machinists Who Travel to the Work"
+  crumb="Solutions › CSTL › Roles › Machinists"
+  url={`${B}roles/machinists/`}
+  status="build"
+  active="/roles/machinists"
+  meta={{
+    t: "Skilled Machinist Staffing &amp; Travel Labor | AFIMAC Global",
+    d: "Machinist shortage slowing the shop? AFIMAC deploys screened, travel-ready machinists for manual, toolroom, and CNC support work, with housing handled.",
+    k: "machinist staffing · skilled machinist shortage — secondary: manual machinist staffing · toolroom machinists · maintenance machinists · travel machinists · contract machinists",
+  }}
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

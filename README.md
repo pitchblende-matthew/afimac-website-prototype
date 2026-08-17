@@ -49,7 +49,16 @@ installed.
 | `/industries/automotive` | BUILD | Industry cluster template |
 | `/industries/food-beverage` | BUILD | Industry cluster template |
 | `/industries/logistics` | BUILD | Industry cluster template + 2 open items |
-| `/roles`, `/resources`, `/pricing-roi`, `/get-in-touch` | BUILD | Hub placeholders |
+| `/roles` | BUILD | Role-cluster hub + the cluster's open items |
+| `/roles/cnc-operators` | BUILD | Full approved copy · process as a card row |
+| `/roles/forklift-operators` | BUILD | Full approved copy · process as a vertical rail |
+| `/roles/welders` | BUILD | Full approved copy · process as a chip strip |
+| `/roles/machinists` | BUILD | Full approved copy · process as a numbered strip |
+| `/roles/assemblers-production` | BUILD | Full approved copy · process as a table |
+| `/roles/sanitation-crews` | BUILD | Full approved copy · process as a definition list |
+| `/roles/packaging-operations` | BUILD | Full approved copy · process as a dot stepper |
+| `/faq` | BUILD | Cluster FAQ · 33 questions in 8 grouped sections |
+| `/resources`, `/pricing-roi`, `/get-in-touch` | BUILD | Hub placeholders |
 | `/vs-traditional`, `/day-1-ready`, `/pre-deployment`, `/industries` | BUILD | On the build sheet, not wireframed |
 | `/brand-check` | — | Internal working page, not part of the site IA |
 
@@ -73,6 +82,7 @@ src/
 │   ├── base.ts                 u() — mount-path-aware URL helper
 │   ├── wireframe.ts            bars() · photo() · cards() · roleList()
 │   ├── industry-page.ts        the industry cluster template
+│   ├── role-blocks.ts          the blocks the seven role decks share
 │   └── types.ts
 ├── pages/                      one file per route
 └── styles/prototype.css        all styling, carried over verbatim

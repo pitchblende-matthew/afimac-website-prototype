@@ -1,0 +1,154 @@
+---
+/**
+ * PACKAGING OPERATIONS — role page, full approved copy (v1 deck).
+ * Process device: compact horizontal dot stepper (the eighth presentation).
+ *
+ * Packaging is the last step before the truck, so the page runs on ship
+ * windows and retail stakes rather than on the plant floor.
+ */
+import Prototype from "../../layouts/Prototype.astro";
+import Block from "../../components/Block.astro";
+import { u } from "../../lib/base";
+import { B } from "../../data/nav";
+import { photo } from "../../lib/wireframe";
+import {
+  roleHero, roleGrid, faqBlock, insightsBlock, leadFormBlock,
+  CONSULTATION_FLAG, COST_ANSWER, SUPERVISION_ANSWER,
+} from "../../lib/role-blocks";
+import type { Block as BlockType } from "../../lib/types";
+
+const STEPS: [string, string][] = [
+  ["Assessment", "map the line, the window, roles, shift coverage &amp; site requirements (1 to 2 days)."],
+  ["Mobilization", "source and screen the crew from a 20,000+ talent network; credential and role checks, travel, housing &amp; site-specific safety onboarding (2 to 3 days)."],
+  ["Deployment", "the crew works your line under AFIMAC supervision, with a single point of contact and daily output tracking (on site in days)."],
+  ["Demobilization", "final performance review and a planned handoff back to your permanent team (2 to 3 days)."],
+];
+
+const blocks: BlockType[] = [
+  roleHero({
+    h1: "Packaging Crews That Make the Ship Window",
+    sub: "Ship Window Closing? Co-Packing Surge? A Launch Waiting on the Line?",
+    body: "Nothing counts until it’s packed, labeled, and on the pallet. AFIMAC deploys screened, travel-ready packaging crews, fill to pallet, and manages them on your line, housing included, until the orders are moving again.",
+    cta2: "See the roles",
+    cta2Href: "#roles",
+    img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a packaging line in motion, product moving through fill and case pack toward a stretch-wrapped pallet in the foreground — the finished pallet is the story · muted industrial tone under the navy scrim · focal area centre · mobile crop 1080×1350",
+    spec: `<b>Elementor:</b> Container (centred, bg image + navy overlay) · Breadcrumbs · Heading ×3 · Text Editor · Button ×2.`,
+  }),
+
+  {
+    id: "roles",
+    n: "BLOCK 02 · ROLES WE DEPLOY",
+    h: `
+  <h2>Fill to pallet, every station</h2>
+  ${roleGrid([
+    "Fill, seal &amp; cap operators",
+    "Labeling &amp; date-code techs",
+    "Case pack &amp; palletizers",
+    "Packaging machine operators",
+    "Kitting &amp; repack crews",
+    "Line leads &amp; quality checks",
+  ])}
+  <div class="note">The first three are verbatim from the approved Food &amp; Beverage page copy’s Packaging group; machine operators, kitting &amp; repack, and line leads extend it from the approved logistics doc’s Packing &amp; Kitting family. <b>Confirm the full taxonomy with AFIMAC ops before build.</b></div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×6. <b>Asset gap:</b> six line icons, SVG 96×96, from the shared CSTL set.`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 03 · WHAT’S AT STAKE",
+    h: `
+  <h2>Packaging gaps are retail problems</h2>
+  <p class="lead">A short packaging shift doesn’t stay inside the plant. Finished product backs up, ship windows slip, and the misses land where they cost the most: with your retail customers. That’s why packaging staffing gaps get escalated faster than almost any other role on the floor.</p>
+  <ul class="tick stakes" style="margin-top:28px">
+   <li>Missed ship windows &amp; past-due orders</li>
+   <li>Retail customer defection</li>
+   <li>Lost shelf space &amp; market share</li>
+   <li>Spoilage &amp; lost perishable inventory</li>
+   <li>A co-packing commitment you can’t cover</li>
+  </ul>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · EK Icon List (2-col). Stakes follow the approved Food &amp; Beverage risk list with the ship-window and co-packing items from its named situations. The industry page keeps the plant-wide framing; this page stays on the packaging line.`,
+  },
+
+  {
+    n: "BLOCK 04 · THE SHIP WINDOW",
+    h: `
+  <h2>Built for deadlines with dates on them</h2>
+  <p class="lead">Packaging surges come with a date attached: a retail reset, a promotion, a co-packing commitment, a seasonal window. During Assessment, AFIMAC works backward from that date, scoping the roles, headcount, and shift coverage the window demands, and the crew arrives in days, sized to hit it.</p>
+  <div style="margin-top:28px">${photo("Ship-window countdown · SVG 2400×600 (4:1), stacks vertically under 768px · a calendar strip running left to right with the ship window highlighted at the far end, and three markers plotted along the run: First call · Crew on the line (in days) · Window covered · flat isometric, greys with safety-orange and blue · first calendar device in the cluster")}</div>
+  <div class="note"><b>No specific day counts appear in this graphic</b> beyond the published “in days” language — which keeps it clear of the unresolved 72 hours / 2–7 days / 6–7 days speed conflict. <a href="${u("/brand-check")}">All conflicts →</a></div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · Image (SVG). This is the page’s argument — the calendar device is what separates packaging from every sibling page.`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 05 · THE PROCESS",
+    h: `
+  <h2>Four phases, one deadline in mind</h2>
+  <div class="stepper">
+   ${STEPS.map(([name, body]) => `<div class="st"><h4>${name}</h4><p>${body}</p></div>`).join("")}
+  </div>
+  <div class="note">Phase names and durations follow the approved process doc, carrying its open <b>Assessment vs. Consultation</b> naming flag. <a href="${u("/brand-check")}">All conflicts →</a></div>`,
+    spec: `<b>Elementor:</b> Heading · HTML widget for the stepper, or a 4-col Container with EK Icon Box. Link the H2 to <a href="${u("/how-it-works")}">How It Works</a>. Seventh and last of the distinct process presentations — <b>with this page the cluster has used every device the decks specify.</b>`,
+  },
+
+  {
+    n: "BLOCK 06 · PROOF IT WORKS",
+    h: `
+  <h2>Deadlines recovered at Fortune 500 scale</h2>
+  <div class="proofbanner">AFIMAC crews have kept Fortune 500 operations shipping: a 99-person food facility deployment, a 73.4% cut in past-due sales, and a two-year engagement back to on-time order fulfillment.</div>
+  <div class="note">All three references are published on the live CSTL pillar; <b>link the banner to it.</b> A single-line proof banner is a first among the role pages, kept light because each case leads elsewhere in the cluster — this page borrows their weight without retelling them.</div>`,
+    spec: `<b>Elementor:</b> Text Editor on a White Glove band with a coral rule. No case image and no card here by design; the lightest proof treatment of the seven.`,
+  },
+
+  faqBlock({
+    n: "BLOCK 07 · FAQ",
+    cls: "wash",
+    h2: "Packaging staffing questions, answered",
+    items: [
+      ["How fast can a packaging crew be on site?", "For most packaging roles, within days of a signed plan. Exact timing depends on role, headcount, location, and compliance requirements."],
+      ["Can you staff a co-packing or seasonal surge?", "Yes. Surges with a date attached are the core packaging use case: the crew is scoped to the window during Assessment and scales down when it closes."],
+      ["Do your crews work food-grade lines?", "Yes. Crews complete site-specific safety and role onboarding before the first shift and work to your documented programs and standards on the line."],
+      ["Who supervises the crew?", SUPERVISION_ANSWER],
+      ["What does it cost?", COST_ANSWER],
+    ],
+    note: `${CONSULTATION_FLAG} The <a href="${u("/faq")}">FAQ page</a> is final and doesn’t take these questions; they live on this page’s schema only.`,
+    spec: `<b>Elementor:</b> EK Accordion (5 items) + FAQPage structured data.`,
+  }),
+
+  insightsBlock({
+    n: "BLOCK 08 · RELATED INSIGHTS",
+    titles: [
+      "Bridging the Manufacturing Labor Gap",
+      "Ready on Day One",
+      "For U.S. Automotive Manufacturers, Reshoring Depends on Skilled Labor",
+    ],
+    spec: `<b>Elementor:</b> EK Post Grid (3-up). All three are live posts. Eighth and final distinct combination across the role pages.`,
+  }),
+
+  leadFormBlock({
+    n: "BLOCK 09 · TALK TO AFIMAC (LEAD FORM)",
+    h2: "Window closing? Let’s pack it.",
+    bullets: [
+      "The packaging roles and crew size we’d send",
+      "A realistic timeline to a covered window",
+      "A ballpark cost",
+    ],
+    illo: "1200×1200 flat isometric vector beside the form · a case-pack station motif with a wrapped pallet · greys with safety-orange and blue · distinct subject from every form illustration in the cluster",
+    spec: `<b>Elementor:</b> Metform · EK Icon List · Button, Mobilization Sky band. Global section.`,
+  }),
+];
+---
+
+<Prototype
+  title="Packaging Crews That Make the Ship Window"
+  crumb="Solutions › CSTL › Roles › Packaging Operations"
+  url={`${B}roles/packaging-operations/`}
+  status="build"
+  active="/roles/packaging-operations"
+  meta={{
+    t: "Packaging Operator &amp; Line Staffing | AFIMAC Global",
+    d: "Packaging line short-staffed against a ship window? AFIMAC deploys screened, travel-ready packaging crews in days, fill to pallet, housing handled.",
+    k: "packaging operator staffing · packaging line staffing — secondary: fill and seal operator staffing · case packer staffing · co-packing surge labor · labeling line staffing · packaging crew travel labor",
+  }}
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

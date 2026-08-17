@@ -1,0 +1,167 @@
+---
+/**
+ * FORKLIFT OPERATORS — role page, full approved copy (v1 deck).
+ * Process device: numbered steps in a vertical rail, deliberately not the
+ * horizontal card row used on the CNC page.
+ */
+import Prototype from "../../layouts/Prototype.astro";
+import Block from "../../components/Block.astro";
+import { u } from "../../lib/base";
+import { B } from "../../data/nav";
+import { photo } from "../../lib/wireframe";
+import {
+  roleHero, roleGrid, faqBlock, insightsBlock, leadFormBlock,
+  CONSULTATION_FLAG, COST_ANSWER, SUPERVISION_ANSWER,
+} from "../../lib/role-blocks";
+import type { Block as BlockType } from "../../lib/types";
+
+const RAIL: [string, string][] = [
+  ["ASSESSMENT (1 TO 2 DAYS)", "Map the operation: assess trucks, shifts, volumes &amp; site requirements, then finalize the deployment plan."],
+  ["MOBILIZATION (2 TO 3 DAYS)", "AFIMAC sources and screens operators from a 20,000+ talent network. Certification checks, travel, and housing are all locked in before anyone travels."],
+  ["DEPLOYMENT (CREW ON SITE IN DAYS)", "Operators start moving product. AFIMAC supervises on site, with a single point of contact and daily output tracking."],
+  ["DEMOBILIZATION (2 TO 3 DAYS)", "Wind down with a final performance review and a clean handoff back to your permanent workforce."],
+];
+
+const blocks: BlockType[] = [
+  roleHero({
+    h1: "Certified Forklift Operators, On Site in Days",
+    sub: "Trailers Backing Up? Peak Season Coming? Turnover Thinning Your Dock Crew?",
+    body: "Pallets don’t move themselves. When your warehouse or plant is short on certified operators, rely on AFIMAC for travel-ready forklift operator staffing. Our certified crews arrive with housing and supervision handled.",
+    cta2: "See the roles",
+    cta2Href: "#roles",
+    img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a forklift operator moving a pallet down a high-bay racking aisle, depth down the aisle · muted industrial tone under the navy scrim · focal area centre · mobile crop 1080×1350",
+    spec: `<b>Elementor:</b> Container (centred, bg image + navy overlay) · Breadcrumbs · Heading ×3 · Text Editor · Button ×2.`,
+  }),
+
+  {
+    id: "roles",
+    n: "BLOCK 02 · ROLES &amp; EQUIPMENT",
+    h: `
+  <h2>Operators for every truck on your floor</h2>
+  <p class="lead">Every operator clears certification and credential checks before travel, and site-specific safety onboarding before the first shift.</p>
+  <div style="margin:26px 0">${photo("Equipment class lineup · SVG 2400×600 (4:1), stacks to two rows under 768px · five silhouetted truck types in a row with a label beneath each: Counterbalance · Reach truck · Order picker · Electric pallet jack · Material handling · flat isometric, greys with safety-orange and blue")}</div>
+  ${roleGrid([
+    "Forklift operators (sit-down counterbalance)",
+    "Reach truck &amp; narrow-aisle operators",
+    "Order picker operators",
+    "Electric pallet jack operators",
+    "Material handlers &amp; loaders",
+  ])}`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · Image (SVG) · Container (3-col) · EK Icon Box ×5. <b>Asset gap:</b> the equipment lineup is a new SVG — five truck silhouettes, and the only graphic in the cluster that has to read at a glance on mobile.`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 03 · WHEN TO CALL",
+    h: `
+  <h2>The moments dock crews come up short</h2>
+  <div class="g2" style="margin-top:26px">
+   <div>
+    <ul class="tick" style="font-size:18px">
+     <li>Peak season volume your core crew can’t cover</li>
+     <li>A backlog at receiving or shipping that keeps growing</li>
+     <li>Turnover and absenteeism thinning a shift</li>
+     <li>A new facility, line, or contract spinning up</li>
+     <li>The local labor market is tapped out</li>
+    </ul>
+    <div class="callout">If trailers are waiting and the math isn’t working, that’s the moment to call.</div>
+   </div>
+   ${photo("1200×1500 JPG (4:5) beside the list · a loading dock with staged pallets and an open trailer door · muted tone · no staged distress")}
+  </div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · EK Icon List (larger type) · Image · Text Editor for the callout. The callout device repeats on the Assemblers page with production framing — build it as a reusable style, not a one-off.`,
+  },
+
+  {
+    n: "BLOCK 04 · HOW IT WORKS",
+    h: `
+  <h2>Four phases, one accountable partner</h2>
+  <p class="lead">Every engagement follows the same proven path. Here’s an overview of what that looks like for forklift crews:</p>
+  <div class="g2" style="margin-top:8px">
+   <ul class="procrail">
+    ${RAIL.map(([name, body], i) =>
+      `<li><span class="step">${i + 1}</span><h4>${name}</h4><p>${body}</p></li>`,
+    ).join("")}
+   </ul>
+   ${photo("Dock-to-stock flow · SVG square, art 960×960, min render 640×640 · a facility flow with five stations and arrows: Receiving · Putaway · Picking · Staging · Loading, with crew markers at each station showing where operators slot in · flat isometric, greys with safety-orange and blue")}
+  </div>
+  <div class="note">Phase names carry the hub’s open <b>Assessment vs. Consultation</b> naming flag. <a href="${u("/brand-check")}">All conflicts →</a></div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · EK Advanced Timeline (vertical) or HTML widget · Image (SVG). Link the H2 to <a href="${u("/how-it-works")}">How It Works</a> for full phase detail.`,
+  },
+
+  {
+    n: "BLOCK 05 · PROOF IT WORKS",
+    h: `
+  <h2>99 people, zero downtime</h2>
+  <div class="casecard">
+   ${photo("1600×1000 JPG (8:5) on the case card · pallet movement on a production floor, shot mid-task, nothing staged")}
+   <div class="body">
+    <div class="blocknum">FEATURED CASE</div>
+    <p>When operations at a global food production facility were threatened, AFIMAC deployed 99 personnel, including forklift drivers, packaging operators, boiler operators, and wastewater treatment technicians. With AFIMAC’s support, the client maintained full production and avoided operational downtime throughout.</p>
+   </div>
+  </div>
+  <div class="note">The same 99-personnel case leads on <b>Assemblers &amp; Production</b> at production scale and supports on <b>Sanitation Crews</b> as food-plant trust. Three pages, one case, three angles — worth a read-through together at build so the framing doesn’t collide.</div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · Image · Heading · Text Editor. Published on the live CSTL pillar; link the card there.`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 06 · WHAT’S INCLUDED",
+    h: `
+  <h2>One invoice, the whole engagement</h2>
+  <p class="lead">Critical Situation Travel Labor (CSTL) is turnkey. Recruiting, screening, travel, lodging, safety onboarding, on-site supervision, and daily reporting all come from AFIMAC. Crews scale up or down as your volumes move. When the gap closes, demobilization and the handoff back to your permanent workforce are part of the plan.</p>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor. Deliberately a short prose band rather than the checklist treatment on the hub and the CNC page — same content, different weight.`,
+  },
+
+  faqBlock({
+    n: "BLOCK 07 · FAQ",
+    cls: "",
+    h2: "Forklift staffing questions, answered",
+    items: [
+      ["How fast can forklift operators be on site?", "For most material handling roles, within days of a signed plan. Exact timing depends on headcount, location, and compliance requirements."],
+      ["Are your operators certified?", "Yes. Certification and credential checks happen before travel, and every operator completes site-specific safety onboarding before their first shift."],
+      ["Can crews run our equipment?", "The Assessment phase maps the trucks on your floor so the operators who arrive are matched to the equipment you actually run."],
+      ["Who manages the crew day to day?", SUPERVISION_ANSWER],
+      ["What does it cost?", COST_ANSWER],
+    ],
+    note: CONSULTATION_FLAG,
+    spec: `<b>Elementor:</b> EK Accordion (5 items) + FAQPage structured data. Three of these five repeat on the cluster <a href="${u("/faq")}">FAQ page</a> — keep the wording identical in both places.`,
+  }),
+
+  insightsBlock({
+    n: "BLOCK 08 · RELATED INSIGHTS",
+    titles: [
+      "Debunking the Top Five Travel Labor Myths",
+      "The Labor Gap Took Decades to Build. Closing It Requires a New Playbook.",
+      "When AFIMAC is the Right Fit",
+    ],
+    spec: `<b>Elementor:</b> EK Post Grid (3-up). All three are live posts. Filtered to warehousing, logistics, and labor gap content — a different rail from the CNC page on purpose.`,
+  }),
+
+  leadFormBlock({
+    n: "BLOCK 09 · TALK TO AFIMAC (LEAD FORM)",
+    h2: "Trailers waiting? Let’s scope it.",
+    bullets: [
+      "The roles and crew size we’d send",
+      "A realistic timeline to operators on your floor",
+      "A ballpark cost",
+    ],
+    illo: "1200×1200 flat isometric vector beside the form · a dock and racking motif · greys with safety-orange and blue · distinct subject from the machining cell illustration on the CNC page",
+    spec: `<b>Elementor:</b> Metform · EK Icon List · Button, Mobilization Sky band. Global section.`,
+  }),
+];
+---
+
+<Prototype
+  title="Certified Forklift Operators, On Site in Days"
+  crumb="Solutions › CSTL › Roles › Forklift Operators"
+  url={`${B}roles/forklift-operators/`}
+  status="build"
+  active="/roles/forklift-operators"
+  meta={{
+    t: "Forklift Operator Staffing &amp; Travel Labor | AFIMAC Global",
+    d: "Need forklift operator staffing? AFIMAC sends certified, travel-ready crews to your warehouse or plant in days, with housing and supervision handled.",
+    k: "forklift operator staffing · forklift driver staffing — secondary: temporary forklift operators · travel forklift drivers · warehouse labor shortage · material handler staffing",
+  }}
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

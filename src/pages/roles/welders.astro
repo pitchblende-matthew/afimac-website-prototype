@@ -1,0 +1,166 @@
+---
+/**
+ * WELDERS & FABRICATORS — role page, full approved copy (v1 deck).
+ * Process device: compact horizontal chip strip, name and duration only;
+ * full phase detail deliberately left on the hub.
+ */
+import Prototype from "../../layouts/Prototype.astro";
+import Block from "../../components/Block.astro";
+import { u } from "../../lib/base";
+import { B } from "../../data/nav";
+import { photo } from "../../lib/wireframe";
+import {
+  roleHero, roleGrid, faqBlock, insightsBlock, leadFormBlock,
+  CONSULTATION_FLAG, COST_ANSWER, SUPERVISION_ANSWER,
+} from "../../lib/role-blocks";
+import type { Block as BlockType } from "../../lib/types";
+
+const CHIPS = [
+  "Assessment (1 to 2 days)",
+  "Mobilization (2 to 3 days)",
+  "Deployment (crew on site in days)",
+  "Demobilization (2 to 3 days)",
+];
+
+const blocks: BlockType[] = [
+  roleHero({
+    h1: "Welders &amp; Fabricators, On the Floor in Days",
+    sub: "Weld Booths Empty? Fab Backlog Growing? A Line Start-up Coming?",
+    body: "Every empty weld booth is throughput you’re not shipping. AFIMAC staffs empty seats with screened, travel-ready welders and fabricators, then manages the crew and the housing for as long as you need them.",
+    cta2: "See the roles",
+    cta2Href: "#roles",
+    img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a welder mid-bead, sparks against a dark fabrication bay, hood down · muted industrial tone under the navy scrim, let the weld light carry the frame · focal area centre-right · mobile crop 1080×1350",
+    note: "<b>Speed claim, still open.</b> The live CSTL pillar’s meta claims deployment in <b>24 to 72 hours</b>; the approved process doc’s phase math runs longer. This page stays on “in days” until Maria confirms which claim the cluster carries — the same conflict logged on the brand check.",
+    spec: `<b>Elementor:</b> Container (centred, bg image + navy overlay) · Breadcrumbs · Heading ×3 · Text Editor · Button ×2.`,
+  }),
+
+  {
+    id: "roles",
+    n: "BLOCK 02 · PROCESSES &amp; ROLES",
+    h: `
+  <h2>Matched to the processes you run</h2>
+  <div style="margin:26px 0">${photo("Weld process tile grid · SVG square, art 960×960, min render 640×640 · five labelled tiles: MIG · TIG · Stick · Flux-core · Robotic cells · flat isometric, greys with safety-orange and blue")}</div>
+  ${roleGrid([
+    "Welders (MIG, TIG, stick &amp; flux-core)",
+    "Robotic welding technicians",
+    "Fabricators",
+    "Weld quality &amp; inspection support",
+  ])}
+  <div class="note">Fabricators appear in the pillar’s published Manufacturing role list, and robotic welding techs in the automotive skilled-labor content. <b>Confirm the process breakdown, any code or certification screening specifics, and the inspection role with AFIMAC ops before build</b> — nothing on this page promises a welding code.</div>`,
+    spec: `<b>Elementor:</b> Heading · Image (SVG) · Container (3-col) · EK Icon Box ×4. Four roles into a 3-col grid leaves an orphan — run 2×2, or add the fifth role if ops confirms one.`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 03 · WHO BRINGS WHAT",
+    h: `
+  <h2>You bring the work. We bring the welders.</h2>
+  <div class="ledger">
+   <div class="col">
+    <h4>You bring</h4>
+    <ul class="tick">
+     <li>The prints, specs &amp; standards your parts are built to</li>
+     <li>Machines, consumables &amp; the workcell</li>
+     <li>The site and the schedule</li>
+    </ul>
+   </div>
+   <div class="col">
+    <h4>AFIMAC brings</h4>
+    <ul class="tick">
+     <li>Screened welders &amp; fabricators from a 20,000+ talent network</li>
+     <li>Background, credential &amp; role checks before travel</li>
+     <li>Travel, lodging &amp; site-specific safety onboarding</li>
+     <li>On-site supervision, a single point of contact &amp; daily reporting</li>
+    </ul>
+   </div>
+  </div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · Heading ×2 · EK Icon List ×2. The deck specs this as an SVG ledger (2400×600, two columns under a shared header); built here as real markup instead, because it is a layout rather than an illustration — <b>it stays selectable, translatable and responsive, and needs no asset.</b> Worth confirming that substitution before the SVG is commissioned.`,
+  },
+
+  {
+    n: "BLOCK 04 · THE PROCESS",
+    h: `
+  <h2>Four phases, start to handoff</h2>
+  <div class="chipstrip">${CHIPS.map((c) => `<span class="chip">${c}</span>`).join("")}</div>
+  <p>Consistency leads to continuity, which is why every Critical Situation Travel Labor engagement follows the same path. Assessment maps your parts, processes, and shift plan, and Mobilization screens the crew and books travel and housing. Once deployed, welders work your booths under AFIMAC supervision and you have a single point of contact. When the welding labor shortage closes, demobilization hands the work back to your permanent team.</p>
+  <div class="note">Phase names and durations follow the approved process doc, carrying its open <b>Assessment vs. Consultation</b> naming flag. <a href="${u("/brand-check")}">All conflicts →</a></div>`,
+    spec: `<b>Elementor:</b> Heading · HTML widget or styled Text Editor for the chips · Text Editor. The lightest of the seven process treatments by design — link the H2 to <a href="${u("/how-it-works")}">How It Works</a>, which carries the full detail.`,
+  },
+
+  {
+    n: "BLOCK 05 · PROOF &amp; RESOURCE",
+    h: `
+  <h2>Welders who cleared a $5.76 million backlog</h2>
+  <div class="casecard">
+   ${photo("1600×1000 JPG (8:5) on the case card · a weld bay in production, a working shot with no staged poses")}
+   <div class="body">
+    <div class="blocknum">FEATURED CASE</div>
+    <p>A Fortune 500 manufacturer faced mounting production delays, with past-due orders peaking at $5.76 million. AFIMAC deployed skilled labor, including welders, CNC machinists, and assemblers. Past-due sales fell by 73.4% and performance returned to previously high levels.</p>
+   </div>
+  </div>
+  <div class="resourcecard">
+   <div class="g2" style="gap:26px;align-items:center">
+    ${photo("Existing eBook cover art from the live pillar · Manuf_Labor_Gap webp, 1024×923 · rendered 480px wide max on the card · no new asset needed")}
+    <div>
+     <h3>Bridging the Manufacturing Labor Gap</h3>
+     <p>Uncover the strategies business leaders are leveraging to overcome workforce shortages and unlock growth potential.</p>
+     <div class="btns"><a class="btn" href="${u("/resources")}">Get the Paper</a></div>
+    </div>
+   </div>
+  </div>
+  <div class="note">Same case as the CNC Operators page, with the welding roles led here. Both link to the pillar rather than duplicating a standalone case page. The resource CTA points at a gated asset that still <a href="${u("/resources")}">has no home</a>.</div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · Image · Text Editor · then a second Container for the resource card with Image · Heading · Button. The only role page pairing proof with a gated download — reuse the existing cover art, no new asset.`,
+  },
+
+  faqBlock({
+    n: "BLOCK 06 · FAQ",
+    h2: "Welder staffing questions, answered",
+    items: [
+      ["How fast can welders be on site?", "For most welding roles, within days of a signed plan. Exact timing depends on process, headcount, location, and compliance requirements."],
+      ["Are your welders certified?", "Every welder clears background, credential, and role checks before travel. Code and certification requirements are mapped during the Assessment phase so the crew matches the standards your parts are built to."],
+      ["Can you staff robotic welding cells?", "Yes. Robotic welding technicians are among the roles AFIMAC deploys alongside manual welders and fabricators."],
+      ["Who supervises the crew?", SUPERVISION_ANSWER],
+      ["What does it cost?", COST_ANSWER],
+    ],
+    note: CONSULTATION_FLAG,
+    spec: `<b>Elementor:</b> EK Accordion (5 items) + FAQPage structured data. Three repeat verbatim in the Welders section of the cluster <a href="${u("/faq")}">FAQ page</a>.`,
+  }),
+
+  insightsBlock({
+    n: "BLOCK 07 · RELATED INSIGHTS",
+    titles: [
+      "Manufacturing’s Persistent Labor Challenge",
+      "Everything You Need to Know About the Growing Skills Gap (video)",
+      "What Does the Push for Reshoring Mean for U.S. Automotive Manufacturers?",
+    ],
+    spec: `<b>Elementor:</b> EK Post Grid (3-up). All three live on the pillar today. A different rail from both other manufacturing role pages on purpose; filtered to manufacturing and skills gap content.`,
+  }),
+
+  leadFormBlock({
+    n: "BLOCK 08 · TALK TO AFIMAC (LEAD FORM)",
+    h2: "Booths sitting cold? Let’s fix that.",
+    bullets: [
+      "The welding roles and crew size we’d send",
+      "A realistic timeline to welders in your booths",
+      "A ballpark cost",
+    ],
+    illo: "1200×1200 flat isometric vector beside the form · a fabrication bay motif with a weld arc glow · greys with safety-orange and blue · distinct subject from the machining cell and dock illustrations",
+    spec: `<b>Elementor:</b> Metform · EK Icon List · Button, Mobilization Sky band. Global section.`,
+  }),
+];
+---
+
+<Prototype
+  title="Welders &amp; Fabricators, On the Floor in Days"
+  crumb="Solutions › CSTL › Roles › Welders &amp; Fabricators"
+  url={`${B}roles/welders/`}
+  status="build"
+  active="/roles/welders"
+  meta={{
+    t: "Certified Welder Staffing &amp; Travel Labor | AFIMAC Global",
+    d: "Welding labor shortage? AFIMAC sends screened, travel-ready welders and fabricators to your plant in days, with housing and supervision handled.",
+    k: "welder staffing · welding labor shortage — secondary: travel welders · temporary welders · fabricator staffing · robotic welding technicians · contract welders",
+  }}
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

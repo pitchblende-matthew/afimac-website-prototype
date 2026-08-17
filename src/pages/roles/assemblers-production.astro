@@ -1,0 +1,165 @@
+---
+/**
+ * ASSEMBLERS & PRODUCTION — role page, full approved copy (v1 deck).
+ * Process device: native table (the fifth presentation; cards, vertical rail,
+ * chip strip and numbered strip are taken by siblings).
+ *
+ * Where the skilled-trade pages argue depth, this one argues scale.
+ */
+import Prototype from "../../layouts/Prototype.astro";
+import Block from "../../components/Block.astro";
+import { u } from "../../lib/base";
+import { B } from "../../data/nav";
+import { photo } from "../../lib/wireframe";
+import {
+  roleHero, roleGrid, faqBlock, insightsBlock, leadFormBlock,
+  CONSULTATION_FLAG, COST_ANSWER, SUPERVISION_ANSWER,
+} from "../../lib/role-blocks";
+import type { Block as BlockType } from "../../lib/types";
+
+const PHASE_ROWS: [string, string][] = [
+  ["01 · Assessment (1 to 2 days)", "Map the line: roles, headcount, shift coverage &amp; site requirements, then finalize the deployment plan."],
+  ["02 · Mobilization (2 to 3 days)", "Source and screen the crew from a 20,000+ talent network; credential and role checks, travel, housing &amp; site-specific safety onboarding."],
+  ["03 · Deployment (crew on site in days)", "The crew takes its stations under AFIMAC supervision, with a single point of contact and daily output tracking."],
+  ["04 · Demobilization (2 to 3 days)", "Final performance review and a planned handoff back to your permanent workforce."],
+];
+
+const blocks: BlockType[] = [
+  roleHero({
+    h1: "Assemblers &amp; Production Crews, On the Line in Days",
+    sub: "A Line Down a Shift? A Launch Short a Crew? Turnover Outrunning Hiring?",
+    body: "Production math is unforgiving: every unstaffed station is output you don’t ship. AFIMAC deploys screened, travel-ready assemblers and production crews at whatever scale the line needs, and manages the team, housing included, until your headcount recovers.",
+    cta2: "See the roles",
+    cta2Href: "#roles",
+    img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a staffed production line in motion, multiple workers at stations receding down the frame — the depth of the crew is the story · muted industrial tone under the navy scrim · focal area centre · mobile crop 1080×1350",
+    spec: `<b>Elementor:</b> Container (centred, bg image + navy overlay) · Breadcrumbs · Heading ×3 · Text Editor · Button ×2.`,
+  }),
+
+  {
+    id: "roles",
+    n: "BLOCK 02 · ROLES WE DEPLOY",
+    h: `
+  <h2>Every station on the line, covered</h2>
+  ${roleGrid([
+    "Assemblers &amp; line workers",
+    "Machine operators",
+    "Packaging operators",
+    "Palletizers &amp; material handlers",
+    "Production support &amp; general labor",
+    "Quality &amp; inspection support",
+  ])}
+  <div class="note">Assemblers appear by name in both published manufacturing cases; packaging operators and material handlers appear in the approved cluster roles copy. <b>Confirm the exact role taxonomy with AFIMAC ops before build.</b> Note the packaging overlap — <a href="${u("/roles/packaging-operations")}">Packaging Operations</a> takes the packaging keywords, this page keeps assembler, production and general labor.</div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×6. <b>Asset gap:</b> six line icons, SVG 96×96, from the shared CSTL icon set.`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 03 · WHEN PRODUCTION CALLS",
+    h: `
+  <h2>The situations this page exists for</h2>
+  <div class="g2" style="margin-top:26px">
+   <div>
+    <ul class="tick" style="font-size:18px">
+     <li>An initial line start-up or product launch short on people</li>
+     <li>A production shortfall against a deadline or order backlog</li>
+     <li>A plant relocation or consolidation that has to keep shipping</li>
+     <li>Absenteeism or turnover thinning a shift</li>
+     <li>A local labor market that’s tapped out</li>
+    </ul>
+    <div class="callout">If the line is running short and the math isn’t working, that’s the moment to call.</div>
+   </div>
+   ${photo("1200×1500 JPG (4:5) beside the list · an idle line section, stations empty, work queued at the head of the line · muted tone · no staged distress")}
+  </div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · EK Icon List (larger type) · Image · Text Editor. Situations follow the approved cluster copy and the published FAQ answer; the callout mirrors the Forklift page’s device with production framing.`,
+  },
+
+  {
+    n: "BLOCK 04 · CREW SCALE",
+    h: `
+  <h2>From a few seats to a whole line</h2>
+  <p class="lead">Scale is the difference between this page and the skilled-trade pages. Production gaps rarely come one seat at a time: a launch needs a crew, a relocation needs a shift, a backlog needs the whole line moving. AFIMAC sources from a 20,000+ talent network and deploys at the size the situation demands. Published engagements have run from a 12-person specialist team to a 99-person production deployment, and the crew scales up or down as the situation changes.</p>
+  <div style="margin-top:28px">${photo("Crew-scale steps · SVG 2400×600 (4:1), stacks vertically under 768px · four rising steps labelled A few seats · A crew · A shift · A line, with two published anchors marked along the run: 12 (specialist team) and 99 (production deployment) · flat isometric, greys with safety-orange and blue · distinct device from every graphic in the cluster")}</div>
+  <div class="note">Both anchor figures are published on the live CSTL pillar — the 12-person wiring technician team and the 99-personnel food facility deployment. <b>Link each marker to it.</b></div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · Image (SVG with linked regions, or HTML widget). This is the page’s argument — if one graphic in the cluster gets drawn first, make it this one.`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 05 · THE PROCESS",
+    h: `
+  <h2>Four phases, whatever the headcount</h2>
+  <div class="tscroll"><table class="cmp" style="margin-top:22px"><thead><tr><th>Phase</th><th>What happens</th></tr></thead><tbody>
+  ${PHASE_ROWS.map(([phase, what]) => `<tr><th>${phase}</th><td>${what}</td></tr>`).join("")}
+  </tbody></table></div>
+  <div class="note">Phase names and durations follow the approved process doc, carrying its open <b>Assessment vs. Consultation</b> naming flag. <a href="${u("/brand-check")}">All conflicts →</a></div>`,
+    spec: `<b>Elementor:</b> Text Editor (native table) or TablePress — <b>not</b> an image, so it stays crawlable. Link the H2 to <a href="${u("/how-it-works")}">How It Works</a>. Fifth of seven distinct process presentations across the role cluster.`,
+  },
+
+  {
+    n: "BLOCK 06 · PROOF IT WORKS",
+    h: `
+  <h2>Ninety-nine people, one working facility</h2>
+  <div class="casecard">
+   ${photo("1600×1000 JPG (8:5) on the case card · a full production floor mid-shift, crew at stations down the line, a working shot with nothing posed")}
+   <div class="body">
+    <div class="blocknum">FEATURED CASE</div>
+    <p>When a Fortune 500 food manufacturer needed its production facility fully staffed on short notice, AFIMAC deployed 99 personnel across production and material handling roles, keeping the facility operational until the client’s workforce recovered.</p>
+   </div>
+  </div>
+  <p style="margin-top:24px">Assemblers also anchored the crew that cut a Fortune 500 manufacturer’s past-due sales from $5.76 million by 73.4%. <a href="${u("/overview")}">Read the case on the CSTL page.</a></p>
+  <div class="note">Both cases are published on the pillar. The 99-personnel case also runs as the featured case on <a href="${u("/roles/forklift-operators")}">Forklift Operators</a> with a material handling angle; here the angle is production scale. <b>Match the copy to the pillar’s published wording at build, and keep the softened framing the pillar uses for why the client was short-staffed.</b></div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · Image · Heading · Text Editor.`,
+  },
+
+  faqBlock({
+    n: "BLOCK 07 · FAQ",
+    h2: "Production staffing questions, answered",
+    items: [
+      ["How fast can a production crew be on site?", "For most production roles, within days of a signed plan. Exact timing depends on role, headcount, location, and compliance requirements."],
+      ["How big can the crew be?", "As big as the situation demands. Published engagements have run from a 12-person specialist team to a 99-person production deployment, and the crew scales up or down as the situation changes."],
+      ["How are production workers screened?", "Every worker clears background, credential, and role checks before travel, and site-specific safety onboarding before the first shift."],
+      ["Who supervises the crew?", SUPERVISION_ANSWER],
+      ["What does it cost?", COST_ANSWER],
+    ],
+    note: `${CONSULTATION_FLAG} The deck also notes these questions go into the cluster FAQ schema set <i>only</i> if the team reopens it — the <a href="${u("/faq")}">FAQ page</a> itself is final and doesn’t take them.`,
+    spec: `<b>Elementor:</b> EK Accordion (5 items) + FAQPage structured data.`,
+  }),
+
+  insightsBlock({
+    n: "BLOCK 08 · RELATED INSIGHTS",
+    titles: [
+      "Ready on Day One",
+      "The Great Manufacturing (Re)Migration",
+      "Debunking the Top Five Travel Labor Myths",
+    ],
+    spec: `<b>Elementor:</b> EK Post Grid (3-up). All three are live posts. Fifth distinct combination; filtered to manufacturing and skilled labor.`,
+  }),
+
+  leadFormBlock({
+    n: "BLOCK 09 · TALK TO AFIMAC (LEAD FORM)",
+    h2: "Line running short? Let’s staff it.",
+    bullets: [
+      "The roles and crew size we’d send",
+      "A realistic timeline to a working line",
+      "A ballpark cost",
+    ],
+    illo: "1200×1200 flat isometric vector beside the form · a production line motif with staffed stations · greys with safety-orange and blue · distinct subject from the machining cell, dock, fab bay, toolroom and checklist illustrations",
+    spec: `<b>Elementor:</b> Metform · EK Icon List · Button, Mobilization Sky band. Global section.`,
+  }),
+];
+---
+
+<Prototype
+  title="Assemblers &amp; Production Crews, On the Line in Days"
+  crumb="Solutions › CSTL › Roles › Assemblers &amp; Production"
+  url={`${B}roles/assemblers-production/`}
+  status="build"
+  active="/roles/assemblers-production"
+  meta={{
+    t: "Assembler &amp; Production Line Staffing | AFIMAC Global",
+    d: "Short on assemblers or production crew? AFIMAC deploys screened, travel-ready production teams at any scale, from a few seats to a whole line, in days.",
+    k: "assembler staffing · production line staffing — secondary: production worker staffing · general labor manufacturing · travel production crews · line staffing shortage",
+  }}
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

@@ -1,0 +1,191 @@
+---
+/**
+ * CNC OPERATORS & MACHINISTS — role page, full approved copy (v1 deck).
+ * Process device: horizontal card row (the first of seven; every sibling
+ * deck names a different one so the cluster doesn't read as one template).
+ */
+import Prototype from "../../layouts/Prototype.astro";
+import Block from "../../components/Block.astro";
+import { u } from "../../lib/base";
+import { B } from "../../data/nav";
+import { photo } from "../../lib/wireframe";
+import {
+  roleHero, roleGrid, faqBlock, insightsBlock, leadFormBlock,
+  CONSULTATION_FLAG, COST_ANSWER, SUPERVISION_ANSWER,
+} from "../../lib/role-blocks";
+import type { Block as BlockType } from "../../lib/types";
+
+const PHASES: [string, string, string[]][] = [
+  ["PHASE 1 · ASSESSMENT (1 TO 2 DAYS)", "Assessment", [
+    "Assess the situation and machining needs: machines, parts, tolerances &amp; shift plan",
+    "Align on roles, headcount, and site requirements",
+    "Scope timeline, costs, and success measures",
+    "Finalize the deployment plan"]],
+  ["PHASE 2 · MOBILIZATION (2 TO 3 DAYS)", "Mobilization", [
+    "Source and screen machinists from a 20,000+ talent network",
+    "Background, credential, and role checks",
+    "Arrange travel and housing",
+    "Site-specific safety and role onboarding"]],
+  ["PHASE 3 · DEPLOYMENT (TEAM ON SITE IN DAYS)", "Deployment", [
+    "Operators arrive and start running your machines",
+    "On-site AFIMAC supervision and a single point of contact",
+    "Daily feedback loop and output tracking",
+    "Scale the crew up or down as the backlog moves"]],
+  ["PHASE 4 · DEMOBILIZATION (2 TO 3 DAYS)", "Demobilization", [
+    "Final performance review",
+    "Support the transition back to your permanent workforce",
+    "Release travel crews and close out the engagement"]],
+];
+
+const blocks: BlockType[] = [
+  roleHero({
+    h1: "CNC Operator Staffing, On Site in Days",
+    sub: "Machines Idle? Backlog Growing? Machinists Retiring Faster Than You Can Hire?",
+    body: "When machining capacity is the bottleneck, AFIMAC is your partner in CNC operator and machinist staffing. Get a crew on your floor in days with travel, housing, and on-site supervision covered.",
+    cta2: "See the process",
+    cta2Href: "#process",
+    img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a CNC operator at the control of a machining center, shop floor depth behind · muted industrial tone under the navy scrim · focal area centre-left · mobile crop 1080×1350",
+    note: "Copy fix carried into the build: the deck reads “your partner in&nbsp;&nbsp;CNC operator” and “vetted, travel-ready&nbsp;&nbsp;crews” in the meta — double spaces, closed up here. Flag with the rest of the copy queries.",
+    spec: `<b>Elementor:</b> Container (centred, bg image + navy overlay) · Breadcrumbs · Heading ×3 · Text Editor · Button ×2. Same hero pattern on all seven role pages — build once as a saved section and swap the copy.`,
+  }),
+
+  {
+    n: "BLOCK 02 · THE MACHINING LABOR GAP",
+    h: `
+  <h2>The hardest seats on the floor to fill</h2>
+  <div class="g2" style="margin-top:24px">
+   <div>
+    <p>A CNC operator takes months to source and years to develop, and every open seat is a machine that isn’t cutting. Retirements outpace the arrival of new machinists, and in most markets the local pool is simply tapped out.</p>
+    <p>Critical Situation Travel Labor closes that gap. Instead of waiting on a local hiring cycle, AFIMAC recruits, screens, travels, houses, and manages machining crews from a national network, then deploys them to your site until the situation is resolved.</p>
+   </div>
+   ${photo("1200×1500 JPG (4:5) beside the intro · an unmanned machining center, work light on · muted tone · no staged distress")}
+  </div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · Image. Article-intro pattern, shared with the Machinists and Sanitation pages.`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 03 · ROLES WE DEPLOY",
+    h: `
+  <h2>Machining roles, ready to travel</h2>
+  ${roleGrid([
+    "CNC operators (mill &amp; lathe)",
+    "CNC machinists",
+    "CNC programmers",
+    "Machine setup &amp; changeover support",
+    "Quality &amp; inspection support",
+  ])}
+  <div class="note">Role list is built from AFIMAC’s published in-demand roles — CNC machinists and programmers appear in the automotive skilled-labor content. <b>Confirm the exact role taxonomy and any platform or controls screening specifics with AFIMAC ops before build;</b> nothing on the page promises a specific machine brand.</div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×5. <b>Asset gap:</b> five line icons, SVG 96×96, matching the existing CSTL page icon style — not yet drawn. The same gap repeats on every role page; commission the full icon set once.`,
+  },
+
+  {
+    id: "process",
+    n: "BLOCK 04 · HOW IT WORKS",
+    h: `
+  <h2>From first call to chips flying</h2>
+  <p class="lead">Every engagement follows the same proven path. For CNC roles, here’s what each phase covers.</p>
+  <div class="g4" style="margin-top:28px">
+   ${PHASES.map(([label, name, items]) =>
+     `<div class="card"><div class="blocknum">${label}</div><h3>${name}</h3><ul class="tick">${items.map((i) => `<li>${i}</li>`).join("")}</ul></div>`,
+   ).join("")}
+  </div>
+  <div style="margin-top:32px">${photo("Shift coverage matrix · SVG 2400×600 (4:1), stacks vertically under 768px · machine rows against shift columns, coverage filling across the engagement: Day 1 first shift covered · full weekday coverage · weekend &amp; second shift added as needed · column labels 1st shift · 2nd shift · Weekend · distinct device from the hub’s day-scale timeline")}</div>
+  <div class="note">Phase names and durations match the approved process doc, including its open <b>Assessment vs. Consultation</b> naming flag. <a href="${u("/brand-check")}">All conflicts →</a></div>`,
+    spec: `<b>Elementor:</b> Container (4-col) · EK Icon Box ×4 · Image (SVG). Four across is tight at 1180px — drops to 2×2 under 1080px. Link the H2 to <a href="${u("/how-it-works")}">How It Works</a> for full phase detail.`,
+  },
+
+  {
+    cls: "blue",
+    n: "BLOCK 05 · WHAT’S INCLUDED",
+    h: `
+  <h2>Turnkey, down to the housing</h2>
+  <p class="lead">You bring the machines and the backlog; AFIMAC handles the rest.</p>
+  <div class="g2" style="margin-top:24px">
+   <ul class="tick">
+    <li>Recruiting and sourcing from a national skilled talent network</li>
+    <li>Background, credential, and role screening</li>
+    <li>Travel, lodging, and logistics</li>
+    <li>Site-specific safety and compliance onboarding</li>
+   </ul>
+   <ul class="tick">
+    <li>On-site supervision and a single point of contact</li>
+    <li>Daily reporting, with crews that scale up or down</li>
+    <li>Demobilization and transition support</li>
+   </ul>
+  </div>
+  <div style="margin-top:28px">${photo("Operator-ready checklist card · SVG square, art 960×960, min render 640×640 · five stamped checks in sequence: Vetted · Credentialed · Traveled · Housed · Supervised · distinct device from the hub’s icon checklist")}</div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · EK Icon List · Image (SVG). The seven included items are the same list as the How It Works page — build it as a global widget so the two can’t drift.`,
+  },
+
+  {
+    n: "BLOCK 06 · PROOF IT WORKS",
+    h: `
+  <h2>Machinists who moved the numbers</h2>
+  <div class="casecard">
+   ${photo("1600×1000 JPG (8:5) on the featured card · a machining crew at work, shot mid-task, nothing staged")}
+   <div class="body">
+    <div class="blocknum">FEATURED CASE</div>
+    <p>A Fortune 500 manufacturer faced mounting production delays, with past-due orders peaking at $5.76 million. AFIMAC deployed skilled labor, including assemblers, CNC machinists, and welders. Past-due sales fell by 73.4% and performance returned to previously high levels.</p>
+   </div>
+  </div>
+  <div class="card" style="margin-top:26px">
+   <div class="blocknum">SUPPORTING CASE</div>
+   <p style="margin:0">Confronted with a significant customer order backlog, a Fortune 500 agricultural equipment manufacturer brought in multiple staffing providers. AFIMAC distinguished itself as the sole non-local partner retained, supplying skilled assemblers and machinists. Over a two-year engagement, AFIMAC’s workforce helped stabilize operations and return the company to on-time order fulfillment.</p>
+  </div>
+  <div class="note">Both cases are published on the live CSTL pillar; wording is lightly adapted from it. The featured case’s security element is omitted here to keep the role page on the labor story. <b>Link both to the pillar rather than building standalone case pages.</b></div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · Image · Heading · Text Editor. The $5.76M case leads here and supports on the Welders page; the two-year case leads on Machinists. Same three cases carry the whole cluster — check each page’s framing at build.`,
+  },
+
+  faqBlock({
+    n: "BLOCK 07 · FAQ",
+    h2: "CNC staffing questions, answered",
+    items: [
+      ["How fast can CNC operators be on site?", "For most machining roles, within days of a signed plan. Exact timing depends on role, headcount, location, and compliance requirements."],
+      ["Are operators vetted for my machines?", "Every operator goes through background, credential, and role checks before travel. The Assessment phase maps your machines, parts, and tolerances, so the crew that shows up can run what you actually have."],
+      ["Who supervises the crew?", SUPERVISION_ANSWER],
+      ["How long can crews stay?", "As long as the gap lasts. Engagements are temporary by design and end with a planned demobilization when your permanent workforce recovers."],
+      ["What does it cost?", COST_ANSWER],
+    ],
+    note: CONSULTATION_FLAG,
+    spec: `<b>Elementor:</b> EK Accordion (5 items) + FAQPage structured data. These five also appear on the cluster <a href="${u("/faq")}">FAQ page</a> — keep the wording identical in both places, as the FAQ deck requires.`,
+  }),
+
+  insightsBlock({
+    n: "BLOCK 08 · RELATED INSIGHTS",
+    titles: [
+      "For U.S. Automotive Manufacturers, Reshoring Depends on Skilled Labor",
+      "The Labor Gap Took Decades to Build. Closing It Requires a New Playbook.",
+      "The Great Manufacturing (Re)Migration",
+    ],
+    spec: `<b>Elementor:</b> EK Post Grid (3-up). All three are live posts from the skilled-labor series. Every role page runs a different combination on purpose — keep this one filtered to manufacturing and skilled labor.`,
+  }),
+
+  leadFormBlock({
+    n: "BLOCK 09 · TALK TO AFIMAC (LEAD FORM)",
+    h2: "Machines waiting? Let’s scope it.",
+    bullets: [
+      "The machining roles and crew size we’d deploy",
+      "A realistic timeline to operators at your machines",
+      "A ballpark cost",
+    ],
+    illo: "1200×1200 flat isometric vector beside the form · a machining cell motif · greys with safety-orange and blue · distinct subject from the sibling role pages’ form illustrations",
+    spec: `<b>Elementor:</b> Metform · EK Icon List · Button, Mobilization Sky band. Identical fields on all seven role pages — one global section, seven headlines.`,
+  }),
+];
+---
+
+<Prototype
+  title="CNC Operator Staffing, On Site in Days"
+  crumb="Solutions › CSTL › Roles › CNC Operators"
+  url={`${B}roles/cnc-operators/`}
+  status="build"
+  active="/roles/cnc-operators"
+  meta={{
+    t: "CNC Operator Staffing &amp; Travel Labor | AFIMAC Global",
+    d: "Need CNC operator staffing? AFIMAC puts vetted, travel-ready crews on your floor in days, with housing and supervision handled.",
+    k: "CNC operator staffing · CNC machinist staffing — secondary: travel CNC machinists · temporary CNC operators · machining labor shortage · contract CNC operators",
+  }}
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

@@ -1,0 +1,218 @@
+---
+/**
+ * TRAVEL LABOR FAQ — one FAQ page for the whole CSTL cluster (v1 deck).
+ *
+ * It gathers the questions from the hub, the role pages, the comparison page
+ * and the three industry pages, deduplicated and grouped by topic, each
+ * section linking out to its page. Every answer is verbatim from the approved
+ * cluster copy, so nothing here needs separate review once those are signed
+ * off — and where a question also appears on a role page, the wording must
+ * stay identical in both places.
+ */
+import Prototype from "../layouts/Prototype.astro";
+import Block from "../components/Block.astro";
+import { u } from "../lib/base";
+import { B } from "../data/nav";
+import { photo } from "../lib/wireframe";
+import type { Block as BlockType } from "../lib/types";
+
+type QA = [string, string];
+
+/** All sections run closed, per the deck — this page is scanned, not read. */
+const acc = (items: QA[]) =>
+  `<div class="acc" style="margin-top:22px">${items
+    .map(([q, a]) => `<details><summary>${q}</summary><div class="ans">${a}</div></details>`)
+    .join("")}</div>`;
+
+const SECTIONS: {
+  id: string;
+  n: string;
+  h2: string;
+  cls?: string;
+  intro?: string;
+  items: QA[];
+  link?: string;
+  note?: string;
+  spec: string;
+}[] = [
+  {
+    id: "the-basics",
+    n: "BLOCK 02 · THE BASICS",
+    h2: "The Basics",
+    items: [
+      ["What is Critical Situation Travel Labor (CSTL)?", "Critical Situation Travel Labor is a distinct workforce category for the moments when the required speed, skill, and scale exceed what any single local market can supply. It isn’t a way to add headcount. It’s a way to protect continuity."],
+      ["How does travel labor work?", "AFIMAC sources, screens, travels, houses, and supervises a team, then deploys them to your site for the length of the situation. The engagement runs in four phases: Assessment, Mobilization, Deployment, and Demobilization. You get a working crew and a single point of contact, not a stack of resumes to manage."],
+      ["What situations do you handle?", "Initial line start-ups, production shortfalls, plant relocations, health emergencies, disaster response, and more. The common thread is that the cost of waiting has become higher than the cost of acting."],
+      ["How is this different from a staffing agency?", "A staffing agency hands you candidates to manage. AFIMAC manages the team on site, including travel, housing, safety onboarding, and supervision. In one published engagement, a Fortune 500 agricultural equipment manufacturer brought in multiple staffing providers and retained AFIMAC as the sole non-local partner."],
+      ["What kinds of roles can you staff?", "Skilled, semi-skilled, and general labor roles across manufacturing, warehousing, and logistics. Deployments have included CNC machinists, fabricators, welders, forklift operators, material handlers, packaging operators, boiler operators, and wastewater treatment technicians."],
+      ["What industries do you serve?", "Most of North American industry: automotive, aerospace and defense, food and beverage, consumer goods, metals, energy, chemicals and plastics, packaging, warehousing and logistics, and more. The process is the same across sectors; the roles change."],
+      ["How long do crews stay?", "As long as the gap lasts. Engagements are temporary by design and end with a planned demobilization when your permanent workforce recovers. Published engagements have run from multi-month assignments to two-year partnerships."],
+      ["Can you handle a strike or work stoppage?", "Yes. Rapid, managed workforce continuity during labor disputes is a core CSTL use case."],
+    ],
+    spec: `<b>Elementor:</b> EK Accordion (8 items), closed state. Answers come from the approved cluster copy and the published case studies on the live pillar. <b>This page carries the FAQPage structured data for the full set below.</b>`,
+  },
+  {
+    id: "speed-supervision",
+    n: "BLOCK 03 · SPEED &amp; SUPERVISION",
+    h2: "Speed &amp; Supervision",
+    cls: "wash",
+    items: [
+      ["How fast can a team be on site?", "For most roles, within days of a signed plan. Assessment typically takes 1 to 2 days and mobilization 2 to 3, so the sequence moves quickly once it starts. Exact timing depends on role, headcount, location, and compliance requirements."],
+      ["How big can a crew be?", "Whatever the situation calls for. Engagements match client needs, whether that is covering a single shift or deploying a multi-role crew across multiple sites."],
+      ["Who supervises the workers?", "AFIMAC provides on-site supervision and a single point of contact, working alongside your team. A daily feedback loop tracks output, and the crew scales up or down as the situation changes."],
+      ],
+    note: `<b>Copy fix carried into the build.</b> The deck reads “Engagement match client needs whether it is covering a single shift or deploying a multi-role crew across multiple sites..” — singular verb, missing comma, doubled full stop. Corrected above; flag it with the rest of the copy queries.`,
+    spec: `<b>Elementor:</b> EK Accordion (3 items). Note this section avoids a headcount range where the role pages quote “12 to 99” from published cases — worth deciding whether the two should agree.`,
+  },
+  {
+    id: "housing-logistics",
+    n: "BLOCK 04 · HOUSING &amp; LOGISTICS",
+    h2: "Housing &amp; Logistics",
+    items: [
+      ["Where do the workers come from?", "A national network of 20,000+ skilled and unskilled workers, built over four decades of deployments to hundreds of operations across North America."],
+      ["Who handles travel and housing?", "AFIMAC does. Travel, lodging, and logistics are part of every engagement, so crews arrive ready to work and nothing lands on your team."],
+      ["Is there a long-term commitment?", "No. Teams travel to you with no long-term commitment, and when the gap closes, demobilization is part of the plan."],
+    ],
+    note: `Cost questions stay on the <a href="${u("/how-it-works")}">How It Works</a> hub rather than repeating here, per the team’s call. “Assessment” in the answers carries the cluster’s naming flag. <a href="${u("/brand-check")}">All conflicts →</a>`,
+    spec: `<b>Elementor:</b> EK Accordion (3 items). The 20,000+ figure appears here and on nine other pages in this build — it is one of the four open content conflicts.`,
+  },
+  {
+    id: "cstl-vs-local",
+    n: "BLOCK 05 · CSTL VS. LOCAL STAFFING",
+    h2: "CSTL vs. Local Staffing",
+    cls: "wash",
+    items: [
+      ["Is travel labor more expensive than hiring locally?", "The day rate can be higher, but the right comparison is total cost. When a slow local fill lets a deadline slip, penalties, lost orders, and overtime usually cost more than the travel crew would have. AFIMAC scopes the full cost against the risk avoided during the consultation."],
+      ["When should I use travel labor instead of local hiring?", "When the local market can’t supply the skills fast enough, the gap is large or time-critical, and you need a crew productive in days rather than weeks. If time is on your side and there are people to hire locally, local hiring is usually the better call."],
+      ["Contract or permanent: which is right for a temporary gap?", "For a gap with a clear beginning and end (a launch, backlog, or changeover), contract labor is the cleaner fit. You carry the crew only while you need it and demobilize when your permanent workforce recovers, with no long-term cost left on the books."],
+      ["How fast can CSTL move compared to the alternatives?", "Direct hiring typically runs 45 to 90 days to a productive crew and an agency 14 to 35 days. For most roles, CSTL is on site within days of a signed plan."],
+    ],
+    link: `<a href="${u("/vs-local-staffing")}">More on the CSTL vs. Local Staffing page →</a>`,
+    note: `<b>One open item.</b> The first question is cost-adjacent, and cost questions were meant to stay on the hub. It comes from the approved comparison page copy so it is included as delivered — <b>cut it here if that no-cost call extends to comparison questions.</b>`,
+    spec: `<b>Elementor:</b> EK Accordion (4 items) · Button. Answers are verbatim from the CSTL vs. Local Staffing page copy, with number ranges written out per the house no-dash rule. Two of that page’s questions already live in The Basics and Speed &amp; Supervision, so they don’t repeat here.`,
+  },
+  {
+    id: "by-industry",
+    n: "BLOCK 06 · BY INDUSTRY",
+    h2: "By Industry",
+    items: [
+      ["What automotive roles can you staff?", "Assemblers, welders, and line technicians, deployed to keep North American production on schedule through launches, model changeovers, and past-due backlogs."],
+      ["Can you support a new plant or EV line launch?", "Yes. New plant and EV line start-ups, model changeovers, and Tier 1 and Tier 2 supplier surges are core automotive use cases, with crews typically working within 6 to 7 days."],
+      ["Can crews meet food-safety standards?", "Yes. AFIMAC delivers a food-safety-ready workforce for production, sanitation, and packaging, built to hold GMP and sanitation standards while output recovers."],
+      ["What food &amp; beverage situations do you cover?", "Seasonal and peak-season surges, new product and line launches, sanitation and deep-clean staffing gaps, and co-packing or private-label surges."],
+      ["What warehouse and logistics roles can you staff?", "Pickers, packers, forklift operators, and dock crews, so throughput, SLAs, and ship dates hold when local hiring can’t keep up."],
+      ["Can you cover peak season at a distribution center?", "Yes. Peak and holiday surges, new DC and fulfillment center launches, and 3PL client onboarding are core warehousing use cases, with crews typically working within 5 to 7 days."],
+    ],
+    link: `More on the <a href="${u("/industries/automotive")}">Automotive</a>, <a href="${u("/industries/food-beverage")}">Food &amp; Beverage</a> and <a href="${u("/industries/logistics")}">Logistics &amp; Warehousing</a> pages →`,
+    note: `<b>Two more speed numbers.</b> These answers quote <b>6 to 7 days</b> (automotive) and <b>5 to 7 days</b> (warehousing) from the industry pages’ own deployment comparisons — alongside the 72 hours, 2–7 days and 6–7 days already in circulation. Five figures now. <a href="${u("/brand-check")}">All conflicts →</a>`,
+    spec: `<b>Elementor:</b> EK Accordion (6 items) · Button. Grouped two per industry, drawn from the approved industry cluster page copy.`,
+  },
+  {
+    id: "cnc-operators",
+    n: "BLOCK 07 · CNC OPERATORS",
+    h2: "CNC Operators",
+    cls: "wash",
+    items: [
+      ["What machining roles can you staff?", "CNC operators for mills and lathes, CNC machinists, CNC programmers, machine setup and changeover support, and quality and inspection support."],
+      ["How fast can CNC operators be on site?", "For most machining roles, within days of a signed plan. Exact timing depends on role, headcount, location, and compliance requirements."],
+      ["Are operators vetted for my machines?", "Every operator goes through background, credential, and role checks before travel. The Assessment phase maps your machines, parts, and tolerances, so the crew that shows up can run what you actually have."],
+    ],
+    link: `<a href="${u("/roles/cnc-operators")}">More on the CNC Operators page →</a>`,
+    spec: `<b>Elementor:</b> EK Accordion (3 items) · Button. <b>Wording must stay identical to the role page’s own FAQ block</b> — the deck is explicit about this, and it is the easiest thing in the cluster to let drift.`,
+  },
+  {
+    id: "forklift-operators",
+    n: "BLOCK 08 · FORKLIFT OPERATORS",
+    h2: "Forklift Operators",
+    items: [
+      ["What equipment can your operators run?", "Sit-down counterbalance trucks, reach trucks and narrow-aisle equipment, order pickers, and electric pallet jacks, plus material handlers and loaders to keep product moving between them."],
+      ["Are your operators certified?", "Yes. Certification and credential checks happen before travel, and every operator completes site-specific safety onboarding before their first shift."],
+      ["Can crews run our equipment?", "The Assessment phase maps the trucks on your floor so the operators who arrive are matched to the equipment you actually run."],
+    ],
+    link: `<a href="${u("/roles/forklift-operators")}">More on the Forklift Operators page →</a>`,
+    spec: `<b>Elementor:</b> EK Accordion (3 items) · Button.`,
+  },
+  {
+    id: "welders",
+    n: "BLOCK 09 · WELDERS",
+    h2: "Welders",
+    cls: "wash",
+    items: [
+      ["What welding processes do you cover?", "MIG, TIG, stick, and flux-core, along with robotic welding technicians and fabricators for the work around the weld."],
+      ["Are your welders certified?", "Every welder clears background, credential, and role checks before travel. Code and certification requirements are mapped during the Assessment phase so the crew matches the standards your parts are built to."],
+      ["Can you staff robotic welding cells?", "Yes. Robotic welding technicians are among the roles AFIMAC deploys alongside manual welders and fabricators."],
+    ],
+    link: `<a href="${u("/roles/welders")}">More on the Welders page →</a>`,
+    note: `<b>Four role pages have no section here.</b> The deck was written when the cluster had three role pages; Machinists, Assemblers &amp; Production, Sanitation Crews and Packaging Operations have all been written since. Each carries FAQ questions of its own. <b>Decide whether this page grows to nine sections or stays as delivered</b> — the Assemblers, Sanitation and Packaging decks each say the FAQ page is final and doesn’t take their questions, so as it stands the answer is “stays”.`,
+    spec: `<b>Elementor:</b> EK Accordion (3 items) · Button. If the page does grow, the jump nav in Block 01 grows with it.`,
+  },
+];
+
+const blocks: BlockType[] = [
+  {
+    cls: "typohero center",
+    n: "BLOCK 01 · HERO",
+    h: `
+  <p class="eyebrow">Critical Situation Travel Labor · FAQ</p>
+  <h1>Travel Labor Questions, Answered</h1>
+  <p class="lead">Everything you need to know about how travel labor works, in one place. Jump to a topic or scroll the whole list.</p>
+  <div class="jumpnav">
+   ${SECTIONS.map((s) => `<a href="#${s.id}">${s.h2}</a>`).join("")}
+  </div>`,
+    spec: `<b>Elementor:</b> Container on a White Glove band · Heading ×2 · Text Editor · HTML widget or Button set for the jump nav. <b>The only page in the cluster without a photo hero, on purpose</b> — the jump nav is the hero’s visual, so it has to carry the band on its own.`,
+  },
+
+  ...SECTIONS.map((s): BlockType => ({
+    id: s.id,
+    cls: s.cls,
+    n: s.n,
+    h: `
+  <h2>${s.h2}</h2>
+  ${acc(s.items)}
+  ${s.link ? `<p class="seclink">${s.link}</p>` : ""}
+  ${s.note ? `<div class="note">${s.note}</div>` : ""}`,
+    spec: s.spec,
+  })),
+
+  {
+    cls: "sky",
+    n: "BLOCK 10 · STILL HAVE QUESTIONS (LEAD FORM)",
+    h: `
+  <div class="g2">
+   <div>
+    <h2>Didn’t find your answer? Ask us directly.</h2>
+    <p class="lead">Tell us about your situation and a specialist will come back with answers, timing, and a ballpark cost.</p>
+    <p style="margin-top:22px"><b style="color:#fff">Urgent line</b> · 1.800.554.4622</p>
+    <div style="margin-top:22px">${photo("1200×1200 flat isometric vector beside the form · a question-and-route motif in the cluster’s style · greys with safety-orange and blue · the page’s only illustration")}</div>
+   </div>
+   <div>
+    <div class="form">
+     <input placeholder="First name"><input placeholder="Last name">
+     <input class="full" placeholder="Company">
+     <input placeholder="Work email"><input placeholder="Phone">
+     <input class="full" placeholder="Site location (City, State/Province)">
+     <textarea class="full" rows="4" placeholder="Your question"></textarea>
+     <div class="full"><a class="btn" href="${u("/get-in-touch")}">Talk to a specialist</a></div>
+     <p class="full" style="font-size:12.5px">By submitting, you agree to AFIMAC’s Privacy Policy. We respond within one business day.</p>
+    </div>
+   </div>
+  </div>`,
+    spec: `<b>Elementor:</b> Metform · Image · Button, Mobilization Sky band. Note the last field is <b>Your question</b>, not the role pages’ “Tell us about your situation” — if the form is built as one global section, this page needs the variant.`,
+  },
+];
+---
+
+<Prototype
+  title="Travel Labor Questions, Answered"
+  crumb="Solutions › CSTL › FAQ"
+  url={`${B}faq/`}
+  status="build"
+  active="/faq"
+  meta={{
+    t: "Travel Labor FAQ: Process, Roles &amp; Housing | AFIMAC Global",
+    d: "Common travel labor questions, answered: how the process works, how fast crews arrive, how housing works, and how AFIMAC staffs CNC, forklift, and welder roles.",
+    k: "travel labor FAQ · how does travel labor work — secondary: travel labor housing · temporary skilled labor questions · CSTL process",
+  }}
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>
