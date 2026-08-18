@@ -31,7 +31,7 @@ check at 390px.
 ### The control bar
 
 A pink bar sits above the site chrome on every page — prototype controls, not
-proposed site UI. Four independent toggles hide each kind of annotation:
+proposed site UI. Five independent toggles hide each kind of annotation:
 
 | Toggle | Hides |
 | :--- | :--- |
@@ -39,11 +39,24 @@ proposed site UI. Four independent toggles hide each kind of annotation:
 | Notes & conflicts | The gold and coral callouts |
 | SEO & page meta | The title / description / slug table at the top of BUILD pages |
 | Block labels | The `BLOCK 01 · HERO` captions |
+| Content assets | The green monday.com asset bands (see below) |
 
-**Clean view** switches all four off, which renders the pages as a real site with
+**Clean view** switches them all off, which renders the pages as a real site with
 no annotation — the view to share when the point is the design rather than the
 build. **Show everything** switches them back on. Choices persist across pages
 and sessions, and are applied before first paint so nothing flashes.
+
+### Content assets
+
+A green band on each page lists the finished assets from the **AFIMAC · Content
+Development** board in monday.com that belong on it, with the board's own copy
+and design status, links to the item and the file, and why it fits there. Green
+rather than gold or coral on purpose: unlike the notes and conflicts, these are
+things that already exist and just need placing.
+
+The inventory lives in `src/data/assets.ts` and drives both the per-page bands
+and the full library on `/resources`. Statuses were read on 18 Aug 2026 —
+re-check the board before acting on them.
 
 The same bar carries the build-status legend: dot fill is how far the work has
 got, a green ring means the page is already live so the work is an update.
@@ -68,7 +81,8 @@ installed.
 | `/vs-local-staffing` | BUILD | Comparison tables written, surrounding copy not |
 | `/industries/automotive` | BUILD | Industry cluster template |
 | `/industries/food-beverage` | BUILD | Industry cluster template |
-| `/industries/logistics` | BUILD | Industry cluster template + 2 open items |
+| `/industries/logistics-warehousing` | BUILD | Industry cluster template + 2 open items · the one new industry page |
+| `/industries` | LIVE | The live hub, replicated · five untouched industry pages beneath it |
 | `/roles` | BUILD | Role-cluster hub + the cluster's open items |
 | `/roles/cnc-operators` | BUILD | Full approved copy · process as a card row |
 | `/roles/forklift-operators` | BUILD | Full approved copy · process as a vertical rail |
@@ -78,8 +92,9 @@ installed.
 | `/roles/sanitation-crews` | BUILD | Full approved copy · process as a definition list |
 | `/roles/packaging-operations` | BUILD | Full approved copy · process as a dot stepper |
 | `/faq` | BUILD | Cluster FAQ · 33 questions in 8 grouped sections |
-| `/resources`, `/pricing-roi`, `/get-in-touch` | BUILD | Hub placeholders |
-| `/vs-traditional`, `/day-1-ready`, `/pre-deployment`, `/industries` | BUILD | On the build sheet, not wireframed |
+| `/pricing-roi`, `/get-in-touch` | BUILD | Hub placeholders |
+| `/resources` | BUILD | The gated library + the full monday.com asset inventory |
+| `/vs-traditional`, `/day-1-ready`, `/pre-deployment` | BUILD | On the build sheet, not wireframed |
 | `/brand-check` | — | Internal working page, not part of the site IA |
 
 `/` redirects to `/overview`.
@@ -93,11 +108,13 @@ src/
 │   ├── Block.astro             one wireframe band (label + content + build note)
 │   ├── SubNav.astro            the CSTL sub-nav component under review
 │   ├── PageMeta.astro          the SEO / setup table on BUILD pages
+│   ├── AssetBand.astro         monday.com assets that belong on this page
 │   ├── Stub.astro              hub placeholder page
 │   └── NotBuilt.astro          "on the build sheet, no wireframe yet" page
 ├── data/
-│   ├── nav.ts                  sub-nav structure (IA deck, slides 5–6)
-│   └── industries.ts           the three industry cluster configs
+│   ├── nav.ts                  sub-nav structure + per-page build status
+│   ├── industries.ts           live industry pages + the CSTL update configs
+│   └── assets.ts               monday.com content inventory, mapped to routes
 ├── lib/
 │   ├── base.ts                 u() — mount-path-aware URL helper
 │   ├── wireframe.ts            bars() · photo() · cards() · roleList()

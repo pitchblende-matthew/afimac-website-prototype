@@ -1,0 +1,60 @@
+---
+/**
+ * Content assets from monday.com that belong on this page.
+ *
+ * Rendered from src/data/assets.ts rather than hand-placed in each page, so
+ * the recommendation and the board stay in one place. Hidden by the
+ * "Content assets" toggle in the control bar.
+ */
+import { assetsFor, STATE_LABEL } from "../data/assets";
+
+interface Props {
+  /** The page's sub-nav route, e.g. "/what-is-travel-labor". */
+  route?: string;
+}
+
+const { route } = Astro.props;
+const assets = route ? assetsFor(route) : [];
+const ready = assets.filter((a) => a.state === "ready").length;
+---
+
+{
+  assets.length > 0 && (
+    <section class="block">
+      <div class="wrap">
+        <div class="blocknum blocklabel">CONTENT ASSETS · FROM MONDAY.COM</div>
+        <div class="assetband">
+          <p class="ahead">
+            {assets.length} asset{assets.length === 1 ? "" : "s"} for this page
+            {ready > 0 && ` · ${ready} ready to place today`}
+          </p>
+          <p class="aintro">
+            Read off the <b>AFIMAC · Content Development</b> board. Nothing here needs
+            commissioning — it is written, and mostly designed.
+          </p>
+          <ul>
+            {assets.map((a) => (
+              <li>
+                <div>
+                  <span class={`astate ${a.state}`}>{STATE_LABEL[a.state]}</span>
+                  <span class="atitle" set:html={a.title} />
+                </div>
+                <div class="ameta">
+                  {a.kind} · {a.status} ·{" "}
+                  <a href={a.monday} target="_blank" rel="noopener">monday item</a>
+                  {a.file && (
+                    <>
+                      {" · "}
+                      <a href={a.file} target="_blank" rel="noopener">file</a>
+                    </>
+                  )}
+                </div>
+                <div class="awhy" set:html={a.why} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  )
+}

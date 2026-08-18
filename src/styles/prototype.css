@@ -350,6 +350,26 @@ ul.stakes{columns:2;column-gap:44px}
 .jumpnav a:hover{background:var(--cstl-blue);color:#fff;border-color:var(--cstl-blue)}
 .seclink{margin-top:20px;text-align:left}
 
+
+/* ---------- content assets from monday.com ----------
+   Green, because unlike the gold notes and coral conflicts these are good
+   news: the asset already exists and just needs placing. */
+.assetband{border-left:3px solid #1c7a4c;background:#eef7f1;padding:22px 26px;margin-top:8px;text-align:left;font-size:14px;color:#25583f}
+.assetband .ahead{color:#14683f;margin:0;font-size:12px;font-family:var(--sans);letter-spacing:.1em;text-transform:uppercase;font-weight:800}
+.assetband .aintro{margin:8px 0 0}
+.assetband ul{list-style:none;margin:16px 0 0;padding:0}
+.assetband li{padding:14px 0 0;border-top:1px solid #cfe5d8;margin-top:14px}
+.assetband li:first-child{border-top:0;margin-top:0;padding-top:0}
+.assetband .atitle{font-weight:700;color:#14683f;font-size:15px}
+.assetband .ameta{font-size:12.5px;color:#54806a;margin-top:4px}
+.assetband .awhy{margin-top:7px}
+.assetband a{color:#14683f}
+.astate{display:inline-block;font-size:10.5px;letter-spacing:.11em;font-weight:800;padding:3px 8px;border-radius:2px;margin-right:9px;vertical-align:middle;white-space:nowrap}
+.astate.ready{background:#1c7a4c;color:#fff}
+.astate.nearly{background:var(--premium-gold);color:#fff}
+.astate.planned{background:#dbe7e0;color:#3f6b53}
+body.noassets .assetband{display:none}
+
 a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--cta);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 @media(max-width:1080px){.g4{grid-template-columns:repeat(2,1fr)}footer.site .wrap{grid-template-columns:1fr 1fr}}

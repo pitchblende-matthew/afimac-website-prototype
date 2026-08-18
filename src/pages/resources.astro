@@ -1,19 +1,136 @@
 ---
-import Stub from "../components/Stub.astro";
+/**
+ * CSTL RESOURCES — the gated library.
+ *
+ * The prototype's CTAs point here from six pages. Nothing is behind them yet,
+ * while the monday.com board holds a stack of finished, approved assets with
+ * nowhere to live. That gap is the point of this page.
+ */
+import Prototype from "../layouts/Prototype.astro";
+import Block from "../components/Block.astro";
+import { u } from "../lib/base";
 import { B } from "../data/nav";
+import { ASSETS, assetTotals, type AssetState } from "../data/assets";
+import type { Block as BlockType } from "../lib/types";
+
+const totals = assetTotals();
+
+const GROUPS: { state: AssetState; head: string; blurb: string }[] = [
+  {
+    state: "ready",
+    head: "Ready to place today",
+    blurb:
+      "Copy approved or completed, design approved or completed, and a finished file on the board. These need a page and a form, not a commission.",
+  },
+  {
+    state: "nearly",
+    head: "One approval away",
+    blurb:
+      "Copy is settled; design is paused, in progress, or waiting on a sign-off. Each is a short step from placeable.",
+  },
+  {
+    state: "planned",
+    head: "Scoped, not yet produced",
+    blurb:
+      "On the board with a page already waiting for them in this prototype. Listed so the gaps below are visible as a plan, not a wish.",
+  },
+];
+
+const rows = (state: AssetState) =>
+  ASSETS.filter((a) => a.state === state)
+    .map((a) => {
+      const places = a.places
+        .map((p) => `<a href="${u(p)}">${p}</a>`)
+        .join(" · ");
+      const file = a.file ? ` · <a href="${a.file}" target="_blank" rel="noopener">file</a>` : "";
+      return `<tr>
+        <th>${a.title}</th>
+        <td>${a.kind}<div style="font-size:12.5px;color:var(--spec);margin-top:4px">${a.status}</div></td>
+        <td>${places}</td>
+        <td class="hl"><a href="${a.monday}" target="_blank" rel="noopener">monday</a>${file}</td>
+      </tr>`;
+    })
+    .join("");
+
+const blocks: BlockType[] = [
+  {
+    n: "THE LIBRARY",
+    h: `
+  <h1>CSTL Resources</h1>
+  <p class="lead">CSTL-specific proof, gated. Three sub-pages are in the build sheet — White Papers, Named Case Studies, Salesheets &amp; One-Pagers — and none exist yet.</p>
+  <div class="g3" style="margin-top:28px">
+   ${[
+     ["White Papers", "resources/white-papers/"],
+     ["Named Case Studies", "resources/case-studies/"],
+     ["Salesheets &amp; One-Pagers", "resources/salesheets/"],
+   ]
+     .map(
+       ([t, slug]) =>
+         `<div class="card"><h3>${t}</h3><p style="font-size:12.5px;color:var(--spec);word-break:break-all">…/${slug}</p><span class="tag build">NOT STARTED</span></div>`,
+     )
+     .join("")}
+  </div>
+  <div class="note stop"><b>Six pages in this prototype link here, and there is nothing behind any of them.</b> The What Is Travel Labor page offers an eBook download, the Welders page offers “Get the Paper”, the comparison page offers the 3-ways sheet, and each resolves to this placeholder. <b>Meanwhile ${totals.ready} finished assets are sitting on the content board.</b></div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Image Box ×3 · Metform behind each gate. The gate is the work here — the assets already exist.`,
+  },
+
+  ...GROUPS.map(
+    (g): BlockType => ({
+      cls: g.state === "nearly" ? "wash" : undefined,
+      n: `${g.head.toUpperCase()} · ${totals[g.state]}`,
+      h: `
+  <h2>${g.head}</h2>
+  <p class="lead">${g.blurb}</p>
+  <div class="tscroll"><table class="cmp" style="margin-top:24px"><thead><tr>
+   <th style="width:32%">Asset</th><th>Type &amp; status</th><th>Belongs on</th><th class="hl">Links</th>
+  </tr></thead><tbody>${rows(g.state)}</tbody></table></div>`,
+      spec:
+        g.state === "ready"
+          ? `Status read off the <b>AFIMAC · Content Development</b> board on 18 Aug 2026. Re-check before acting — several of these moved in the last fortnight.`
+          : `Board statuses, not estimates.`,
+    }),
+  ),
+
+  {
+    cls: "blue",
+    n: "THE HEADLINE",
+    h: `
+  <h2>The What Is Travel Labor white paper is the section's missing keystone</h2>
+  <div class="g2" style="margin-top:24px">
+   <div>
+    <p>It is <b>copy approved and design approved</b>, with a finished PDF on the board. It is the category-defining asset for the exact term this whole section is built to rank for — and it appears nowhere on the site.</p>
+    <p>Its website deployment ticket exists on the Website Deployments board and reads <b>Not Started</b>.</p>
+   </div>
+   <ul class="tick">
+    <li>It should be the primary gated download for the section</li>
+    <li>The <a href="${u("/what-is-travel-labor")}">What Is Travel Labor</a> page currently offers a <i>different</i> eBook in its place</li>
+    <li>It gives the six dead CTAs somewhere real to point</li>
+    <li>It is the natural first tenant of <code>…/resources/white-papers/</code></li>
+   </ul>
+  </div>`,
+    spec: `If one thing on this page gets done this month, make it this.`,
+  },
+
+  {
+    n: "WHAT THIS UNBLOCKS ELSEWHERE",
+    h: `
+  <div class="g3" style="margin-top:6px">
+   <div class="card"><h3>Industry pages</h3><p style="margin:0">Automotive, Food &amp; Beverage and Logistics cuts of the three legacy papers are all finished. Every industry page has an empty Related Insights rail and no gated asset — these fill both, per industry.</p></div>
+   <div class="card"><h3>The comparison page</h3><p style="margin:0">Three blocks there have no copy written. The comparison sheet, the decision-stage infographic and the self-qualification one-pager between them already say what those blocks were going to say.</p></div>
+   <div class="card"><h3>Day 1 Ready &amp; Pre-Deployment</h3><p style="margin:0">Both read as “not started” in the sub-nav, but each has a named hero asset on the board — and Day 1 Ready has a <b>finished film</b>. They are closer than the nav suggests.</p></div>
+  </div>
+  <div class="note"><b>Worth saying plainly:</b> the constraint on this section is not content production. It is that finished content has nowhere to land, because the Resources pages, the gates and the forms have not been built.</div>`,
+    spec: `Suggest scoping the three resource sub-pages and one Metform gate as a single small build, ahead of any further copy commissions.`,
+  },
+];
 ---
 
-<Stub
+<Prototype
   title="CSTL Resources"
   crumb="Solutions › CSTL › Resources"
   url={`${B}resources/`}
   status="build"
   active="/resources"
-  intro="CSTL-specific proof, gated. Three sub-pages."
-  items={[
-    ["White Papers", "…/resources/white-papers/"],
-    ["Named Case Studies", "…/resources/case-studies/"],
-    ["Salesheets &amp; One-Pagers", "…/resources/salesheets/"],
-  ]}
-  note="The <b>Critical Situation Travel Labor</b> eBook and the <b>Compare 3 Ways to Fill a Workforce Gap</b> sheet are both written and both need a home here — two CTAs already point at them."
-/>
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

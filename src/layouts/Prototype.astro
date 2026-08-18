@@ -2,6 +2,7 @@
 import "../styles/prototype.css";
 import SubNav from "../components/SubNav.astro";
 import PageMeta from "../components/PageMeta.astro";
+import AssetBand from "../components/AssetBand.astro";
 import { u } from "../lib/base";
 import { WORK_LABEL, sectionTotals, type Work } from "../data/nav";
 import type { PageProps } from "../lib/types";
@@ -24,6 +25,7 @@ const TOGGLES = [
   { cls: "nonotes", label: "Notes &amp; conflicts", hint: "Observations and open items" },
   { cls: "nometa", label: "SEO &amp; page meta", hint: "Title, description and slug table" },
   { cls: "nolabels", label: "Block labels", hint: "BLOCK 01 · HERO captions" },
+  { cls: "noassets", label: "Content assets", hint: "Approved monday.com assets and where they belong" },
 ];
 ---
 
@@ -139,6 +141,7 @@ const TOGGLES = [
 
     <main id="app">
       {meta && <PageMeta meta={meta} url={url} />}
+      <AssetBand route={active} />
       <slot />
     </main>
 
