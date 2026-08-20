@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 960" width="960" height="960" role="img" font-family="Mulish,'Helvetica Neue',Helvetica,Arial,sans-serif">
+<rect width="960" height="960" fill="#fff"/>
+<rect x="48.5" y="40.5" width="863" height="599" rx="9" fill="none" stroke="#dce4ea"/>
+<clipPath id="card"><rect x="49" y="41" width="862" height="598" rx="9"/></clipPath>
+<g clip-path="url(#card)">
+<path d="M40 30 L300 30 L470 78 L720 66 L911 30 L911 20 L40 20 Z" fill="#eaf0f5"/>
+<path d="M113.6 107.7 L139.8 95.3 L205.2 95.3 L288.5 95.3 L359.9 95.3 L443.2 95.3 L467.0 87.1 L499.1 140.6 L519.4 144.7 L556.2 146.8 L587.2 146.8 L605.0 159.2 L615.8 206.5 L609.8 241.6 L639.6 233.3 L657.4 212.7 L682.4 194.2 L708.6 177.7 L746.6 175.6 L774.0 128.3 L799.0 173.6 L766.9 200.4 L756.2 245.7 L718.1 268.3 L714.5 293.1 L703.8 311.6 L693.1 344.6 L696.7 379.6 L670.5 406.4 L655.0 424.9 L632.4 457.9 L646.7 540.3 L644.3 587.6 L625.3 587.6 L608.6 530.0 L599.1 488.8 L582.4 492.9 L556.2 480.5 L536.0 480.5 L532.5 503.2 L508.7 497.0 L481.3 492.9 L461.1 511.4 L440.8 567.0 L414.6 558.8 L393.2 499.1 L359.9 501.1 L330.1 449.6 L309.9 459.9 L276.6 459.9 L231.4 435.2 L204.0 435.2 L187.4 402.2 L162.4 394.0 L145.7 344.6 L121.9 272.5 L119.5 218.9 L113.6 107.7 Z" fill="#b5cbdb"/>
+<ellipse cx="548" cy="132" rx="50" ry="15" fill="#fff" transform="rotate(-8 548 132)"/>
+<ellipse cx="566" cy="192" rx="16" ry="37" fill="#fff" transform="rotate(-3 566 192)"/>
+<ellipse cx="611" cy="177" rx="18" ry="31" fill="#fff" transform="rotate(20 611 177)"/>
+<ellipse cx="635" cy="231" rx="35" ry="11" fill="#fff" transform="rotate(-7 635 231)"/>
+<ellipse cx="677" cy="201" rx="25" ry="9" fill="#fff" transform="rotate(-12 677 201)"/>
+</g>
+<g fill="none" stroke="#7ba0c0" stroke-width="1.3" stroke-linecap="round" opacity=".9">
+<path d="M148.0 122.0 Q425.0 119.4 652.0 278.0"/>
+<path d="M527.0 218.0 Q599.1 228.0 652.0 278.0"/>
+<path d="M836.0 218.0 Q734.4 218.6 652.0 278.0"/>
+<path d="M258.0 281.0 Q454.5 216.5 652.0 278.0"/>
+<path d="M790.0 281.0 Q721.5 257.4 652.0 278.0"/>
+<path d="M356.0 315.0 Q498.1 249.1 652.0 278.0"/>
+<path d="M139.0 390.0 Q377.6 251.9 652.0 278.0"/>
+<path d="M725.0 389.0 Q706.3 321.8 652.0 278.0"/>
+<path d="M580.0 406.0 Q595.5 330.5 652.0 278.0"/>
+<path d="M671.0 426.0 Q685.2 349.0 652.0 278.0"/>
+<path d="M474.0 454.0 Q534.8 337.5 652.0 278.0"/>
+<path d="M497.0 512.0 Q537.1 370.2 652.0 278.0"/>
+</g>
+<circle cx="148" cy="122" r="5" fill="#1b3d5c"/>
+<circle cx="527" cy="218" r="5" fill="#1b3d5c"/>
+<circle cx="836" cy="218" r="5" fill="#1b3d5c"/>
+<circle cx="258" cy="281" r="5" fill="#1b3d5c"/>
+<circle cx="790" cy="281" r="5" fill="#1b3d5c"/>
+<circle cx="356" cy="315" r="5" fill="#1b3d5c"/>
+<circle cx="139" cy="390" r="5" fill="#1b3d5c"/>
+<circle cx="725" cy="389" r="5" fill="#1b3d5c"/>
+<circle cx="580" cy="406" r="5" fill="#1b3d5c"/>
+<circle cx="671" cy="426" r="5" fill="#1b3d5c"/>
+<circle cx="474" cy="454" r="5" fill="#1b3d5c"/>
+<circle cx="497" cy="512" r="5" fill="#1b3d5c"/>
+<circle cx="652" cy="278" r="24" fill="#e0851d" opacity=".16"/>
+<circle cx="652" cy="278" r="13" fill="#fff" stroke="#fff" stroke-width="3"/>
+<circle cx="652" cy="278" r="8" fill="#e0851d"/>
+<circle cx="652" cy="278" r="3.2" fill="#fff"/>
+<rect x="682" y="239" width="176" height="34" rx="3" fill="#a04d10"/>
+<text x="704" y="262" fill="#fff" font-size="16.5" letter-spacing="2.4" font-weight="600">YOUR SITE</text>
+<circle cx="76" cy="604" r="5" fill="#1b3d5c"/>
+<text x="92" y="610" fill="#5c6b78" font-size="17">Crews sourced nationally</text>
+<text x="480" y="722" text-anchor="middle" fill="#6b7c8c" font-size="15.5" letter-spacing="3.1" font-weight="600">AFIMAC HANDLES THE WHOLE ENGAGEMENT</text>
+<line x1="131" y1="800" x2="826" y2="800" stroke="#dfe4e9" stroke-width="2"/>
+<circle cx="131" cy="800" r="19" fill="#3f7ba8"/>
+<text x="131" y="806" text-anchor="middle" fill="#fff" font-size="14" font-weight="600">01</text>
+<text x="131" y="866" text-anchor="middle" fill="#1b4f7e" font-size="25" font-weight="700" font-family="'Zilla Slab',Georgia,'Times New Roman',serif">Recruits</text>
+<circle cx="270" cy="800" r="19" fill="#3f7ba8"/>
+<text x="270" y="806" text-anchor="middle" fill="#fff" font-size="14" font-weight="600">02</text>
+<text x="270" y="866" text-anchor="middle" fill="#1b4f7e" font-size="25" font-weight="700" font-family="'Zilla Slab',Georgia,'Times New Roman',serif">Screens</text>
+<circle cx="409" cy="800" r="19" fill="#3f7ba8"/>
+<text x="409" y="806" text-anchor="middle" fill="#fff" font-size="14" font-weight="600">03</text>
+<text x="409" y="866" text-anchor="middle" fill="#1b4f7e" font-size="25" font-weight="700" font-family="'Zilla Slab',Georgia,'Times New Roman',serif">Travels</text>
+<circle cx="548" cy="800" r="19" fill="#3f7ba8"/>
+<text x="548" y="806" text-anchor="middle" fill="#fff" font-size="14" font-weight="600">04</text>
+<text x="548" y="866" text-anchor="middle" fill="#1b4f7e" font-size="25" font-weight="700" font-family="'Zilla Slab',Georgia,'Times New Roman',serif">Houses</text>
+<circle cx="687" cy="800" r="19" fill="#3f7ba8"/>
+<text x="687" y="806" text-anchor="middle" fill="#fff" font-size="14" font-weight="600">05</text>
+<text x="687" y="866" text-anchor="middle" fill="#1b4f7e" font-size="25" font-weight="700" font-family="'Zilla Slab',Georgia,'Times New Roman',serif">Manages</text>
+<circle cx="826" cy="800" r="19" fill="#e0851d"/>
+<text x="826" y="806" text-anchor="middle" fill="#fff" font-size="14" font-weight="600">06</text>
+<text x="826" y="866" text-anchor="middle" fill="#b8600f" font-size="25" font-weight="700" font-family="'Zilla Slab',Georgia,'Times New Roman',serif">Deploys</text>
+</svg>

@@ -384,6 +384,11 @@ body.noassets .assetband{display:none}
    The dashed .photo panel is art still to be made. This is art that exists —
    green rule, same signal as the monday.com asset bands. */
 .figure{margin:0;border-left:3px solid #1c7a4c;padding-left:20px}
+/* Artwork rebuilt in this repo rather than delivered by the design team. Amber
+   and dashed on purpose: it must not read as a finished asset. */
+.figure.standin{border-left:3px dashed #b4801f}
+.figure.standin figcaption{color:#7a5510}
+.figure.standin figcaption b{color:#8a5a06}
 .figure img{display:block;width:100%;height:auto;background:#fff}
 .figure figcaption{margin-top:12px;font-size:12.5px;line-height:1.55;color:#25583f}
 .figure figcaption b{color:#14683f}

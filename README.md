@@ -24,6 +24,7 @@ check at 390px.
 | Grey bars | Copy not written yet |
 | Dashed panel | Photography or illustration still to source — the caption is the art direction |
 | Green-ruled figure | Artwork that has been delivered and is placed on the page |
+| Amber dashed figure | Artwork rebuilt in this repo as a stand-in — not the approved asset |
 | A real image | Already live on the site — pulled from afimacglobal.com, see below |
 | Gold `note` | An observation or a link opportunity |
 | Coral `note stop` | A conflict that blocks final copy |
@@ -78,6 +79,7 @@ placed so far, both on [Automotive](src/pages/industries/automotive.astro):
 | File | Natural size | Placed as |
 | :--- | :--- | :--- |
 | `afimac-cstl-four-phase-timeline.png` | 2400×600 | The four-phase block on How It Works, What Is Travel Labor, and all three industry pages |
+| `afimac-cstl-mobilization-map.svg` | 960×960 | How It Works · BLOCK 02 — **a stand-in, see below** |
 | `afimac-auto-speed-comparison.png` | 1200×1296 | Automotive · BLOCK 02a, Speed to Production |
 | `afimac-auto-assembly-sequence.png` | 2400×440 | Automotive · the line map above the role grid |
 
@@ -100,6 +102,16 @@ copy, flagged in coral on the page itself: agency turnaround (21–35 vs. 14–3
 direct hire (45–90 vs. 30–90), and a hard "6–7 days" where the copy hedges to
 "within days". Resolve those before it ships — a graphic and a table on the
 same site quoting different benchmarks is worse than either alone.
+
+One of them is a **stand-in, not a delivered asset**. The mobilization map was
+sent as a pasted image rather than a file, so the bytes never reached this repo;
+it is reconstructed from the design — same structure, same six waypoints, same
+copy, drawn as a real 960×960 SVG, but with a cruder coastline than the
+original. It renders with an amber dashed rule rather than the green one so it
+cannot be mistaken for finished artwork, and its caption says so on the page.
+Dropping the real export at `public/graphics/afimac-cstl-mobilization-map.svg`
+swaps it in with no code change; clear `standIn` in `src/data/graphics.ts` at
+the same time to turn the rule green.
 
 To add another: drop the file in `public/graphics/`, then give the industry an
 `Art` entry in `src/data/industries.ts` (`src`, `alt`, `width`, `height`,

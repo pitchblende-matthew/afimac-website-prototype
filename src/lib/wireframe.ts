@@ -47,8 +47,10 @@ export const figure = (o: {
   caption?: string;
   /** Cap the rendered width — portrait art should not run full-bleed. */
   maxWidth?: number;
+  /** Rebuilt here rather than delivered — renders amber and dashed, not green. */
+  standIn?: boolean;
 }): string =>
-  `<figure class="figure">
+  `<figure class="figure${o.standIn ? " standin" : ""}">
     <img src="${u(o.src)}" alt="${o.alt}" width="${o.width}" height="${o.height}" loading="lazy" decoding="async"${o.maxWidth ? ` style="max-width:${o.maxWidth}px"` : ""}>
     ${o.caption ? `<figcaption>${o.caption}</figcaption>` : ""}
   </figure>`;

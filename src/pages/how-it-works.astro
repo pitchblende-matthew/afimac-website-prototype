@@ -4,7 +4,7 @@ import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { liveImg, figure } from "../lib/wireframe";
-import { PHASE_TIMELINE } from "../data/graphics";
+import { PHASE_TIMELINE, MOBILIZATION_MAP } from "../data/graphics";
 import { GAP_ART, CASE_ART, postArt, postTitleDrift } from "../data/live-media";
 import { B } from "../data/nav";
 import { photo } from "../lib/wireframe";
@@ -48,8 +48,10 @@ const blocks: BlockType[] = [
   <div class="g2" style="margin-top:24px">
    <div><p>Critical Situation Travel Labor (CSTL) is a distinct workforce category that exists for the moments when the required speed, skill, and scale exceed what any single local market can supply. It isn’t a way to add headcount. It’s a way to protect continuity. AFIMAC recruits, screens, travels, houses, and manages skilled, semi-skilled, and general labor teams, then deploys them to your site until the situation is resolved.</p>
    <div class="note">Copy fix carried into the build: the source doc reads “(CSTL) A distinct workforce category”; an “is a” was added. Flagged to Kavitha.</div></div>
-   ${photo("Mobilization map · SVG square, art 960×960, min render 640×640 · stylized North America, origins converging on one site marker · waypoints in order: Recruits · Screens · Travels · Houses · Manages · Deploys · flat isometric, greys with safety-orange and blue")}
-  </div>`,
+   <div>${figure(MOBILIZATION_MAP)}</div>
+  </div>
+  <div class="note"><b>The six waypoints match the paragraph beside them exactly</b> — recruits, screens, travels, houses, manages, deploys, in that order. It is the first graphic in this set that starts no argument with the copy.</div>
+  <div class="note"><b>Six verbs here, four phases below.</b> They are not competing lists and should not be reconciled: this is <i>what</i> AFIMAC does, the timeline is <i>when</i>. Worth saying once in the build notes so nobody files it as a conflict.</div>`,
     spec: `<b>Elementor:</b> Heading · Text Editor · Image (SVG). The wireframe calls for three pillar cards under the definition — the copy doc has no card copy, so cards are held until it exists.`,
   },
 
