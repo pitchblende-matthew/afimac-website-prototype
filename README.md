@@ -23,6 +23,7 @@ check at 390px.
 | :--- | :--- |
 | Grey bars | Copy not written yet |
 | Dashed panel | Photography or illustration still to source — the caption is the art direction |
+| Green-ruled figure | Artwork that has been delivered and is placed on the page |
 | Gold `note` | An observation or a link opportunity |
 | Coral `note stop` | A conflict that blocks final copy |
 | `LIVE` / `BUILD` tag | Whether the page exists on the site today |
@@ -66,6 +67,34 @@ Identity guide (22 July 2025). Where they disagree it is flagged — see
 [`/brand-check`](src/pages/brand-check.astro), which also carries the four
 unresolved content conflicts.
 
+### Delivered artwork
+
+Finished graphics live in `public/graphics/` and render through `figure()` in
+`src/lib/wireframe.ts` — a green rule and a caption, the same signal the asset
+bands use, so a delivered graphic never reads as a dashed placeholder. Two are
+placed so far, both on [Automotive](src/pages/industries/automotive.astro):
+
+| File | Natural size | Placed as |
+| :--- | :--- | :--- |
+| `afimac-auto-speed-comparison.png` | 1200×1296 | BLOCK 02a · Speed to Production |
+| `afimac-auto-assembly-sequence.png` | 2400×440 | The line map above the role grid |
+
+Both were supplied as `.png` under an `.svg` filename, and the second was
+supplied as a deployment timeline but is an assembly sequence — they are stored
+under names that describe what they actually are. At 2400px the sequence map
+would hold up better as a real SVG.
+
+The speed graphic also carries three numbers that disagree with the written
+copy, flagged in coral on the page itself: agency turnaround (21–35 vs. 14–35),
+direct hire (45–90 vs. 30–90), and a hard "6–7 days" where the copy hedges to
+"within days". Resolve those before it ships — a graphic and a table on the
+same site quoting different benchmarks is worse than either alone.
+
+To add another: drop the file in `public/graphics/`, then give the industry an
+`Art` entry in `src/data/industries.ts` (`src`, `alt`, `width`, `height`,
+`caption`, optional `maxWidth` for portrait art). Paths go through `u()`
+automatically — do not prefix the mount path by hand.
+
 ### The logo
 
 Header and footer use the official AFIMAC SVGs from afimacglobal.com — the same
@@ -98,7 +127,7 @@ installed.
 | `/how-it-works` | BUILD | Full approved copy |
 | `/what-is-travel-labor` | BUILD | Full approved copy (June-05 package) |
 | `/vs-local-staffing` | BUILD | Comparison tables written, surrounding copy not |
-| `/industries/automotive` | BUILD | Industry cluster template |
+| `/industries/automotive` | BUILD | Industry cluster template · the only page with delivered artwork |
 | `/industries/food-beverage` | BUILD | Industry cluster template |
 | `/industries/logistics-warehousing` | BUILD | Industry cluster template + 2 open items · the one new industry page |
 | `/industries` | LIVE | The live hub, replicated · five untouched industry pages beneath it |
@@ -137,12 +166,14 @@ src/
 │   └── assets.ts               monday.com content inventory, mapped to routes
 ├── lib/
 │   ├── base.ts                 u() — mount-path-aware URL helper
-│   ├── wireframe.ts            bars() · photo() · cards() · roleList()
+│   ├── wireframe.ts            bars() · photo() · figure() · cards() · roleList()
 │   ├── industry-page.ts        the industry cluster template
 │   ├── role-blocks.ts          the blocks the seven role decks share
 │   └── types.ts
 ├── pages/                      one file per route
 └── styles/prototype.css        all styling, carried over verbatim
+
+public/graphics/                delivered artwork, served under the mount path
 ```
 
 Page content is authored as HTML strings inside each page's frontmatter, exactly

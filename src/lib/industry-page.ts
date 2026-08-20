@@ -6,7 +6,7 @@
  * mockup — the discrepancy is surfaced as an OPEN ITEM block on that page
  * rather than silently normalised, because it is a live sign-off question.
  */
-import { bars, photo } from "./wireframe";
+import { bars, photo, figure } from "./wireframe";
 import { u } from "./base";
 import type { Industry } from "../data/industries";
 import type { Block, PageProps } from "./types";
@@ -60,7 +60,7 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
       n: "BLOCK 05 · " + o.rolesTitle.toUpperCase(),
       h: `
   <h2>${o.rolesTitle}</h2>
-  <div style="margin:22px 0">${photo(o.map)}</div>
+  <div style="margin:22px 0">${o.mapArt ? figure(o.mapArt) : photo(o.map)}</div>
   <div class="g3">${o.roles.map((r) => `<div class="card"><div class="ph" style="width:34px;height:34px;margin-bottom:14px"></div><h3>${r}</h3>${bars(2)}</div>`).join("")}</div>
   <div class="btns"><a class="btn ghost" href="${u("/roles")}">See all CSTL roles</a></div>`,
       spec: `<b>Elementor:</b> HTML widget (${o.slug === "food-beverage" ? "seven-station line map" : "line map"}) · Container (3-col) · EK Icon Box ×${o.roles.length} · Button. <b>Role blurbs not written.</b>`,
@@ -139,6 +139,24 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
     },
     blocks: [
       scope,
+      ...(o.speedArt
+        ? [
+            {
+              n: "BLOCK 02a · SPEED TO PRODUCTION",
+              h: `
+    <h2>Time to a working crew on your floor</h2>
+    <div class="g2" style="margin-top:24px;align-items:start">
+     ${figure(o.speedArt)}
+     <div>
+      <p class="lead">The first real graphic delivered for this cluster, and the page's sharpest argument: the alternatives are measured in months, this is measured in days.</p>
+      <div class="note stop"><b>Its three figures do not all match the copy.</b> The graphic says a temp or contract agency takes <b>21 to 35 days</b>; the <a href="${u("/how-it-works")}">How It Works</a> table and the <a href="${u("/faq")}">FAQ</a> both say <b>14 to 35</b>. It says direct hire is <b>45 to 90 days</b>; <a href="${u("/vs-local-staffing")}">CSTL vs. Local Staffing</a> says <b>30 to 90</b>. One of each pair is wrong.</div>
+      <div class="note stop"><b>And it commits to “6–7 days”</b> — one of the five deployment-speed figures already in circulation, where the surrounding copy deliberately hedges to “within days”. Placing this graphic settles that argument by accident. <a href="${u("/brand-check")}">All conflicts →</a></div>
+     </div>
+    </div>`,
+              spec: `<b>Elementor:</b> Image, 2-col container. <b>Resolve the two number mismatches before this goes live</b> — a graphic and a table on the same site disagreeing about the same benchmark is worse than either alone.`,
+            } as Block,
+          ]
+        : []),
       {
         cls: "dark",
         n: "BLOCK 02 · HERO",

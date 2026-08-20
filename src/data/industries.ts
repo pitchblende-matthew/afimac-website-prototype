@@ -26,8 +26,24 @@ export interface Industry {
   heroQs?: string;
   heroImg: string;
   rolesTitle: string;
+  /** Line-map art-direction note, used when no real artwork exists yet. */
   map: string;
+  /** Real line-map artwork, once it has been produced. */
+  mapArt?: Art;
+  /** Real speed-comparison artwork, rendered as its own block. */
+  speedArt?: Art;
   roles: string[];
+}
+
+/** A finished graphic sitting in public/graphics/. */
+export interface Art {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  caption: string;
+  /** Cap the rendered width — portrait art should not run full-bleed. */
+  maxWidth?: number;
 }
 
 export const INDUSTRIES: Record<string, Industry> = {
@@ -40,6 +56,23 @@ export const INDUSTRIES: Record<string, Industry> = {
     heroImg: "Hero photo, right column · plant-floor / body shop · muted industrial tone",
     rolesTitle: "Plant staffing, role-ready",
     map: "Line map · HTML widget · assembly sequence with the six staffed stations called out",
+    mapArt: {
+      src: "/graphics/afimac-auto-assembly-sequence.png",
+      alt: "Automotive assembly sequence: Body & Weld, Paint & Finish, General Assembly, Powertrain & Machining, Quality & Launch, Automation & Maintenance, Material & Logistics",
+      width: 2400,
+      height: 440,
+      caption:
+        "<b>Real artwork, delivered.</b> Assembly sequence, 2400×440. Note it runs <b>seven</b> stations where the brief said six, and they are process stages rather than the six roles listed below — the two do not map one to one. Supplied as a PNG named <code>.svg</code>; an actual SVG would hold up better at this width.",
+    },
+    speedArt: {
+      src: "/graphics/afimac-auto-speed-comparison.png",
+      alt: "Time to a working crew on your floor: direct local hire 45 to 90 days, temp or contract agency 21 to 35 days, AFIMAC travel labor 6 to 7 days",
+      width: 1200,
+      height: 1296,
+      caption:
+        "<b>Real artwork, delivered.</b> Speed to production, 1200×1296 portrait. Supplied as a PNG named <code>.svg</code>.",
+      maxWidth: 620,
+    },
     roles: ["CNC Operators", "Welders", "Assemblers", "Machinists", "Material Handlers", "Quality Inspectors"],
   },
 

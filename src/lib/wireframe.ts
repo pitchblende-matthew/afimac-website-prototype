@@ -1,3 +1,5 @@
+import { u } from "./base";
+
 /**
  * Wireframe primitives — the key on slide 3 of the IA deck.
  *
@@ -30,6 +32,26 @@ export const cards = (n: number, label: string): string =>
       `<div class="card"><div class="blocknum">${String(i + 1).padStart(2, "0")}</div><div class="ph t" style="max-width:80%"></div>${bars(3)}</div>`,
   ).join("")}</div>
   <div class="spec">${label}</div>`;
+
+/**
+ * Real artwork that exists, as opposed to `photo()` which describes art still
+ * to be made. Rendered with a green rule, the same signal the monday.com asset
+ * bands use.
+ */
+export const figure = (o: {
+  /** Path under public/, e.g. "/graphics/foo.png". */
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  caption?: string;
+  /** Cap the rendered width — portrait art should not run full-bleed. */
+  maxWidth?: number;
+}): string =>
+  `<figure class="figure">
+    <img src="${u(o.src)}" alt="${o.alt}" width="${o.width}" height="${o.height}" loading="lazy" decoding="async"${o.maxWidth ? ` style="max-width:${o.maxWidth}px"` : ""}>
+    ${o.caption ? `<figcaption>${o.caption}</figcaption>` : ""}
+  </figure>`;
 
 /** Two-column tick list, used for the role inventories. */
 export const roleList = (a: string[]): string =>

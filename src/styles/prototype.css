@@ -379,6 +379,17 @@ ul.stakes{columns:2;column-gap:44px}
 .astate.planned{background:#dbe7e0;color:#3f6b53}
 body.noassets .assetband{display:none}
 
+
+/* ---------- real artwork ----------
+   The dashed .photo panel is art still to be made. This is art that exists —
+   green rule, same signal as the monday.com asset bands. */
+.figure{margin:0;border-left:3px solid #1c7a4c;padding-left:20px}
+.figure img{display:block;width:100%;height:auto;background:#fff}
+.figure figcaption{margin-top:12px;font-size:12.5px;line-height:1.55;color:#25583f}
+.figure figcaption b{color:#14683f}
+.blue .figure figcaption,.dark .figure figcaption,.sky .figure figcaption,.readiness .figure figcaption{color:#dff0e6}
+.blue .figure figcaption b,.dark .figure figcaption b{color:#fff}
+
 a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--cta);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 @media(max-width:1080px){.g4{grid-template-columns:repeat(2,1fr)}footer.site .wrap{grid-template-columns:1fr 1fr}}
