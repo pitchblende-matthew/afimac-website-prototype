@@ -66,6 +66,25 @@ Identity guide (22 July 2025). Where they disagree it is flagged — see
 [`/brand-check`](src/pages/brand-check.astro), which also carries the four
 unresolved content conflicts.
 
+### The logo
+
+Header and footer use the official AFIMAC SVGs from afimacglobal.com — the same
+two files the live site serves, so the prototype cannot drift from the real
+mark:
+
+| Variant | File |
+| :--- | :--- |
+| Primary | `/wp-content/uploads/2025/01/AFIMAC-logo-5.svg` |
+| Reversed (white) | `/wp-content/uploads/2025/01/AFIMAC-logo-rev.svg` |
+
+They are **referenced, not vendored**, because no copy of the asset was supplied
+to this repo. If one is dropped into `public/`, change `SRC` in
+`src/components/Logo.astro` to `u("/afimac-logo.svg")` and nothing else moves.
+
+The old text wordmark is kept as an automatic fallback: if the image cannot
+load — offline, hotlink protection, a CSP on the host — the mark degrades to
+type rather than to a broken-image icon. Both paths are verified.
+
 Type: the live site runs Museo and Museo Sans (commercial exljbris faces,
 already loaded as Elementor Custom Fonts). The prototype asks for those first
 and falls back to Zilla Slab / Mulish, so it renders for anyone without them
@@ -109,6 +128,7 @@ src/
 │   ├── SubNav.astro            the CSTL sub-nav component under review
 │   ├── PageMeta.astro          the SEO / setup table on BUILD pages
 │   ├── AssetBand.astro         monday.com assets that belong on this page
+│   ├── Logo.astro              the AFIMAC mark, with a text fallback
 │   ├── Stub.astro              hub placeholder page
 │   └── NotBuilt.astro          "on the build sheet, no wireframe yet" page
 ├── data/

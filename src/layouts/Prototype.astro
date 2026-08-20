@@ -3,6 +3,7 @@ import "../styles/prototype.css";
 import SubNav from "../components/SubNav.astro";
 import PageMeta from "../components/PageMeta.astro";
 import AssetBand from "../components/AssetBand.astro";
+import Logo from "../components/Logo.astro";
 import { u } from "../lib/base";
 import { WORK_LABEL, sectionTotals, type Work } from "../data/nav";
 import type { PageProps } from "../lib/types";
@@ -109,7 +110,7 @@ const TOGGLES = [
 
     <header class="site-header">
       <div class="wrap">
-        <span class="logo">AFIMAC<sup>&#9673;</sup></span>
+        <a href={u("/overview")} aria-label="AFIMAC home"><Logo width={150} /></a>
         <ul>
           <li><a href={u("/overview")}>Home</a></li>
           <li><a href={u("/overview")}>Solutions &#9662;</a></li>
@@ -147,7 +148,7 @@ const TOGGLES = [
 
     <footer class="site">
       <div class="wrap">
-        <div><span class="logo" style="color:#fff">AFIMAC<sup>&#9673;</sup></span></div>
+        <div><Logo variant="rev" width={160} /></div>
         <div>
           <h5>Quick Links</h5>
           <ul>

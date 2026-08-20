@@ -1,0 +1,45 @@
+---
+/**
+ * AFIMAC logo.
+ *
+ * Sourced from the official SVGs on afimacglobal.com — the same two files the
+ * live site uses, so the prototype cannot drift from the real mark:
+ *
+ *   primary   /wp-content/uploads/2025/01/AFIMAC-logo-5.svg
+ *   reversed  /wp-content/uploads/2025/01/AFIMAC-logo-rev.svg
+ *
+ * They are referenced rather than vendored because no copy of the asset was
+ * supplied to this repo. If the file is ever dropped into `public/`, point
+ * SRC at u("/afimac-logo.svg") and nothing else changes.
+ *
+ * The text wordmark the prototype used before is kept as an automatic
+ * fallback: if the image fails to load — offline, hotlink protection, a CSP
+ * on the host — the mark degrades to type rather than to a broken icon.
+ */
+interface Props {
+  /** "rev" is the white mark, for the footer and any dark band. */
+  variant?: "primary" | "rev";
+  /** Rendered width. Height follows the aspect ratio. */
+  width?: number;
+}
+
+const { variant = "primary", width = 148 } = Astro.props;
+
+const SRC = {
+  primary: "https://afimacglobal.com/wp-content/uploads/2025/01/AFIMAC-logo-5.svg",
+  rev: "https://afimacglobal.com/wp-content/uploads/2025/01/AFIMAC-logo-rev.svg",
+};
+---
+
+<span class={`logo logo-${variant}`}>
+  <img
+    class="logomark"
+    src={SRC[variant]}
+    alt="AFIMAC"
+    width={width}
+    loading="eager"
+    decoding="async"
+    onerror="this.closest('.logo').classList.add('logo-fallback')"
+  />
+  <span class="logotext">AFIMAC<sup>&#9673;</sup></span>
+</span>

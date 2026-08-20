@@ -55,8 +55,17 @@ p{margin:0 0 1.1em}
 /* ---------- header: white, as live ---------- */
 .site-header{background:#fff;border-bottom:1px solid var(--line)}
 .site-header .wrap{display:flex;align-items:center;gap:34px;padding-top:14px;padding-bottom:14px}
-.logo{font-family:Georgia,"Times New Roman",serif;font-weight:700;letter-spacing:.03em;font-size:26px;color:var(--cstl-blue)}
-.logo sup{font-size:13px;vertical-align:super}
+/* ---------- AFIMAC logo ----------
+   The official SVG, with the prototype's old text wordmark kept as an
+   automatic fallback if the image cannot load. */
+.logo{display:inline-flex;align-items:center;line-height:1}
+.logo .logomark{display:block;height:auto;max-width:100%}
+.logo .logotext{display:none;font-family:Georgia,"Times New Roman",serif;font-weight:700;letter-spacing:.03em;font-size:26px;color:var(--cstl-blue)}
+.logo .logotext sup{font-size:13px;vertical-align:super}
+.logo.logo-fallback .logomark{display:none}
+.logo.logo-fallback .logotext{display:inline}
+/* the footer sits on Readiness Blue, so its fallback type is white */
+footer.site .logo .logotext,.logo.logo-rev .logotext{color:#fff}
 .site-header ul{display:flex;gap:30px;list-style:none;margin:0 auto 0 0;padding:0;font-size:16px}
 .site-header a{color:var(--cstl-blue);text-decoration:none}
 .site-header a:hover{color:var(--readiness-blue)}
