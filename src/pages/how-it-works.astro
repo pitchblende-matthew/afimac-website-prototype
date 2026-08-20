@@ -3,7 +3,8 @@
 import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
-import { liveImg } from "../lib/wireframe";
+import { liveImg, figure } from "../lib/wireframe";
+import { PHASE_TIMELINE } from "../data/graphics";
 import { PROCESS_ART, GAP_ART, CASE_ART, postArt, postTitleDrift } from "../data/live-media";
 import { B } from "../data/nav";
 import { photo } from "../lib/wireframe";
@@ -59,9 +60,9 @@ const blocks: BlockType[] = [
     h: `
   <h2>The four-phase process</h2>
   <p class="lead">Every engagement follows the same proven path. Timing varies by role and location, but the sequence does not.</p>
-  <div style="margin:26px 0">${liveImg(PROCESS_ART)}</div>
-  <div class="note"><b>This is the graphic AFIMAC already has for the four phases</b>, lifted straight off the overview. It is a circle, not the day-scale bar this block specs — it carries the phase names but not the durations, so the timings still live only in the copy. Decide whether to redraw it as a timeline or to drop the timeline spec and reuse this.</div>
-  <div class="note stop"><b>And it labels phase 1 “Assessment + Consultation”</b>, which is exactly the naming conflict this page has open. Placing it here picks a side by accident.</div>
+  <div style="margin:26px 0">${figure(PHASE_TIMELINE)}</div>
+  <div class="note"><b>This block's spec is now met.</b> Day-scale bar, tick marks, the four phases with their durations, and the crew-live marker at the Deployment tick — the delivered graphic matches the brief line for line, and agrees with the phase cards below on every number. The process circle stays on the <a href="${u("/overview")}">overview</a> because that is what is live there; replacing it with this is a separate change to a live page.</div>
+  <div class="note stop"><b>It also settles the phase-1 argument below, so somebody should agree to that on purpose.</b> The graphic says <b>Assessment · 1–2 days</b>. The live overview calls the same phase <b>Consultation · 2–3 days</b>, and the circle on that page labels it <b>Assessment + Consultation</b>. Three names and two durations for one phase — and the duration half of that has not been raised before. Shipping this makes “Assessment, 1–2 days” the published answer by default. <a href="${u("/brand-check")}">All conflicts →</a></div>
   <div class="g4">
    <div class="card"><div class="blocknum">PHASE 1 · 1–2 DAYS</div><h3>Assessment</h3><ul class="tick"><li>Assess the situation and labor needs</li><li>Align on roles, shift coverage, and site requirements</li><li>Scope timeline, costs, and success measures</li><li>Finalize the deployment plan</li></ul></div>
    <div class="card"><div class="blocknum">PHASE 2 · 2–3 DAYS</div><h3>Mobilization</h3><ul class="tick"><li>Source and screen candidates from a 20,000+ talent network</li><li>Background, credential, and role checks</li><li>Arrange travel and housing</li><li>Site-specific safety and role onboarding</li></ul></div>

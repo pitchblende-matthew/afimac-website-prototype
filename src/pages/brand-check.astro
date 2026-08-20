@@ -6,6 +6,7 @@
  */
 import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
+import { u } from "../lib/base";
 import type { Block as BlockType } from "../lib/types";
 
 const blocks: BlockType[] = [
@@ -60,7 +61,7 @@ const blocks: BlockType[] = [
    <div class="card"><div class="blocknum">01 · INDUSTRY COUNT</div><h3>26 or 18?</h3><p style="margin:0">The credibility counter says <b>26 Industries</b>. The list higher up the same page has <b>18</b>. One of three credibility figures on the page, contradicted within a single scroll.</p></div>
    <div class="card"><div class="blocknum">02 · NETWORK SIZE</div><h3>20,000+ or 12,000+?</h3><p style="margin:0">The live page, eBook, comparison sheet and Messaging brief all say <b>20,000+</b>. The Brand Foundation terminology page instructs pairing screened-and-drug-tested with <b>12,000+</b>. The number appears on nine pages in this build.</p></div>
    <div class="card"><div class="blocknum">03 · DEPLOYMENT SPEED</div><h3>72 hours, 2–7 days, or 6–7 days?</h3><p style="margin:0">eBook and comparison sheet say <b>72 hours or less</b>. Brand Foundation defines Rapid Response as <b>2–7 days</b>. The live process graphic says <b>6-7 days from consultation</b>. The new pages hedge with “within days,” which is safe but discards the sharpest claim AFIMAC has.</p></div>
-   <div class="card"><div class="blocknum">04 · PHASE 1 NAME</div><h3>Assessment or Consultation?</h3><p style="margin:0">Now confirmed in three forms on one screen: the infographic reads <b>“Assessment + Consultation”</b>, the card beneath it reads <b>Consultation</b>, and the new copy reads <b>Assessment</b>.</p></div>
+   <div class="card"><div class="blocknum">04 · PHASE 1 NAME</div><h3>Assessment or Consultation?</h3><p>Confirmed in three forms on one screen: the live infographic reads <b>“Assessment + Consultation”</b>, the card beneath it reads <b>Consultation</b>, and the new copy reads <b>Assessment</b>.</p><p style="margin:0"><b>A delivered graphic has now taken a side.</b> The four-phase timeline on <a href="${u("/how-it-works")}">How It Works</a> says <b>Assessment · 1–2 days</b>. The live overview says <b>Consultation · 2–3 days</b> — so the duration is in dispute too, not just the name. Publishing the timeline makes “Assessment, 1–2 days” the answer by default. <b>Decide it deliberately instead.</b></p></div>
   </div>
   <div class="note stop">All four are one email, not four. None of them block design — all of them block final copy.</div>`,
     spec: `Suggest putting these to Maria as a single decision list at structure sign-off.`,

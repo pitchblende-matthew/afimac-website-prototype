@@ -3,8 +3,8 @@
 import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
-import { liveImg } from "../lib/wireframe";
-import { PROCESS_ART } from "../data/live-media";
+import { figure } from "../lib/wireframe";
+import { PHASE_TIMELINE } from "../data/graphics";
 import { B } from "../data/nav";
 import { photo, roleList } from "../lib/wireframe";
 import type { Block as BlockType } from "../lib/types";
@@ -91,8 +91,8 @@ const blocks: BlockType[] = [
     h: `
   <h2>What travel labor looks like</h2>
   <p class="lead">Travel labor typically moves through four phases, from initial request to wind-down: assessment, mobilization, deployment, and demobilization. Some engagements last a few weeks; others run for months, supporting an extended recovery or a sustained period of elevated demand. Team size can move up or down during the engagement as the underlying need changes.</p>
-  <div style="margin-top:24px">${liveImg(PROCESS_ART)}</div>
-  <div class="note"><b>The same graphic as <a href="${u("/how-it-works")}">How It Works</a> and the <a href="${u("/overview")}">overview</a>, which is the point</b> — one four-phase asset across the section, not three. It carries the phase names but no durations, so this block still needs the timings in copy.</div>`,
+  <div style="margin-top:24px">${figure(PHASE_TIMELINE)}</div>
+  <div class="note"><b>The same file as <a href="${u("/how-it-works")}">How It Works</a>, which is exactly what this block asked for</b> — “reuse the four-phase timeline, do not draw a second one”. One asset, one set of durations, four pages.</div>`,
     spec: `<b>Elementor:</b> Text Editor + the shared timeline graphic. Same asset as How It Works — build it as a global widget so the two pages can’t drift.`,
   },
 

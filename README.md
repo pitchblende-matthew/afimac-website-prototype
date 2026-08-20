@@ -77,13 +77,23 @@ placed so far, both on [Automotive](src/pages/industries/automotive.astro):
 
 | File | Natural size | Placed as |
 | :--- | :--- | :--- |
-| `afimac-auto-speed-comparison.png` | 1200×1296 | BLOCK 02a · Speed to Production |
-| `afimac-auto-assembly-sequence.png` | 2400×440 | The line map above the role grid |
+| `afimac-cstl-four-phase-timeline.png` | 2400×600 | The four-phase block on How It Works, What Is Travel Labor, and all three industry pages |
+| `afimac-auto-speed-comparison.png` | 1200×1296 | Automotive · BLOCK 02a, Speed to Production |
+| `afimac-auto-assembly-sequence.png` | 2400×440 | Automotive · the line map above the role grid |
 
-Both were supplied as `.png` under an `.svg` filename, and the second was
-supplied as a deployment timeline but is an assembly sequence — they are stored
-under names that describe what they actually are. At 2400px the sequence map
-would hold up better as a real SVG.
+All three arrived as `.png` under an `.svg` filename, and two were misnamed for
+what they contain — one supplied as a deployment timeline is an assembly
+sequence, and one supplied as a mobilization map is the deployment timeline.
+Each is stored under a name that describes what it actually is. At 2400px both
+of the wide ones would hold up better as real SVGs.
+
+The timeline answers its How It Works spec line for line — day-scale bar, tick
+marks, four phases with durations, crew-live marker at the Deployment tick — so
+it lands there rather than in the mobilization-map slot its filename suggests.
+It also **decides an open question**: it labels phase 1 `Assessment · 1–2 days`
+where the live overview says `Consultation · 2–3 days` and the live process
+circle says `Assessment + Consultation`. Three names, two durations. See
+[`/brand-check`](src/pages/brand-check.astro) item 04.
 
 The speed graphic also carries three numbers that disagree with the written
 copy, flagged in coral on the page itself: agency turnaround (21–35 vs. 14–35),
@@ -165,7 +175,7 @@ installed.
 | :--- | :--- | :--- |
 | `/overview` | LIVE | The live page, matched section for section · carries the live imagery |
 | `/how-it-works` | BUILD | Full approved copy · live process graphic and industry tiles |
-| `/what-is-travel-labor` | BUILD | Full approved copy (June-05 package) |
+| `/what-is-travel-labor` | BUILD | Full approved copy (June-05 package) · shares the four-phase timeline |
 | `/vs-local-staffing` | BUILD | Comparison tables written, surrounding copy not |
 | `/industries/automotive` | BUILD | Industry cluster template · the only page with delivered artwork |
 | `/industries/food-beverage` | BUILD | Industry cluster template |

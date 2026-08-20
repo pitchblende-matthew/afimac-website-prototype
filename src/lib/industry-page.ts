@@ -6,8 +6,8 @@
  * mockup — the discrepancy is surfaced as an OPEN ITEM block on that page
  * rather than silently normalised, because it is a live sign-off question.
  */
-import { bars, photo, figure, liveImg } from "./wireframe";
-import { PROCESS_ART } from "../data/live-media";
+import { bars, photo, figure } from "./wireframe";
+import { PHASE_TIMELINE } from "../data/graphics";
 import { u } from "./base";
 import type { Industry } from "../data/industries";
 import type { Block, PageProps } from "./types";
@@ -71,12 +71,13 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
       n: "BLOCK 0" + (numbersFirst ? "6" : "5") + " · HOW WE DEPLOY",
       h: `
   <h2>How we deploy</h2>
-  <div style="margin:22px 0">${liveImg(PROCESS_ART)}</div>
+  <div style="margin:22px 0">${figure(PHASE_TIMELINE)}</div>
   <div class="note">${
     o.slug === "food-beverage"
-      ? `<b>Stand-in.</b> This is the shared four-phase graphic off the overview. The F&amp;B deck specs a seven-day deployment bar instead, which does not exist yet — decide whether that bespoke asset is worth commissioning or whether this page reuses the shared one like the others.`
-      : `<b>The shared four-phase graphic, exactly as this block's spec asks.</b> One asset across the section rather than a new timeline per industry. It carries the phase names but no durations, so the timings still live in the copy below.`
+      ? `<b>The shared timeline, standing in.</b> The F&amp;B deck specs a bespoke seven-day deployment bar, which does not exist. Given this one carries the same four phases and real durations, <b>the bespoke version is hard to justify</b> — drop it unless F&amp;B genuinely deploys on a different clock.`
+      : `<b>The shared four-phase timeline, exactly as this block's spec asks</b> — one asset across the section rather than a new one per industry.`
   }</div>
+  <div class="note stop"><b>Its phase names must match the ones below it before this ships.</b> The graphic says Assessment · Mobilization · Deployment · Demobilization; the cards under it say the same, but the live <a href="${u("/overview")}">overview</a> calls phase 1 Consultation. That decision is still open.</div>
   <div class="g4">${["Assessment", "Mobilization", "Deployment", "Demobilization"].map((x, i) => `<div class="card"><div class="blocknum">PHASE 0${i + 1}</div><h3>${x}</h3>${bars(3)}</div>`).join("")}</div>`,
       spec: `<b>Elementor:</b> HTML widget (timeline) or EK Advanced Timeline · EK Icon Box ×4. Phase names must match How It Works — pending the Assessment/Consultation decision.`,
     },
