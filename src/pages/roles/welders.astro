@@ -7,8 +7,9 @@
 import Prototype from "../../layouts/Prototype.astro";
 import Block from "../../components/Block.astro";
 import { u } from "../../lib/base";
+import { EBOOK_ART } from "../../data/live-media";
 import { B } from "../../data/nav";
-import { photo } from "../../lib/wireframe";
+import { photo, liveImg } from "../../lib/wireframe";
 import {
   roleHero, roleGrid, faqBlock, insightsBlock, leadFormBlock,
   CONSULTATION_FLAG, COST_ANSWER, SUPERVISION_ANSWER,
@@ -100,7 +101,7 @@ const blocks: BlockType[] = [
   </div>
   <div class="resourcecard">
    <div class="g2" style="gap:26px;align-items:center">
-    ${photo("Existing eBook cover art from the live pillar · Manuf_Labor_Gap webp, 1024×923 · rendered 480px wide max on the card · no new asset needed")}
+    ${liveImg({ ...EBOOK_ART, style: "max-width:480px" })}
     <div>
      <h3>Bridging the Manufacturing Labor Gap</h3>
      <p>Uncover the strategies business leaders are leveraging to overcome workforce shortages and unlock growth potential.</p>

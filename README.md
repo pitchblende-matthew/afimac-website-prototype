@@ -98,17 +98,30 @@ automatically — do not prefix the mount path by hand.
 
 ### Live page images
 
-The overview page shows the real images from the live CSTL page — the three
-category illustrations, the four-stage process circle, all six client-success
-illustrations, the eBook cover, and five of the six post thumbnails. They are
-**referenced from afimacglobal.com, not vendored**, for the same reason as the
-logo: no copies were supplied to this repo, and the live media library is the
-source of truth.
+Fifty-two images across the prototype are the real ones from the live site,
+**referenced from afimacglobal.com rather than vendored**, for the same reason
+as the logo: no copies were supplied to this repo, and the live media library is
+the source of truth.
+
+| Asset | Where it lands |
+| :--- | :--- |
+| Three category isometrics | Overview · How It Works industry tiles |
+| Four-stage process circle | Overview · How It Works · What Is Travel Labor · all three industry pages |
+| Six client-success illustrations | Overview, two in the carousel and all six as a strip |
+| eBook cover | Overview · Industries hub · Welders |
+| Fourteen post featured images | Every Related Insights grid that names its posts |
 
 The inventory is `src/data/live-media.ts`, read out of the WordPress REST API
-(`/wp-json/wp/v2/pages/427`) on 20 Aug 2026. It records both the alt text the
-prototype proposes and the alt text the live page carries, wherever those differ
-— that gap is the finding, and the overview surfaces it in a note.
+(`/wp-json/wp/v2/pages/427` and `/posts`) on 20 Aug 2026. It records both the alt
+text the prototype proposes and the alt text the live page carries, wherever
+those differ — that gap is the finding, and the overview surfaces it in a note.
+
+Post thumbnails resolve **by title**, not by position: `postArt(title)` matches a
+cited title against the live post library, including the shorter wordings the
+copy decks use. So a new insights grid gets real thumbnails just by naming real
+posts. `postTitleDrift()` is the other half — where a deck cites a post under a
+wording the live site does not use, the page says so in a coral note rather than
+linking a card to a post it does not name. Four pages currently trip it.
 
 `liveImg()` in `src/lib/wireframe.ts` renders them, keeping the old dashed
 art-direction panel in the markup as an `onerror` fallback. If an image cannot
@@ -116,10 +129,11 @@ load — offline, hotlink protection, a CSP on the host — the block degrades t
 the wireframe it showed before rather than to a broken-image icon. Both paths
 are verified at 390/940/1440px.
 
-Two slots stayed placeholders on purpose: the Get the Numbers illustration,
-which has no image in the live page's markup at all, and the sixth post
-thumbnail, where the API response truncated before that card. Neither is worth
-guessing at.
+Everything still showing a dashed panel is art that genuinely does not exist —
+the role-page infographics, the hero photography, the industry tiles on the hub,
+and the Get the Numbers illustration, which has no image in the live page's
+markup at all. Nothing was force-fitted to fill a slot; where a live image is
+standing in for a different medium than the block specs, the page says so.
 
 ### The logo
 
@@ -150,7 +164,7 @@ installed.
 | Route | Status | Notes |
 | :--- | :--- | :--- |
 | `/overview` | LIVE | The live page, matched section for section · carries the live imagery |
-| `/how-it-works` | BUILD | Full approved copy |
+| `/how-it-works` | BUILD | Full approved copy · live process graphic and industry tiles |
 | `/what-is-travel-labor` | BUILD | Full approved copy (June-05 package) |
 | `/vs-local-staffing` | BUILD | Comparison tables written, surrounding copy not |
 | `/industries/automotive` | BUILD | Industry cluster template · the only page with delivered artwork |

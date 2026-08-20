@@ -3,6 +3,8 @@
 import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
+import { liveImg } from "../lib/wireframe";
+import { PROCESS_ART, GAP_ART, CASE_ART, postArt, postTitleDrift } from "../data/live-media";
 import { B } from "../data/nav";
 import { photo } from "../lib/wireframe";
 import type { Block as BlockType } from "../lib/types";
@@ -57,7 +59,9 @@ const blocks: BlockType[] = [
     h: `
   <h2>The four-phase process</h2>
   <p class="lead">Every engagement follows the same proven path. Timing varies by role and location, but the sequence does not.</p>
-  <div style="margin:26px 0">${photo("Deployment timeline · SVG 2400×600 (4:1), stacks vertically under 768px · day-scale bar with tick marks · Assessment (1–2 days) · Mobilization (2–3 days) · Deployment (team on site in days) · Demobilization (2–3 days) · crew-live marker at the Deployment tick")}</div>
+  <div style="margin:26px 0">${liveImg(PROCESS_ART)}</div>
+  <div class="note"><b>This is the graphic AFIMAC already has for the four phases</b>, lifted straight off the overview. It is a circle, not the day-scale bar this block specs — it carries the phase names but not the durations, so the timings still live only in the copy. Decide whether to redraw it as a timeline or to drop the timeline spec and reuse this.</div>
+  <div class="note stop"><b>And it labels phase 1 “Assessment + Consultation”</b>, which is exactly the naming conflict this page has open. Placing it here picks a side by accident.</div>
   <div class="g4">
    <div class="card"><div class="blocknum">PHASE 1 · 1–2 DAYS</div><h3>Assessment</h3><ul class="tick"><li>Assess the situation and labor needs</li><li>Align on roles, shift coverage, and site requirements</li><li>Scope timeline, costs, and success measures</li><li>Finalize the deployment plan</li></ul></div>
    <div class="card"><div class="blocknum">PHASE 2 · 2–3 DAYS</div><h3>Mobilization</h3><ul class="tick"><li>Source and screen candidates from a 20,000+ talent network</li><li>Background, credential, and role checks</li><li>Arrange travel and housing</li><li>Site-specific safety and role onboarding</li></ul></div>
@@ -120,10 +124,11 @@ const blocks: BlockType[] = [
   <h2>Where CSTL is deployed</h2>
   <p class="lead">The process is the same across sectors; the roles change. Explore the industry pages for role-level detail.</p>
   <div class="g3" style="margin-top:26px">
-   <a class="card" style="text-decoration:none;display:block" href="${u("/industries/automotive")}">${photo("1200×1500 · automotive line")}<h3 style="margin-top:16px">Automotive manufacturing</h3></a>
-   <a class="card" style="text-decoration:none;display:block" href="${u("/industries/food-beverage")}">${photo("1200×1500 · F&amp;B production floor")}<h3 style="margin-top:16px">Food &amp; beverage manufacturing</h3></a>
-   <a class="card" style="text-decoration:none;display:block" href="${u("/industries/logistics-warehousing")}">${photo("1200×1500 · warehouse racking aisle")}<h3 style="margin-top:16px">Logistics, warehousing &amp; distribution</h3></a>
-  </div>`,
+   <a class="card" style="text-decoration:none;display:block" href="${u("/industries/automotive")}">${liveImg(GAP_ART.mfg)}<h3 style="margin-top:16px">Automotive manufacturing</h3></a>
+   <a class="card" style="text-decoration:none;display:block" href="${u("/industries/food-beverage")}">${liveImg(CASE_ART[2].art)}<h3 style="margin-top:16px">Food &amp; beverage manufacturing</h3></a>
+   <a class="card" style="text-decoration:none;display:block" href="${u("/industries/logistics-warehousing")}">${liveImg(GAP_ART.whs)}<h3 style="margin-top:16px">Logistics, warehousing &amp; distribution</h3></a>
+  </div>
+  <div class="note"><b>Stand-ins, and the wrong medium.</b> These are the live isometric illustrations off the overview — the manufacturing and warehousing tiles, plus the food-production spot art from the case carousel. The block specs 1200×1500 photography. They fill the tiles and prove the layout, but photography and flat isometrics on the same grid will not sit together once real shots arrive: <b>pick one medium for industry tiles across the section</b>, here and on the <a href="${u("/industries")}">industries hub</a>.</div>`,
     spec: `<b>Elementor:</b> Container (3-col) · EK Image Box ×3. Add a tile per cluster page as it publishes. This page is the hub; the cluster pages are the spokes.`,
   },
 
@@ -147,11 +152,12 @@ const blocks: BlockType[] = [
     h: `
   <h2>Related insights</h2>
   <div class="g3" style="margin-top:22px">
-   ${RELATED.map(
-     ([t, s]) =>
-       `<div class="card">${photo("1280×720 (16:9)")}<h3 style="margin-top:16px">${t}</h3><p style="font-size:12.5px;color:var(--spec)">${s}</p></div>`,
-   ).join("")}
-  </div>`,
+   ${RELATED.map(([t, s]) => {
+     const a = postArt(t);
+     return `<div class="card">${a ? liveImg(a) : photo("1280×720 (16:9)")}<h3 style="margin-top:16px">${t}</h3><p style="font-size:12.5px;color:var(--spec)">${s}</p></div>`;
+   }).join("")}
+  </div>
+  <div class="note stop"><b>“Ready on Day 1” is marked <i>directional</i> here, but the post exists</b> — published as “${postTitleDrift("Ready on Day 1: The Case for Travel Labor at Your Next Line Launch")}”. Two wording differences, and one of them drops “Skilled”. Cite it as published. Only the CSTL vs. Local Staffing title is genuinely unwritten.</div>`,
     spec: `<b>Elementor:</b> EK Post Grid (3-up). Titles are directional per the source doc — pull the three most relevant live posts at build.`,
   },
 

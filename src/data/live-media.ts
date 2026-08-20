@@ -153,49 +153,136 @@ export const CASE_ART: CaseArt[] = [
   },
 ];
 
-/** BLOCK 08 · featured images on the five posts the live grid renders first. */
-export const POST_ART: (LiveMedia | null)[] = [
+/**
+ * Every blog post the prototype cites, with its real featured image.
+ *
+ * Keyed on the live title. `aliases` carries the shorter or older wordings the
+ * copy decks use, so a deck that says “Ready on Day One” still resolves to the
+ * post whose live title runs “Ready on Day One: The Case for Skilled Travel
+ * Labor at Your Next Line Launch”. Where a deck's wording differs from the live
+ * title, that is itself worth knowing — `postTitleDrift()` reports it.
+ *
+ * Post IDs and featured-media IDs read from /wp-json/wp/v2/posts on 20 Aug 2026.
+ * Every image below is the 1024×536 `large` derivative, not the full-size file:
+ * two of these originals are 8000px wide and over 12 MB.
+ */
+export interface Post {
+  /** Title as the live post carries it. */
+  title: string;
+  /** Wordings used in the copy decks that mean this post. */
+  aliases?: string[];
+  art: LiveMedia;
+}
+
+const thumb = (src: string, alt: string): LiveMedia => ({
+  src,
+  alt,
+  liveAlt: "",
+  width: 1024,
+  height: 536,
+  fallback: "1280×720 featured image",
+});
+
+export const POST_LIBRARY: Post[] = [
   {
-    src: `${UP}/2025/09/From-the-desk-of-CFO-1-1024x536.webp`,
-    alt: "From the Desk of the CFO",
-    liveAlt: "",
-    width: 1024,
-    height: 536,
-    fallback: "1280×720 featured image",
+    title: "The Labor Gap Took Decades to Build. Employers No Longer Have Decades to Solve It.",
+    aliases: [
+      "The Labor Gap Took Decades to Build. Closing It Requires a New Playbook.",
+      "The Labor Gap Took Decades to Build. Solving It Requires a New Playbook.",
+    ],
+    art: thumb(`${UP}/2026/07/Blog-Post-The-Labor-Gap-Blog-Image-1024x536.jpg`, "The labor gap took decades to build"),
   },
   {
-    src: `${UP}/2025/09/From-the-desk-of-CEO-1-1024x536.webp`,
-    alt: "From the Desk of the CEO",
-    liveAlt: "",
-    width: 1024,
-    height: 536,
-    fallback: "1280×720 featured image",
+    title: "For U.S. Automotive Manufacturers, Reshoring Depends on Skilled Labor",
+    art: thumb(`${UP}/2026/06/Blog-Post-For-U.S.-Automotive-Manufacturers-1-1024x536.jpg`, "Reshoring depends on skilled labor"),
   },
   {
-    src: `${UP}/2025/06/skills-gap-video-poster@2x-1024x536.webp`,
-    alt: "Video poster · the growing skills gap",
-    liveAlt: "",
-    width: 1024,
-    height: 536,
-    fallback: "1280×720 featured image",
+    title: "Ready on Day One: The Case for Skilled Travel Labor at Your Next Line Launch",
+    aliases: [
+      "Ready on Day One",
+      "Ready on Day 1: The Case for Travel Labor at Your Next Line Launch",
+    ],
+    art: thumb(`${UP}/2026/06/Ready-on-Day-One-Blog-Image-1024x536.webp`, "Ready on day one"),
   },
   {
-    src: `${UP}/2025/05/reshoring-automotive-1024x536.webp`,
-    alt: "Reshoring and U.S. automotive manufacturing",
-    liveAlt: "",
-    width: 1024,
-    height: 536,
-    fallback: "1280×720 featured image",
+    title: "When AFIMAC is the Right Fit",
+    art: thumb(`${UP}/2026/05/Right-Fit-Blog-Image-1024x536.jpg`, "When AFIMAC is the right fit"),
   },
   {
-    src: `${UP}/2025/05/persistent-challenge-1024x536.webp`,
-    alt: "Manufacturing’s persistent labor challenge",
-    liveAlt: "",
-    width: 1024,
-    height: 536,
-    fallback: "1280×720 featured image",
+    title: "Debunking the Top Five Travel Labor Myths",
+    art: thumb(`${UP}/2025/08/debunking-travel-labor-myths-2-1024x536.png`, "Debunking the top five travel labor myths"),
   },
-  // Sixth card: the page response was truncated before this card's image, so it
-  // is deliberately left as a placeholder rather than guessed at.
-  null,
+  {
+    title: "Five Situations Where Travel Labor Makes Sense",
+    art: thumb(`${UP}/2025/05/travel-labor-1024x536.webp`, "Five situations where travel labor makes sense"),
+  },
+  {
+    title: "Everything You Need to Know About the Skills Gap in the U.S.",
+    art: thumb(`${UP}/2025/05/skills-gap-1024x536.webp`, "The skills gap in the U.S."),
+  },
+  {
+    title: "The Great Manufacturing (Re)Migration: Why Nearshoring and Reshoring Are Reshaping the Supply Chain",
+    aliases: ["The Great Manufacturing (Re)Migration"],
+    art: thumb(`${UP}/2025/04/Great-Remigration-1024x536.webp`, "The great manufacturing re-migration"),
+  },
+  {
+    title: "Bridging the Manufacturing Labor Gap: A Path to Growth and Resilience",
+    aliases: ["Bridging the Manufacturing Labor Gap"],
+    art: {
+      src: `${UP}/2025/01/bridge-1024x536.webp`,
+      alt: "A bridge spanning between two buildings over shark-infested water",
+      width: 1024,
+      height: 536,
+      fallback: "1280×720 featured image",
+    },
+  },
+  {
+    title: "From the Desk of the CFO",
+    art: thumb(`${UP}/2025/09/From-the-desk-of-CFO-1-1024x536.webp`, "From the desk of the CFO"),
+  },
+  {
+    title: "From the Desk of the CEO",
+    art: thumb(`${UP}/2025/09/From-the-desk-of-CEO-1-1024x536.webp`, "From the desk of the CEO"),
+  },
+  {
+    title: "Everything You Need to Know About the Growing Skills Gap (video)",
+    art: thumb(`${UP}/2025/06/skills-gap-video-poster@2x-1024x536.webp`, "Video poster · the growing skills gap"),
+  },
+  {
+    title: "What Does the Push for Reshoring Mean for U.S. Automotive Manufacturers?",
+    art: thumb(`${UP}/2025/05/reshoring-automotive-1024x536.webp`, "Reshoring and U.S. automotive manufacturing"),
+  },
+  {
+    title: "Manufacturing’s Persistent Labor Challenge",
+    art: thumb(`${UP}/2025/05/persistent-challenge-1024x536.webp`, "Manufacturing’s persistent labor challenge"),
+  },
 ];
+
+/** Loose compare — case, punctuation and whitespace are not the point. */
+const key = (t: string): string =>
+  t
+    .replace(/&amp;/g, "&")
+    .replace(/[\u2018\u2019\u201c\u201d]/g, "'")
+    .replace(/[^a-z0-9]+/gi, " ")
+    .trim()
+    .toLowerCase();
+
+const find = (title: string): Post | undefined => {
+  const k = key(title);
+  return POST_LIBRARY.find(
+    (p) => key(p.title) === k || (p.aliases ?? []).some((a) => key(a) === k),
+  );
+};
+
+/** The featured image for a cited post title, or null if we have no match. */
+export const postArt = (title: string): LiveMedia | null => find(title)?.art ?? null;
+
+/**
+ * The live title, when the prototype cites a post under a different wording.
+ * Null when the wording matches, or when there is no matching post at all.
+ */
+export const postTitleDrift = (title: string): string | null => {
+  const p = find(title);
+  if (!p) return null;
+  return key(p.title) === key(title) ? null : p.title;
+};

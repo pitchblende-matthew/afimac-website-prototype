@@ -7,7 +7,7 @@ import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { liveImg } from "../lib/wireframe";
-import { GAP_ART, PROCESS_ART, EBOOK_ART, CASE_ART, POST_ART } from "../data/live-media";
+import { GAP_ART, PROCESS_ART, EBOOK_ART, CASE_ART, postArt } from "../data/live-media";
 import { B } from "../data/nav";
 import type { Block as BlockType } from "../lib/types";
 
@@ -170,13 +170,13 @@ const blocks: BlockType[] = [
     h: `
   <h2>Related News + Insights</h2>
   <div class="g3" style="margin-top:34px">
-   ${POSTS.map(
-     (t, i) =>
-       `<div class="postcard">${POST_ART[i] ? liveImg(POST_ART[i]!) : `<div class="photo thumb">1280×720 featured image</div>`}<div class="pbody"><h4>${t}</h4><a class="readmore" href="${u("/overview")}">Read More »</a></div></div>`,
-   ).join("")}
+   ${POSTS.map((t) => {
+     const a = postArt(t);
+     return `<div class="postcard">${a ? liveImg(a) : `<div class="photo thumb">1280×720 featured image</div>`}<div class="pbody"><h4>${t}</h4><a class="readmore" href="${u("/overview")}">Read More »</a></div></div>`;
+   }).join("")}
   </div>
   <p style="margin-top:30px">« Previous &nbsp; <b>1</b> &nbsp; <a href="${u("/overview")}">2</a> &nbsp; <a href="${u("/overview")}">3</a> &nbsp; <a href="${u("/overview")}">Next »</a></p>`,
-    spec: `Five of the six featured images are the live ones. The sixth card kept its placeholder — the page response was truncated before that image, and a guess would be worse than a gap. <b>Elementor:</b> EK Post Grid, 3-up, paginated across three pages. The new CSTL pages use the same widget at 3-up with a category filter and no pagination.`,
+    spec: `All six featured images are the live ones, resolved by post title. <b>Elementor:</b> EK Post Grid, 3-up, paginated across three pages. The new CSTL pages use the same widget at 3-up with a category filter and no pagination.`,
   },
 
   {

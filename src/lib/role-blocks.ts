@@ -7,7 +7,8 @@
  * differences stay visible rather than being flattened into options on a
  * template.
  */
-import { photo } from "./wireframe";
+import { photo, liveImg } from "./wireframe";
+import { postArt, postTitleDrift } from "../data/live-media";
 import { u } from "./base";
 import type { Block } from "./types";
 
@@ -77,6 +78,21 @@ export function faqBlock(o: {
   };
 }
 
+/**
+ * Flags where the deck cites a post under a wording the live site does not use.
+ * Rendered under the insights grid, because a card whose title does not match
+ * the post it links to is a broken link waiting to happen.
+ */
+function drift(titles: string[]): string {
+  const off = titles
+    .map((t) => [t, postTitleDrift(t)] as const)
+    .filter((x): x is readonly [string, string] => x[1] !== null);
+  if (!off.length) return "";
+  return `<div class="note stop">${off.length === 1 ? "<b>One title here is not the live title.</b>" : `<b>${off.length} titles here are not the live titles.</b>`} ${off
+    .map(([cited, live]) => `The deck says “${cited}”; the post is published as “${live}”.`)
+    .join(" ")} Cite the live wording, or the card links to a post it does not name.</div>`;
+}
+
 /** Related insights — three live posts, a different combination on every page. */
 export function insightsBlock(o: { n: string; titles: string[]; spec: string }): Block {
   return {
@@ -85,12 +101,12 @@ export function insightsBlock(o: { n: string; titles: string[]; spec: string }):
   <h2>Related insights</h2>
   <div class="g3" style="margin-top:22px">
    ${o.titles
-     .map(
-       (t) =>
-         `<div class="card">${photo("1280×720 (16:9) · post featured image")}<h3 style="margin-top:16px">${t}</h3><a class="readmore" href="${u("/overview")}">Read More »</a></div>`,
-     )
+     .map((t) => {
+       const a = postArt(t);
+       return `<div class="card">${a ? liveImg(a) : photo("1280×720 (16:9) · post featured image")}<h3 style="margin-top:16px">${t}</h3><a class="readmore" href="${u("/overview")}">Read More »</a></div>`;
+     })
      .join("")}
-  </div>`,
+  </div>${drift(o.titles)}`,
     spec: o.spec,
   };
 }
