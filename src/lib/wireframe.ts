@@ -53,6 +53,28 @@ export const figure = (o: {
     ${o.caption ? `<figcaption>${o.caption}</figcaption>` : ""}
   </figure>`;
 
+/**
+ * An image that already exists on the live site, referenced by absolute URL.
+ *
+ * Not routed through u() — these are afimacglobal.com assets, not app assets.
+ * If the image cannot load (offline, hotlink protection, a CSP on the host) it
+ * degrades to the dashed art-direction panel the prototype showed before, so a
+ * failure looks like an unfinished wireframe rather than a broken page.
+ */
+export const liveImg = (o: {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  fallback: string;
+  /** Extra inline style on the wrapper, e.g. a min-width for the spot art. */
+  style?: string;
+}): string =>
+  `<div class="liveimg"${o.style ? ` style="${o.style}"` : ""}>
+    <img src="${o.src}" alt="${o.alt}"${o.width ? ` width="${o.width}"` : ""}${o.height ? ` height="${o.height}"` : ""} loading="lazy" decoding="async" onerror="this.closest('.liveimg').classList.add('failed')">
+    <div class="photo">${o.fallback}</div>
+  </div>`;
+
 /** Two-column tick list, used for the role inventories. */
 export const roleList = (a: string[]): string =>
   `<ul class="tick" style="columns:2;column-gap:40px">${a

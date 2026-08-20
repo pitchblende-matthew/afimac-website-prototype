@@ -6,6 +6,8 @@
 import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
+import { liveImg } from "../lib/wireframe";
+import { GAP_ART, PROCESS_ART, EBOOK_ART, CASE_ART, POST_ART } from "../data/live-media";
 import { B } from "../data/nav";
 import type { Block as BlockType } from "../lib/types";
 
@@ -63,18 +65,20 @@ const blocks: BlockType[] = [
   <p class="lead">Over the last 40 years, we have deployed teams to hundreds of operations in North America, drawing on our network of 20,000+ skilled and unskilled workers.</p>
   <h3 style="margin-top:50px">Workforce Gaps We Fill</h3>
   <div class="g3" style="margin-top:26px">
-   <div><div class="photo" style="min-height:230px">Isometric illustration · robotic assembly line on a pale blue ellipse</div>
+   <div>${liveImg(GAP_ART.mfg)}
     <div class="catbar mfg">MANUFACTURING</div>
     <ul class="check"><li>CNC Operators</li><li>Fabricators</li><li>Injection Mold Operators</li><li>Instrumentation Techs</li><li>Machine Operators &amp; Technicians</li></ul></div>
-   <div><div class="photo" style="min-height:230px">Isometric illustration · forklift and pallet handling</div>
+   <div>${liveImg(GAP_ART.whs)}
     <div class="catbar whs">WAREHOUSING</div>
     <ul class="check"><li>Forklift Operators</li><li>Heavy Equipment Operators</li><li>Inventory Control Specialists</li><li>Material Handlers</li><li>Shipping and Receiving Clerks</li></ul></div>
-   <div><div class="photo" style="min-height:230px">Isometric illustration · box truck and dispatch pair</div>
+   <div>${liveImg(GAP_ART.log)}
     <div class="catbar log">LOGISTICS</div>
     <ul class="check"><li>Logistics Coordinators</li><li>Supply Chain Managers</li><li>Transportation Managers</li><li>Shipping and Receiving Clerks</li><li>CDL Truck Drivers</li></ul></div>
   </div>
   <h2 style="margin-top:60px">Industries We Serve</h2>
   <div class="inds">${IND.map((i) => `<span>${i}</span>`).join("")}</div>
+  <div class="note"><b>These are the live images, referenced straight from afimacglobal.com</b> — the same approach as the logo, since no copies were supplied to this repo. If one cannot load, the block falls back to the dashed art-direction panel it showed before.</div>
+  <div class="note"><b>All three ship with empty alt text</b>, as does the eBook cover further down. They are decorative next to the lists, so empty is arguable — but they are also the only visual explaining each category, which makes them content. Pick one reading and apply it to all four.</div>
   <div class="note"><b>Link opportunity, and the cheapest one on the section.</b> Every role above now has a role page in the build sheet, and this industry row overlaps the seven live industry pages. Wire both as pages publish.</div>`,
     spec: `<b>Elementor:</b> Container (3-col) · Image ×3 · Heading ×3 (the coloured bars) · EK Icon List ×3, then an EK Icon List inline for the industries row. Live and unchanged.`,
   },
@@ -89,7 +93,7 @@ const blocks: BlockType[] = [
     <p>When there’s a risk to your operation, there’s no time to waste. We deliver the labor resources and support you need fast to help minimize the impact on your business. Getting back on track doesn’t take several weeks or months – AFIMAC bridges your labor gap in days.</p>
     <a class="btn wide" href="${u("/get-in-touch")}" style="margin-top:22px">Let's Talk</a>
    </div>
-   <div class="photo" style="min-height:340px">Circular four-stage process infographic · numbered 1–4 around a red→yellow→green arc · North America map, aircraft, forklift · labels: Assessment + Consultation · Mobilization · Rapid Deployment · Hassle-Free Demobilization</div>
+   <div>${liveImg(PROCESS_ART)}</div>
   </div>
   <div class="g4" style="margin-top:52px">
    <div class="phase"><div class="num">1</div><div class="bar">Consultation</div><ul><li>Assess needs</li><li>Align on desired services</li><li>Finalize strategic deployment plan</li><li>Timeframe: 2-3 days</li></ul></div>
@@ -122,12 +126,16 @@ const blocks: BlockType[] = [
     h: `
   <h2>Client Success Stories</h2>
   <div class="g2" style="margin-top:34px">
-   <div style="display:flex;gap:22px"><div class="photo" style="min-width:130px;min-height:130px;padding:10px">Isometric spot illustration</div>
+   <div style="display:flex;gap:22px">${liveImg({ ...CASE_ART[1].art, style: "flex:0 0 130px" })}
     <div><p>Confronted with a significant customer order backlog, this Fortune 500 agricultural equipment manufacturer brought in multiple staffing providers. AFIMAC quickly distinguished itself as the sole non-local partner retained, supplying skilled assemblers and machinists. Over a two-year engagement, AFIMAC’s workforce helped stabilize operations and return the company to on-time order fulfillment.</p><p><b><i>Fortune 500 Agricultural Equipment Manufacturer</i></b></p></div></div>
-   <div style="display:flex;gap:22px"><div class="photo" style="min-width:130px;min-height:130px;padding:10px">Isometric spot illustration</div>
+   <div style="display:flex;gap:22px">${liveImg({ ...CASE_ART[2].art, style: "flex:0 0 130px" })}
     <div><p>A major labor disruption at a global food production facility threatened safety and halted operations. AFIMAC deployed 99 personnel, including security and skilled workers such as packaging operators, forklift drivers, boiler operators, and wastewater treatment technicians. With AFIMAC’s support, the client maintained full production and avoided operational downtime throughout the crisis.</p><p><b><i>Global Food Manufacturer</i></b></p></div></div>
   </div>
   <p style="margin-top:26px;color:var(--spec);font-size:14px">‹ &nbsp; • • • • • • &nbsp; › &nbsp; — six cases, two at a time</p>
+  <div class="blocklabel" style="margin-top:34px">ALL SIX SLIDES, AS THE LIVE PAGE PAIRS THEM</div>
+  <div class="caseart">${CASE_ART.map((c) => `<div>${liveImg(c.art)}<div class="cap"><b>${c.label}</b>${c.gist}</div></div>`).join("")}</div>
+  <div class="note stop"><b>Three of the six illustrations are on the wrong case.</b> The switchgear manufacturer — twelve wiring technicians — is illustrated with a <b>forklift</b>, while the case that actually asked for twenty forklift operators gets a <b>chef at a meat counter</b>. And the agricultural equipment manufacturer gets an <b>earthmover</b> while the generic “Fortune 500 Manufacturer” gets the <b>tractor</b>. Swapping four files fixes all three.</div>
+  <div class="note"><b>Alt text on this carousel is the client label, which is not a description of the image, and one of them is simply wrong</b> — <code>forklift.webp</code> is tagged “Fortune 500 Agricultural Equipment Manufacturer” on a switchgear case. Two more pairs are duplicates. The prototype ships descriptive alt instead; compare with the live values in <code>src/data/live-media.ts</code>.</div>
   <div class="note"><b>Four of the six are manufacturing, one food, one building materials. Nothing here fits the Logistics page.</b> Each new industry page needs a featured case plus two or three supporting, so bundle that into the case-study request.</div>`,
     spec: `<b>Elementor:</b> carousel, two slides visible, arrows plus dots. Note this is the Swiper instance that broke on the Elementor 4.x asset-loading change — worth regression-testing after any header template edit.`,
   },
@@ -139,7 +147,7 @@ const blocks: BlockType[] = [
    <div>
     <h2>Bridging the Manufacturing Labor Gap</h2>
     <p class="lead">Uncover the strategies business leaders are leveraging to overcome workforce shortages and unlock growth potential.</p>
-    <div class="photo" style="min-height:250px;margin-top:26px">eBook cover mockup · angled two-page spread</div>
+    <div style="margin-top:26px">${liveImg(EBOOK_ART)}</div>
    </div>
    <div class="formpanel"><div class="form">
     <div><label>First Name<i>*</i></label><input placeholder=""></div>
@@ -163,12 +171,12 @@ const blocks: BlockType[] = [
   <h2>Related News + Insights</h2>
   <div class="g3" style="margin-top:34px">
    ${POSTS.map(
-     (t) =>
-       `<div class="postcard"><div class="photo thumb">1280×720 featured image</div><div class="pbody"><h4>${t}</h4><a class="readmore" href="${u("/overview")}">Read More »</a></div></div>`,
+     (t, i) =>
+       `<div class="postcard">${POST_ART[i] ? liveImg(POST_ART[i]!) : `<div class="photo thumb">1280×720 featured image</div>`}<div class="pbody"><h4>${t}</h4><a class="readmore" href="${u("/overview")}">Read More »</a></div></div>`,
    ).join("")}
   </div>
   <p style="margin-top:30px">« Previous &nbsp; <b>1</b> &nbsp; <a href="${u("/overview")}">2</a> &nbsp; <a href="${u("/overview")}">3</a> &nbsp; <a href="${u("/overview")}">Next »</a></p>`,
-    spec: `<b>Elementor:</b> EK Post Grid, 3-up, paginated across three pages. The new CSTL pages use the same widget at 3-up with a category filter and no pagination.`,
+    spec: `Five of the six featured images are the live ones. The sixth card kept its placeholder — the page response was truncated before that image, and a guess would be worse than a gap. <b>Elementor:</b> EK Post Grid, 3-up, paginated across three pages. The new CSTL pages use the same widget at 3-up with a category filter and no pagination.`,
   },
 
   {
@@ -181,6 +189,7 @@ const blocks: BlockType[] = [
     <p>Let’s talk today and we’ll provide solutions matched to your needs:</p>
     <ul class="check" style="display:inline-block;text-align:left"><li>Available labor resources</li><li>Rapid deployment timing</li><li>Ballpark costs</li><li>Estimated ROI impact</li></ul>
     <div class="photo" style="min-height:250px;margin-top:24px">Isometric US map illustration · forklift, pallets, dispatch figures</div>
+    <div class="note" style="text-align:left"><b>Still a placeholder.</b> The live page's markup carries no image in this block, so there was nothing to pull. If one exists as a container background, point us at it; otherwise this needs art.</div>
    </div>
    <div class="formpanel"><div class="form">
     <div><label>First Name<i>*</i></label><input></div>

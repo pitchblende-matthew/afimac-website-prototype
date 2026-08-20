@@ -24,6 +24,7 @@ check at 390px.
 | Grey bars | Copy not written yet |
 | Dashed panel | Photography or illustration still to source — the caption is the art direction |
 | Green-ruled figure | Artwork that has been delivered and is placed on the page |
+| A real image | Already live on the site — pulled from afimacglobal.com, see below |
 | Gold `note` | An observation or a link opportunity |
 | Coral `note stop` | A conflict that blocks final copy |
 | `LIVE` / `BUILD` tag | Whether the page exists on the site today |
@@ -95,6 +96,31 @@ To add another: drop the file in `public/graphics/`, then give the industry an
 `caption`, optional `maxWidth` for portrait art). Paths go through `u()`
 automatically — do not prefix the mount path by hand.
 
+### Live page images
+
+The overview page shows the real images from the live CSTL page — the three
+category illustrations, the four-stage process circle, all six client-success
+illustrations, the eBook cover, and five of the six post thumbnails. They are
+**referenced from afimacglobal.com, not vendored**, for the same reason as the
+logo: no copies were supplied to this repo, and the live media library is the
+source of truth.
+
+The inventory is `src/data/live-media.ts`, read out of the WordPress REST API
+(`/wp-json/wp/v2/pages/427`) on 20 Aug 2026. It records both the alt text the
+prototype proposes and the alt text the live page carries, wherever those differ
+— that gap is the finding, and the overview surfaces it in a note.
+
+`liveImg()` in `src/lib/wireframe.ts` renders them, keeping the old dashed
+art-direction panel in the markup as an `onerror` fallback. If an image cannot
+load — offline, hotlink protection, a CSP on the host — the block degrades to
+the wireframe it showed before rather than to a broken-image icon. Both paths
+are verified at 390/940/1440px.
+
+Two slots stayed placeholders on purpose: the Get the Numbers illustration,
+which has no image in the live page's markup at all, and the sixth post
+thumbnail, where the API response truncated before that card. Neither is worth
+guessing at.
+
 ### The logo
 
 Header and footer use the official AFIMAC SVGs from afimacglobal.com — the same
@@ -123,7 +149,7 @@ installed.
 
 | Route | Status | Notes |
 | :--- | :--- | :--- |
-| `/overview` | LIVE | The live page, matched section for section |
+| `/overview` | LIVE | The live page, matched section for section · carries the live imagery |
 | `/how-it-works` | BUILD | Full approved copy |
 | `/what-is-travel-labor` | BUILD | Full approved copy (June-05 package) |
 | `/vs-local-staffing` | BUILD | Comparison tables written, surrounding copy not |
@@ -163,10 +189,11 @@ src/
 ├── data/
 │   ├── nav.ts                  sub-nav structure + per-page build status
 │   ├── industries.ts           live industry pages + the CSTL update configs
+│   ├── live-media.ts           images already on the live overview page
 │   └── assets.ts               monday.com content inventory, mapped to routes
 ├── lib/
 │   ├── base.ts                 u() — mount-path-aware URL helper
-│   ├── wireframe.ts            bars() · photo() · figure() · cards() · roleList()
+│   ├── wireframe.ts            bars() · photo() · figure() · liveImg() · cards() · roleList()
 │   ├── industry-page.ts        the industry cluster template
 │   ├── role-blocks.ts          the blocks the seven role decks share
 │   └── types.ts

@@ -390,6 +390,22 @@ body.noassets .assetband{display:none}
 .blue .figure figcaption,.dark .figure figcaption,.sky .figure figcaption,.readiness .figure figcaption{color:#dff0e6}
 .blue .figure figcaption b,.dark .figure figcaption b{color:#fff}
 
+/* Images that already exist on the live site, referenced from afimacglobal.com.
+   The dashed .photo panel stays in the markup as the fallback: if the image
+   cannot load, the block degrades to the art-direction note it showed before
+   rather than to a broken-image icon. */
+.liveimg{position:relative}
+.liveimg img{display:block;width:100%;height:auto}
+.liveimg>.photo{display:none}
+.liveimg.failed img{display:none}
+.liveimg.failed>.photo{display:flex}
+.postcard .liveimg img{border-radius:4px 4px 0 0}
+.caseart{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:30px;text-align:left}
+.caseart .liveimg img{background:#fff}
+.caseart .cap{margin-top:8px;font-size:11.5px;line-height:1.45;color:var(--spec)}
+.caseart .cap b{display:block;color:var(--ink);font-size:12px;margin-bottom:2px}
+@media(max-width:940px){.caseart{grid-template-columns:repeat(2,1fr)}}
+
 a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--cta);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 @media(max-width:1080px){.g4{grid-template-columns:repeat(2,1fr)}footer.site .wrap{grid-template-columns:1fr 1fr}}
