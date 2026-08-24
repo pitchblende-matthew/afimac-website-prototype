@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 470" width="2400" height="470" role="img" aria-label="Seven-day automotive deployment: Consultation days 1 to 2, Mobilization days 3 to 4, Deployment days 5 to 7, with the crew on your floor partway through day 6. Demobilization 2 to 3 days at project close." font-family="Mulish,'Helvetica Neue',Helvetica,Arial,sans-serif">
+<rect width="2400" height="470" fill="#fff"/>
+<text x="108" y="46" font-size="26" font-weight="700" letter-spacing="4.2" fill="#5e7889">PHASE 01</text>
+<text x="108" y="118" font-size="56" font-weight="700" fill="#0d4a7c" font-family="'Zilla Slab',Georgia,'Times New Roman',serif">Consultation</text>
+<text x="108" y="166" font-size="30" fill="#5e7889">Days 1–2</text>
+<rect x="108" y="206" width="618" height="92" fill="#86a9c4"/>
+<text x="732" y="46" font-size="26" font-weight="700" letter-spacing="4.2" fill="#5e7889">PHASE 02</text>
+<text x="732" y="118" font-size="56" font-weight="700" fill="#0d4a7c" font-family="'Zilla Slab',Georgia,'Times New Roman',serif">Mobilization</text>
+<text x="732" y="166" font-size="30" fill="#5e7889">Days 3–4</text>
+<rect x="732" y="206" width="618" height="92" fill="#08355a"/>
+<text x="1356" y="46" font-size="26" font-weight="700" letter-spacing="4.2" fill="#ae510c">PHASE 03</text>
+<text x="1356" y="118" font-size="56" font-weight="700" fill="#e8701a" font-family="'Zilla Slab',Georgia,'Times New Roman',serif">Deployment</text>
+<text x="1356" y="166" font-size="30" fill="#5e7889">Days 5–7</text>
+<rect x="1356" y="206" width="930" height="92" fill="#e8701a"/>
+<rect x="108" y="306" width="3" height="20" fill="#c9d6de"/>
+<rect x="420" y="306" width="3" height="20" fill="#c9d6de"/>
+<rect x="732" y="306" width="3" height="20" fill="#c9d6de"/>
+<rect x="1044" y="306" width="3" height="20" fill="#c9d6de"/>
+<rect x="1356" y="306" width="3" height="20" fill="#c9d6de"/>
+<rect x="1668" y="306" width="3" height="20" fill="#c9d6de"/>
+<rect x="1980" y="306" width="3" height="20" fill="#c9d6de"/>
+<rect x="2292" y="306" width="3" height="20" fill="#c9d6de"/>
+<text x="264" y="366" font-size="27" font-weight="600" letter-spacing="3.4" fill="#5e7889" text-anchor="middle">DAY 1</text>
+<text x="576" y="366" font-size="27" font-weight="600" letter-spacing="3.4" fill="#5e7889" text-anchor="middle">DAY 2</text>
+<text x="888" y="366" font-size="27" font-weight="600" letter-spacing="3.4" fill="#5e7889" text-anchor="middle">DAY 3</text>
+<text x="1200" y="366" font-size="27" font-weight="600" letter-spacing="3.4" fill="#5e7889" text-anchor="middle">DAY 4</text>
+<text x="1512" y="366" font-size="27" font-weight="600" letter-spacing="3.4" fill="#5e7889" text-anchor="middle">DAY 5</text>
+<text x="1824" y="366" font-size="27" font-weight="600" letter-spacing="3.4" fill="#5e7889" text-anchor="middle">DAY 6</text>
+<text x="2136" y="366" font-size="27" font-weight="600" letter-spacing="3.4" fill="#5e7889" text-anchor="middle">DAY 7</text>
+<line x1="1668" y1="182" x2="1668" y2="424" stroke="#e8701a" stroke-width="3" stroke-dasharray="10 9"/>
+<circle cx="1668" cy="176" r="14" fill="#e8701a"/>
+<circle cx="1668" cy="252" r="17" fill="#fff" stroke="#e8701a" stroke-width="5"/>
+<circle cx="1668" cy="432" r="13" fill="#e8701a"/>
+<text x="1702" y="443" font-size="28" font-weight="700" letter-spacing="4.4" fill="#e8701a">CREW ON YOUR FLOOR</text>
+<text x="108" y="443" font-size="28" fill="#4f6472">Demobilization: 2–3 days at project close.</text>
+</svg>

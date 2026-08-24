@@ -1,0 +1,119 @@
+<!-- ============================================================================
+     AFIMAC · Automotive Manufacturing Travel Labor
+     Stat band — 40+ years / 20,000+ skilled laborers / 18+ industries served.
+     Counters animate once when the band scrolls into view, then hold.
+     Paste into an Elementor HTML widget. Self-contained: no libraries, no
+     external requests, no browser storage. All styles are scoped to .afx-sb.
+     Edit a number by changing BOTH data-to and the fallback text in .afx-sb__n.
+     WHERE IT GOES: Automotive Manufacturing Travel Labor
+     (/industries/automotive/) — BLOCK 06, AFIMAC by the Numbers. It replaces
+     the four-figure EK Funfact row with three figures; see the page note.
+     FONTS: the two --afx-* stacks below were swapped from Zilla Slab / Jost to
+     the site's Museo / Museo Sans Elementor Custom Fonts, with the original
+     faces kept as fallbacks. Nothing else was changed from the delivered file.
+     ========================================================================= -->
+<div class="afx-sb" id="afxStatBand">
+  <p class="afx-sb__lede">For four decades, Fortune 500 manufacturers have called AFIMAC when a
+    labor gap threatens production and the clock is running.</p>
+
+  <dl class="afx-sb__grid">
+    <div class="afx-sb__item">
+      <dt class="afx-sb__n"><span class="afx-sb__v" data-to="40" data-suffix="+">40+</span></dt>
+      <dd class="afx-sb__l">Years of Experience</dd>
+    </div>
+    <div class="afx-sb__item">
+      <dt class="afx-sb__n"><span class="afx-sb__v" data-to="20000" data-suffix="+" data-comma="1">20,000+</span></dt>
+      <dd class="afx-sb__l">Skilled Laborers</dd>
+    </div>
+    <div class="afx-sb__item">
+      <dt class="afx-sb__n"><span class="afx-sb__v" data-to="18" data-suffix="+">18+</span></dt>
+      <dd class="afx-sb__l">Industries Served</dd>
+    </div>
+  </dl>
+</div>
+
+<style>
+.afx-sb{
+  --afx-navy:#0D4A7C; --afx-navy-deep:#08355A; --afx-orange:#E8701A;
+  --afx-rule:rgba(255,255,255,.22); --afx-ink-inv:#FFFFFF;
+  --afx-slab:"Museo","Museo Slab","MuseoSlab","Zilla Slab",Georgia,serif;
+  --afx-sans:"Museo Sans","MuseoSans","Museo Sans W01",Mulish,"Segoe UI",Roboto,Arial,sans-serif;
+  font-family:var(--afx-sans);
+  background:var(--afx-navy); color:var(--afx-ink-inv);
+  border-radius:10px; padding:52px 56px 56px;
+}
+.afx-sb *,.afx-sb *::before,.afx-sb *::after{box-sizing:border-box}
+
+.afx-sb__lede{
+  margin:0 0 44px; max-width:64ch;
+  font-size:19px; line-height:1.6; color:rgba(255,255,255,.86);
+}
+.afx-sb__grid{
+  margin:0; padding:0; display:grid; grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--afx-rule);
+}
+.afx-sb__item{padding:38px 34px 6px; border-left:1px solid var(--afx-rule)}
+.afx-sb__item:first-child{border-left:0; padding-left:0}
+.afx-sb__n{
+  margin:0 0 10px; font-family:var(--afx-slab); font-weight:700;
+  font-size:clamp(44px,5.4vw,68px); line-height:1; letter-spacing:-.01em;
+  color:#fff; font-variant-numeric:tabular-nums;
+}
+.afx-sb__l{
+  margin:0; font-size:15px; font-weight:500; letter-spacing:.14em;
+  text-transform:uppercase; color:rgba(255,255,255,.72);
+}
+.afx-sb__item::before{
+  content:""; display:block; width:34px; height:4px; background:var(--afx-orange);
+  margin-bottom:26px;
+}
+
+@media (max-width:860px){
+  .afx-sb{padding:40px 28px 44px}
+  .afx-sb__grid{grid-template-columns:1fr}
+  .afx-sb__item{border-left:0; border-top:1px solid var(--afx-rule); padding:30px 0 10px}
+  .afx-sb__item:first-child{border-top:0}
+  .afx-sb__lede{margin-bottom:30px; font-size:17px}
+}
+</style>
+
+<script>
+(function () {
+  var root = document.getElementById('afxStatBand');
+  if (!root || root.dataset.afxReady) return;
+  root.dataset.afxReady = '1';
+
+  var vals = [].slice.call(root.querySelectorAll('.afx-sb__v'));
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function fmt(n, comma) {
+    return comma ? n.toLocaleString('en-US') : String(n);
+  }
+  function run(el) {
+    var to = parseInt(el.getAttribute('data-to'), 10);
+    var sfx = el.getAttribute('data-suffix') || '';
+    var comma = el.getAttribute('data-comma') === '1';
+    if (isNaN(to)) return;
+    var dur = 1400, t0 = null;
+    function step(ts) {
+      if (t0 === null) t0 = ts;
+      var p = Math.min(1, (ts - t0) / dur);
+      var e = 1 - Math.pow(1 - p, 3);           // easeOutCubic
+      el.textContent = fmt(Math.round(to * e), comma) + sfx;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  if (reduce || !('IntersectionObserver' in window) || !window.requestAnimationFrame) return;
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      io.unobserve(en.target);
+      vals.forEach(run);
+    });
+  }, { threshold: 0.4 });
+  io.observe(root);
+})();
+</script>

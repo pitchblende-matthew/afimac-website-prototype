@@ -1,0 +1,37 @@
+---
+/**
+ * Renders one of the Elementor HTML-widget embeds live on the page.
+ *
+ * Byte-for-byte the file in public/embeds/ — the markup and scoped <style> go
+ * through set:html, and the embed's own script is re-emitted inline so it
+ * actually runs. Wrapped in a green-ruled figure, the same signal figure()
+ * uses for delivered artwork, because these are delivered assets too.
+ */
+import { EMBEDS, type EmbedKey } from "../lib/embeds";
+import { u } from "../lib/base";
+
+interface Props {
+  name: EmbedKey;
+  /** Build/finding note under the embed. Same voice as figure() captions. */
+  caption?: string;
+}
+
+const { name, caption } = Astro.props;
+const embed = EMBEDS[name];
+---
+
+<figure class="figure embed">
+  <div class="embedbody"><Fragment set:html={embed.html} /></div>
+  {
+    caption && (
+      <figcaption>
+        <Fragment set:html={caption} />{" "}
+        <a href={u(embed.file)} target="_blank" rel="noopener">
+          Open the paste-in file →
+        </a>
+      </figcaption>
+    )
+  }
+</figure>
+
+<script is:inline set:html={embed.js} />

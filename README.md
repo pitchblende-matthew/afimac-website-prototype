@@ -23,7 +23,7 @@ check at 390px.
 | :--- | :--- |
 | Grey bars | Copy not written yet |
 | Dashed panel | Photography or illustration still to source — the caption is the art direction |
-| Green-ruled figure | Artwork that has been delivered and is placed on the page |
+| Green-ruled figure | Artwork that has been delivered and is placed on the page — or a delivered HTML widget, running live |
 | Amber dashed figure | Artwork rebuilt in this repo as a stand-in — not the approved asset |
 | A real image | Already live on the site — pulled from afimacglobal.com, see below |
 | Gold `note` | An observation or a link opportunity |
@@ -73,17 +73,20 @@ unresolved content conflicts.
 
 Finished graphics live in `public/graphics/` and render through `figure()` in
 `src/lib/wireframe.ts` — a green rule and a caption, the same signal the asset
-bands use, so a delivered graphic never reads as a dashed placeholder. Two are
-placed so far, both on [Automotive](src/pages/industries/automotive.astro):
+bands use, so a delivered graphic never reads as a dashed placeholder. Five are
+placed so far, three of them on Automotive — which the
+[industry template](src/lib/industry-page.ts) builds from
+[`src/data/industries.ts`](src/data/industries.ts):
 
 | File | Natural size | Placed as |
 | :--- | :--- | :--- |
 | `afimac-cstl-four-phase-timeline.png` | 2400×600 | The four-phase block on How It Works, What Is Travel Labor, and all three industry pages |
 | `afimac-cstl-mobilization-map.svg` | 960×960 | How It Works · BLOCK 02 — **a stand-in, see below** |
 | `afimac-auto-speed-comparison.png` | 1200×1296 | Automotive · BLOCK 02a, Speed to Production |
-| `afimac-auto-assembly-sequence.png` | 2400×440 | Automotive · the line map above the role grid |
+| `afimac-auto-assembly-sequence.png` | 2400×440 | Automotive · superseded on the page by the live line-map embed, kept as the flat fallback |
+| `afimac-auto-seven-day-deployment.svg` | 2400×470 | Automotive · How We Deploy, under the shared timeline — **a stand-in, see below** |
 
-All three arrived as `.png` under an `.svg` filename, and two were misnamed for
+The first four arrived as `.png` under an `.svg` filename, and two were misnamed for
 what they contain — one supplied as a deployment timeline is an assembly
 sequence, and one supplied as a mobilization map is the deployment timeline.
 Each is stored under a name that describes what it actually is. At 2400px both
@@ -103,8 +106,26 @@ direct hire (45–90 vs. 30–90), and a hard "6–7 days" where the copy hedges
 "within days". Resolve those before it ships — a graphic and a table on the
 same site quoting different benchmarks is worse than either alone.
 
-One of them is a **stand-in, not a delivered asset**. The mobilization map was
-sent as a pasted image rather than a file, so the bytes never reached this repo;
+Two of them are **stand-ins, not delivered assets** — both for the same reason:
+the design was pasted into the brief rather than supplied as a file, so the bytes
+never reached this repo.
+
+The **automotive seven-day deployment timeline** is reconstructed from the pasted
+design — same three phases, same day scale, same crew-on-your-floor marker, drawn
+as a real 2400×470 SVG. It sits *under* the shared four-phase timeline rather than
+replacing it, because the two disagree: four phases against three, `Assessment`
+against `Consultation`, no day numbers against hard ones. That disagreement is the
+finding, so the page shows both and says to ship one.
+
+Three more automotive designs were pasted into the same brief and are **not** in
+the repo. Two are superseded by the HTML embeds below — the flat stat band and the
+assembly sequence with its role cards drawn out — so nothing is lost. The third is
+a **landscape cut of the speed-comparison chart**, same three bars and same
+figures as the portrait `afimac-auto-speed-comparison.png` that ships today. Drop
+the landscape export into `public/graphics/` and repoint `speedArt` in
+`src/data/industries.ts` to swap it in.
+
+The **mobilization map** was sent the same way;
 it is reconstructed from the design — same structure, same six waypoints, same
 copy, drawn as a real 960×960 SVG, but with a cruder coastline than the
 original. It renders with an amber dashed rule rather than the green one so it
@@ -117,6 +138,40 @@ To add another: drop the file in `public/graphics/`, then give the industry an
 `Art` entry in `src/data/industries.ts` (`src`, `alt`, `width`, `height`,
 `caption`, optional `maxWidth` for portrait art). Paths go through `u()`
 automatically — do not prefix the mount path by hand.
+
+### HTML widget embeds
+
+Two of the automotive assets are not pictures at all — they are self-contained
+Elementor HTML widgets, delivered as paste-in files. They live in
+`public/embeds/`, which makes them both a repo artefact and a real URL the build
+can open and copy from:
+
+| File | Where it goes |
+| :--- | :--- |
+| `afimac-auto-line-map.html` | Automotive · BLOCK 05, under the H2 and above the role cards |
+| `afimac-auto-stat-band.html` | Automotive · BLOCK 06, AFIMAC by the Numbers |
+
+Each is one file: markup, a `<style>` scoped to its own class prefix, and a
+`<script>` that guards against double-initialisation. No libraries, no external
+requests, no browser storage — paste the whole file into an HTML widget and it
+works.
+
+**The prototype renders those same bytes**, so the review and the build cannot
+drift apart. `src/lib/embeds.ts` imports each file with `?raw` and splits the
+trailing `<script>` off, because Astro's `set:html` uses innerHTML semantics and a
+script inserted that way never runs; `Embed.astro` re-emits it as
+`<script is:inline>`. The file itself is never modified at render time. Give an
+industry a `lineMapEmbed` / `statBandEmbed` key in `src/data/industries.ts` and the
+embed replaces the flat artwork in that slot, with the block's `hEnd` markup
+following it.
+
+**One edit was made to the delivered files**: their two `--afx-*` font stacks
+asked for Zilla Slab and Jost. Both now ask for the site's Museo and Museo Sans
+Custom Fonts first and keep the original faces as fallbacks — which is what the
+line map's own build comment says to do. Nothing else was touched.
+
+The line map's callout button targets `#get-the-numbers`, so BLOCK 09 carries that
+anchor id.
 
 ### Live page images
 
@@ -189,7 +244,7 @@ installed.
 | `/how-it-works` | BUILD | Full approved copy · live process graphic and industry tiles |
 | `/what-is-travel-labor` | BUILD | Full approved copy (June-05 package) · shares the four-phase timeline |
 | `/vs-local-staffing` | BUILD | Comparison tables written, surrounding copy not |
-| `/industries/automotive` | BUILD | Industry cluster template · the only page with delivered artwork |
+| `/industries/automotive` | BUILD | Industry cluster template · the only page with delivered artwork, and the only one running live HTML widgets |
 | `/industries/food-beverage` | BUILD | Industry cluster template |
 | `/industries/logistics-warehousing` | BUILD | Industry cluster template + 2 open items · the one new industry page |
 | `/industries` | LIVE | The live hub, replicated · five untouched industry pages beneath it |

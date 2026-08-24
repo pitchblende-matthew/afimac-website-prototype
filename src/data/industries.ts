@@ -10,6 +10,10 @@
  * under review is the URL structure that ships.
  */
 import { B } from "./nav";
+import type { Art } from "./graphics";
+import type { EmbedKey } from "../lib/embeds";
+
+export type { Art };
 
 /** An industry page with CSTL update copy written and wireframed. */
 export interface Industry {
@@ -32,18 +36,20 @@ export interface Industry {
   mapArt?: Art;
   /** Real speed-comparison artwork, rendered as its own block. */
   speedArt?: Art;
+  /**
+   * An industry-specific deployment timeline, shown alongside the shared
+   * four-phase one rather than instead of it — the two disagree, and that
+   * disagreement is the finding.
+   */
+  deployArt?: Art;
+  /**
+   * Elementor HTML-widget embeds built for this industry. Where one exists it
+   * renders live in place of the flat artwork it supersedes — the prototype
+   * runs the same file the build pastes into WordPress.
+   */
+  lineMapEmbed?: EmbedKey;
+  statBandEmbed?: EmbedKey;
   roles: string[];
-}
-
-/** A finished graphic sitting in public/graphics/. */
-export interface Art {
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
-  caption: string;
-  /** Cap the rendered width — portrait art should not run full-bleed. */
-  maxWidth?: number;
 }
 
 export const INDUSTRIES: Record<string, Industry> = {
@@ -73,6 +79,17 @@ export const INDUSTRIES: Record<string, Industry> = {
         "<b>Real artwork, delivered.</b> Speed to production, 1200×1296 portrait. Supplied as a PNG named <code>.svg</code>.",
       maxWidth: 620,
     },
+    deployArt: {
+      src: "/graphics/afimac-auto-seven-day-deployment.svg",
+      alt: "Seven-day automotive deployment: Consultation days 1 to 2, Mobilization days 3 to 4, Deployment days 5 to 7, crew on your floor partway through day 6, demobilization 2 to 3 days at project close",
+      width: 2400,
+      height: 470,
+      standIn: true,
+      caption:
+        "<b>Rebuilt here, not delivered.</b> The design was pasted into the brief rather than supplied as a file, so the bytes never reached this repo; this is a reconstruction — same three phases, same day scale, same crew-on-your-floor marker, drawn as a real 2400×470 SVG. <b>It is not the approved asset.</b> Drop the real export at <code>public/graphics/afimac-auto-seven-day-deployment.svg</code> and it swaps in with no code change, then clear <code>standIn</code> in <code>src/data/industries.ts</code> to turn the rule green.",
+    },
+    lineMapEmbed: "auto-line-map",
+    statBandEmbed: "auto-stat-band",
     roles: ["CNC Operators", "Welders", "Assemblers", "Machinists", "Material Handlers", "Quality Inspectors"],
   },
 
