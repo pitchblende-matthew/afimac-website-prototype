@@ -1,0 +1,277 @@
+<!-- ============================================================================
+     AFIMAC · Automotive Manufacturing Travel Labor
+     Plant line map — 7 stations, click a station to see the crews.
+     Paste into an Elementor HTML widget. Self-contained: no libraries, no
+     external requests, no browser storage. All styles are scoped to .afx-lm.
+     Fonts inherit from the theme; swap the two --afx-* stacks if they differ.
+     WHERE IT GOES: Automotive Manufacturing Travel Labor
+     (/industries/automotive/) — BLOCK 05, Plant staffing role-ready, directly
+     under the H2 and above the six role cards. It replaces the flat
+     afimac-auto-assembly-sequence.png in that slot.
+     FONTS: the two --afx-* stacks below were swapped from Zilla Slab / Jost to
+     the site's Museo / Museo Sans Elementor Custom Fonts, with the original
+     faces kept as fallbacks. Nothing else was changed from the delivered file.
+     ========================================================================= -->
+<div class="afx-lm" id="afxLineMap">
+  <p class="afx-lm__eyebrow">Assembly sequence</p>
+
+  <div class="afx-lm__railwrap">
+    <div class="afx-lm__rail" role="tablist" aria-label="Assembly line stations">
+      <div class="afx-lm__track" aria-hidden="true"></div>
+
+      <button type="button" class="afx-lm__stn is-active" role="tab" id="afx-t1" aria-controls="afx-p1" aria-selected="true" tabindex="0" data-i="1">
+        <span class="afx-lm__node"><span class="afx-lm__num">01</span></span>
+        <span class="afx-lm__nm">Body &amp; Weld</span>
+      </button>
+      <button type="button" class="afx-lm__stn" role="tab" id="afx-t2" aria-controls="afx-p2" aria-selected="false" tabindex="-1" data-i="2">
+        <span class="afx-lm__node"><span class="afx-lm__num">02</span></span>
+        <span class="afx-lm__nm">Paint &amp; Finish</span>
+      </button>
+      <button type="button" class="afx-lm__stn" role="tab" id="afx-t3" aria-controls="afx-p3" aria-selected="false" tabindex="-1" data-i="3">
+        <span class="afx-lm__node"><span class="afx-lm__num">03</span></span>
+        <span class="afx-lm__nm">General Assembly</span>
+      </button>
+      <button type="button" class="afx-lm__stn" role="tab" id="afx-t4" aria-controls="afx-p4" aria-selected="false" tabindex="-1" data-i="4">
+        <span class="afx-lm__node"><span class="afx-lm__num">04</span></span>
+        <span class="afx-lm__nm">Powertrain &amp; Machining</span>
+      </button>
+      <button type="button" class="afx-lm__stn" role="tab" id="afx-t5" aria-controls="afx-p5" aria-selected="false" tabindex="-1" data-i="5">
+        <span class="afx-lm__node"><span class="afx-lm__num">05</span></span>
+        <span class="afx-lm__nm">Quality &amp; Launch</span>
+      </button>
+      <button type="button" class="afx-lm__stn" role="tab" id="afx-t6" aria-controls="afx-p6" aria-selected="false" tabindex="-1" data-i="6">
+        <span class="afx-lm__node"><span class="afx-lm__num">06</span></span>
+        <span class="afx-lm__nm">Automation &amp; Maintenance</span>
+      </button>
+      <button type="button" class="afx-lm__stn" role="tab" id="afx-t7" aria-controls="afx-p7" aria-selected="false" tabindex="-1" data-i="7">
+        <span class="afx-lm__node"><span class="afx-lm__num">07</span></span>
+        <span class="afx-lm__nm">Material &amp; Logistics</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="afx-lm__stage">
+    <div class="afx-lm__panel is-active" role="tabpanel" id="afx-p1" aria-labelledby="afx-t1" tabindex="0" data-i="1">
+      <div class="afx-lm__phead"><span class="afx-lm__pnum">01</span><h3 class="afx-lm__ptitle">Body &amp; Weld</h3></div>
+      <ul class="afx-lm__roles">
+        <li>Weld line operators</li><li>Spot &amp; MIG welders</li><li>Body-in-white assemblers</li><li>Fixture &amp; jig setters</li><li>Robotic weld techs</li>
+      </ul>
+    </div>
+    <div class="afx-lm__panel" role="tabpanel" id="afx-p2" aria-labelledby="afx-t2" tabindex="0" hidden data-i="2">
+      <div class="afx-lm__phead"><span class="afx-lm__pnum">02</span><h3 class="afx-lm__ptitle">Paint &amp; Finish</h3></div>
+      <ul class="afx-lm__roles">
+        <li>Paint line operators</li><li>Prep &amp; sand technicians</li><li>E-coat operators</li><li>Sealer &amp; masking techs</li>
+      </ul>
+    </div>
+    <div class="afx-lm__panel" role="tabpanel" id="afx-p3" aria-labelledby="afx-t3" tabindex="0" hidden data-i="3">
+      <div class="afx-lm__phead"><span class="afx-lm__pnum">03</span><h3 class="afx-lm__ptitle">General Assembly</h3></div>
+      <ul class="afx-lm__roles">
+        <li>Trim &amp; final assemblers</li><li>Torque &amp; fastening operators</li><li>Sub-assembly builders</li><li>Line associates</li>
+      </ul>
+    </div>
+    <div class="afx-lm__panel" role="tabpanel" id="afx-p4" aria-labelledby="afx-t4" tabindex="0" hidden data-i="4">
+      <div class="afx-lm__phead"><span class="afx-lm__pnum">04</span><h3 class="afx-lm__ptitle">Powertrain &amp; Machining</h3></div>
+      <ul class="afx-lm__roles">
+        <li>CNC machinists</li><li>Engine &amp; transmission assemblers</li><li>EV battery module assemblers</li><li>Machine operators</li>
+      </ul>
+    </div>
+    <div class="afx-lm__panel" role="tabpanel" id="afx-p5" aria-labelledby="afx-t5" tabindex="0" hidden data-i="5">
+      <div class="afx-lm__phead"><span class="afx-lm__pnum">05</span><h3 class="afx-lm__ptitle">Quality &amp; Launch</h3></div>
+      <ul class="afx-lm__roles">
+        <li>Quality inspectors</li><li>CMM operators</li><li>Containment &amp; sort techs</li><li>Launch / PPAP support</li>
+      </ul>
+    </div>
+    <div class="afx-lm__panel" role="tabpanel" id="afx-p6" aria-labelledby="afx-t6" tabindex="0" hidden data-i="6">
+      <div class="afx-lm__phead"><span class="afx-lm__pnum">06</span><h3 class="afx-lm__ptitle">Automation &amp; Maintenance</h3></div>
+      <ul class="afx-lm__roles">
+        <li>Robotics &amp; controls techs</li><li>Maintenance technicians</li><li>PLC troubleshooters</li><li>Instrumentation techs</li>
+      </ul>
+    </div>
+    <div class="afx-lm__panel" role="tabpanel" id="afx-p7" aria-labelledby="afx-t7" tabindex="0" hidden data-i="7">
+      <div class="afx-lm__phead"><span class="afx-lm__pnum">07</span><h3 class="afx-lm__ptitle">Material &amp; Logistics</h3></div>
+      <ul class="afx-lm__roles">
+        <li>Forklift operators</li><li>Line-side material handlers</li><li>Sequencing &amp; kitting</li><li>Shipping &amp; receiving</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Callout card. Delete this block if it is built as a separate Elementor element. -->
+  <div class="afx-lm__cta">
+    <p class="afx-lm__ctatxt"><strong>Don't see the role you need?</strong> If it runs on your floor, we can staff it.</p>
+    <a class="afx-lm__ctabtn" href="#get-the-numbers">Ask about a role</a>
+  </div>
+</div>
+
+<style>
+.afx-lm{
+  --afx-navy:#0D4A7C; --afx-navy-deep:#08355A; --afx-navy-soft:#7DA2C0;
+  --afx-orange:#E8701A; --afx-orange-deep:#AE510C; --afx-orange-pale:#FDF1E8;
+  --afx-panel:#FFFFFF; --afx-track:#DDE5E9; --afx-rule:#CFDBE2;
+  --afx-ink:#12303F; --afx-muted:#4F6472; --afx-faint:#5E7889;
+  --afx-slab:"Museo","Museo Slab","MuseoSlab","Zilla Slab",Georgia,serif;
+  --afx-sans:"Museo Sans","MuseoSans","Museo Sans W01",Mulish,"Segoe UI",Roboto,Arial,sans-serif;
+  font-family:var(--afx-sans); color:var(--afx-ink);
+  -webkit-font-smoothing:antialiased;
+}
+.afx-lm *,.afx-lm *::before,.afx-lm *::after{box-sizing:border-box}
+
+.afx-lm__eyebrow{
+  margin:0 0 18px; font-size:13px; font-weight:500; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--afx-muted);
+}
+
+/* ---- rail ---------------------------------------------------------- */
+.afx-lm__railwrap{position:relative}
+.afx-lm__rail{
+  position:relative; display:flex; align-items:stretch; gap:0;
+  padding:8px 0 4px; overflow-x:auto; scrollbar-width:none; scroll-behavior:smooth;
+}
+.afx-lm__rail::-webkit-scrollbar{display:none}
+.afx-lm__track{
+  position:absolute; left:0; right:0; top:38px; height:6px; border-radius:3px;
+  background:
+    repeating-linear-gradient(90deg,var(--afx-track) 0 16px,#EAF0F3 16px 22px);
+}
+.afx-lm__stn{
+  position:relative; flex:1 1 0; min-width:132px; z-index:1;
+  display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap:12px;
+  background:none; border:0; padding:0 6px 8px; margin:0; cursor:pointer;
+  font:inherit; text-align:center; color:var(--afx-muted);
+  -webkit-tap-highlight-color:transparent;
+}
+.afx-lm__node{
+  display:grid; place-items:center; width:62px; height:62px; border-radius:50%;
+  background:var(--afx-panel); border:3px solid var(--afx-track);
+  color:var(--afx-navy-soft); transition:background .18s ease,border-color .18s ease,color .18s ease,transform .18s ease;
+}
+.afx-lm__num{font-family:var(--afx-slab); font-weight:700; font-size:20px; line-height:1}
+.afx-lm__nm{
+  font-size:14px; font-weight:500; line-height:1.3; letter-spacing:.01em;
+  color:var(--afx-muted); transition:color .18s ease; max-width:15ch;
+}
+.afx-lm__stn:hover .afx-lm__node{border-color:var(--afx-navy-soft); color:var(--afx-navy)}
+.afx-lm__stn:hover .afx-lm__nm{color:var(--afx-navy)}
+.afx-lm__stn:focus-visible{outline:none}
+.afx-lm__stn:focus-visible .afx-lm__node{box-shadow:0 0 0 4px rgba(13,74,124,.28)}
+.afx-lm__stn.is-active .afx-lm__node{
+  background:var(--afx-orange); border-color:var(--afx-orange); color:#fff; transform:scale(1.06);
+}
+.afx-lm__stn.is-active .afx-lm__nm{color:var(--afx-navy); font-weight:600}
+/* connector from the active station down to the panel */
+.afx-lm__stn.is-active::after{
+  content:""; position:absolute; left:50%; bottom:-14px; transform:translateX(-50%);
+  width:3px; height:14px; background:var(--afx-orange);
+}
+
+/* ---- panel --------------------------------------------------------- */
+.afx-lm__stage{margin-top:14px}
+.afx-lm__panel{
+  background:var(--afx-panel); border:1px solid var(--afx-rule); border-radius:10px;
+  border-top:4px solid var(--afx-orange); padding:34px 38px 36px;
+  display:grid; grid-template-columns:minmax(230px,290px) 1fr; gap:0 48px; align-items:start;
+  min-height:180px;
+}
+.afx-lm__panel[hidden]{display:none}
+.afx-lm__panel:focus-visible{outline:2px solid var(--afx-navy); outline-offset:3px}
+.afx-lm__phead{border-right:1px solid var(--afx-rule); padding-right:36px}
+.afx-lm__pnum{
+  display:block; font-family:var(--afx-slab); font-weight:700; font-size:15px; letter-spacing:.14em;
+  color:var(--afx-orange-deep); margin-bottom:10px;
+}
+.afx-lm__ptitle{
+  font-family:var(--afx-slab); font-weight:700; font-size:31px; line-height:1.15;
+  color:var(--afx-navy); margin:0;
+}
+.afx-lm__roles{
+  list-style:none; margin:0; padding:0;
+  column-count:2; column-gap:44px;
+}
+.afx-lm__roles li{
+  position:relative; padding-left:22px; font-size:17px; line-height:1.45; color:var(--afx-ink);
+  margin-bottom:15px; break-inside:avoid;
+}
+.afx-lm__roles li:last-child{margin-bottom:0}
+.afx-lm__roles li::before{
+  content:""; position:absolute; left:0; top:.55em; width:9px; height:9px;
+  background:var(--afx-orange); border-radius:2px;
+}
+
+/* ---- callout ------------------------------------------------------- */
+.afx-lm__cta{
+  margin-top:20px; padding:24px 30px; border-radius:10px; background:var(--afx-orange-pale);
+  display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;
+}
+.afx-lm__ctatxt{margin:0; font-size:17px; line-height:1.5; color:var(--afx-ink)}
+.afx-lm__ctatxt strong{font-family:var(--afx-slab); font-weight:700; color:var(--afx-navy)}
+.afx-lm__ctabtn{
+  flex:0 0 auto; display:inline-block; padding:13px 26px; border-radius:4px;
+  background:var(--afx-navy); color:#fff; text-decoration:none;
+  font-size:15px; font-weight:500; letter-spacing:.04em;
+  transition:background .18s ease;
+}
+.afx-lm__ctabtn:hover,.afx-lm__ctabtn:focus{background:var(--afx-navy-deep); color:#fff}
+
+/* ---- responsive ---------------------------------------------------- */
+@media (max-width:900px){
+  .afx-lm__stn{min-width:124px}
+  .afx-lm__nm{font-size:13px}
+  .afx-lm__panel{
+    grid-template-columns:1fr; gap:22px 0; padding:26px 24px 30px; min-height:0;
+  }
+  .afx-lm__phead{border-right:0; border-bottom:1px solid var(--afx-rule); padding:0 0 18px; min-height:0}
+  .afx-lm__ptitle{font-size:26px}
+  .afx-lm__stn.is-active::after{display:none}
+}
+@media (max-width:600px){
+  .afx-lm__roles{column-count:1}
+  .afx-lm__cta{flex-direction:column; align-items:flex-start}
+}
+@media (prefers-reduced-motion:reduce){
+  .afx-lm__rail{scroll-behavior:auto}
+  .afx-lm *{transition:none !important}
+}
+</style>
+
+<script>
+(function () {
+  var root = document.getElementById('afxLineMap');
+  if (!root || root.dataset.afxReady) return;
+  root.dataset.afxReady = '1';
+
+  var tabs   = [].slice.call(root.querySelectorAll('.afx-lm__stn'));
+  var panels = [].slice.call(root.querySelectorAll('.afx-lm__panel'));
+  var rail   = root.querySelector('.afx-lm__rail');
+
+  function show(idx, moveFocus) {
+    tabs.forEach(function (t, i) {
+      var on = i === idx;
+      t.classList.toggle('is-active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+    });
+    panels.forEach(function (p, i) {
+      if (i === idx) { p.removeAttribute('hidden'); }
+      else { p.setAttribute('hidden', ''); }
+    });
+    if (moveFocus) tabs[idx].focus();
+    // keep the active station visible when the rail is scrolled on small screens
+    if (rail.scrollWidth > rail.clientWidth) {
+      var t = tabs[idx];
+      var target = t.offsetLeft - (rail.clientWidth - t.offsetWidth) / 2;
+      rail.scrollLeft = Math.max(0, target);
+    }
+  }
+
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { show(i, false); });
+    t.addEventListener('keydown', function (e) {
+      var k = e.key, n = null;
+      if (k === 'ArrowRight' || k === 'ArrowDown') n = (i + 1) % tabs.length;
+      else if (k === 'ArrowLeft' || k === 'ArrowUp') n = (i - 1 + tabs.length) % tabs.length;
+      else if (k === 'Home') n = 0;
+      else if (k === 'End') n = tabs.length - 1;
+      if (n !== null) { e.preventDefault(); show(n, true); }
+    });
+  });
+})();
+</script>

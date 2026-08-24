@@ -1,9 +1,10 @@
 ---
 import type { Block } from "../lib/types";
+import Embed from "./Embed.astro";
 
 type Props = Block;
 
-const { cls = "", n = "", id, h, spec, raw = false } = Astro.props;
+const { cls = "", n = "", id, h, embed, hEnd, spec, raw = false } = Astro.props;
 ---
 
 {
@@ -16,6 +17,8 @@ const { cls = "", n = "", id, h, spec, raw = false } = Astro.props;
       <div class="wrap">
         <div class="blocknum blocklabel" set:html={n} />
         <Fragment set:html={h} />
+        {embed && <Embed name={embed.name} caption={embed.caption} />}
+        {hEnd && <Fragment set:html={hEnd} />}
         {spec && <div class="spec" set:html={spec} />}
       </div>
     </section>
