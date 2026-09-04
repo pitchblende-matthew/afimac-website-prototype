@@ -1,0 +1,112 @@
+---
+/**
+ * LAUNCH PHASES — internal working page, not part of the site IA.
+ *
+ * The rollout order is the client's. Everything else on this page is derived
+ * from src/data/nav.ts rather than written by hand, so the readiness columns
+ * cannot drift from the build status shown in the sub-nav.
+ */
+import Prototype from "../layouts/Prototype.astro";
+import Block from "../components/Block.astro";
+import { u } from "../lib/base";
+import { phaseAudit, WORK_SHORT, type Work } from "../data/nav";
+import type { Block as BlockType } from "../lib/types";
+
+const audit = phaseAudit();
+const ORDER: Work[] = ["settled", "ready", "partial", "todo"];
+
+const workCell = (w: Record<Work, number>) =>
+  ORDER.filter((k) => w[k]).map((k) => `${w[k]} ${WORK_SHORT[k]}`).join(" · ") || "—";
+
+const rows = audit
+  .map(
+    (p) => `<tr>
+   <th>Phase ${p.n}<br><span style="font-weight:400;color:var(--spec)">${p.name}</span></th>
+   <td>${p.entries.length ? `+${p.entries.length}` : "—"}</td>
+   <td>${p.cumulative}</td>
+   <td>${workCell(p.work)}</td>
+   <td class="${p.hollow.length ? "h" : "ok"}">${p.hollow.length ? `${p.hollow.length} hollow` : "none"}</td>
+  </tr>`,
+  )
+  .join("");
+
+const phaseBlocks: BlockType[] = audit.map((p) => ({
+  cls: p.n % 2 ? "wash" : undefined,
+  n: `PHASE ${p.n} · ${p.name.toUpperCase()}`,
+  h: `
+  <h2><span class="pchip${p.n === 0 ? " now" : ""}">${p.n}</span>${p.name}</h2>
+  <p class="lead">${p.adds}</p>
+  ${
+    p.entries.length
+      ? `<div class="tscroll"><table class="cmp"><thead><tr><th>Page</th><th>Route</th><th class="hl">Status</th></tr></thead><tbody>${p.entries
+          .map(
+            (e) => `<tr><th>${e.label}</th><td><code>${e.route}</code></td><td class="hl">${
+              e.live ? "Live · update" : WORK_SHORT[e.work]
+            }</td></tr>`,
+          )
+          .join("")}</tbody></table></div>`
+      : `<div class="note" style="margin-top:0">Nothing is added here — this is the starting point. The Overview and the seven industry pages are already live; what does not exist is anything tying them together.</div>`
+  }
+  ${
+    p.hollow.length
+      ? `<div class="note stop"><b>${p.hollow.length} nav slot${p.hollow.length > 1 ? "s" : ""} here point${
+          p.hollow.length > 1 ? "" : "s"
+        } at a page that is neither live nor started.</b> ${p.hollow
+          .map((e) => `<code>${e.route}</code>`)
+          .join(" · ")} — ${
+          p.hollow.length > 1 ? "these pages have" : "this page has"
+        } no copy and no live URL to fall back on. Either write ${
+          p.hollow.length > 1 ? "them" : "it"
+        } before this phase ships, or hold the slot${p.hollow.length > 1 ? "s" : ""} back to a later one.</div>`
+      : ""
+  }`,
+  spec: `Preview it: set the launch phase to ${p.n} in the pink bar above, then use the sub-nav.`,
+}));
+
+const blocks: BlockType[] = [
+  {
+    n: "THE ROLLOUT",
+    h: `
+  <h1>Launch phases</h1>
+  <p class="lead">The CSTL section does not ship in one go. It arrives as six steps, each one adding to the last. This page is the plan and a readiness check against it — <b>the phase order is the client's; the status columns are read out of the build data</b>, so they cannot drift from the dots in the sub-nav.</p>
+  <div class="tscroll"><table class="cmp phasetable"><thead><tr><th>Phase</th><th>Adds</th><th>Nav total</th><th>Build status of what it adds</th><th class="hl">Risk</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <div class="note"><b>“Hollow” means a nav slot pointing at a page that is neither live nor written.</b> A slot over a live page is fine even when the CSTL rewrite has not started — the link still lands somewhere real, and that is why Phase 1 carries five unstarted pages and no risk. A slot over a page that does not exist is a dead end.</div>
+  <div class="note"><b>Not the four deployment phases.</b> Assessment, Mobilization, Deployment and Demobilization describe an engagement. These describe the rollout of this section. Same word, unrelated things — worth keeping the labels distinct in anything client-facing.</div>`,
+    spec: `Use the launch-phase buttons in the pink bar to preview the sub-nav at each step. The choice persists across pages.`,
+  },
+
+  {
+    cls: "sky",
+    n: "RECOMMENDATION",
+    h: `
+  <div class="g2">
+   <div>
+    <h2>Swap Phases 2 and 3</h2>
+    <p class="lead">The order as written ships the least finished section before the most finished one.</p>
+    <ul class="tick">
+     <li><b>Phase 3 (Roles) is the only fully written section in the build</b> — eight pages, all copy written and wireframed, nothing outstanding.</li>
+     <li><b>Phase 2 (How It Works) carries three dead ends</b> — Travel vs. Traditional, Day 1 Ready and the Pre-Deployment Checklist have no copy and no live page.</li>
+    </ul>
+    <p>Running Roles second would put a complete section live sooner and buy the three How It Works pages the time they need. Nothing in the IA depends on the current order.</p>
+   </div>
+   <div>
+    <h3>If the order has to stand</h3>
+    <p>Ship Phase 2 with four of its seven slots and hold the three unwritten pages for Phase 2b. A dropdown with four working links reads as a section under construction; one with three dead ends reads as a broken site.</p>
+    <div class="note stop" style="margin-top:22px"><b>Either way this is a decision, not a detail.</b> Phase 2 cannot ship as specified today.</div>
+   </div>
+  </div>`,
+    spec: `Raise at the same sign-off as the phase-1 naming and the industry URLs — it is the same kind of call.`,
+  },
+
+  ...phaseBlocks,
+];
+---
+
+<Prototype
+  title="Launch phases"
+  crumb="Prototype › Launch phases"
+  url="(internal — not a site page)"
+  status="build"
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

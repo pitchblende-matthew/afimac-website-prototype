@@ -44,6 +44,35 @@ proposed site UI. Five independent toggles hide each kind of annotation:
 | Block labels | The `BLOCK 01 · HERO` captions |
 | Content assets | The green monday.com asset bands (see below) |
 
+### Launch phases
+
+The section ships in six cumulative steps, and the pink bar carries a **launch
+phase** selector to preview each one. Picking a phase sets `data-phase` on
+`<body>`; the stylesheet then hides every sub-nav entry that has not shipped by
+then, so the nav shows what the section actually looks like at that point. Phase
+0 is today — the Overview and the seven industry pages are live, but no sub-nav
+links them, so the bar is empty and says so. The choice persists across pages,
+like the toggles.
+
+| Phase | Adds |
+| :--- | :--- |
+| 0 | Nothing. Current state. |
+| 1 | Overview, Industries, Contact |
+| 2 | How It Works |
+| 3 | Roles |
+| 4 | Resources |
+| 5 | Pricing & ROI |
+
+`phase` lives on each top-level entry in `src/data/nav.ts`; children inherit it
+unless they set their own. [`/launch-phases`](src/pages/launch-phases.astro) is
+the plan and a readiness check against it — **the phase order is the client's,
+every status column on that page is derived from the build data**, so it cannot
+drift from the dots in the sub-nav.
+
+The word is overloaded: these launch phases are unrelated to the four
+*deployment* phases (Assessment, Mobilization, Deployment, Demobilization) the
+service itself runs on. Worth keeping the labels distinct in client-facing work.
+
 **Clean view** switches them all off, which renders the pages as a real site with
 no annotation — the view to share when the point is the design rather than the
 build. **Show everything** switches them back on. Choices persist across pages
@@ -206,6 +235,7 @@ installed.
 | `/resources` | BUILD | The gated library + the full monday.com asset inventory |
 | `/vs-traditional`, `/day-1-ready`, `/pre-deployment` | BUILD | On the build sheet, not wireframed |
 | `/brand-check` | — | Internal working page, not part of the site IA |
+| `/launch-phases` | — | Internal working page · the rollout plan and its readiness check |
 
 `/` redirects to `/overview`.
 
@@ -223,7 +253,7 @@ src/
 │   ├── Stub.astro              hub placeholder page
 │   └── NotBuilt.astro          "on the build sheet, no wireframe yet" page
 ├── data/
-│   ├── nav.ts                  sub-nav structure + per-page build status
+│   ├── nav.ts                  sub-nav structure + per-page build status + launch phases
 │   ├── industries.ts           live industry pages + the CSTL update configs
 │   ├── live-media.ts           images already on the live overview page
 │   └── assets.ts               monday.com content inventory, mapped to routes

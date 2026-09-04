@@ -1,5 +1,5 @@
 ---
-import { NAV, statusCaption } from "../data/nav";
+import { NAV, statusCaption, kidPhase } from "../data/nav";
 import { u } from "../lib/base";
 import type { NavItem } from "../data/nav";
 
@@ -26,7 +26,7 @@ const dot = (n: { work: string; live?: boolean }) =>
     <div id="subnavItems" style="display:contents">
       {
         NAV.map((item) => (
-          <div class={`snitem${isActive(item) ? " active" : ""}`}>
+          <div class={`snitem${isActive(item) ? " active" : ""}`} data-min={item.phase}>
             {/* Label, dot and caret are set as one HTML string: separate children
                 would have JSX whitespace between them, which shows as a gap. */}
             <a
@@ -40,7 +40,11 @@ const dot = (n: { work: string; live?: boolean }) =>
               <div class="dd">
                 <div class="ddhead" set:html={statusCaption(item.kids)} />
                 {item.kids.map((kid) => (
-                  <a href={u(kid.route)} set:html={dot(kid) + kid.label} />
+                  <a
+                    href={u(kid.route)}
+                    data-min={kidPhase(item, kid)}
+                    set:html={dot(kid) + kid.label}
+                  />
                 ))}
               </div>
             )}
@@ -48,6 +52,8 @@ const dot = (n: { work: string; live?: boolean }) =>
         ))
       }
     </div>
-    <a class="snCta" href={u("/get-in-touch")}>Get in Touch</a>
+    {/* Phase 0 is today: these pages are live but nothing links them. */}
+    <span class="phase0note">No CSTL sub-nav exists today — the live pages are not linked as a section.</span>
+    <a class="snCta" href={u("/get-in-touch")} data-min="1">Get in Touch</a>
   </div>
 </nav>
