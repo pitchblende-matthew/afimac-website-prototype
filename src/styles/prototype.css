@@ -497,3 +497,17 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
   .form{grid-template-columns:1fr}
   footer.site .wrap{grid-template-columns:1fr}
 }
+
+/* ---------- Elementor HTML-widget embeds, rendered live ----------
+   Same green rule as figure(): these are delivered assets too, they are just
+   code rather than a PNG. The prototype renders the exact file the build
+   pastes into the widget — see src/lib/embeds.ts. */
+.figure.embed{padding-left:20px}
+.figure.embed .embedbody{background:#fff;overflow:hidden}
+.figure.embed figcaption{margin-top:14px}
+
+/* A supplied type lockup, built as type rather than placed as an image. */
+.pullstat{border-left:5px solid var(--cta);padding:6px 0 6px 22px;margin:26px 0 8px}
+.pullstat-n{display:block;font-family:var(--museo);font-weight:700;font-size:clamp(38px,4.6vw,58px);line-height:1.05;color:var(--cstl-blue)}
+.pullstat-l{display:block;margin-top:6px;font-size:18px;color:var(--ink)}
+.blue .pullstat-n,.dark .pullstat-n,.sky .pullstat-n,.blue .pullstat-l,.dark .pullstat-l,.sky .pullstat-l{color:#fff}

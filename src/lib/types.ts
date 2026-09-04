@@ -1,3 +1,5 @@
+import type { EmbedKey } from "./embeds";
+
 /** SEO block shown in the PAGE META table on BUILD pages. */
 export interface PageMetaData {
   /** SEO title — target 50–60 characters. */
@@ -18,6 +20,14 @@ export interface Block {
   id?: string;
   /** The block markup. */
   h: string;
+  /**
+   * A live Elementor HTML-widget embed, dropped in after `h` and before
+   * `hEnd`. The embed renders from the same file the build pastes into
+   * WordPress — see src/lib/embeds.ts.
+   */
+  embed?: { name: EmbedKey; caption?: string };
+  /** Markup rendered after `h` and after the embed, if there is one. */
+  hEnd?: string;
   /** Elementor build note, hidden by the "Show Elementor build notes" toggle. */
   spec?: string;
   /** Full-bleed block: render without the `.wrap` / blocknum / spec scaffolding. */
