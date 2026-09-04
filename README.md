@@ -44,6 +44,16 @@ proposed site UI. Five independent toggles hide each kind of annotation:
 | Block labels | The `BLOCK 01 · HERO` captions |
 | Content assets | The green monday.com asset bands (see below) |
 
+### The sub-nav label
+
+The bar is labelled **Travel Labor**, not the internal “CSTL”. That is nearly
+three times the width of the acronym it replaced, so the nav is tightened
+between 1001px and 1180px and collapses to its menu button at **1000px** rather
+than the 940px the rest of the page layout uses — only the nav's content got
+wider, so only the nav's breakpoint moved. 940px had no slack left even with the
+old four-letter mark. `CSTL` stays as the internal shorthand in the repo, the
+build notes and the file names.
+
 ### Launch phases
 
 The section ships in six cumulative steps, and the pink bar carries a **launch
@@ -301,7 +311,7 @@ src/
 ├── layouts/Prototype.astro     header, CSTL sub-nav, breadcrumb, WIP bar, footer, page scripts
 ├── components/
 │   ├── Block.astro             one wireframe band (label + content + build note)
-│   ├── SubNav.astro            the CSTL sub-nav component under review
+│   ├── SubNav.astro            the sub-nav component under review, labelled “Travel Labor”
 │   ├── PageMeta.astro          the SEO / setup table on BUILD pages
 │   ├── AssetBand.astro         monday.com assets that belong on this page
 │   ├── Logo.astro              the AFIMAC mark, with a text fallback
