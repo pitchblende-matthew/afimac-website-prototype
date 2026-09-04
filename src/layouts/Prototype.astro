@@ -5,7 +5,7 @@ import PageMeta from "../components/PageMeta.astro";
 import AssetBand from "../components/AssetBand.astro";
 import Logo from "../components/Logo.astro";
 import { u } from "../lib/base";
-import { WORK_LABEL, sectionTotals, type Work } from "../data/nav";
+import { WORK_LABEL, sectionTotals, PHASES, type Work } from "../data/nav";
 import type { PageProps } from "../lib/types";
 
 type Props = PageProps;
@@ -52,6 +52,8 @@ const TOGGLES = [
       try {
         var saved = JSON.parse(localStorage.getItem("afimac-cstl:chrome") || "{}");
         for (var cls in saved) if (!saved[cls]) document.body.classList.add(cls);
+        var ph = localStorage.getItem("afimac-cstl:phase");
+        if (ph) document.body.setAttribute("data-phase", ph);
       } catch (e) {}
     </script>
 
@@ -80,6 +82,34 @@ const TOGGLES = [
             <button type="button" id="chromeOff">Clean view</button>
             <button type="button" id="chromeOn">Show everything</button>
           </span>
+        </div>
+
+        <div class="row phasebar">
+          <span class="lbl">Launch phase</span>
+          <button type="button" class="opt" data-phase="" aria-pressed="true">All</button>
+          {
+            PHASES.map((ph) => (
+              <button
+                type="button"
+                class="opt"
+                data-phase={String(ph.n)}
+                aria-pressed="false"
+                title={ph.adds.replace(/<[^>]+>/g, "")}
+              >
+                {ph.n}
+              </button>
+            ))
+          }
+          <span class="cap" id="phaseCap">
+            Showing every page. Pick a phase to see the sub-nav as it ships —{" "}
+            <a href={u("/launch-phases")}>the full plan</a>.
+          </span>
+          <a id="phaseLink" href={u("/launch-phases")} hidden aria-hidden="true" tabindex="-1" />
+          <script
+            id="phaseData"
+            type="application/json"
+            set:html={JSON.stringify(Object.fromEntries(PHASES.map((ph) => [String(ph.n), ph.adds])))}
+          />
         </div>
 
         <div class="row statuskey">
@@ -212,6 +242,48 @@ const TOGGLES = [
       };
       document.getElementById("chromeOff")?.addEventListener("click", () => setAll(false));
       document.getElementById("chromeOn")?.addEventListener("click", () => setAll(true));
+
+      /* ---- launch-phase preview ------------------------------------
+         Sets body[data-phase], which the stylesheet uses to hide nav entries
+         that have not shipped by the chosen phase. Persisted for the same
+         reason as the chrome toggles: this prototype navigates between real
+         pages, so an un-persisted choice would reset on every click. */
+      const PHASE_KEY = "afimac-cstl:phase";
+      const opts = Array.from(
+        document.querySelectorAll<HTMLButtonElement>(".phasebar .opt"),
+      );
+      const cap = document.getElementById("phaseCap");
+      const PHASE_ADDS: Record<string, string> = JSON.parse(
+        document.getElementById("phaseData")?.textContent || "{}",
+      );
+
+      const applyPhase = (v: string) => {
+        if (v) document.body.setAttribute("data-phase", v);
+        else document.body.removeAttribute("data-phase");
+        opts.forEach((o) => o.setAttribute("aria-pressed", String((o.dataset.phase || "") === v)));
+        if (cap) {
+          cap.innerHTML = v
+            ? `<b>Phase ${v}.</b> ${PHASE_ADDS[v] || ""} <a href="${
+                document.getElementById("phaseLink")?.getAttribute("href") || "#"
+              }">The full plan →</a>`
+            : `Showing every page. Pick a phase to see the sub-nav as it ships — <a href="${
+                document.getElementById("phaseLink")?.getAttribute("href") || "#"
+              }">the full plan</a>.`;
+        }
+        try {
+          if (v) localStorage.setItem(PHASE_KEY, v);
+          else localStorage.removeItem(PHASE_KEY);
+        } catch {}
+      };
+
+      let savedPhase = "";
+      try {
+        savedPhase = localStorage.getItem(PHASE_KEY) || "";
+      } catch {}
+      applyPhase(savedPhase);
+      opts.forEach((o) =>
+        o.addEventListener("click", () => applyPhase(o.dataset.phase || "")),
+      );
 
       /* ---- mobile sub-nav ---- */
       document.getElementById("mobtoggle")?.addEventListener("click", () => {

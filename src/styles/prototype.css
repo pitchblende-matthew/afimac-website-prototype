@@ -411,6 +411,69 @@ body.noassets .assetband{display:none}
 .caseart .cap b{display:block;color:var(--ink);font-size:12px;margin-bottom:2px}
 @media(max-width:940px){.caseart{grid-template-columns:repeat(2,1fr)}}
 
+/* ---- launch-phase preview -------------------------------------------
+   The reviewer picks a launch phase in the control bar; body[data-phase]
+   then hides every nav entry that has not shipped by then, so the sub-nav
+   shows what the section actually looks like at that point in the rollout.
+   No attribute = show everything, which is the default. */
+body[data-phase="0"] .snitem[data-min="1"],
+body[data-phase="0"] .dd a[data-min="1"],
+body[data-phase="0"] .snCta[data-min="1"],
+body[data-phase="0"] .snitem[data-min="2"],
+body[data-phase="0"] .dd a[data-min="2"],
+body[data-phase="0"] .snCta[data-min="2"],
+body[data-phase="0"] .snitem[data-min="3"],
+body[data-phase="0"] .dd a[data-min="3"],
+body[data-phase="0"] .snCta[data-min="3"],
+body[data-phase="0"] .snitem[data-min="4"],
+body[data-phase="0"] .dd a[data-min="4"],
+body[data-phase="0"] .snCta[data-min="4"],
+body[data-phase="0"] .snitem[data-min="5"],
+body[data-phase="0"] .dd a[data-min="5"],
+body[data-phase="0"] .snCta[data-min="5"]{display:none}
+body[data-phase="1"] .snitem[data-min="2"],
+body[data-phase="1"] .dd a[data-min="2"],
+body[data-phase="1"] .snCta[data-min="2"],
+body[data-phase="1"] .snitem[data-min="3"],
+body[data-phase="1"] .dd a[data-min="3"],
+body[data-phase="1"] .snCta[data-min="3"],
+body[data-phase="1"] .snitem[data-min="4"],
+body[data-phase="1"] .dd a[data-min="4"],
+body[data-phase="1"] .snCta[data-min="4"],
+body[data-phase="1"] .snitem[data-min="5"],
+body[data-phase="1"] .dd a[data-min="5"],
+body[data-phase="1"] .snCta[data-min="5"]{display:none}
+body[data-phase="2"] .snitem[data-min="3"],
+body[data-phase="2"] .dd a[data-min="3"],
+body[data-phase="2"] .snCta[data-min="3"],
+body[data-phase="2"] .snitem[data-min="4"],
+body[data-phase="2"] .dd a[data-min="4"],
+body[data-phase="2"] .snCta[data-min="4"],
+body[data-phase="2"] .snitem[data-min="5"],
+body[data-phase="2"] .dd a[data-min="5"],
+body[data-phase="2"] .snCta[data-min="5"]{display:none}
+body[data-phase="3"] .snitem[data-min="4"],
+body[data-phase="3"] .dd a[data-min="4"],
+body[data-phase="3"] .snCta[data-min="4"],
+body[data-phase="3"] .snitem[data-min="5"],
+body[data-phase="3"] .dd a[data-min="5"],
+body[data-phase="3"] .snCta[data-min="5"]{display:none}
+body[data-phase="4"] .snitem[data-min="5"],
+body[data-phase="4"] .dd a[data-min="5"],
+body[data-phase="4"] .snCta[data-min="5"]{display:none}
+.phase0note{display:none;font-size:12.5px;color:#7d8b98;font-style:italic}
+body[data-phase="0"] .phase0note{display:inline}
+body[data-phase="0"] .mobtoggle{display:none}
+.phasebar .opt{border:1px solid #d9c2cc;background:#fff;color:#7a2f4a;border-radius:20px;
+  padding:3px 11px;font:inherit;font-size:12px;cursor:pointer;margin-right:5px}
+.phasebar .opt[aria-pressed="true"]{background:#7a2f4a;border-color:#7a2f4a;color:#fff;font-weight:700}
+.phasebar .cap{color:#8a5f6d;font-size:12px;margin-left:4px}
+.phasetable td.h{color:#b4402c;font-weight:700}
+.phasetable td.ok{color:#1c7a4c;font-weight:700}
+.pchip{display:inline-block;min-width:17px;text-align:center;border-radius:9px;padding:1px 6px;
+  background:#eef2f5;color:#5a6b7a;font-size:11px;font-weight:700;margin-right:8px}
+.pchip.now{background:#e3f0e8;color:#1c7a4c}
+
 a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--cta);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 @media(max-width:1080px){.g4{grid-template-columns:repeat(2,1fr)}footer.site .wrap{grid-template-columns:1fr 1fr}}
