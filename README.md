@@ -282,10 +282,10 @@ installed.
 | `/overview` | LIVE | The live page, matched section for section · carries the live imagery |
 | `/how-it-works` | BUILD | Full approved copy · live process graphic and industry tiles |
 | `/what-is-travel-labor` | BUILD | Full approved copy (June-05 package) · shares the four-phase timeline |
-| `/vs-local-staffing` | BUILD | Comparison tables written, surrounding copy not |
+| `/vs-local-staffing` | BUILD | Full approved copy · settles direct hire at 45–90 days |
 | `/industries/automotive` | BUILD | Industry cluster template · the only page with delivered artwork, and the only one running live HTML widgets |
 | `/industries/food-beverage` | BUILD | Industry cluster template |
-| `/industries/logistics-warehousing` | BUILD | Industry cluster template + 2 open items · the one new industry page |
+| `/industries/logistics-warehousing` | BUILD | Full approved copy · its own page, not the shared template · the one new industry page |
 | `/industries` | LIVE | The live hub, replicated · five untouched industry pages beneath it |
 | `/roles` | BUILD | Role-cluster hub + the cluster's open items |
 | `/roles/cnc-operators` | BUILD | Full approved copy · process as a card row |
@@ -332,7 +332,7 @@ src/
 ├── lib/
 │   ├── base.ts                 u() — mount-path-aware URL helper
 │   ├── wireframe.ts            bars() · photo() · figure() · liveImg() · cards() · roleList()
-│   ├── industry-page.ts        the industry cluster template
+│   ├── industry-page.ts        the industry cluster template (Automotive and F&B only)
 │   ├── role-blocks.ts          the blocks the seven role decks share
 │   └── types.ts
 ├── pages/                      one file per route
