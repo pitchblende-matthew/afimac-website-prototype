@@ -1,0 +1,103 @@
+---
+/**
+ * NAMED CASE STUDIES — Full approved copy, v1.
+ *
+ * The page's premise is that clients are named. AFIMAC's published cases are
+ * anonymized, so four of the five rows carry a bracket where the client name
+ * goes and cannot ship until permission is on file. That is the page's whole
+ * open item, so it leads rather than sitting in a footnote.
+ */
+import Prototype from "../../layouts/Prototype.astro";
+import Block from "../../components/Block.astro";
+import { u } from "../../lib/base";
+import { B } from "../../data/nav";
+import { photo } from "../../lib/wireframe";
+import type { Block as BlockType } from "../../lib/types";
+
+const CASES: [string, string, string, boolean][] = [
+  ["[Client name] · Manufacturing · Travel Labor", "Past-due sales cut by 73.4%", "A Fortune 500 manufacturer’s past-due orders had peaked at $5.76 million. AFIMAC deployed a crew of assemblers, CNC machinists, and welders that brought the backlog down and kept it there.", false],
+  ["[Client name] · Agricultural Equipment · Travel Labor", "Two years to on-time fulfillment", "Facing a significant order backlog, the manufacturer brought in multiple staffing providers. AFIMAC was the sole non-local partner retained, supplying skilled assemblers and machinists through a two-year engagement that returned the company to on-time order fulfillment.", false],
+  ["[Client name] · Food Manufacturing · Travel Labor", "99 personnel, one working facility", "When the production facility needed to be fully staffed on short notice, AFIMAC deployed 99 personnel across production and material handling roles and kept the facility operational until the client’s workforce recovered.", false],
+  ["[Client name] · Manufacturing · Travel Labor", "12 wiring technicians, in days", "A specialist team of 12 wiring technicians, screened and on site in days, for a client that couldn’t fill the roles locally.", false],
+  ["Qualcomm · Technology · Protective Services", "Executive protection, sustained", "“Our experience with AFIMAC has been nothing short of outstanding. The team has consistently demonstrated professionalism, reliability, and a high level of expertise in all aspects of security management.” Ronnie Lopez, Qualcomm Executive Protection Manager.", true],
+];
+
+const READ_HREF = u("/resources");
+
+/** Rows are built here rather than inline: a third level of nested template
+    literal inside a block's `h` is what the Astro compiler refuses. */
+const CASE_ROWS = CASES.map(([eyebrow, title, summary, named]) => {
+  const logo = named
+    ? "Client logo · SVG or PNG @2×, 160px wide max · greyscale on the row, colour on hover"
+    : "Client logo · blocked on permission";
+  return [
+    '<div class="casecard" style="margin-top:18px">',
+    `<div style="max-width:160px">${photo(logo)}</div>`,
+    `<div><div class="blocknum">${eyebrow}</div><h3>${title}</h3><p>${summary}</p>`,
+    `<a class="readmore" href="${READ_HREF}">Read the case »</a></div>`,
+    "</div>",
+  ].join("");
+}).join("");
+
+const blocks: BlockType[] = [
+  {
+    n: "SCOPE · WHAT BLOCKS THIS PAGE",
+    h: `
+  <div class="note stop" style="margin-top:0"><b>Four of the five rows cannot ship as written.</b> This page exists to name clients; AFIMAC’s published cases are anonymized — Fortune 500 manufacturer, agricultural equipment manufacturer, food manufacturer. Every one of rows 01 to 04 needs <b>written permission to be named and logo’d</b> before it runs. <b>Qualcomm is the only client currently named in public</b>, and row 05 is a testimonial rather than a case study. Until permissions land, each row either runs with the anonymized descriptor in place of the bracket, or stays off the page.</div>
+  <div class="note"><b>A page that ships with four bracketed placeholders is worse than a page with one Qualcomm row.</b> The realistic launch is row 05 plus whichever of 01–04 clears legal — so treat the permission chase as the critical path, not the build.</div>
+  <div class="note stop"><b>And this page may not belong under CSTL at all.</b> Row 05 is protective services. If more protective-services cases are approved, the deck says the page may belong one level up — which would take it out of the <a href="${u("/launch-phases")}">CSTL rollout</a> entirely.</div>`,
+    spec: `Permissions are a legal task with a lead time. Start it now; the build is a day and the approvals are not.`,
+  },
+
+  {
+    cls: "dark",
+    n: "BLOCK 01 · HERO",
+    h: `
+  <p class="eyebrow">Resources</p>
+  <h1>Case Studies</h1>
+  <p class="lead">The situation, what AFIMAC deployed, and what happened. Real clients, named with their permission.</p>
+  <div style="margin-top:28px">${photo("Band crop from a 2560×1440 JPG source, displayed at roughly 2560×800 · a working floor mid-shift, crew at stations · muted tone under the navy scrim")}</div>
+  <div class="note"><b>The eyebrow is “Resources”, not “Critical Situation Travel Labor · Resources”</b> like its two siblings. Deliberate if the page is moving up a level; an inconsistency if it isn’t. Same decision as the one above.</div>
+  <div class="note"><b>The sub-nav calls this <i>Named</i> Case Studies; the H1 is just <i>Case Studies</i>.</b> A shorter H1 than a nav label is normal, but here the dropped word is the one carrying the page’s whole premise — and the premise is the thing that is blocked. Worth aligning them.</div>`,
+    spec: `<b>Elementor:</b> Container (bg image + navy overlay) · Heading ×2 · Text Editor. Compact utility band, matching the other resources pages.`,
+  },
+
+  {
+    n: "BLOCK 02 · THE CASE STUDIES",
+    h: `
+  <p style="color:var(--spec);font-size:13px">Optional filter chips above the list: All · Travel Labor · Protective Services</p>
+  ${CASE_ROWS}
+  <div class="note stop"><b>Row 04 is the thinnest case on record.</b> One sentence, no figure beyond the headcount, no timeline. The deck asks to confirm the client, the industry and the timeline before it runs — and if none of that firms up, four strong rows beat five uneven ones.</div>
+  <div class="note"><b>Summaries follow the pillar’s published wording</b>, including its softened framing for why clients were short-staffed. Match the pillar at build rather than rewriting — these are the sentences legal has already seen.</div>
+  <div class="note"><b>“Read the case” has no destination yet.</b> Either build per-case detail pages or expand the row in place. The deck leaves it open; a five-row list with five links to nothing is the one outcome to avoid.</div>`,
+    spec: `<b>Elementor:</b> Container (single-column list) · EK Icon Box ×5 · optional EK Filter Gallery for the chips. Logos need written permission on file — <b>each one, individually</b>.`,
+  },
+
+  {
+    cls: "sky",
+    n: "BLOCK 03 · CTA STRIP",
+    h: `
+  <div style="text-align:center">
+   <h2 style="margin-bottom:18px">Facing something like this? Tell us about it.</h2>
+   <div class="btns" style="justify-content:center"><a class="btn" href="${u("/get-in-touch")}">Talk to AFIMAC</a></div>
+  </div>
+  <div class="note"><b>No form on this page, by design.</b> The strip routes to the contact page instead — the only resources page that does. Keep it that way; a case-study reader is further along than a library browser.</div>`,
+    spec: `<b>Elementor:</b> Container (full-width strip) · Heading · Button. Global block candidate — <a href="${u("/resources/sales-sheets")}">Sales Sheets</a> runs the same strip with different wording.`,
+  },
+];
+---
+
+<Prototype
+  title="Case Studies"
+  crumb="Solutions › CSTL › Resources › Case Studies"
+  url={`${B}resources/case-studies/`}
+  status="build"
+  active="/resources/case-studies"
+  meta={{
+    t: "Client Case Studies & Measurable Results | AFIMAC Global",
+    d: "Named case studies from AFIMAC clients: the situation they faced, what AFIMAC deployed, and the measurable result, across travel labor and protective services.",
+    k: "AFIMAC case studies · travel labor case study · workforce deployment results · executive protection case study · manufacturing labor shortage case study",
+  }}
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

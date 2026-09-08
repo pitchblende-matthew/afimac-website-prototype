@@ -1,0 +1,89 @@
+---
+/** WHITE PAPERS LIBRARY — gated downloads. Full approved copy, v1. */
+import Prototype from "../../layouts/Prototype.astro";
+import Block from "../../components/Block.astro";
+import { u } from "../../lib/base";
+import { B } from "../../data/nav";
+import { photo, liveImg } from "../../lib/wireframe";
+import { PAPER_ART } from "../../data/live-media";
+import type { Block as BlockType } from "../../lib/types";
+
+const PAPERS: [string, string, keyof typeof PAPER_ART | null][] = [
+  ["Critical Situation Travel Labor", "The paper that defines Critical Situation Travel Labor as its own workforce category: what it is, what it isn’t, and when it’s the right call.", null],
+  ["The Labor Gap is an Operational Gap", "Why a decades-old labor shortage now lands as an operations problem, and what that changes about how to solve it.", "labor-gap"],
+  ["4 Misconceptions That Turn Workforce Disruptions Into Operational Crises", "The four assumptions that make a staffing disruption worse than it had to be, and what to do instead.", "misconceptions"],
+  ["Assessing and Addressing the Top 4 Threats to Operational Continuity", "AFIMAC’s operational continuity stack, and how the four biggest threats to continuity get assessed and answered.", null],
+  ["Steering Through Sharp Curves", "A build, buy, borrow playbook for automotive manufacturers navigating reshoring, launches, and a thinning labor market.", null],
+];
+
+const blocks: BlockType[] = [
+  {
+    cls: "dark",
+    n: "BLOCK 01 · HERO",
+    h: `
+  <p class="eyebrow">Critical Situation Travel Labor · Resources</p>
+  <h1>White Papers</h1>
+  <p class="lead">AFIMAC’s published research, all in one place. Pick a paper, fill out a short form, and it’s yours.</p>
+  <div style="margin-top:28px">${photo("Band illustration · 2560×800 flat isometric vector · a row of standing white papers with AFIMAC-navy covers, one pulled forward, over the navy scrim")}</div>`,
+    spec: `<b>Elementor:</b> Container (bg illustration + navy overlay) · Heading ×2 · Text Editor. <b>Compact utility band</b>, matching the <a href="${u("/pre-deployment")}">Pre-Deployment Checklist</a> hero height.`,
+  },
+
+  {
+    n: "BLOCK 02 · THE PAPERS",
+    h: `
+  ${PAPERS.map(
+    ([title, dek, art], i) => `
+  <div class="casecard" style="margin-top:${i ? "18" : "6"}px">
+   <div style="max-width:180px">${art ? liveImg(PAPER_ART[art]) : photo("Cover · 1200×1600 (3:4), displayed 180px wide")}</div>
+   <div><h3>${title}</h3><p>${dek}</p>
+    <div class="btns"><a class="btn" href="#gate">Get the paper</a></div></div>
+  </div>`,
+  ).join("")}
+  <div class="note"><b>Two of the five covers are already on the site</b> and are shown here — the Labor Gap and Misconceptions papers. The other three have no published cover under the title this deck uses.</div>
+  <div class="note stop"><b>Two confirms before launch, both from the deck.</b> The continuity paper (row 04) has carried two working titles — “The State of Operational Continuity” and the one used here — so match whichever is on the final cover. And rows only ship for <b>published</b> papers: confirm each paper’s status, because a gated form for a paper that does not exist is worse than a shorter library. Publication dates stay off the rows until confirmed.</div>`,
+    spec: `<b>Elementor:</b> Container (single-column list) · EK Icon Box ×5 · Button ×5, all opening the same modal. <b>No featured slot, no grid</b> — new papers append to the top of the list.`,
+  },
+
+  {
+    id: "gate",
+    cls: "sky",
+    n: "BLOCK 03 · THE DOWNLOAD GATE (LEAD FORM)",
+    h: `
+  <div class="g2">
+   <div>
+    <h2>Almost there</h2>
+    <p>Tell us where to send it and the paper is on its way.</p>
+    <p style="margin-top:20px"><b style="color:#fff">Thank-you state</b> — replaces the form on submit: “Done. The paper is headed to your inbox now.”</p>
+   </div>
+   <div>
+    <div class="form">
+     <input class="full" placeholder="Name">
+     <input class="full" placeholder="Work email">
+     <input placeholder="Company"><input placeholder="Job title">
+     <div class="full" style="font-size:12.5px;opacity:.75">Paper — hidden field, set by the button that opened the modal</div>
+     <div class="full"><a class="btn" href="${u("/resources")}">Send me the paper</a></div>
+     <p class="full" style="font-size:12.5px">By submitting, you agree to AFIMAC’s Privacy Policy. We respond within one business day.</p>
+    </div>
+   </div>
+  </div>
+  <div class="note"><b>One modal serves every button, with the paper name as a hidden field.</b> That is the whole reason this page is cheap to extend: one form build covers the library and every future paper. Set it to remember submission for the session, so a second paper skips to the thank-you state.</div>
+  <div class="note stop"><b>Open build decision, and it needs Nick.</b> Elementor form now, or the CRM’s native embed once the HubSpot implementation is ready. Decide <b>before</b> build — submissions collected in the wrong place have to be migrated later, and this page is the section’s main lead capture.</div>`,
+    spec: `<b>Elementor:</b> Popup + Metform, or HubSpot embed. Fields follow the lead-gen standard from the ad tracker. Delivery by email so the PDFs stay gated and every download creates a contact. <b>Tag submissions by paper</b> so attribution survives into the CRM.`,
+  },
+];
+---
+
+<Prototype
+  title="White Papers"
+  crumb="Solutions › CSTL › Resources › White Papers"
+  url={`${B}resources/white-papers/`}
+  status="build"
+  active="/resources/white-papers"
+  meta={{
+    t: "Workforce White Papers & Research Library | AFIMAC Global",
+    d: "Research from AFIMAC: the labor gap, operational continuity, and Critical Situation Travel Labor. A short form gets you any paper in the library.",
+    k: "workforce white papers · operational continuity research · travel labor white paper · manufacturing workforce research",
+  }}
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

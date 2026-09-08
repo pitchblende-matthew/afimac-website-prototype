@@ -1,5 +1,182 @@
 ---
-import NotBuilt from "../components/NotBuilt.astro";
+/**
+ * DAY 1 READY — package anchor page.
+ *
+ * Full approved copy, v1. Two blocks are specified but held: the printable
+ * checklist download (block 04) and the gated one-sheet (block 07) both wait on
+ * assets still in production, and the deck says to hide them until those ship.
+ * They are built here and marked, rather than omitted, so the page can be
+ * turned on in one edit rather than rebuilt.
+ */
+import Prototype from "../layouts/Prototype.astro";
+import Block from "../components/Block.astro";
+import { u } from "../lib/base";
+import { B } from "../data/nav";
+import { photo } from "../lib/wireframe";
+import { CLIENT_CHECKLIST, READY_CHECKS, DAY1_FORM_BULLETS } from "../data/day1";
+import type { Block as BlockType } from "../lib/types";
+
+const PACKAGE_BLOGS = [
+  "Pre-Deployment Process Deep-Dive",
+  "How We Manage AFIMAC Talent",
+  "How We Measure a Successful Deployment",
+];
+
+const blocks: BlockType[] = [
+  {
+    cls: "dark",
+    n: "BLOCK 01 · HERO",
+    h: `
+  <p class="eyebrow">Critical Situation Travel Labor · Day 1 Ready</p>
+  <h1>Day 1 Ready</h1>
+  <p class="sub"><b>Not Just On Site Fast. Productive From the First Shift.</b></p>
+  <p class="lead">Anyone can promise a fast crew. Day 1 Ready is AFIMAC’s standard for what that crew looks like when it walks in: screened, credentialed, housed, safety-onboarded, and supervised, so the first shift produces instead of orienting.</p>
+  <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Let’s talk</a><a class="btn ghost" href="#ready">See what ready means</a></div>
+  <div style="margin-top:34px">${photo("Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a crew walking onto a floor at shift start, badged and in PPE, supervisor at the front, first light through the bay doors · muted industrial tone under the navy scrim · focal area centre · mobile crop 1080×1350")}</div>`,
+    spec: `<b>Elementor:</b> Container (bg image + navy overlay) · Breadcrumbs · Heading ×3 · Text Editor · Button ×2.`,
+  },
+
+  {
+    id: "ready",
+    n: "BLOCK 02 · WHAT DAY 1 READY MEANS",
+    h: `
+  <h2>Ready is a checklist, not a feeling</h2>
+  <div class="g2" style="margin-top:24px;align-items:start">
+   <div>
+    <p>Before any AFIMAC crew reaches your floor, five things are already done. Every worker has cleared background, credential, and role checks. Travel is booked and housing is set. Site-specific safety and role onboarding is complete. And an on-site AFIMAC supervisor arrives with them, so there’s a single point of contact from the first hour.</p>
+    <ul class="tick" style="margin-top:20px">${READY_CHECKS.map((c) => `<li>${c}</li>`).join("")}</ul>
+   </div>
+   ${photo("Day 1 Ready seal · SVG square, art 960×960, min render 640×640 · a stamped seal motif with five checks around it: Screened · Credentialed · Housed · Safety-onboarded · Supervised")}
+  </div>
+  <div class="note"><b>Build this one once and export crops from the same art.</b> The deck wants it standalone for LinkedIn, and the <a href="${u("/pre-deployment")}">Pre-Deployment Checklist</a> reuses it in strip form. One asset, three placements — the cheapest graphic in the package.</div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · Heading · Text Editor · EK Icon List · Image (SVG). <b>Asset not drawn.</b>`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 03 · INSIDE PRE-DEPLOYMENT",
+    h: `
+  <h2><a href="${u("/how-it-works")}">The work that happens before we arrive</a></h2>
+  <p class="lead">Day 1 Ready is earned in the days before day one. Assessment maps your roles, shift coverage, and site requirements in 1 to 2 days. Mobilization runs the next 2 to 3: sourcing and screening from a 20,000+ talent network, credential and role checks, travel and housing, and site-specific safety onboarding. By the time the crew travels, the only thing left to do is the work.</p>
+  <div style="margin:24px 0">${photo("Pre-deployment step-by-step timeline · SVG 2400×600 (4:1), stacks vertically under 768px · a day-scale band from first call to first shift with stacked step markers: Assessment (roles, shifts, site requirements) · Mobilization (screening, credentials, travel &amp; housing, safety onboarding) · Arrival (crew badged &amp; briefed, supervisor on site)")}</div>
+  <div class="note"><b>This is a second timeline on a day scale, and one already exists.</b> The <a href="${u("/how-it-works")}">four-phase timeline</a> is delivered and covers Assessment and Mobilization with the same durations. Check whether this needs to be a new asset at all, or whether it is the delivered one with step markers added.</div>
+  <div class="note stop"><b>Carries the open phase-1 naming flag.</b> This page says <b>Assessment · 1 to 2 days</b>, matching How It Works and the delivered timeline; the live overview still says <b>Consultation · 2 to 3 days</b>. <a href="${u("/brand-check")}">Still open →</a></div>`,
+    spec: `<b>Elementor:</b> Heading (linked to the hub) · Text Editor · HTML widget (timeline).`,
+  },
+
+  {
+    n: "BLOCK 04 · WHAT YOU DO BEFORE WE ARRIVE",
+    h: `
+  <h2>Your side of day one fits on one page</h2>
+  <p class="lead">Most of the readiness work is ours. Yours is short, and it’s the same five items on every engagement:</p>
+  <ul class="check" style="margin-top:20px">${CLIENT_CHECKLIST.map((c) => `<li>${c}</li>`).join("")}</ul>
+  <div class="note stop" style="margin-top:24px"><b>Held: the download line is hidden until the printable ships.</b> The deck specifies “Get the printable version: What to Do Before We Arrive” here, pointing at the package’s checklist deliverable, which is still in production. The line is built but suppressed — turn it on when the PDF lands.</div>
+  <div class="note"><b>These five items are shared with the <a href="${u("/pre-deployment")}">Pre-Deployment Checklist</a>, and the deck says so explicitly.</b> The prototype renders both from one list in <code>src/data/day1.ts</code>, so they cannot drift. Keep that arrangement in the build — a global block or a reusable Elementor container, not two copies.</div>
+  <div class="note"><b>The list itself is placeholder structure.</b> The deck drafted it from the approved Assessment and onboarding copy; the checklist deliverable finalizes it. Expect these five to change once.</div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · EK Icon List (check icons). Build as a global block so this page and the checklist page share one source.`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 05 · DAY ONE ITSELF",
+    h: `
+  <h2>What the first shift looks like</h2>
+  <p class="lead">The crew arrives badged and briefed, and starts work. An on-site AFIMAC supervisor runs the day and stays your single point of contact. A daily feedback loop starts immediately, tracking output from the first shift, and the crew scales up or down from there as the situation changes.</p>
+  <div style="margin:24px 0">${photo("1600×1000 JPG (8:5) · a supervisor walking the line with a clipboard beside a working crew, first-shift energy · a working shot with nothing posed")}</div>
+  <div class="note"><b>Video slot, held.</b> The package’s “AFIMAC Keeps Production Moving” video belongs here — 1920×1080 MP4, poster frame, play control, no autoplay, captions on, lazy-loaded. Until it ships the section runs with the image above, which is what is shown.</div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · Video widget (or Image until the video ships). <b>Do not autoplay</b> — captions on by default.`,
+  },
+
+  {
+    n: "BLOCK 06 · HOW SUCCESS IS MEASURED",
+    h: `
+  <h2>Tracked daily, reviewed at the end</h2>
+  <p class="lead">Success measures are scoped during Assessment, before anyone travels. Daily output tracking keeps you in the loop through the engagement, and a final performance review closes it out. The published record is the standard we hold ourselves to: a 73.4% cut in past-due sales at one Fortune 500 manufacturer, and a two-year engagement that returned another to on-time order fulfillment.</p>
+  <div class="note"><b>Both proof points are published on the live pillar</b> — link each to it. The package’s “How We Measure a Successful Deployment” blog expands this section and links back here when it publishes.</div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor. Same two proof points as <a href="${u("/vs-traditional")}">Travel vs. Traditional</a> — keep the wording aligned across both.`,
+  },
+
+  {
+    cls: "sky",
+    n: "BLOCK 07 · GATED ONE-SHEET",
+    h: `
+  <div class="g2">
+   <div>
+    <h2>Day 1 With AFIMAC, on one page</h2>
+    <p>The whole standard, from pre-deployment through the first shift, in a one-sheet you can hand to your operations team.</p>
+    <div style="margin-top:24px;max-width:480px">${photo("One-sheet cover mockup, 480px wide max on the card · AFIMAC navy, logo top, benefit-driven cover · matching the house style on the white paper cards")}</div>
+   </div>
+   <div>
+    <div class="form">
+     <input class="full" placeholder="Name">
+     <input class="full" placeholder="Work email">
+     <input placeholder="Company"><input placeholder="Job title">
+     <div class="full"><a class="btn" href="${u("/resources")}">Get the One-Sheet</a></div>
+    </div>
+   </div>
+  </div>
+  <div class="note stop"><b>Held: hide this whole block until the asset ships.</b> The one-sheet is a package deliverable still in production, and its content lifts directly from blocks 02 to 06 of this page — so it cannot be written until this page is signed off. Gate fields follow the LinkedIn lead-gen standard from the ad tracker.</div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · Image · Metform (gate). Four fields only — do not add to them, the LinkedIn form has to match.`,
+  },
+
+  {
+    n: "BLOCK 08 · RELATED INSIGHTS",
+    h: `
+  <h2>Related insights</h2>
+  <div class="g3" style="margin-top:22px">
+   ${PACKAGE_BLOGS.map((t) => `<div class="card">${photo("1280×720 (16:9) · pulled from the post’s featured image")}<h3 style="margin-top:16px">${t}</h3><a class="readmore" href="${u("/overview")}">Read More »</a></div>`).join("")}
+  </div>
+  <div class="note stop"><b>None of these three exist yet.</b> All are Day 1 Ready package blogs scheduled through the board. Slot each in as it publishes and run the rail with live skilled-labor posts in the meantime — this rail is empty on launch day otherwise.</div>`,
+    spec: `<b>Elementor:</b> EK Post Grid (3-up) once the posts exist; manual Icon Boxes before then.`,
+  },
+
+  {
+    cls: "sky",
+    n: "BLOCK 09 · TALK TO AFIMAC (LEAD FORM)",
+    h: `
+  <div class="g2">
+   <div>
+    <h2>Want a crew that’s ready on day one?</h2>
+    <p>Tell us what you’re facing and we’ll come back with:</p>
+    <ul class="tick">${DAY1_FORM_BULLETS.map((b) => `<li>${b}</li>`).join("")}</ul>
+    <p style="margin-top:22px"><b style="color:#fff">Urgent line</b> · 1.800.554.4622</p>
+    <div style="margin-top:22px">${photo("1200×1200 flat isometric vector beside the form · a sunrise-over-facility motif with a crew at the door · greys with safety-orange and blue · distinct subject from every form illustration in the cluster")}</div>
+   </div>
+   <div>
+    <div class="form">
+     <input placeholder="First name"><input placeholder="Last name">
+     <input class="full" placeholder="Company">
+     <input placeholder="Work email"><input placeholder="Phone">
+     <input class="full" placeholder="Site location (City, State/Province)">
+     <textarea class="full" rows="4" placeholder="Tell us about your situation"></textarea>
+     <div class="full"><a class="btn" href="${u("/get-in-touch")}">Talk to a specialist</a></div>
+     <p class="full" style="font-size:12.5px">By submitting, you agree to AFIMAC’s Privacy Policy. We respond within one business day.</p>
+    </div>
+   </div>
+  </div>`,
+    spec: `<b>Elementor:</b> Metform · EK Icon List · Button. Global block.`,
+  },
+
+  {
+    cls: "wash",
+    n: "OPEN ITEM · THE SPEED CLAIM, AGAIN",
+    h: `<div class="note stop" style="margin-top:0"><b>This page adds a fourth wording to the deployment-speed conflict, and the deck says so itself.</b> Its own note records three: the live pillar meta says <b>24 to 72 hours</b>, the Maria-reviewed ad tracker says <b>on-site in 2 to 7 days</b>, and the approved process doc’s phase math says <b>within days</b>. The <a href="${u("/brand-check")}">brand check</a> was already tracking 72 hours, 2–7 days and 6–7 days. <b>That is five wordings of one promise across live pages, ads and approved copy.</b> This page stays on “in days”, which is the safe choice and also the least specific one.</div>`,
+    spec: `The deck asks to fold this into Maria’s existing speed-claim decision rather than settle it here. Agreed — but it is now the single most-repeated conflict in the section.`,
+  },
+];
 ---
 
-<NotBuilt active="/day-1-ready" />
+<Prototype
+  title="Day 1 Ready"
+  crumb="Solutions › CSTL › Day 1 Ready"
+  url={`${B}day-1-ready/`}
+  status="build"
+  active="/day-1-ready"
+  meta={{
+    t: "Day 1 Ready: How AFIMAC Crews Arrive Productive | AFIMAC",
+    d: "What makes an AFIMAC crew Day 1 Ready? The pre-deployment work behind crews that arrive screened, housed, safety-onboarded, and productive on arrival.",
+    k: "day 1 ready workforce · ready on day one · pre-deployment process · productive on arrival · managed workforce onboarding · travel labor readiness",
+  }}
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

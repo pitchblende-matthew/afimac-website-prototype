@@ -15,6 +15,9 @@ import type { Block as BlockType } from "../lib/types";
 const audit = phaseAudit();
 const ORDER: Work[] = ["settled", "ready", "partial", "todo"];
 
+/** Phases that still put a nav slot over a page that does not exist. */
+const blocked = audit.filter((p) => p.hollow.length);
+
 const workCell = (w: Record<Work, number>) =>
   ORDER.filter((k) => w[k]).map((k) => `${w[k]} ${WORK_SHORT[k]}`).join(" · ") || "—";
 
@@ -77,25 +80,31 @@ const blocks: BlockType[] = [
 
   {
     cls: "sky",
-    n: "RECOMMENDATION",
+    n: "WHERE THE RISK IS NOW",
     h: `
   <div class="g2">
    <div>
-    <h2>Swap Phases 2 and 3</h2>
-    <p class="lead">The order as written ships the least finished section before the most finished one.</p>
-    <ul class="tick">
-     <li><b>Phase 3 (Roles) is the only fully written section in the build</b> — eight pages, all copy written and wireframed, nothing outstanding.</li>
-     <li><b>Phase 2 (How It Works) carries three dead ends</b> — Travel vs. Traditional, Day 1 Ready and the Pre-Deployment Checklist have no copy and no live page.</li>
-    </ul>
-    <p>Running Roles second would put a complete section live sooner and buy the three How It Works pages the time they need. Nothing in the IA depends on the current order.</p>
+    <h2>${blocked.length ? `${blocked.length} phase${blocked.length > 1 ? "s" : ""} still carry a dead end` : "Every phase has somewhere to land"}</h2>
+    <p class="lead">${
+      blocked.length
+        ? `A hollow slot is a nav entry pointing at a page that is neither live nor written. ${blocked
+            .map((p) => `<b>Phase ${p.n}</b> has ${p.hollow.length} (${p.hollow.map((e) => `<code>${e.route}</code>`).join(", ")})`)
+            .join("; ")}.`
+        : `No phase puts a nav slot over a page that does not exist. The rollout order can stand as written.`
+    }</p>
+    ${
+      blocked.length
+        ? `<p>Everything else is clear. Write ${blocked.length > 1 ? "those pages" : "that page"} before ${blocked.length > 1 ? "their phases" : "its phase"} ships, or hold the slot${blocked.length > 1 ? "s" : ""} back a phase — a dropdown with a dead link reads as a broken site rather than one under construction.</p>`
+        : `<p>That was not true a moment ago. This block reads the build data rather than restating a judgement, so it changes as the copy lands.</p>`
+    }
    </div>
    <div>
-    <h3>If the order has to stand</h3>
-    <p>Ship Phase 2 with four of its seven slots and hold the three unwritten pages for Phase 2b. A dropdown with four working links reads as a section under construction; one with three dead ends reads as a broken site.</p>
-    <div class="note stop" style="margin-top:22px"><b>Either way this is a decision, not a detail.</b> Phase 2 cannot ship as specified today.</div>
+    <h3>The shape to watch</h3>
+    <p>Phase 4 now carries three fully written child pages — White Papers, Case Studies and Sales Sheets — hanging off a Resources hub with no approved copy of its own. <b>The leaves are ready and the branch is not.</b> Either write the hub, or let one of the three children serve as the landing page and drop the hub from the nav.</p>
+    <div class="note stop" style="margin-top:22px"><b>Written is not the same as shippable.</b> Case Studies needs client permissions before four of its five rows can run, and Sales Sheets has no finished asset behind any of its five downloads. Those are asset problems, not copy problems, and this table cannot see them — read each page for its own blockers.</div>
    </div>
   </div>`,
-    spec: `Raise at the same sign-off as the phase-1 naming and the industry URLs — it is the same kind of call.`,
+    spec: `Derived from src/data/nav.ts. The earlier version of this block hardcoded a recommendation and went stale within a day of the copy landing; this one cannot.`,
   },
 
   ...phaseBlocks,

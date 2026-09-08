@@ -1,5 +1,163 @@
 ---
-import NotBuilt from "../components/NotBuilt.astro";
+/**
+ * TRAVEL VS. TRADITIONAL LABOR — funnel article, built as editorial.
+ *
+ * Full approved copy, v1. The deck calls for an article treatment rather than a
+ * solutions layout: narrow measure, no full-bleed hero, lighter than the rest of
+ * the cluster. Two things it introduces are flagged in place — a slug that does
+ * not match the route this page has in the agreed sub-nav, and a set of duration
+ * figures that disagree with the comparison page.
+ */
+import Prototype from "../layouts/Prototype.astro";
+import Block from "../components/Block.astro";
+import { u } from "../lib/base";
+import { B } from "../data/nav";
+import { photo, liveImg } from "../lib/wireframe";
+import { postArt } from "../data/live-media";
+import type { Block as BlockType } from "../lib/types";
+
+const RAIL: [string, string, string | null][] = [
+  ["How Critical Situation Travel Labor Works", "the full four-phase process", "/how-it-works"],
+  ["CSTL vs. Local Staffing", "the head-to-head, with the decision matrix", "/vs-local-staffing"],
+  ["Debunking the Top Five Travel Labor Myths", "from the blog", null],
+];
+
+const blocks: BlockType[] = [
+  {
+    n: "SCOPE · NEW PAGE",
+    h: `<div class="note stop" style="margin-top:0"><b>The deck's slug is not the route this page has.</b> It specifies <code>${B}travel-vs-traditional-labor/</code>; the agreed sub-nav points at <code>${B}vs-traditional/</code>, which is what the prototype serves. Neither is live yet, so this is free to settle either way — but settle it before the page is built, not after. The longer slug carries the primary keyword; the shorter one matches the sibling <a href="${u("/vs-local-staffing")}">comparison page</a>'s pattern.</div>`,
+    spec: `Same class of decision as the industry URLs. Roll it into that sign-off.`,
+  },
+
+  {
+    n: "BLOCK 01 · EDITORIAL HERO",
+    h: `
+  <p class="eyebrow">Critical Situation Travel Labor · Perspective</p>
+  <h1>Travel vs. Traditional Labor</h1>
+  <p class="lead">Every labor gap gets met with the same playbook: post the job, call an agency, lean on overtime. Here’s what each play actually costs in time and risk, and where a travel crew changes the math.</p>
+  <div style="margin-top:28px;max-width:820px">${photo("Lead image, content width · 1280×720 JPG (16:9) · a split scene, one side a hiring desk with paperwork, the other a crew walking onto a floor · muted tone, no navy scrim")}</div>`,
+    spec: `<b>Elementor:</b> Container (narrow measure) · Breadcrumbs · Heading ×2 · Text Editor · Image. <b>Article treatment: no full-bleed photo, no scrim.</b> The eyebrow, H1 and dek sit on the page background; the lead image follows at content width. This is the only page in the cluster that runs lighter than the solutions layout — keep it that way.`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 02 · THE TRADITIONAL PLAYBOOK",
+    h: `
+  <h2>Three plays, one clock</h2>
+  <p class="lead">Workforce strategists sort the options into build, buy, and borrow. Most operations run the first two on repeat.</p>
+  <div class="g3" style="margin-top:28px">
+   <div class="card"><div class="blocknum">PLAY 01 · BUILD</div><h3>Hire and train</h3><p>Post the job, interview, onboard, train. It’s the right long-term answer, and the slowest one available. Direct hire typically runs 45 to 90 days to a productive crew, and that assumes the local market has the skills at all.</p></div>
+   <div class="card"><div class="blocknum">PLAY 02 · BUY</div><h3>Call a temp agency</h3><p>Faster, at 14 to 35 days for most roles. But an agency hands you candidates to manage. Screening depth varies, and the crew is only as deep as the local pool. The onboarding, the scheduling, and the turnover all land on your supervisors.</p></div>
+   <div class="card"><div class="blocknum">PLAY 03 · STRETCH</div><h3>Overtime on the core team</h3><p>The fastest play and the most expensive one to sustain. Overtime buys weeks, not months, and it spends your best people to do it. Burnout on the core team is one of the stakes the traditional playbook rarely prices in.</p></div>
+  </div>
+  <div style="margin:28px 0">${photo("Playbook clock strip · SVG 2400×600 (4:1), stacks vertically under 768px · three duration bars: Hire &amp; train 45–90 days · Temp agency 14–35 days · Overtime, immediate but time-limited (short bar that fades out) · no AFIMAC bar")}</div>
+  <div class="note stop"><b>Both figures here disagree with a page already in the build, and they do not disagree the same way.</b> On direct hire this page says <b>45 to 90 days</b> and so does the automotive speed graphic, while <a href="${u("/vs-local-staffing")}">CSTL vs. Local Staffing</a> says <b>30 to 90</b>. On the agency figure this page says <b>14 to 35</b>, matching <a href="${u("/how-it-works")}">How It Works</a> and the <a href="${u("/faq")}">FAQ</a>, while the graphic says <b>21 to 35</b>. So the new copy sides with the graphic on one number and against it on the other. <b>Two votes to one each way — which is a resolution if somebody makes it one.</b> <a href="${u("/brand-check")}">All conflicts →</a></div>
+  <div class="note"><b>No AFIMAC bar on this graphic, deliberately.</b> The deck makes the travel labor case in prose here and saves the comparison for block 05. Worth holding that line — an AFIMAC bar would turn an honest article into a sales chart.</div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×3 · HTML widget (clock strip). Distinct device from the comparison page's decision matrix and the industry deployment bars.`,
+  },
+
+  {
+    n: "BLOCK 03 · WHERE TRADITIONAL WINS",
+    h: `
+  <h2>Sometimes the old playbook is the right one</h2>
+  <p class="lead">If time is on your side and there are people to hire locally, local hiring is usually the better call. A steady headcount need, a healthy local market, and a gap measured in quarters rather than weeks all point to building your own bench. Travel labor is not a replacement for a recruiting function. It exists for the moments a recruiting function was never designed to handle.</p>
+  <div class="note"><b>This block is the reason the page works.</b> It is the only place in the whole cluster that tells a reader not to buy, and it is what earns the decision tree below its credibility. Do not let it get trimmed for length.</div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor. One paragraph, no cards — the plainness is the point.`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 04 · WHAT CHANGES WHEN THE CREW TRAVELS",
+    h: `
+  <h2>Borrow, managed</h2>
+  <div class="g2" style="margin-top:24px;align-items:start">
+   <div>
+    <p>Travel labor is the borrow play, run as a managed service. AFIMAC sources, screens, travels, houses, and supervises a team, then deploys them to your site for the length of the situation. The crew draws from a national network of 20,000+ workers instead of one local market. Safety onboarding is done before the first shift, and the team works under AFIMAC supervision with a single point of contact. There’s no long-term commitment; when the gap closes, demobilization is part of the plan.</p>
+    <p>For most roles, that’s a working crew within days of a signed plan. The difference isn’t just speed. It’s that nothing about the crew lands on your managers while they’re already fighting the gap that caused the problem.</p>
+   </div>
+   ${photo("1200×1500 JPG (4:5) beside the body · a supervisor and crew lead reviewing the day’s plan on the floor · a working shot with nothing posed")}
+  </div>
+  <div class="note"><b>“Sources, screens, travels, houses, and supervises”</b> is the same five-verb construction as the <a href="${u("/how-it-works")}">mobilization map</a>, which runs recruits · screens · travels · houses · manages · deploys. Two wordings of one list. Pick one and use it everywhere.</div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · Heading · Text Editor · Image. The 20,000+ figure is the approved one — see the <a href="${u("/brand-check")}">network-size flag</a> before changing it.`,
+  },
+
+  {
+    n: "BLOCK 05 · THE DECISION",
+    h: `
+  <h2>Which play fits your gap?</h2>
+  <div style="margin:24px 0">${photo("Decision tree · SVG square, art 960×960, min render 640×640 · three yes/no nodes with honest exits: Is time on your side? → Hire locally · Can the local market supply the skills? → Local hire or agency · Is the gap large or time-critical? → Travel labor, else Agency or overtime, short term · flat isometric, greys with safety-orange and blue")}</div>
+  <p>For the full head-to-head against local staffing, see <a href="${u("/vs-local-staffing")}">CSTL vs. Local Staffing</a>.</p>`,
+    spec: `<b>Elementor:</b> HTML widget (decision tree) · Text Editor. Distinct device from every graphic in the cluster; the comparison page keeps the decision matrix. <b>Asset not drawn.</b>`,
+  },
+
+  {
+    cls: "blue",
+    n: "BLOCK 06 · PROOF BAND",
+    h: `
+  <h2>What the borrow play has done</h2>
+  <div class="g2" style="margin-top:24px">
+   <div class="card"><div class="blocknum">PROOF 01</div><p>A Fortune 500 manufacturer’s past-due orders peaked at $5.76 million; an AFIMAC crew of machinists, welders, and assemblers cut past-due sales by 73.4%.</p></div>
+   <div class="card"><div class="blocknum">PROOF 02</div><p>A Fortune 500 agricultural equipment manufacturer tried multiple staffing providers and kept AFIMAC as the sole non-local partner, through a two-year engagement back to on-time fulfillment.</p></div>
+  </div>
+  <div class="note"><b>Both cases are published on the live pillar</b> — link each line to it. Two short cards, not full case layouts: this page argues the model, the pillar carries the stories.</div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · EK Icon Box ×2 on the blue band. The $5.76m and 73.4% figures are published; do not restate them anywhere without the same sourcing.`,
+  },
+
+  {
+    n: "BLOCK 07 · RELATED READING",
+    h: `
+  <h2>Related reading</h2>
+  <div class="g3" style="margin-top:22px">
+   ${RAIL.map(([t, why, route]) => {
+     const a = postArt(t);
+     return `<div class="card">${a ? liveImg(a) : photo("1280×720 (16:9) · pulled from the destination’s featured image")}<h3 style="margin-top:16px">${t}</h3><p style="font-size:12.5px;color:var(--spec)">${why}</p>${route ? `<a class="readmore" href="${u(route)}">Read More »</a>` : `<a class="readmore" href="${u("/overview")}">Read More »</a>`}</div>`;
+   }).join("")}
+  </div>
+  <div class="note"><b>This rail is navigational on purpose.</b> The article’s job is routing the reader to the right next page, so it links to two cluster pages and one live post rather than three posts. Do not swap it for a generic post grid.</div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×3 with manual links — <b>not</b> the Post Grid widget, which cannot mix pages and posts.`,
+  },
+
+  {
+    cls: "sky",
+    n: "BLOCK 08 · TALK TO AFIMAC (LEAD FORM)",
+    h: `
+  <div class="g2">
+   <div>
+    <h2>Not sure which play fits? Walk us through it.</h2>
+    <p>Tell us what you’re facing and we’ll give you a straight read, including when we’d tell you to hire locally instead:</p>
+    <ul class="tick"><li>The play we’d run for your gap</li><li>A realistic timeline if travel labor is the fit</li><li>A ballpark cost</li></ul>
+    <p style="margin-top:22px"><b style="color:#fff">Urgent line</b> · 1.800.554.4622</p>
+    <div style="margin-top:22px">${photo("1200×1200 flat isometric vector beside the form · a forked-path motif resolving into a single route · greys with safety-orange and blue · echoes the decision tree without repeating it")}</div>
+   </div>
+   <div>
+    <div class="form">
+     <input placeholder="First name"><input placeholder="Last name">
+     <input class="full" placeholder="Company">
+     <input placeholder="Work email"><input placeholder="Phone">
+     <input class="full" placeholder="Site location (City, State/Province)">
+     <textarea class="full" rows="4" placeholder="Tell us about your situation"></textarea>
+     <div class="full"><a class="btn" href="${u("/get-in-touch")}">Talk to a specialist</a></div>
+     <p class="full" style="font-size:12.5px">By submitting, you agree to AFIMAC’s Privacy Policy. We respond within one business day.</p>
+    </div>
+   </div>
+  </div>
+  <div class="note"><b>“Including when we’d tell you to hire locally instead” is the strongest line on the page.</b> It is also a promise the sales team has to keep. Worth confirming they will.</div>`,
+    spec: `<b>Elementor:</b> Metform · EK Icon List · Button. Same field set as every other CSTL form — keep it identical so lead scoring stays consistent.`,
+  },
+];
 ---
 
-<NotBuilt active="/vs-traditional" />
+<Prototype
+  title="Travel vs. Traditional Labor"
+  crumb="Solutions › CSTL › Travel vs. Traditional Labor"
+  url={`${B}vs-traditional/`}
+  status="build"
+  active="/vs-traditional"
+  meta={{
+    t: "Travel Labor vs. Traditional Staffing Models | AFIMAC Global",
+    d: "Direct hire, temp agencies, or overtime? An honest look at what each traditional play costs in time and risk, and when a travel labor crew is the better call.",
+    k: "travel labor vs traditional labor · traditional staffing models · alternatives to local hiring · overtime vs temporary labor · workforce build buy borrow · when to use travel labor",
+  }}
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>
