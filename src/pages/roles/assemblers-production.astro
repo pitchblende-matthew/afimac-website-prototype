@@ -48,7 +48,8 @@ const blocks: BlockType[] = [
     "Production support &amp; general labor",
     "Quality &amp; inspection support",
   ])}
-  <div class="note">Assemblers appear by name in both published manufacturing cases; packaging operators and material handlers appear in the approved cluster roles copy. <b>Confirm the exact role taxonomy with AFIMAC ops before build.</b> Note the packaging overlap — <a href="${u("/roles/packaging-operations")}">Packaging Operations</a> takes the packaging keywords, this page keeps assembler, production and general labor.</div>`,
+  <div class="note">Assemblers appear by name in both published manufacturing cases; packaging operators and material handlers appear in the approved cluster roles copy. <b>Confirm the exact role taxonomy with AFIMAC ops before build.</b> Note the packaging overlap — <a href="${u("/roles/packaging-operations")}">Packaging Operations</a> takes the packaging keywords, this page keeps assembler, production and general labor.</div>
+  <div class="note stop"><b>The two decks still disagree about that split, and this page follows the newer one.</b> The Packaging Operations script says the packaging terms “move here from the Assemblers &amp; Production page’s secondary set” and that “the Assemblers &amp; Production script has been updated in step”. The Assemblers script as delivered has <b>not</b> been updated: it still lists <code>packaging operator staffing</code> in its secondary keywords and still claims this page “owns assembler, production, and packaging staffing”. The prototype implements the split — <code>packaging operator staffing</code> is off this page’s keyword set above. <b>Re-issue the Assemblers deck to match, or the two pages will be pointed at the same query at build.</b></div>`,
     spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×6. <b>Asset gap:</b> six line icons, SVG 96×96, from the shared CSTL icon set.`,
   },
 

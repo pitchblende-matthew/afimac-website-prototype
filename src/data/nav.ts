@@ -83,10 +83,10 @@ export const NAV: NavItem[] = [
     kids: [
       k("What Is Travel Labor", "/what-is-travel-labor", "ready"),
       k("How Travel Labor Works", "/how-it-works", "ready"),
-      k("Travel vs. Traditional Labor", "/vs-traditional", "todo"),
+      k("Travel vs. Traditional Labor", "/vs-traditional", "ready"),
       k("Travel Labor vs. Local Staffing", "/vs-local-staffing", "partial"),
-      k("Day 1 Ready", "/day-1-ready", "todo"),
-      k("Pre-Deployment Checklist", "/pre-deployment", "todo"),
+      k("Day 1 Ready", "/day-1-ready", "ready"),
+      k("Pre-Deployment Checklist", "/pre-deployment", "ready"),
       k("Travel Labor FAQ — needs a slot", "/faq", "ready"),
     ],
   },
@@ -133,9 +133,9 @@ export const NAV: NavItem[] = [
     work: "todo",
     phase: 4,
     kids: [
-      k("White Papers", "/resources", "todo"),
-      k("Named Case Studies", "/resources", "todo"),
-      k("Salesheets &amp; One-Pagers", "/resources", "todo"),
+      k("White Papers", "/resources/white-papers", "ready"),
+      k("Named Case Studies", "/resources/case-studies", "ready"),
+      k("Salesheets &amp; One-Pagers", "/resources/sales-sheets", "ready"),
     ],
   },
 

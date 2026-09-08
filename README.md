@@ -296,9 +296,15 @@ installed.
 | `/roles/sanitation-crews` | BUILD | Full approved copy · process as a definition list |
 | `/roles/packaging-operations` | BUILD | Full approved copy · process as a dot stepper |
 | `/faq` | BUILD | Cluster FAQ · 33 questions in 8 grouped sections |
-| `/pricing-roi`, `/get-in-touch` | BUILD | Hub placeholders |
+| `/get-in-touch` | BUILD | Full approved copy · production URL is `/contact/`, outside the CSTL branch |
+| `/pricing-roi` | BUILD | Hub placeholder |
 | `/resources` | BUILD | The gated library + the full monday.com asset inventory |
-| `/vs-traditional`, `/day-1-ready`, `/pre-deployment` | BUILD | On the build sheet, not wireframed |
+| `/vs-traditional` | BUILD | Full approved copy · editorial article treatment, the only one in the cluster |
+| `/day-1-ready` | BUILD | Full approved copy · two blocks held pending assets |
+| `/pre-deployment` | BUILD | Full approved copy · shares its checklist with Day 1 Ready |
+| `/resources/white-papers` | BUILD | Full approved copy · two of five covers already published |
+| `/resources/case-studies` | BUILD | Full approved copy · four of five rows blocked on client permissions |
+| `/resources/sales-sheets` | BUILD | Full approved copy · no finished asset behind any download yet |
 | `/brand-check` | — | Internal working page, not part of the site IA |
 | `/launch-phases` | — | Internal working page · the rollout plan and its readiness check |
 
@@ -321,6 +327,7 @@ src/
 │   ├── nav.ts                  sub-nav structure + per-page build status + launch phases
 │   ├── industries.ts           live industry pages + the CSTL update configs
 │   ├── live-media.ts           images already on the live overview page
+│   ├── day1.ts                 copy shared by Day 1 Ready and the Pre-Deployment Checklist
 │   └── assets.ts               monday.com content inventory, mapped to routes
 ├── lib/
 │   ├── base.ts                 u() — mount-path-aware URL helper

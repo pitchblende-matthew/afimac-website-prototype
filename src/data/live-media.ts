@@ -66,6 +66,28 @@ export const PROCESS_ART: LiveMedia = {
     "Circular four-stage process infographic · numbered 1–4 around a red→yellow→green arc · North America map, aircraft, forklift",
 };
 
+/**
+ * White-paper covers already published in the media library.
+ *
+ * Only two of the five papers on the library page have a cover on the site —
+ * the other three are either unpublished or filed under a title that does not
+ * match the deck. Searched 8 Sep 2026.
+ */
+export const PAPER_ART: Record<string, LiveMedia> = {
+  "labor-gap": {
+    src: `${UP}/2026/06/The_Labor_Gap_is_an_Operational_Gap_cover_under1mb.png`,
+    alt: "The Labor Gap is an Operational Gap — white paper cover",
+    fallback: "Cover · 1200×1600 (3:4) · AFIMAC navy, logo top, benefit-driven title",
+  },
+  misconceptions: {
+    src: `${UP}/2026/08/AFIMAC_Four_Misconceptions_Workforce_Disruptions_Cover_1200x1553.png`,
+    alt: "4 Misconceptions That Turn Workforce Disruptions Into Operational Crises — white paper cover",
+    width: 1200,
+    height: 1553,
+    fallback: "Cover · 1200×1600 (3:4) · AFIMAC navy, logo top, benefit-driven title",
+  },
+};
+
 /** BLOCK 07 · the gated eBook cover. */
 export const EBOOK_ART: LiveMedia = {
   src: `${UP}/2025/02/Manuf_Labor_Gap-1-1024x923.webp`,

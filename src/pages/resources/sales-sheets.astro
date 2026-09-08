@@ -1,0 +1,84 @@
+---
+/** SALES SHEETS & ONE-PAGERS — Full approved copy, v1. */
+import Prototype from "../../layouts/Prototype.astro";
+import Block from "../../components/Block.astro";
+import { u } from "../../lib/base";
+import { B } from "../../data/nav";
+import { photo } from "../../lib/wireframe";
+import type { Block as BlockType } from "../../lib/types";
+
+/** title · description · state of the underlying asset */
+const SHEETS: [string, string, string][] = [
+  ["Critical Situation Travel Labor Overview", "What travel labor is, the four-phase process, and the roles AFIMAC deploys, on one page.", "Proposed — does not exist yet"],
+  ["Is Travel Labor the Right Fit?", "A one-page self-qualification: the situations that call for a travel crew, the ones that don’t, and the questions to ask before you call.", "On the board — copy and design statuses out of step"],
+  ["Day 1 With AFIMAC", "The Day 1 Ready standard from pre-deployment through the first shift, for your operations team.", "Day 1 Ready package — in production"],
+  ["What to Do Before We Arrive", "The client-side pre-deployment checklist, formatted to print.", "Day 1 Ready package — in production"],
+  ["Global Protective Services Overview", "The situations AFIMAC protects against, the seven capabilities, and where we operate, on one page.", "Proposed — does not exist yet"],
+];
+
+const blocks: BlockType[] = [
+  {
+    cls: "dark",
+    n: "BLOCK 01 · HERO",
+    h: `
+  <p class="eyebrow">Resources</p>
+  <h1>Sales Sheets &amp; One-Pagers</h1>
+  <p class="lead">The short version of what AFIMAC does, one page at a time. Download, print, or forward to whoever needs to see it.</p>
+  <div style="margin-top:28px">${photo("Band illustration · 2560×800 flat isometric vector · a fan of one-page sheets with AFIMAC-navy headers, greys with blue accents, over the navy scrim")}</div>`,
+    spec: `<b>Elementor:</b> Container (bg illustration + navy overlay) · Heading ×2 · Text Editor. Compact utility band, matching the other resources pages. <b>Low search intent by design</b> — this page exists so sales and clients have one link for the leave-behinds.`,
+  },
+
+  {
+    n: "BLOCK 02 · THE SHEETS",
+    h: `
+  <p style="color:var(--spec);font-size:13px">Optional filter chips above the list: All · Travel Labor · Protective Services</p>
+  ${SHEETS.map(
+    ([title, desc, state]) => `
+  <div class="casecard" style="margin-top:18px">
+   <div style="max-width:180px">${photo("Thumbnail · 1200×1600 (3:4) of the sheet’s first page, displayed 180px wide")}</div>
+   <div><h3>${title}</h3><p>${desc}</p>
+    <p style="font-size:12.5px;color:var(--spec);margin-top:8px"><b>Asset status:</b> ${state}</p>
+    <div class="btns"><a class="btn ghost" href="${u("/resources")}">Download</a></div></div>
+  </div>`,
+  ).join("")}
+  <div class="note stop"><b>Not one of the five sheets is finished.</b> Two are proposed and do not exist, two are Day 1 Ready package deliverables still in production, and one has copy and design statuses that have been out of step on the board. <b>This page has nothing to serve on launch day.</b> That is not a reason to cut it — it is a reason to sequence it behind the assets, which is what <a href="${u("/launch-phases")}">launch phase 4</a> already does.</div>
+  <div class="note"><b>The deck's own advice on the two proposed sheets: drop the rows rather than hold the page.</b> Worth taking. A three-row library that works beats a five-row one with two dead buttons.</div>`,
+    spec: `<b>Elementor:</b> Container (single-column list) · EK Icon Box ×5 · Button ×5 (direct file links). New sheets append to the top. Titles are working titles — match the final covers.`,
+  },
+
+  {
+    cls: "wash",
+    n: "OPEN ITEM · GATING",
+    h: `
+  <div class="note" style="margin-top:0"><b>The deck recommends these download ungated, and the reasoning holds:</b> they are sales leave-behinds and the point is to be forwarded. Gating a leave-behind defeats it.</div>
+  <div class="note stop"><b>One exception creates one decision.</b> <b>Day 1 With AFIMAC</b> is the <a href="${u("/day-1-ready")}">Day 1 Ready</a> package’s gated asset on its own page. So either it stays gated here too by reusing the <a href="${u("/resources/white-papers")}">White Papers modal</a>, or it is ungated everywhere. <b>One decision, applied in both places</b> — what cannot happen is the same PDF gated on one page and free on another.</div>`,
+    spec: `Decide alongside the Pre-Deployment printable, which the checklist page also recommends ungated. Three assets, one gating policy.`,
+  },
+
+  {
+    cls: "sky",
+    n: "BLOCK 03 · CTA STRIP",
+    h: `
+  <div style="text-align:center">
+   <h2 style="margin-bottom:18px">Need something you don’t see here? Ask your AFIMAC contact, or reach us directly.</h2>
+   <div class="btns" style="justify-content:center"><a class="btn" href="${u("/get-in-touch")}">Talk to AFIMAC</a></div>
+  </div>`,
+    spec: `<b>Elementor:</b> Container (full-width strip) · Heading · Button. Same strip as <a href="${u("/resources/case-studies")}">Case Studies</a> with different wording — build once as a global block with an editable line.`,
+  },
+];
+---
+
+<Prototype
+  title="Sales Sheets &amp; One-Pagers"
+  crumb="Solutions › CSTL › Resources › Sales Sheets"
+  url={`${B}resources/sales-sheets/`}
+  status="build"
+  active="/resources/sales-sheets"
+  meta={{
+    t: "Sales Sheets & One-Pagers | AFIMAC Global Resources",
+    d: "One-page overviews of AFIMAC services, ready to share with your team: travel labor, protective services, and what to expect before a crew arrives.",
+    k: "AFIMAC one-pager · travel labor overview PDF · workforce deployment sales sheet · protective services overview · AFIMAC service overview",
+  }}
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

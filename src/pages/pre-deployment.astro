@@ -1,5 +1,175 @@
 ---
-import NotBuilt from "../components/NotBuilt.astro";
+/**
+ * PRE-DEPLOYMENT CHECKLIST — utility page.
+ *
+ * Full approved copy, v1. The five client items and the five readiness checks
+ * are imported rather than retyped: the deck says they must match Day 1 Ready
+ * word for word, and sharing the source is the only way to guarantee it.
+ */
+import Prototype from "../layouts/Prototype.astro";
+import Block from "../components/Block.astro";
+import { u } from "../lib/base";
+import { B } from "../data/nav";
+import { photo } from "../lib/wireframe";
+import { CLIENT_CHECKLIST, READY_CHECKS, DAY1_FORM_BULLETS } from "../data/day1";
+import type { Block as BlockType } from "../lib/types";
+
+const PHASES: [string, [string, string][]][] = [
+  [
+    "PHASE 01 · DURING ASSESSMENT (1 TO 2 DAYS)",
+    [
+      ["Together", "Align on roles, shift coverage, and site requirements with your AFIMAC contact"],
+      ["You", "share any site-specific requirements: PPE, compliance documentation, certifications your site requires"],
+      ["You", "name the point of contact on your side"],
+      ["AFIMAC", "scopes timeline, costs, and success measures, then finalizes the deployment plan"],
+    ],
+  ],
+  [
+    "PHASE 02 · BEFORE THE CREW TRAVELS (2 TO 3 DAYS)",
+    [
+      ["You", "arrange site access &amp; badging for the crew"],
+      ["You", "set the shift plan and line up supervisor introductions"],
+      ["You", "confirm workstations, equipment &amp; consumables are in place"],
+      ["AFIMAC", "sources and screens the crew, runs credential and role checks, books travel and housing, and completes site-specific safety onboarding"],
+    ],
+  ],
+  [
+    "PHASE 03 · DAY ONE MORNING",
+    [
+      ["You", "badge the crew in and make the supervisor introductions"],
+      ["AFIMAC", "arrives briefed, starts work, and runs the day through your single point of contact"],
+    ],
+  ],
+];
+
+const RAIL: [string, string, string | null][] = [
+  ["Day 1 Ready", "the standard this checklist serves", "/day-1-ready"],
+  ["How Critical Situation Travel Labor Works", "the full four-phase process", "/how-it-works"],
+  ["Pre-Deployment Process Deep-Dive", "from the blog — not published yet", null],
+];
+
+const blocks: BlockType[] = [
+  {
+    n: "SCOPE · TWO THINGS TO SETTLE FIRST",
+    h: `
+  <div class="note stop" style="margin-top:0"><b>The deck's slug is not the route this page has.</b> It specifies <code>${B}pre-deployment-checklist/</code>; the agreed sub-nav points at <code>${B}pre-deployment/</code>, which is what the prototype serves. Same class of decision as <a href="${u("/vs-traditional")}">Travel vs. Traditional</a> — settle both together.</div>
+  <div class="note stop"><b>And the deck files this page somewhere the nav does not.</b> It is headed “CSTL Resources Page” and reads as a utility in the resources branch; the agreed sub-nav has it under <b>How It Works</b>. That is not cosmetic — it decides whether this page ships in <a href="${u("/launch-phases")}">launch phase 2 or phase 4</a>. Phase 2, where it currently sits, is the earlier and harder commitment.</div>`,
+    spec: `Both are structure decisions, not copy ones. Raise at the same sign-off.`,
+  },
+
+  {
+    cls: "dark",
+    n: "BLOCK 01 · UTILITY HERO",
+    h: `
+  <p class="eyebrow">Critical Situation Travel Labor · Resources</p>
+  <h1>The Pre-Deployment Checklist</h1>
+  <p class="lead">Everything to have ready before the crew arrives. Most of this travel labor checklist is ours; here’s the whole picture, including your side of it.</p>
+  <div class="btns"><a class="btn ghost" href="#printable">Download the PDF</a><a class="btn ghost" href="#printable">Print this page</a></div>
+  <div style="margin-top:28px">${photo("Band crop from a 2560×1440 JPG source, displayed at roughly 2560×800 · a clipboard and badge on a supervisor’s table, shallow depth, muted tone under the navy scrim")}</div>`,
+    spec: `<b>Elementor:</b> Container (bg image + navy overlay) · Breadcrumbs · Heading ×2 · Text Editor · Button ×2. <b>Compact utility band, roughly a third of the standard hero height</b> — checklist iconography over the scrim rather than a narrative photo. This page is a tool and the hero should say so. <b>The Download button stays hidden until the PDF ships.</b>`,
+  },
+
+  {
+    n: "BLOCK 02 · THE SHORT VERSION",
+    h: `
+  <h2>Your side of day one fits on one page</h2>
+  <ul class="check" style="margin-top:20px">${CLIENT_CHECKLIST.map((c) => `<li>${c}</li>`).join("")}</ul>
+  <div class="note"><b>Identical to <a href="${u("/day-1-ready")}">Day 1 Ready</a>’s checklist block by design</b> — the deck’s words. Both pages render from one list in <code>src/data/day1.ts</code>, so “if either list changes, change both” is enforced rather than remembered. Build it the same way: one global block, two placements.</div>`,
+    spec: `<b>Elementor:</b> Heading · EK Icon List (checkbox styling). Global block shared with Day 1 Ready.`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 03 · THE FULL CHECKLIST, BY PHASE",
+    h: `
+  <h2>What happens when, and whose it is</h2>
+  <div style="margin:24px 0">${photo("Pre-deployment swimlane · SVG 2400×600 (4:1), stacks vertically under 768px · two horizontal lanes on a shared day scale from first call to first shift, labelled You and AFIMAC, with the items below plotted as markers in their lanes")}</div>
+  ${PHASES.map(
+    ([label, items]) => `
+  <div style="margin-top:28px">
+   <div class="blocknum">${label}</div>
+   <ul class="tick" style="margin-top:10px">${items.map(([who, what]) => `<li><b>${who}:</b> ${what}</li>`).join("")}</ul>
+  </div>`,
+  ).join("")}
+  <div class="note"><b>Third day-scale graphic specified in this package.</b> The <a href="${u("/how-it-works")}">four-phase timeline</a> is delivered, <a href="${u("/day-1-ready")}">Day 1 Ready</a> specs a stepped version, and this one adds two lanes. The deck is right that a two-lane swimlane is a genuinely different device — but three timelines on one day scale is worth a look before all three get drawn.</div>
+  <div class="note stop"><b>Carries the open phase-1 naming flag.</b> Phase names and durations follow the approved process doc, which still says Assessment where the live overview says Consultation. <a href="${u("/brand-check")}">Still open →</a></div>`,
+    spec: `<b>Elementor:</b> HTML widget (swimlane) · Heading ×3 · EK Icon List ×3. <b>Asset not drawn.</b>`,
+  },
+
+  {
+    n: "BLOCK 04 · ALREADY HANDLED",
+    h: `
+  <h2>Don’t duplicate what’s already done</h2>
+  <p class="lead">Everything below arrives finished. Your team doesn’t recruit, screen, book, house, or orient anyone.</p>
+  <div class="g4" style="margin-top:24px">${READY_CHECKS.map((c) => `<div class="card" style="text-align:center"><h3 style="margin:0">${c}</h3></div>`).join("")}</div>
+  <div class="note"><b>No new asset needed.</b> This reuses the <a href="${u("/day-1-ready")}">Day 1 Ready seal</a> art in strip form — same five checks, same file, laid out horizontally.</div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · Image (the seal art, strip crop) or EK Icon List inline. Five items into a four-column grid leaves an orphan — run it as a five-up strip.`,
+  },
+
+  {
+    id: "printable",
+    cls: "sky",
+    n: "BLOCK 05 · THE PRINTABLE",
+    h: `
+  <h2>Take it to your ops meeting</h2>
+  <p>The same checklist as a one-page PDF, formatted to print.</p>
+  <div class="btns"><a class="btn" href="${u("/resources")}">Download the PDF</a></div>
+  <div class="note stop"><b>Held: hide this block and the hero’s download button until the PDF ships.</b> It is the package’s “What to Do Before We Arrive” deliverable and this page is its landing page.</div>
+  <div class="note"><b>The deck recommends running it ungated, and that recommendation is worth taking.</b> The Day 1 With AFIMAC one-sheet is the package’s gated asset; a checklist download converts better free, and gating both would put two forms in front of the same reader on adjacent pages.</div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · Button (direct file link, no form). Confirm ungated with the team before build.`,
+  },
+
+  {
+    n: "BLOCK 06 · RELATED",
+    h: `
+  <h2>Related</h2>
+  <div class="g3" style="margin-top:22px">
+   ${RAIL.map(([t, why, route]) => `<div class="card">${photo("1280×720 (16:9) · pulled from the destination’s featured image")}<h3 style="margin-top:16px">${t}</h3><p style="font-size:12.5px;color:var(--spec)">${why}</p><a class="readmore" href="${u(route ?? "/overview")}">Read More »</a></div>`).join("")}
+  </div>
+  <div class="note"><b>The deep-dive blog is a package piece that has not published.</b> Slot it in when it does and run a live skilled-labor post in the meantime — the same holding pattern as <a href="${u("/day-1-ready")}">Day 1 Ready</a>’s rail, which needs three of them.</div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×3 with manual links — mixes pages and posts, so not the Post Grid widget.`,
+  },
+
+  {
+    cls: "sky",
+    n: "BLOCK 07 · TALK TO AFIMAC (LEAD FORM)",
+    h: `
+  <div class="g2">
+   <div>
+    <h2>Working through the list? We’ll walk it with you.</h2>
+    <p>Tell us what you’re facing and we’ll come back with:</p>
+    <ul class="tick">${DAY1_FORM_BULLETS.map((b) => `<li>${b}</li>`).join("")}</ul>
+    <p style="margin-top:22px"><b style="color:#fff">Urgent line</b> · 1.800.554.4622</p>
+    <div style="margin-top:22px">${photo("1200×1200 flat isometric vector beside the form · a checklist-on-clipboard motif with a facility behind it · greys with safety-orange and blue · distinct subject from every form illustration in the cluster")}</div>
+   </div>
+   <div>
+    <div class="form">
+     <input placeholder="First name"><input placeholder="Last name">
+     <input class="full" placeholder="Company">
+     <input placeholder="Work email"><input placeholder="Phone">
+     <input class="full" placeholder="Site location (City, State/Province)">
+     <textarea class="full" rows="4" placeholder="Tell us about your situation"></textarea>
+     <div class="full"><a class="btn" href="${u("/get-in-touch")}">Talk to a specialist</a></div>
+     <p class="full" style="font-size:12.5px">By submitting, you agree to AFIMAC’s Privacy Policy. We respond within one business day.</p>
+    </div>
+   </div>
+  </div>`,
+    spec: `<b>Elementor:</b> Metform · EK Icon List · Button. Global block.`,
+  },
+];
 ---
 
-<NotBuilt active="/pre-deployment" />
+<Prototype
+  title="The Pre-Deployment Checklist"
+  crumb="Solutions › CSTL › Pre-Deployment Checklist"
+  url={`${B}pre-deployment/`}
+  status="build"
+  active="/pre-deployment"
+  meta={{
+    t: "Pre-Deployment Checklist for Travel Labor Crews | AFIMAC",
+    d: "Everything to have ready before an AFIMAC crew arrives, on one page: your five items, what happens during Assessment, and what AFIMAC already has handled.",
+    k: "pre-deployment checklist · travel labor checklist · workforce deployment preparation · site readiness checklist · what to do before a travel crew arrives",
+  }}
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

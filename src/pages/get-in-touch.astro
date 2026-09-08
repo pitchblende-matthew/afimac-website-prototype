@@ -1,15 +1,114 @@
 ---
-import Stub from "../components/Stub.astro";
+/**
+ * GET IN TOUCH — the contact page every CTA in the section lands on.
+ *
+ * Full approved copy, v1. The deck settles the open question this page carried
+ * as a stub — standalone page or anchor jump — by using the existing /contact/
+ * URL, which also puts it outside the CSTL branch.
+ */
+import Prototype from "../layouts/Prototype.astro";
+import Block from "../components/Block.astro";
+import { u } from "../lib/base";
 import { B } from "../data/nav";
+import { photo } from "../lib/wireframe";
+import type { Block as BlockType } from "../lib/types";
+
+const STEPS: [string, string][] = [
+  ["1.", "A specialist reads your situation and calls or emails within one business day."],
+  ["2.", "We come back with a recommended approach, timing, and a ballpark cost."],
+  ["3.", "You decide. No commitment until there’s a plan you’re comfortable with."],
+];
+
+const blocks: BlockType[] = [
+  {
+    n: "SCOPE · THIS PAGE IS NOT IN THE CSTL BRANCH",
+    h: `
+  <div class="note" style="margin-top:0"><b>The open question this page carried is answered.</b> It asked whether Get in Touch should be a standalone page or an anchor jump to the inline form. The deck settles it: use the <b>existing <code>/contact/</code> URL</b>, replacing the page’s content and not its address, so <b>no CTA anywhere on the site needs re-pointing</b>. That also resolves the reporting worry — one contact URL, not two.</div>
+  <div class="note stop"><b>Which means this page sits outside the CSTL section.</b> The prototype has been serving it at <code>${B}get-in-touch/</code>; production is <code>/contact/</code>, one level up and shared with protective services. The sub-nav CTA and every inline form still point here, but this is not a CSTL page and should not be counted as one in the <a href="${u("/launch-phases")}">rollout</a> — it already exists.</div>`,
+    spec: `Update the prototype’s URL for this page once confirmed. Everything below is content, and content is what the deck replaces.`,
+  },
+
+  {
+    cls: "dark",
+    n: "BLOCK 01 · HERO",
+    h: `
+  <h1>Get in Touch</h1>
+  <p class="lead">Tell us what you’re facing. A specialist comes back to you within one business day. If it can’t wait, call AFIMAC’s global phone number.</p>
+  <p style="font-size:22px;font-weight:700;margin-top:14px"><a href="tel:18005544622" style="color:#fff">1.800.554.4622</a></p>
+  <div style="margin-top:24px">${photo("Band crop from a 2560×1440 JPG source, displayed at roughly 2560×800 · an AFIMAC coordinator on the phone at a desk, map on screen · muted tone under the navy scrim")}</div>`,
+    spec: `<b>Elementor:</b> Container (bg image + navy overlay) · Heading ×2 · Text Editor · click-to-call link. <b>Compact band, a third of the standard hero height</b> — the form has to start above the fold on desktop.`,
+  },
+
+  {
+    n: "BLOCK 02 · THE FORM &amp; BLOCK 03 · CONTACT PANEL",
+    h: `
+  <div class="g2" style="align-items:start">
+   <div>
+    <h2>What do you need help with?</h2>
+    <p class="lead" style="font-size:15px">The first question routes the submission; the fields beneath it change with the answer.</p>
+    <ul class="check" style="margin-top:16px">
+     <li>A labor shortage or production gap <span style="color:var(--spec)">(Travel Labor)</span></li>
+     <li>Protecting people, travel, or a facility <span style="color:var(--spec)">(Protective Services)</span></li>
+     <li>Something else</li>
+    </ul>
+    <div class="form" style="margin-top:22px">
+     <input placeholder="First name"><input placeholder="Last name">
+     <input class="full" placeholder="Company">
+     <input placeholder="Work email"><input placeholder="Phone">
+     <input class="full" placeholder="Location (City, State/Province)">
+     <textarea class="full" rows="4" placeholder="Tell us about your situation"></textarea>
+     <div class="full" style="font-size:12.5px;color:var(--spec)"><b>Travel Labor route only</b> — When do you need people on site? <i>This week · Within a month · Planning ahead</i></div>
+     <div class="full" style="font-size:12.5px;color:var(--spec)"><b>Protective Services route only</b> — Where? <i>city and country, or “here at our site”</i></div>
+     <div class="full" style="font-size:12.5px;color:var(--spec)"><b>Hidden</b> — Referring page (set automatically) · Route (set by the radio button)</div>
+     <div class="full"><a class="btn" href="${u("/overview")}">Send</a></div>
+     <p class="full" style="font-size:12.5px">By submitting, you agree to AFIMAC’s Privacy Policy. We respond within one business day.</p>
+    </div>
+   </div>
+   <div class="card">
+    <h3>Contact AFIMAC directly</h3>
+    <p style="font-size:20px;font-weight:700;margin:10px 0"><a href="tel:18005544622">1.800.554.4622</a></p>
+    <ul class="tick"><li>Strongsville, Ohio</li><li>Guelph, Ontario</li></ul>
+    <p style="margin-top:14px">Urgent situations are handled around the clock.</p>
+   </div>
+  </div>
+  <div class="note"><b>Thank-you state replaces the form on submit:</b> “Got it. A specialist will be in touch within one business day. If your situation is moving faster than that, call 1.800.554.4622.”</div>
+  <div class="note"><b>The field set matches the inline forms on the solution pages on purpose</b>, so a lead reads the same wherever it arrives. The two route-specific extras are the one question each team asks first. Route Travel Labor and Protective Services to their own inboxes; Something else goes to the general inbox.</div>
+  <div class="note stop"><b>Two things to confirm on the panel.</b> <b>1.800.554.4622</b> is the published headquarters number and the one used across the cluster, but the older F&amp;B doc carried <b>1.844.99.AFIMAC</b> — confirm which publishes here, and that it routes to <b>both</b> the labor and security desks, since this page serves both. And confirm the around-the-clock line with AFIMAC before it runs; it is a service commitment, not copy.</div>
+  <div class="note"><b>Addresses are held at city level</b> until the team says whether to show street addresses and email.</div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · Metform with conditional fields · EK Icon List. <b>Pass the referring page as a hidden field</b> so every submission says where it came from — this page catches the nav Contact link, every Talk to AFIMAC strip, and every CTA in the section.`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 04 · WHAT HAPPENS NEXT",
+    h: `
+  <div class="g3" style="margin-top:6px">
+   ${STEPS.map(([n, t]) => `<div class="card"><div class="stat" style="font-size:30px">${n}</div><p style="margin:0">${t}</p></div>`).join("")}
+  </div>
+  <div class="note"><b>These three mirror the promise every inline form makes</b> — approach, timing, ballpark cost — so the page keeps the promise the CTAs made to get people here. Worth protecting in build review: it is a reassurance strip, not a process section, and it should not grow.</div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×3. One line each.`,
+  },
+
+  {
+    cls: "sky",
+    n: "OPEN ITEM · THE FORM BACKEND",
+    h: `<div class="note stop" style="margin-top:0"><b>Same decision as the <a href="${u("/resources/white-papers")}">White Papers gate</a>, and this is the page to settle it on.</b> Elementor form now, or the CRM’s native embed once the HubSpot implementation is ready. This is the highest-volume form on the site — every CTA in the section lands here — so submissions collected in the wrong place are the most expensive ones to migrate. <b>Decide with Nick before build.</b></div>`,
+    spec: `One decision covering this page, the White Papers modal, and every inline form in the cluster.`,
+  },
+];
 ---
 
-<Stub
+<Prototype
   title="Get in Touch"
-  crumb="Solutions › CSTL › Get in Touch"
-  url={`${B}get-in-touch/`}
+  crumb="Contact"
+  url="/contact/  ·  (existing page, content replaced)"
   status="build"
   active="/get-in-touch"
-  intro="The persistent sub-nav CTA. Every page also carries the inline form block, so decide whether this is a standalone page or an anchor to the form."
-  items={[["Get in Touch", "…/get-in-touch/"]]}
-  note="Open question: standalone page or anchor jump? A standalone page splits form conversions across two URLs in reporting."
-/>
+  meta={{
+    t: "Get in Touch with AFIMAC Global | Talk to a Specialist",
+    d: "Tell AFIMAC what you are facing. Travel labor, protective services, or something else: we respond within one business day, or call 1.800.554.4622 now.",
+    k: "contact AFIMAC · AFIMAC Global phone number · talk to a travel labor specialist · AFIMAC protective services contact · AFIMAC Strongsville · AFIMAC Guelph",
+  }}
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>
