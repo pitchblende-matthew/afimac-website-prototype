@@ -66,7 +66,7 @@ like the toggles.
 
 | Phase | Adds |
 | :--- | :--- |
-| 0 | Nothing. Current state. |
+| 0 | Nothing new in the nav. The seven live industry pages render their **real published copy**, read off the site — see `src/data/live-industries.ts`. |
 | 1 | Overview, Industries, Contact |
 | 2 | How It Works |
 | 3 | Roles |
@@ -260,6 +260,7 @@ src/
 │   ├── nav.ts                  sub-nav structure + per-page build status + launch phases
 │   ├── industries.ts           live industry pages + the CSTL update configs
 │   ├── live-media.ts           images already on the live overview page
+│   ├── live-industries.ts      the seven live industry pages, as published
 │   ├── day1.ts                 copy shared by Day 1 Ready and the Pre-Deployment Checklist
 │   └── assets.ts               monday.com content inventory, mapped to routes
 ├── lib/
