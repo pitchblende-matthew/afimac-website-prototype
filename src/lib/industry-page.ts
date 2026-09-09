@@ -6,7 +6,7 @@
  * mockup — the discrepancy is surfaced as an OPEN ITEM block on that page
  * rather than silently normalised, because it is a live sign-off question.
  */
-import { bars, photo, figure, artPair, heroPhotoWithChip } from "./wireframe";
+import { bars, photo, figure, artPair } from "./wireframe";
 import { PHASE_TIMELINE } from "../data/graphics";
 import { LIVE_INDUSTRIES, LIVE_ROLE_GROUPS, LIVE_SITUATIONS } from "../data/live-industries";
 import { u } from "./base";
@@ -274,7 +274,11 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
          : `<div class="ph t" style="background:rgba(255,255,255,.17)"></div>${bars(4)}`
      }
       <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Get the Numbers</a><a class="btn ghost" href="${u("/how-it-works")}">See how it works</a></div></div>
-     <div>${o.heroChip ? heroPhotoWithChip({ photo: o.heroImg, chip: o.heroChip }) : photo(o.heroImg)}</div>
+     <div>${photo(o.heroImg)}${
+       o.heroChip
+         ? `<div class="note"><b>The delivered hero overlay chip is not placed.</b> <code>${o.heroChip.src.split("/").pop()}</code> is built to sit <i>on</i> the photograph, over the navy scrim. With no photograph yet it can only float in an empty box, which reads as a stray graphic rather than a design. It stays in <code>public/graphics/</code> for whoever builds the hero in Elementor. <b>Decided 9 Sep 2026.</b></div>`
+         : ""
+     }</div>
     </div>`,
         spec: `<b>Elementor:</b> Container (2-col, bg image + navy overlay) · Heading ×3 · Text Editor · Button ×2. <b>Headline and body copy not written.</b>`,
       },
