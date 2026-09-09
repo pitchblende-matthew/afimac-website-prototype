@@ -87,10 +87,10 @@ const blocks: BlockType[] = [
   <p class="lead">${LIVE_HUB.credibilityLead}</p>
   <p>${LIVE_CREDIBILITY_BODY}</p>
   <div class="g4" style="margin-top:30px">
-   ${LIVE_COUNTERS.map((c) => `<div><div class="stat" style="color:var(--ph)">—</div><p>${c}</p></div>`).join("")}
+   ${LIVE_COUNTERS.map((c) => `<div><div class="stat">0</div><p>${c}</p></div>`).join("")}
   </div>
   <div class="note stop"><b>The hub names one industry, and it is the wrong one.</b> That lead line reads “…resources to <b>aerospace, aviation, and defense</b>” — on the page about all seven. It is the <a href="${u("/industries/aerospace-aviation-defense")}">Aerospace page’s</a> line, copied and never localised. <b>Live on the site today.</b> The fix is one sentence.</div>
-  <div class="note">The paragraph beneath it and the four counters are identical on the hub and on all seven industry pages.</div>`,
+  <div class="note">The paragraph beneath it and the four counters are identical on the hub and on all seven industry pages. <b>The counters read 0 because that is what the page serves</b> — they animate up on scroll, so the published figures live only in the Elementor settings and a visitor who does not scroll sees four zeros.</div>`,
     spec: `<b>Elementor:</b> Heading ×2 · Text Editor · EK Funfact / Counter ×4. Shared saved section — which is how the aerospace line got here.`,
   },
 

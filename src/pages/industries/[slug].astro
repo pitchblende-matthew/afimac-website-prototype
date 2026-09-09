@@ -68,7 +68,7 @@ const liveTemplate = (slug: string, hasUpdate = false): BlockType[] => {
       h: `
   <h2>${p.headwindsH2}</h2>
   <p class="lead">${p.headwindsBody}</p>
-  <p style="font-size:13px;color:var(--spec)">*Source: ${p.source}.</p>
+  <p style="font-size:13px;color:var(--spec)">${p.sourceLine ?? `*Source: ${p.source}.`}</p>
   <div class="note"><b>This is the block that is really about the industry</b>, and the only one carrying a cited third-party figure. Each of the seven cites a different analyst. <b>Keep the citation live through any update</b> — it is what separates these pages from the generic ones.</div>`,
       spec: `<b>Elementor:</b> Heading · Text Editor. The block a CSTL update would most likely rewrite.`,
     },
@@ -76,6 +76,7 @@ const liveTemplate = (slug: string, hasUpdate = false): BlockType[] => {
       cls: "wash",
       n: "BLOCK 03 · CRITICAL SITUATIONS WE ADDRESS — AS LIVE",
       h: `
+  <h2>Critical Situations We Address</h2>
   <p class="lead">${p.situationsIntro}</p>
   <div class="g2" style="margin-top:26px">
    <div class="duo"><div class="duohead">Critical Situations We Handle:</div>
@@ -109,9 +110,9 @@ const liveTemplate = (slug: string, hasUpdate = false): BlockType[] => {
   <p class="lead">${p.credibilityLead}</p>
   <p>${LIVE_CREDIBILITY_BODY}</p>
   <div class="g4" style="margin-top:30px">
-   ${LIVE_COUNTERS.map((c) => `<div><div class="stat" style="color:var(--ph)">—</div><p>${c}</p></div>`).join("")}
+   ${LIVE_COUNTERS.map((c) => `<div><div class="stat">0</div><p>${c}</p></div>`).join("")}
   </div>
-  <div class="note stop"><b>A fifth set of credibility figures.</b> These four counters — ${LIVE_COUNTERS.join(" · ")} — are not the four in the approved June-05 package, not the three on the automotive stat band, and not the three the Logistics deck specifies. <b>The figures themselves cannot be read off the page</b>: they animate up from zero, so the published values are only in the Elementor settings. <a href="${u("/brand-check")}">All conflicts →</a></div>
+  <div class="note stop"><b>A fifth set of credibility figures.</b> These four counters — ${LIVE_COUNTERS.join(" · ")} — are not the four in the approved June-05 package, not the three on the automotive stat band, and not the three the Logistics deck specifies. <b>And the figures themselves cannot be read off the page</b>: all four render as <b>0</b> and animate up on scroll, so the published values live only in the Elementor settings. <b>0 is shown here because 0 is what the page serves</b> — a visitor who does not scroll, or who has motion reduced, sees four zeros. <a href="${u("/brand-check")}">All conflicts →</a></div>
   <div class="note">Only the first line is industry-specific. The paragraph under it is identical on all seven pages and on the hub.</div>`,
       spec: `<b>Elementor:</b> Heading ×2 · Text Editor · EK Funfact / Counter ×4. Counters animate on scroll.`,
     },
@@ -121,9 +122,9 @@ const liveTemplate = (slug: string, hasUpdate = false): BlockType[] => {
       h: `
   <h2>Related News + Insight</h2>
   <div class="g3" style="margin-top:22px">
-   ${[p.ownPost, ...GENERIC_POSTS].map((t, i) => `<div class="card"><h4>${t}</h4><p style="font-size:12.5px;color:var(--spec)">${i ? "Shared with all seven pages" : "This page’s own post"}</p><a class="readmore" href="${u("/overview")}">Read More »</a></div>`).join("")}
+   ${[p.ownPost, ...GENERIC_POSTS].map((t) => `<div class="card"><h4>${t}</h4><a class="readmore" href="${u("/overview")}">Read More »</a></div>`).join("")}
   </div>
-  <div class="note"><b>One of the three is about this industry; the other two are the same on every page.</b> The rail is hand-picked rather than filtered, which is why it never refreshes.</div>`,
+  <div class="note"><b>The first card is this page’s own post; the other two are the same on every one of the seven.</b> The rail is hand-picked rather than filtered, which is why it never refreshes. <b>The cards carry no label of their own here, because the live page carries none</b> — anything this block says beyond the three titles and their Read More links would be our words on a page that is meant to be shown as published.</div>`,
       spec: `<b>Elementor:</b> EK Post Grid (3-up, manual selection).`,
     },
     {
