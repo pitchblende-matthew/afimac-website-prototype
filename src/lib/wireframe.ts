@@ -107,6 +107,26 @@ export const artPair = (o: {
     ${o.caption ? `<figcaption>${o.caption}</figcaption>` : ""}
   </figure>`;
 
+/**
+ * The hero photograph with its overlay chip sitting on it.
+ *
+ * The chip is not a separate graphic stacked under the hero — the delivery is
+ * explicit that it "sits over the hero photo, on top of the navy scrim". So it
+ * renders positioned inside the photo panel, which is also the only way a
+ * reviewer can judge whether it works there. Below ~600px it drops out of the
+ * overlay and sits under the panel, because a chip over a phone-width photo
+ * covers most of the picture.
+ */
+export const heroPhotoWithChip = (o: {
+  /** Art-direction line for the photograph still to be sourced. */
+  photo: string;
+  chip: { src: string; alt: string; width: number; height: number };
+}): string =>
+  `<div class="herophoto">
+    ${photo(o.photo)}
+    <img class="herochip" src="${u(o.chip.src)}" alt="${o.chip.alt}" width="${o.chip.width}" height="${o.chip.height}" loading="lazy" decoding="async">
+  </div>`;
+
 /** Two-column tick list, used for the role inventories. */
 export const roleList = (a: string[]): string =>
   `<ul class="tick" style="columns:2;column-gap:40px">${a

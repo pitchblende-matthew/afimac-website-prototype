@@ -142,6 +142,13 @@ export const LOG_HERO_CHIP: Art = {
   maxWidth: 310,
 };
 
+/**
+ * NOT RENDERED, deliberately — like AUTO_LINE_MAP_ROLES and AUTO_LINE_MAP_STATIC.
+ * The delivery ships the line map twice and says to pick one: the widget on the
+ * page, this flat image where pictures are placed rather than embedded (print,
+ * email, PDF). Rendering both put the same seven stations on the page twice.
+ * The entry stays here so the file is findable, not so it gets re-added.
+ */
 export const LOG_ROLES_MAP: Art = {
   src: "/graphics/afimac-log-line-map-roles.svg",
   alt: "Warehouse line map across seven stations from Inbound & Receiving to Equipment & Facility, with every crew listed beneath each station",
