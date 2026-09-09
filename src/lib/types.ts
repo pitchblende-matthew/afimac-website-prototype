@@ -42,6 +42,13 @@ export interface PageProps {
   url: string;
   status: "live" | "build";
   meta?: PageMetaData;
+  /**
+   * The page's meta as published today. Set only on the industry pages that
+   * carry both versions — it is shown at launch phases 0 and 1, where the page
+   * body is the live one, so the meta table can never describe the update
+   * while the copy below it is the live page.
+   */
+  metaPre?: PageMetaData;
   /** Sub-nav route this page should highlight. */
   active?: string;
 }

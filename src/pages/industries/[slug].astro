@@ -32,7 +32,7 @@ if (!built && !existing) {
  * The shared blocks are shared on the live site too, identical word for word on
  * all seven, which is the finding this page exists to make visible.
  */
-const liveTemplate = (slug: string): BlockType[] => {
+const liveTemplate = (slug: string, hasUpdate = false): BlockType[] => {
   const p = LIVE_INDUSTRIES[slug];
   if (!p) return [];
   const shared = () =>
@@ -41,8 +41,12 @@ const liveTemplate = (slug: string): BlockType[] => {
 
   return [
     {
-      n: "PHASE 0 · THIS IS THE LIVE PAGE",
-      h: `<div class="note" style="margin-top:0"><b>This is the page as published today</b>, read off afimacglobal.com on 9 Sep 2026 — not a sketch of it. It is what a visitor sees at <a href="${u(`/industries/${slug}`)}">this URL</a> right now, and what <a href="${u("/launch-phases")}">launch phase 0</a> means for this industry. Updated copy arrives in phase 2.</div>`,
+      n: hasUpdate ? "PHASES 0–1 · THIS IS THE LIVE PAGE" : "PHASE 0 · THIS IS THE LIVE PAGE",
+      h: `<div class="note" style="margin-top:0"><b>This is the page as published today</b>, read off afimacglobal.com on 9 Sep 2026 — not a sketch of it. It is what a visitor sees at <a href="${u(`/industries/${slug}`)}">this URL</a> right now. ${
+        hasUpdate
+          ? `<b>The sub-nav slot ships in phase 1, but the new copy does not land until phase 2</b> — so at phases 0 and 1 this is what the slot opens onto. <b>Switch the launch phase to 2 in the pink bar to see the update.</b>`
+          : `It is what <a href="${u("/launch-phases")}">launch phase 0</a> means for this industry. Updated copy arrives in phase 2.`
+      }</div>`,
       spec: `Live SEO title: <code>${p.seoTitle}</code>`,
     },
     {
@@ -140,8 +144,30 @@ const liveTemplate = (slug: string): BlockType[] => {
 };
 
 const page = built ? industryPage(built) : null;
+
+/** Tag a stack so the phase-swap CSS can show one side of it at a time. */
+const view = (bs: BlockType[], side: "pre" | "post"): BlockType[] =>
+  bs.map((b) => ({ ...b, cls: `${b.cls ?? ""} pv-${side}`.trim() }));
+
+/**
+ * The two industries with update copy written are the only pages where the
+ * launch phase changes what a reviewer sees, not just what the sub-nav offers.
+ * Phases 0 and 1 open onto the live page; phase 2 and later open onto the
+ * update. Both are rendered and the stylesheet picks, so the choice persists
+ * across pages the same way the rest of the phase chrome does.
+ */
+const swapBanner: BlockType = {
+  cls: "wash",
+  n: "LAUNCH PHASE · WHICH VERSION OF THIS PAGE YOU ARE LOOKING AT",
+  h: `
+  <div class="note pvnote-pre" style="margin-top:0"><b>You are on launch phase 0 or 1, so this is the page as published today.</b> Phase 1 adds the Industries slot to the sub-nav, but it points at the copy that is already there — <b>the rewrite does not land until phase 2</b>. Switch the launch phase to <b>2</b> in the pink bar to see the update.</div>
+  <div class="note pvnote-post" style="margin-top:0"><b>You are on phase 2 or later, so this is the update.</b> Set the launch phase to <b>0</b> or <b>1</b> in the pink bar to see what the Industries slot actually opens onto before this copy ships.</div>
+  <div class="note"><b>Only two industry pages have two versions.</b> The other five have no update written, so they read the same at every phase — that is the gap, not an omission here. <a href="${u("/industries")}">The hub lists which is which →</a></div>`,
+  spec: `Prototype chrome. The live page and the update are both rendered; the launch-phase buttons in the pink bar choose between them, and the choice persists across pages.`,
+};
+
 const blocks: BlockType[] = built
-  ? page!.blocks
+  ? [swapBanner, ...view(liveTemplate(built.slug, true), "pre"), ...view(page!.blocks, "post")]
   : [
       {
         n: "STATUS · LIVE, NO CSTL UPDATE WRITTEN",
@@ -163,7 +189,18 @@ const blocks: BlockType[] = built
 
 {
   built ? (
-    <Prototype {...page!}>
+    <Prototype
+      {...page!}
+      metaPre={
+        LIVE_INDUSTRIES[built.slug]
+          ? {
+              t: LIVE_INDUSTRIES[built.slug].seoTitle,
+              d: LIVE_INDUSTRIES[built.slug].seoDesc ?? "[not captured]",
+              k: "[none assigned — the live page has no target keyword set]",
+            }
+          : undefined
+      }
+    >
       {blocks.map((b) => <Block {...b} />)}
     </Prototype>
   ) : (

@@ -4,18 +4,22 @@ import type { PageMetaData } from "../lib/types";
 interface Props {
   meta: PageMetaData;
   url: string;
+  /** Extra classes — used by the launch-phase swap on the industry pages. */
+  cls?: string;
+  /** True when this table describes the page as published, not the update. */
+  asLive?: boolean;
 }
 
-const { meta, url } = Astro.props;
+const { meta, url, cls = "", asLive = false } = Astro.props;
 
 // Character counts are measured on the rendered text, so entities like &amp;
 // count as the single character the search engine sees.
 const plain = (s: string) => s.replace(/&amp;/g, "&");
 ---
 
-<section class="block wash pagemeta">
+<section class={`block wash pagemeta ${cls}`.trim()}>
   <div class="wrap">
-    <div class="blocknum blocklabel">PAGE META · SEO &amp; SETUP</div>
+    <div class="blocknum blocklabel">{asLive ? "PAGE META · SEO AS PUBLISHED TODAY" : "PAGE META · SEO & SETUP"}</div>
     <div class="tscroll">
       <table class="cmp" style="max-width:900px">
         <tbody>
@@ -38,6 +42,15 @@ const plain = (s: string) => s.replace(/&amp;/g, "&");
         </tbody>
       </table>
     </div>
+    {
+      asLive ? (
+        <div class="note">
+          <b>These are the live values, not targets.</b> They are what is indexed
+          today, at launch phases 0 and 1. The rewritten title and description
+          arrive with the phase 2 copy.
+        </div>
+      ) : null
+    }
     <div class="spec">
       <b>Every BUILD page inherits the three SEO formulas:</b> title 50–60 characters
       · exactly one H1 · meta description 145–160 characters.

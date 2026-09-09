@@ -56,6 +56,12 @@ export interface LiveIndustry {
   tagline: string;
   intro: string;
   seoTitle: string;
+  /**
+   * The live meta description, read off the page's Yoast head on 9 Sep 2026.
+   * Only carried for the two industries whose pages render both a live and an
+   * updated version — the other five get theirs from EXISTING in industries.ts.
+   */
+  seoDesc?: string;
   /** The industry-analyst section heading. */
   headwindsH2: string;
   headwindsBody: string;
@@ -94,6 +100,8 @@ export const LIVE_INDUSTRIES: Record<string, LiveIndustry> = {
     tagline: "Driving Productivity",
     intro: "When timing is critical, AFIMAC is the premier resource for leading automotive manufacturers looking to bridge labor gaps and overcome shortages.",
     seoTitle: "Automotive Travel Labor &amp; Plant Staffing | AFIMAC Global",
+    seoDesc:
+      "Skilled travel crews for automotive plants — line workers, CNC operators, welders, and skilled trades. Rapid deployment for labor gaps and ramp-ups.",
     headwindsH2: "Automotive Faces Growing Workforce Continuity Challenges",
     headwindsBody: "A recent report from S&amp;P Global Mobility asked top senior executives about the pressing challenges facing the automotive industry. The answer: Supply chain disruptions, labor shortages, and regulatory challenges.* Attrition, turnover, talent scarcity, and skill gaps have put many automotive manufacturers in the hot seat for labor resources. What’s on the line? Effective adoption of the host of technology innovations disrupting the industry, along with difficulty delivering on contracts, remaining competitive, or realizing profitable growth. To overcome worker shortages, leading companies trust AFIMAC to deliver skilled travel labor that keeps their North American manufacturing, warehousing, and logistics operations running strong.",
     source: "S&amp;P Global Mobility",
@@ -142,6 +150,8 @@ export const LIVE_INDUSTRIES: Record<string, LiveIndustry> = {
     tagline: "Satisfy the Thirst for Labor Resources",
     intro: "When timing is critical, AFIMAC is the premier resource for leading food and beverage companies looking to bridge labor gaps and overcome shortages.",
     seoTitle: "Food &amp; Beverage Travel Labor &amp; Plant Staffing | AFIMAC Global",
+    seoDesc:
+      "Skilled travel crews for food &amp; beverage manufacturing — production associates, packaging, sanitation, and skilled trades. Rapid deployment for labor gaps.",
     headwindsH2: "Growing Labor Gaps for Food and Beverage Manufacturers",
     headwindsBody: "Worker shortages, high turnover rates, and growing skill gaps have many food and beverage manufacturers starving for labor resources. A recent report from The Manufacturing Institute predicts that by 2030, there could be 2.1 million unfilled manufacturing jobs due to growing labor gaps.* This workforce shortfall reduces operational efficiency and capacity, making technology adoption, contract delivery, scaling, or profitability increasingly challenging. When everything is on the line, leading companies trust AFIMAC to deliver skilled travel labor to keep their North American manufacturing, warehousing, and logistics operations running strong.",
     source: "The Manufacturing Institute",

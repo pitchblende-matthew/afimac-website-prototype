@@ -412,6 +412,29 @@ body.noassets .assetband{display:none}
 .caseart .cap b{display:block;color:var(--ink);font-size:12px;margin-bottom:2px}
 @media(max-width:940px){.caseart{grid-template-columns:repeat(2,1fr)}}
 
+/* ---- phase-swapped page bodies ---------------------------------------
+   Two industry pages carry both their live copy and their phase 2 update.
+   Which one a reviewer sees follows the launch phase they picked, so the
+   sub-nav and the page it opens can never disagree: phases 0 and 1 get the
+   page as published, phase 2 and later get the update. "All" shows the
+   update, because that is the work under review — never both at once, which
+   would just be the same page twice.                                     */
+.pv-pre{display:none}
+body[data-phase="0"] .pv-pre,
+body[data-phase="1"] .pv-pre{display:block}
+body[data-phase="0"] .pv-post,
+body[data-phase="1"] .pv-post{display:none}
+/* The swap also covers the crumb-bar badge, which is inline — the block
+   default above would drop the URL beside it onto its own line. */
+body[data-phase="0"] .tag.pv-pre,
+body[data-phase="1"] .tag.pv-pre{display:inline-block}
+/* Banners that speak to one side of that swap. */
+.pvnote-pre{display:none}
+body[data-phase="0"] .pvnote-pre,
+body[data-phase="1"] .pvnote-pre{display:block}
+body[data-phase="0"] .pvnote-post,
+body[data-phase="1"] .pvnote-post{display:none}
+
 /* ---- launch-phase preview -------------------------------------------
    The reviewer picks a launch phase in the control bar; body[data-phase]
    then hides every nav entry that has not shipped by then, so the sub-nav
