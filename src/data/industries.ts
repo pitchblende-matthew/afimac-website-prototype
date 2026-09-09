@@ -34,8 +34,10 @@ export interface Industry {
   map: string;
   /** Real line-map artwork, once it has been produced. */
   mapArt?: Art;
-  /** The full station-and-role grid. Delivered as PNG only. */
+  /** The full station-and-role grid, every station and role in one image. */
   rolesArt?: Art;
+  /** Overlay chip for the hero photograph. */
+  heroChip?: Art;
   /** Real speed-comparison artwork, rendered as its own block. */
   speedArt?: ArtPair;
   /**
@@ -113,6 +115,33 @@ export const INDUSTRIES: Record<string, Industry> = {
     heroImg: "Hero photo, right column · F&amp;B production floor · muted industrial tone",
     rolesTitle: "Plant staffing, role-ready",
     map: "Seven-station production line map · HTML widget · sits above the role grid",
+    rolesArt: {
+      src: "/graphics/afimac-fb-line-map-roles.svg",
+      alt: "Food and beverage production line across seven stations, with every crew listed beneath each station",
+      width: 2400,
+      height: 1220,
+      caption:
+        "<b>Delivered artwork.</b> Every station and every crew in one image, for placing pictures rather than embedding. The widget above reveals one station at a time, which is right on the page but means a screenshot of it drops six of the seven.",
+    },
+    deployArt: {
+      src: "/graphics/afimac-fb-deployment-timeline.svg",
+      mobile: "/graphics/afimac-fb-deployment-timeline-mobile.svg",
+      alt: "Food and beverage deployment timeline from first call to a crew on the line",
+      width: 2400,
+      height: 600,
+      caption:
+        "<b>Delivered artwork.</b> Deployment timeline, 2400×600, with a separately laid-out stacked version under 780px.",
+    },
+    heroChip: {
+      src: "/graphics/afimac-fb-hero-chip.svg",
+      alt: "Overlay chip: days from call to crew on your line",
+      width: 588,
+      height: 277,
+      caption: "<b>Delivered artwork.</b> Overlay chip, sits on the hero photograph over the navy scrim.",
+      maxWidth: 300,
+    },
+    lineMapEmbed: "fb-line-map",
+    statBandEmbed: "fb-stat-band",
     roles: ["Packaging Operators", "Sanitation Crews", "Line Prep", "Forklift Operators", "Quality Control Inspectors", "Boiler Operators", "Wastewater Techs"],
   },
 

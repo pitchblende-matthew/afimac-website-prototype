@@ -19,6 +19,10 @@ import vsDecisionCardsRaw from "../../public/embeds/afimac-vs-decision-cards.htm
 import vsThreeWayRaw from "../../public/embeds/afimac-vs-three-way-matrix.html?raw";
 import vsPermContractRaw from "../../public/embeds/afimac-vs-permanent-contract.html?raw";
 import vsDecisionMatrixRaw from "../../public/embeds/afimac-vs-decision-matrix.html?raw";
+import fbLineMapRaw from "../../public/embeds/afimac-fb-line-map.html?raw";
+import fbStatBandRaw from "../../public/embeds/afimac-fb-stat-band.html?raw";
+import logLineMapRaw from "../../public/embeds/afimac-log-line-map.html?raw";
+import logStatBandRaw from "../../public/embeds/afimac-log-stat-band.html?raw";
 
 export type EmbedKey =
   | "auto-line-map"
@@ -27,7 +31,11 @@ export type EmbedKey =
   | "vs-decision-cards"
   | "vs-three-way-matrix"
   | "vs-permanent-contract"
-  | "vs-decision-matrix";
+  | "vs-decision-matrix"
+  | "fb-line-map"
+  | "fb-stat-band"
+  | "log-line-map"
+  | "log-stat-band";
 
 export interface EmbedSource {
   /** Path under public/, for the "copy this file" build note. Routed through u(). */
@@ -59,4 +67,8 @@ export const EMBEDS: Record<EmbedKey, EmbedSource> = {
   "vs-three-way-matrix": split(vsThreeWayRaw, "/embeds/afimac-vs-three-way-matrix.html"),
   "vs-permanent-contract": split(vsPermContractRaw, "/embeds/afimac-vs-permanent-contract.html"),
   "vs-decision-matrix": split(vsDecisionMatrixRaw, "/embeds/afimac-vs-decision-matrix.html"),
+  "fb-line-map": split(fbLineMapRaw, "/embeds/afimac-fb-line-map.html"),
+  "fb-stat-band": split(fbStatBandRaw, "/embeds/afimac-fb-stat-band.html"),
+  "log-line-map": split(logLineMapRaw, "/embeds/afimac-log-line-map.html"),
+  "log-stat-band": split(logStatBandRaw, "/embeds/afimac-log-stat-band.html"),
 };

@@ -120,3 +120,33 @@ export const VS_SPEED: ArtPair = {
   caption:
     `${DELIVERED} Lead-time bars, matching Automotive. <b>Lead time moved out of the comparison table and became this chart</b>, which is what the prototype's own build note asked for — the table is six rows as a result.`,
 };
+
+/* ---------------- Food & Beverage · Logistics ---------------- */
+
+export const LOG_DEPLOY: ArtPair = {
+  src: "/graphics/afimac-log-deployment-timeline.svg",
+  mobile: "/graphics/afimac-log-deployment-timeline-mobile.svg",
+  alt: "Warehouse deployment timeline on a seven-day scale: Consultation days 1 to 2, Mobilization days 3 to 4, Deployment with the crew live from day 5",
+  width: 2400,
+  height: 600,
+  caption:
+    `${DELIVERED} Deployment timeline on the seven-day scale, with a separately laid-out stacked version under 780px. The crew-live marker sits at <b>day 5</b>, built to this page's own 5–7 figure rather than the ruled 6–7.`,
+};
+
+export const LOG_HERO_CHIP: Art = {
+  src: "/graphics/afimac-log-hero-chip.svg",
+  alt: "Overlay chip: 5 to 7 days from call to crew on your floor",
+  width: 602,
+  height: 277,
+  caption: `${DELIVERED} Hero overlay chip, sits on the hero photograph over the navy scrim.`,
+  maxWidth: 310,
+};
+
+export const LOG_ROLES_MAP: Art = {
+  src: "/graphics/afimac-log-line-map-roles.svg",
+  alt: "Warehouse line map across seven stations from Inbound & Receiving to Equipment & Facility, with every crew listed beneath each station",
+  width: 2400,
+  height: 1220,
+  caption:
+    `${DELIVERED} Every station and every crew in one image. The interactive widget below reveals one station at a time, which is right on the page but means a screenshot of it drops six of the seven — this is the version for placing pictures rather than embedding.`,
+};

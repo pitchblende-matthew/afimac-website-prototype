@@ -14,7 +14,8 @@ import Prototype from "../../layouts/Prototype.astro";
 import Block from "../../components/Block.astro";
 import { u } from "../../lib/base";
 import { B } from "../../data/nav";
-import { photo } from "../../lib/wireframe";
+import { photo, figure, artPair } from "../../lib/wireframe";
+import { LOG_DEPLOY, LOG_HERO_CHIP, LOG_ROLES_MAP } from "../../data/graphics";
 import type { Block as BlockType } from "../../lib/types";
 
 const SITUATIONS = [
@@ -33,16 +34,6 @@ const RISKS = [
   "Safety &amp; OSHA incidents",
   "Retail / customer defection",
   "Lost shelf space &amp; market share",
-];
-
-const ROLE_GROUPS: [string, string[]][] = [
-  ["Inbound &amp; Receiving", ["Dock &amp; unload crew", "Receiving associates", "Freight handlers", "Returns processors", "Cross-dock crew"]],
-  ["Put-away &amp; Storage", ["Stockers &amp; put-away crew", "Reach-truck operators", "Slotting &amp; replenishment", "Bulk &amp; rack handlers"]],
-  ["Picking &amp; Fulfillment", ["Order pickers", "Batch &amp; wave pickers", "RF scanner operators", "Zone &amp; case pickers"]],
-  ["Packing &amp; Kitting", ["Packers &amp; sorters", "Kitting &amp; assembly crew", "Label &amp; scan techs", "Value-add / VAS crew"]],
-  ["Loading &amp; Outbound", ["Loaders &amp; dock workers", "Palletizers &amp; wrappers", "Shipping associates", "Yard &amp; trailer crew"]],
-  ["Inventory &amp; Cycle Count", ["Cycle counters", "Inventory clerks", "Audit &amp; reconciliation", "WMS data entry support"]],
-  ["Equipment &amp; Facility", ["Forklift operators", "Cherry-picker operators", "Maintenance technicians", "Janitorial &amp; housekeeping"]],
 ];
 
 const PHASES: [string, string, string[]][] = [
@@ -79,7 +70,8 @@ const blocks: BlockType[] = [
   <p class="lead">AFIMAC delivers skilled warehouse staffing (pickers, packers, forklift operators, and dock crews) on demand, so your throughput, SLAs, and ship dates hold when local hiring can’t keep up.</p>
   <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Let’s talk</a><a class="btn ghost" href="#deploy">See how we deploy</a></div>
   <div style="margin-top:30px">${photo("Hero · wide shot of a live warehouse or distribution center floor · racking aisles, workers in hi-vis, forklift in frame · clean, bright tone under the navy scrim · landscape, min 2000px wide")}</div>
-  <div class="note"><b>The brief also specs a hero stat chip:</b> “5–7 days from call to crew on your floor.” That is the page’s sharpest claim and it is currently only in the asset brief, not the copy. Decide whether it ships — see the speed flag above.</div>`,
+  <div style="margin-top:18px">${figure(LOG_HERO_CHIP)}</div>
+  <div class="note stop"><b>The chip is built to this page’s own figure, not the ruled one.</b> It reads <b>5–7 days</b>, matching the copy doc and the phase math here — Consultation is 1–2 days on this page against 2–3 elsewhere. Editorial ruled <b>6–7</b>. The delivery built to 5–7 deliberately and says it is one value and a re-run to change. <b>With the speed comparison gone, the chip and the timeline marker are the only two places a day figure appears on this page.</b> <a href="${u("/brand-check")}">All conflicts →</a></div>`,
     spec: `<b>Elementor:</b> Container (bg image + navy overlay) · Heading ×3 · Text Editor · Button ×2.`,
   },
 
@@ -94,8 +86,8 @@ const blocks: BlockType[] = [
    <div class="duo"><div class="duohead">Critical situations we handle</div><div class="duobody"><ul class="check">${SITUATIONS.map((s) => `<li>${s}</li>`).join("")}</ul></div></div>
    <div class="duo risk"><div class="duohead">Risks we help you mitigate</div><div class="duobody"><ul class="warn">${RISKS.map((r) => `<li>${r}</li>`).join("")}</ul></div></div>
   </div>
-  <div style="margin:28px 0">${photo("Speed comparison · horizontal bars, “Time to a working crew on your floor” · direct local hire 45–90 days · temp/staffing agency 14–30 days · AFIMAC travel labor 5–7 days · AFIMAC bar highlighted")}</div>
-  <div class="note"><b>This is the same graphic already delivered for <a href="${u("/industries/automotive")}">Automotive</a>, with different numbers.</b> That one runs 45–90 / 21–35 / 6–7. This one asks for 45–90 / 14–30 / 5–7. <b>Two of the three bars differ between two industry pages using the same device.</b> Either the deployment speed genuinely differs by industry — in which case say so — or one set is wrong.</div>`,
+  <div class="note stop"><b>No speed comparison on this page, confirmed 9 Sep 2026 — so the bars specified here are not being built.</b> The placeholder is removed rather than left standing, because a slot with nothing coming reads as a missing asset. <b>The copy doc still carries the label “Time to a working crew on your floor” with its bar figures under this section; take it out there too.</b></div>
+  <div class="note"><b>Which quietly retires a conflict.</b> Those bars would have run 45–90 / <b>14–30</b> / 5–7 against Automotive’s 45–90 / 21–35 / 6–7 — two of three differing between two pages using one device. The agency figure never made it into a graphic as a result, but <b>14–30 is still in the copy doc</b> against the ruled 21–35, and should be reconciled before that copy ships.</div>`,
     spec: `<b>Elementor:</b> Container (2-col) · EK Icon List ×2 · HTML widget (speed bars). Mirrors the overview's two-card structure.`,
   },
 
@@ -104,16 +96,18 @@ const blocks: BlockType[] = [
     h: `
   <h2>The skilled crews that keep freight moving</h2>
   <p class="lead">Drawn from our network of 20,000+ skilled and unskilled workers: vetted, mobile, and ready to work.</p>
-  <div style="margin:24px 0">${photo("Warehouse line map · line rail with 7 numbered stations (Inbound &amp; Receiving → Equipment &amp; Facility) mapping crews to floor position")}</div>
-  <div class="g3" style="margin-top:24px">
-   ${ROLE_GROUPS.map(([title, roles], i) => `<div class="card"><div class="blocknum">${String(i + 1).padStart(2, "0")}</div><h3>${title}</h3><ul class="tick" style="margin-top:8px">${roles.map((r) => `<li>${r}</li>`).join("")}</ul></div>`).join("")}
-  </div>
+  <div style="margin:24px 0">${figure(LOG_ROLES_MAP)}</div>
   <div class="card" style="margin-top:24px;border-color:var(--cstl-blue);border-width:2px">
    <h3 style="margin-top:0">Don’t see the role? If it runs on your floor, we can staff it.</h3>
    <div class="btns" style="margin-top:12px"><a class="btn ghost" href="${u("/get-in-touch")}">Ask about a role</a></div>
   </div>
+  <div class="note"><b>The seven-card role grid is gone, because the widget already carries every one of them.</b> The delivery's note is explicit: “the separate <code>EK Icon Box ×7</code> grid is redundant if you use it — pick one.” Picked. The static image above is the same content flattened, for placing pictures rather than embedding.</div>
   <div class="note"><b>Thirty roles in seven groups, against six flat roles on every other industry page.</b> That is a genuinely different page, not a variant — and it is the reason this one does not run the shared template. Worth confirming the depth is wanted before it ships, because it sets an expectation the other seven pages will be measured against.</div>`,
-    spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×7 · HTML widget (line map) · highlighted callout card. Seven groups into a 3-col grid leaves an orphan on the last row — the callout card fills it.`,
+    embed: {
+      name: "log-line-map",
+      caption: `<b>Live embed, delivered.</b> The HTML widget itself, not a picture of it — click or tab a station to see its crews. Scoped to its own class prefix, loads nothing external, uses no browser storage.`,
+    },
+    spec: `<b>Elementor:</b> HTML widget (paste the whole file) · highlighted callout card. <b>The EK Icon Box ×7 grid this block used to spec is redundant</b> — the widget carries every role.`,
   },
 
   {
@@ -122,7 +116,7 @@ const blocks: BlockType[] = [
     n: "BLOCK 05 · HOW WE DEPLOY",
     h: `
   <h2>A crew on your floor in 5–7 days</h2>
-  <div style="margin:24px 0">${photo("Deployment timeline · 7-day scale with three phase segments: Consultation (D1–2), Mobilization (D3–4), Deployment / crew-live (D5–7)")}</div>
+  <div style="margin:24px 0">${artPair(LOG_DEPLOY)}</div>
   <div class="g4">
    ${PHASES.map(([name, dur, items]) => `<div class="card"><div class="blocknum">${name.toUpperCase()} · ${dur.toUpperCase()}</div><ul class="tick" style="margin-top:10px">${items.map((i) => `<li>${i}</li>`).join("")}</ul></div>`).join("")}
   </div>
@@ -137,14 +131,13 @@ const blocks: BlockType[] = [
     h: `
   <h2>The premier resource for warehouse labor under pressure</h2>
   <p class="lead">For four decades, Fortune 500 shippers and 3PLs have called AFIMAC when a labor gap threatens throughput and the clock is running.</p>
-  <div class="g3" style="margin-top:28px">
-   <div><div class="stat">40+</div><p>Years of Experience</p></div>
-   <div><div class="stat">20,000+</div><p>Skilled Laborers</p></div>
-   <div><div class="stat">18+</div><p>Industries Served</p></div>
-  </div>
   <div class="note stop"><b>“18+ Industries Served” is a third answer to a conflict the prototype has been tracking.</b> The live overview counter says <b>26 Industries</b>; the list on that same page has <b>18</b>. This deck says <b>18+</b>, which agrees with the list and not the counter. <b>Two of three now point at 18</b> — that is close to settled, and someone should settle it. <a href="${u("/brand-check")}">All conflicts →</a></div>
   <div class="note"><b>Three stats here, four on every other industry page.</b> The others run 40+ / 20,000+ / 72 hrs / 1–500+. This drops the speed and crew-size figures and adds industries served — which conveniently avoids restating the contested 72-hour claim.</div>`,
-    spec: `<b>Elementor:</b> Container (3-col) · EK Funfact / Counter ×3, blue band, animated on scroll.`,
+    embed: {
+      name: "log-stat-band",
+      caption: `<b>Live embed, delivered.</b> The counters run once when the band scrolls into view and then hold; they respect <code>prefers-reduced-motion</code> and fall back to the static figures where <code>IntersectionObserver</code> is missing.`,
+    },
+    spec: `<b>Elementor:</b> HTML widget — paste <code>/embeds/afimac-log-stat-band.html</code> whole. Self-contained and paints its own band, so the section needs no background colour. If you would rather use EK Funfact, the figures are 40+ / 20,000+ / 18+.`,
   },
 
   {
