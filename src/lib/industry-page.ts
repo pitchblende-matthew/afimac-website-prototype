@@ -6,7 +6,7 @@
  * mockup — the discrepancy is surfaced as an OPEN ITEM block on that page
  * rather than silently normalised, because it is a live sign-off question.
  */
-import { bars, photo, figure, artPair } from "./wireframe";
+import { bars, photo, figure, artPair, heroPhotoWithChip } from "./wireframe";
 import { PHASE_TIMELINE } from "../data/graphics";
 import { LIVE_INDUSTRIES, LIVE_ROLE_GROUPS, LIVE_SITUATIONS } from "../data/live-industries";
 import { u } from "./base";
@@ -117,13 +117,18 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
       n: "BLOCK 05 · " + o.rolesTitle.toUpperCase(),
       h:
         `<h2>${o.rolesTitle}</h2>` +
-        (o.lineMapEmbed ? "" : `<div style="margin:22px 0">${o.mapArt ? figure(o.mapArt) : photo(o.map)}</div>`) +
-        (o.rolesArt ? `<div style="margin:22px 0">${figure(o.rolesArt)}</div>` : ""),
+        // The flat roles map and the live widget are the same content. The
+        // delivery says to pick one: the widget where it can be embedded, the
+        // image where pictures are being placed. So the image renders only when
+        // there is no embed to carry it.
+        (o.lineMapEmbed
+          ? ""
+          : `<div style="margin:22px 0">${o.rolesArt ? figure(o.rolesArt) : o.mapArt ? figure(o.mapArt) : photo(o.map)}</div>`),
       ...(o.lineMapEmbed
         ? {
             embed: {
               name: o.lineMapEmbed,
-              caption: `<b>Live embed, delivered.</b> This is the HTML widget itself, not a picture of it — the prototype renders the same file the build pastes into Elementor, so the two cannot drift apart. Click a station, or arrow-key along the rail, to change the panel. It supersedes the flat <code>afimac-auto-assembly-sequence.png</code> in this slot; that file stays in <code>public/graphics/</code> as the fallback for print, email and PDF, where nothing is clickable.`,
+              caption: `<b>Live embed, delivered.</b> This is the HTML widget itself, not a picture of it — the prototype renders the same file the build pastes into Elementor, so the two cannot drift apart. Click a station, or arrow-key along the rail, to change the panel. It supersedes the flat <code>afimac-auto-assembly-sequence.png</code> in this slot; that file stays in <code>public/graphics/</code> as the fallback for print, email and PDF, where nothing is clickable. <b>The flat roles map ships with it and is deliberately not rendered here</b> — the delivery calls them one choice, not two elements: the widget reveals one station at a time, which is right on the page; the image is the same content flat, for placing pictures rather than embedding.`,
             } as const,
           }
         : {}),
@@ -269,11 +274,7 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
          : `<div class="ph t" style="background:rgba(255,255,255,.17)"></div>${bars(4)}`
      }
       <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Get the Numbers</a><a class="btn ghost" href="${u("/how-it-works")}">See how it works</a></div></div>
-     <div>${photo(o.heroImg)}${
-       o.heroChip
-         ? `<div style="margin-top:16px">${figure(o.heroChip)}</div>`
-         : ""
-     }</div>
+     <div>${o.heroChip ? heroPhotoWithChip({ photo: o.heroImg, chip: o.heroChip }) : photo(o.heroImg)}</div>
     </div>`,
         spec: `<b>Elementor:</b> Container (2-col, bg image + navy overlay) · Heading ×3 · Text Editor · Button ×2. <b>Headline and body copy not written.</b>`,
       },

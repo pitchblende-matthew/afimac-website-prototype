@@ -14,8 +14,8 @@ import Prototype from "../../layouts/Prototype.astro";
 import Block from "../../components/Block.astro";
 import { u } from "../../lib/base";
 import { B } from "../../data/nav";
-import { photo, figure, artPair } from "../../lib/wireframe";
-import { LOG_DEPLOY, LOG_HERO_CHIP, LOG_ROLES_MAP } from "../../data/graphics";
+import { photo, artPair, heroPhotoWithChip } from "../../lib/wireframe";
+import { LOG_DEPLOY, LOG_HERO_CHIP } from "../../data/graphics";
 import type { Block as BlockType } from "../../lib/types";
 
 const SITUATIONS = [
@@ -69,8 +69,12 @@ const blocks: BlockType[] = [
   <p class="sub"><b>When a peak surge, a new DC launch, or a backlog outpaces local hiring, a working crew on your floor in days.</b></p>
   <p class="lead">AFIMAC delivers skilled warehouse staffing (pickers, packers, forklift operators, and dock crews) on demand, so your throughput, SLAs, and ship dates hold when local hiring can’t keep up.</p>
   <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Let’s talk</a><a class="btn ghost" href="#deploy">See how we deploy</a></div>
-  <div style="margin-top:30px">${photo("Hero · wide shot of a live warehouse or distribution center floor · racking aisles, workers in hi-vis, forklift in frame · clean, bright tone under the navy scrim · landscape, min 2000px wide")}</div>
-  <div style="margin-top:18px">${figure(LOG_HERO_CHIP)}</div>
+  <div style="margin-top:30px">${heroPhotoWithChip({
+    photo:
+      "Hero · wide shot of a live warehouse or distribution center floor · racking aisles, workers in hi-vis, forklift in frame · clean, bright tone under the navy scrim · landscape, min 2000px wide",
+    chip: LOG_HERO_CHIP,
+  })}</div>
+  <div class="note"><b>The chip sits on the photograph, over the navy scrim, as delivered</b> — not as a separate card under it. Below 600px it drops beneath the shot, because at phone width it would cover the picture.</div>
   <div class="note stop"><b>The chip is built to this page’s own figure, not the ruled one.</b> It reads <b>5–7 days</b>, matching the copy doc and the phase math here — Consultation is 1–2 days on this page against 2–3 elsewhere. Editorial ruled <b>6–7</b>. The delivery built to 5–7 deliberately and says it is one value and a re-run to change. <b>With the speed comparison gone, the chip and the timeline marker are the only two places a day figure appears on this page.</b> <a href="${u("/brand-check")}">All conflicts →</a></div>`,
     spec: `<b>Elementor:</b> Container (bg image + navy overlay) · Heading ×3 · Text Editor · Button ×2.`,
   },
@@ -96,18 +100,14 @@ const blocks: BlockType[] = [
     h: `
   <h2>The skilled crews that keep freight moving</h2>
   <p class="lead">Drawn from our network of 20,000+ skilled and unskilled workers: vetted, mobile, and ready to work.</p>
-  <div style="margin:24px 0">${figure(LOG_ROLES_MAP)}</div>
-  <div class="card" style="margin-top:24px;border-color:var(--cstl-blue);border-width:2px">
-   <h3 style="margin-top:0">Don’t see the role? If it runs on your floor, we can staff it.</h3>
-   <div class="btns" style="margin-top:12px"><a class="btn ghost" href="${u("/get-in-touch")}">Ask about a role</a></div>
-  </div>
-  <div class="note"><b>The seven-card role grid is gone, because the widget already carries every one of them.</b> The delivery's note is explicit: “the separate <code>EK Icon Box ×7</code> grid is redundant if you use it — pick one.” Picked. The static image above is the same content flattened, for placing pictures rather than embedding.</div>
+  <div class="note"><b>The seven-card role grid is gone, because the widget already carries every one of them.</b> The delivery's note is explicit: “the separate <code>EK Icon Box ×7</code> grid is redundant if you use it — pick one.” Picked. <b>The flat roles map ships alongside the widget and is deliberately not rendered here either</b> — same content, same either/or: the widget reveals one station at a time, which is right on the page; <code>afimac-cstl-logistics-line-map-roles.png</code> stays in <code>public/graphics/</code> for print, email and PDF, where nothing is clickable.</div>
+  <div class="note"><b>And the separate “Don’t see the role?” card is gone with it.</b> The widget ends on that exact CTA already — same line, same <b>Ask about a role</b> button — so building it a second time as an Elementor card put the same offer on screen twice, a few hundred pixels apart. The widget’s own build comment says to delete its callout <i>if</i> the card is built separately; here the card is the one that goes, because the widget’s version cannot be separated from the widget.</div>
   <div class="note"><b>Thirty roles in seven groups, against six flat roles on every other industry page.</b> That is a genuinely different page, not a variant — and it is the reason this one does not run the shared template. Worth confirming the depth is wanted before it ships, because it sets an expectation the other seven pages will be measured against.</div>`,
     embed: {
       name: "log-line-map",
       caption: `<b>Live embed, delivered.</b> The HTML widget itself, not a picture of it — click or tab a station to see its crews. Scoped to its own class prefix, loads nothing external, uses no browser storage.`,
     },
-    spec: `<b>Elementor:</b> HTML widget (paste the whole file) · highlighted callout card. <b>The EK Icon Box ×7 grid this block used to spec is redundant</b> — the widget carries every role.`,
+    spec: `<b>Elementor:</b> HTML widget (paste the whole file) — that is the entire block. <b>No separate callout card:</b> the widget carries its own “Don’t see the role?” CTA. <b>The EK Icon Box ×7 grid this block used to spec is redundant</b> — the widget carries every role.`,
   },
 
   {
