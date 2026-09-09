@@ -1,0 +1,223 @@
+---
+/**
+ * LOGISTICS & WAREHOUSE TRAVEL LABOR — the one genuinely new industry page.
+ *
+ * A static route, so it takes precedence over [slug].astro. It does NOT use the
+ * shared industryPage() template, because the approved copy does not fit it:
+ * seven role groups rather than one flat six, three stats rather than four,
+ * a five-to-seven-day deployment promise, and "Consultation" where the template
+ * and every other new deck say "Assessment". Forcing it into the template would
+ * have hidden all four of those differences. The INDUSTRIES entry stays in place
+ * for the hub tile and the nav.
+ */
+import Prototype from "../../layouts/Prototype.astro";
+import Block from "../../components/Block.astro";
+import { u } from "../../lib/base";
+import { B } from "../../data/nav";
+import { photo } from "../../lib/wireframe";
+import type { Block as BlockType } from "../../lib/types";
+
+const SITUATIONS = [
+  "Peak &amp; holiday season demand surges",
+  "New DC &amp; fulfillment center launch",
+  "E-commerce &amp; order-volume spikes",
+  "Shipment backlog &amp; order recovery",
+  "Facility relocation, consolidation &amp; ramp-up",
+  "3PL client onboarding &amp; contract surge",
+];
+
+const RISKS = [
+  "Missed SLAs &amp; retailer ship windows",
+  "Chargebacks &amp; carrier penalties",
+  "Order backlog &amp; aging inventory",
+  "Safety &amp; OSHA incidents",
+  "Retail / customer defection",
+  "Lost shelf space &amp; market share",
+];
+
+const ROLE_GROUPS: [string, string[]][] = [
+  ["Inbound &amp; Receiving", ["Dock &amp; unload crew", "Receiving associates", "Freight handlers", "Returns processors", "Cross-dock crew"]],
+  ["Put-away &amp; Storage", ["Stockers &amp; put-away crew", "Reach-truck operators", "Slotting &amp; replenishment", "Bulk &amp; rack handlers"]],
+  ["Picking &amp; Fulfillment", ["Order pickers", "Batch &amp; wave pickers", "RF scanner operators", "Zone &amp; case pickers"]],
+  ["Packing &amp; Kitting", ["Packers &amp; sorters", "Kitting &amp; assembly crew", "Label &amp; scan techs", "Value-add / VAS crew"]],
+  ["Loading &amp; Outbound", ["Loaders &amp; dock workers", "Palletizers &amp; wrappers", "Shipping associates", "Yard &amp; trailer crew"]],
+  ["Inventory &amp; Cycle Count", ["Cycle counters", "Inventory clerks", "Audit &amp; reconciliation", "WMS data entry support"]],
+  ["Equipment &amp; Facility", ["Forklift operators", "Cherry-picker operators", "Maintenance technicians", "Janitorial &amp; housekeeping"]],
+];
+
+const PHASES: [string, string, string[]][] = [
+  ["01 · Consultation", "1–2 days", ["Assess warehouse labor needs", "Align on roles, shifts &amp; site requirements", "Finalize deployment plan"]],
+  ["02 · Mobilization", "2–3 days", ["Select &amp; screen candidates", "Finalize travel &amp; housing", "Site-specific safety training"]],
+  ["03 · Deployment", "live in 5–7 days", ["Crew works your floor", "Establish feedback loop", "Measure &amp; optimize throughput"]],
+  ["04 · Demobilization", "2–3 days", ["Final performance assessment", "Support transition planning", "Release travel crews"]],
+];
+
+const INSIGHTS = [
+  "The peak-season playbook: how warehouses protect SLAs through demand surges",
+  "Ready on day one: the case for skilled travel labor at your next DC launch",
+  "Why warehouse labor gaps become operational problems",
+];
+
+const blocks: BlockType[] = [
+  {
+    n: "SCOPE · FOUR THINGS THIS DECK CHANGES",
+    h: `
+  <div class="note stop" style="margin-top:0"><b>1 · It calls phase 1 “Consultation”.</b> Every other deck in this drop says <b>Assessment</b>, and so does the delivered <a href="${u("/how-it-works")}">four-phase timeline</a>. This is the only new page that sides with the live overview instead. <b>The naming question is no longer theoretical — two approved decks now disagree in writing.</b> <a href="${u("/brand-check")}">All conflicts →</a></div>
+  <div class="note stop"><b>2 · The URL drops the <code>/industries/</code> level.</b> The deck specifies <code>${B}logistics-warehousing/</code>; the other seven industry pages all live under <code>${B}industries/</code>, which is where the prototype serves this one. One page in a cluster of eight sitting a level up will read as an accident to anyone auditing the site.</div>
+  <div class="note stop"><b>3 · Its speed figures are new again.</b> Agency here is <b>14–30 days</b>, where How It Works, the FAQ and <a href="${u("/vs-traditional")}">Travel vs. Traditional</a> all say <b>14–35</b>. And the AFIMAC promise is a specific <b>5–7 days</b>, where <a href="${u("/vs-local-staffing")}">CSTL vs. Local Staffing</a> says “as fast as 72 hours”. Direct hire at 45–90 does match.</div>
+  <div class="note stop"><b>4 · The urgent line is the old number.</b> This deck ends on <b>1.844.99.AFIMAC</b>; the <a href="${u("/get-in-touch")}">contact page</a> deck says the published number is <b>1.800.554.4622</b> and flags 1.844.99.AFIMAC as coming from the older F&amp;B doc. Two live decks, two phone numbers.</div>`,
+    spec: `All four are decisions, not copy edits. The phone number is the one that costs money if it ships wrong.`,
+  },
+
+  {
+    cls: "dark",
+    n: "BLOCK 02 · HERO",
+    h: `
+  <p class="eyebrow">Critical Situation Travel Labor · Logistics &amp; Warehousing</p>
+  <h1>Logistics &amp; Warehouse Travel Labor</h1>
+  <p class="sub"><b>When a peak surge, a new DC launch, or a backlog outpaces local hiring, a working crew on your floor in days.</b></p>
+  <p class="lead">AFIMAC delivers skilled warehouse staffing (pickers, packers, forklift operators, and dock crews) on demand, so your throughput, SLAs, and ship dates hold when local hiring can’t keep up.</p>
+  <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Let’s talk</a><a class="btn ghost" href="#deploy">See how we deploy</a></div>
+  <div style="margin-top:30px">${photo("Hero · wide shot of a live warehouse or distribution center floor · racking aisles, workers in hi-vis, forklift in frame · clean, bright tone under the navy scrim · landscape, min 2000px wide")}</div>
+  <div class="note"><b>The brief also specs a hero stat chip:</b> “5–7 days from call to crew on your floor.” That is the page’s sharpest claim and it is currently only in the asset brief, not the copy. Decide whether it ships — see the speed flag above.</div>`,
+    spec: `<b>Elementor:</b> Container (bg image + navy overlay) · Heading ×3 · Text Editor · Button ×2.`,
+  },
+
+  {
+    cls: "wash",
+    n: "BLOCK 03 · THE WAREHOUSE LABOR GAP",
+    h: `
+  <p class="eyebrow">The Warehouse Labor Gap</p>
+  <h2>When the dock can’t wait for local hiring</h2>
+  <p class="lead">You manage warehouse labor every day: turnover, absenteeism, seasonal peaks. But when volume spikes, a new distribution center has to go live, or a backlog starts stacking up on the dock, local recruiting can’t move fast enough. AFIMAC rapidly delivers a turnkey warehouse workforce when labor puts your throughput (and your retail and carrier commitments) on the line.</p>
+  <div class="g2" style="margin-top:28px">
+   <div class="duo"><div class="duohead">Critical situations we handle</div><div class="duobody"><ul class="check">${SITUATIONS.map((s) => `<li>${s}</li>`).join("")}</ul></div></div>
+   <div class="duo risk"><div class="duohead">Risks we help you mitigate</div><div class="duobody"><ul class="warn">${RISKS.map((r) => `<li>${r}</li>`).join("")}</ul></div></div>
+  </div>
+  <div style="margin:28px 0">${photo("Speed comparison · horizontal bars, “Time to a working crew on your floor” · direct local hire 45–90 days · temp/staffing agency 14–30 days · AFIMAC travel labor 5–7 days · AFIMAC bar highlighted")}</div>
+  <div class="note"><b>This is the same graphic already delivered for <a href="${u("/industries/automotive")}">Automotive</a>, with different numbers.</b> That one runs 45–90 / 21–35 / 6–7. This one asks for 45–90 / 14–30 / 5–7. <b>Two of the three bars differ between two industry pages using the same device.</b> Either the deployment speed genuinely differs by industry — in which case say so — or one set is wrong.</div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · EK Icon List ×2 · HTML widget (speed bars). Mirrors the overview's two-card structure.`,
+  },
+
+  {
+    n: "BLOCK 04 · WAREHOUSE STAFFING, ROLE-READY",
+    h: `
+  <h2>The skilled crews that keep freight moving</h2>
+  <p class="lead">Drawn from our network of 20,000+ skilled and unskilled workers: vetted, mobile, and ready to work.</p>
+  <div style="margin:24px 0">${photo("Warehouse line map · line rail with 7 numbered stations (Inbound &amp; Receiving → Equipment &amp; Facility) mapping crews to floor position")}</div>
+  <div class="g3" style="margin-top:24px">
+   ${ROLE_GROUPS.map(([title, roles], i) => `<div class="card"><div class="blocknum">${String(i + 1).padStart(2, "0")}</div><h3>${title}</h3><ul class="tick" style="margin-top:8px">${roles.map((r) => `<li>${r}</li>`).join("")}</ul></div>`).join("")}
+  </div>
+  <div class="card" style="margin-top:24px;border-color:var(--cstl-blue);border-width:2px">
+   <h3 style="margin-top:0">Don’t see the role? If it runs on your floor, we can staff it.</h3>
+   <div class="btns" style="margin-top:12px"><a class="btn ghost" href="${u("/get-in-touch")}">Ask about a role</a></div>
+  </div>
+  <div class="note"><b>Thirty roles in seven groups, against six flat roles on every other industry page.</b> That is a genuinely different page, not a variant — and it is the reason this one does not run the shared template. Worth confirming the depth is wanted before it ships, because it sets an expectation the other seven pages will be measured against.</div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×7 · HTML widget (line map) · highlighted callout card. Seven groups into a 3-col grid leaves an orphan on the last row — the callout card fills it.`,
+  },
+
+  {
+    id: "deploy",
+    cls: "wash",
+    n: "BLOCK 05 · HOW WE DEPLOY",
+    h: `
+  <h2>A crew on your floor in 5–7 days</h2>
+  <div style="margin:24px 0">${photo("Deployment timeline · 7-day scale with three phase segments: Consultation (D1–2), Mobilization (D3–4), Deployment / crew-live (D5–7)")}</div>
+  <div class="g4">
+   ${PHASES.map(([name, dur, items]) => `<div class="card"><div class="blocknum">${name.toUpperCase()} · ${dur.toUpperCase()}</div><ul class="tick" style="margin-top:10px">${items.map((i) => `<li>${i}</li>`).join("")}</ul></div>`).join("")}
+  </div>
+  <div class="note stop"><b>This block is where the naming split shows.</b> Phase 1 is <b>Consultation</b> here and <b>Assessment</b> on <a href="${u("/how-it-works")}">How It Works</a>, <a href="${u("/day-1-ready")}">Day 1 Ready</a>, the <a href="${u("/pre-deployment")}">checklist</a> and all seven role pages. The delivered four-phase timeline says Assessment too. <b>One of the two has to move.</b></div>
+  <div class="note"><b>A seven-day timeline is also a fourth day-scale graphic in the section</b>, after the delivered four-phase bar, the Day 1 Ready stepped version and the checklist swimlane. This one is the only one that commits to specific day numbers.</div>`,
+    spec: `<b>Elementor:</b> HTML widget (7-day bar) · EK Icon Box ×4. Phase names must match whatever the naming decision lands on.`,
+  },
+
+  {
+    cls: "blue",
+    n: "BLOCK 06 · AFIMAC BY THE NUMBERS",
+    h: `
+  <h2>The premier resource for warehouse labor under pressure</h2>
+  <p class="lead">For four decades, Fortune 500 shippers and 3PLs have called AFIMAC when a labor gap threatens throughput and the clock is running.</p>
+  <div class="g3" style="margin-top:28px">
+   <div><div class="stat">40+</div><p>Years of Experience</p></div>
+   <div><div class="stat">20,000+</div><p>Skilled Laborers</p></div>
+   <div><div class="stat">18+</div><p>Industries Served</p></div>
+  </div>
+  <div class="note stop"><b>“18+ Industries Served” is a third answer to a conflict the prototype has been tracking.</b> The live overview counter says <b>26 Industries</b>; the list on that same page has <b>18</b>. This deck says <b>18+</b>, which agrees with the list and not the counter. <b>Two of three now point at 18</b> — that is close to settled, and someone should settle it. <a href="${u("/brand-check")}">All conflicts →</a></div>
+  <div class="note"><b>Three stats here, four on every other industry page.</b> The others run 40+ / 20,000+ / 72 hrs / 1–500+. This drops the speed and crew-size figures and adds industries served — which conveniently avoids restating the contested 72-hour claim.</div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Funfact / Counter ×3, blue band, animated on scroll.`,
+  },
+
+  {
+    n: "BLOCK 07 · WAREHOUSE &amp; DISTRIBUTION CLIENT SUCCESS",
+    h: `
+  <h2>Client success</h2>
+  <div class="g2" style="margin-top:22px">
+   <div>${photo("Featured case image · pickers, packers, or a forklift operator mid-task on the floor · authentic, not stock-posed · portrait-ish crop (4:5)")}</div>
+   <div><h3>Featured case</h3><ul class="tick"><li><b>Situation:</b> the client (DC, fulfillment center, 3PL) and the labor problem they faced</li><li><b>What AFIMAC did:</b> roles deployed, speed, shift coverage</li><li><b>Result:</b> the outcome, with KPIs — call-to-crew days, shifts covered, ship windows protected, backlog cleared</li></ul></div>
+  </div>
+  <div class="note stop"><b>Blocked, and this is the page it hurts most.</b> The deck asks for real logistics engagements from AFIMAC's records — one featured plus two or three supporting, ideally a peak-season surge, a DC launch, and an SLA recovery. <b>None of AFIMAC's published cases are logistics.</b> Four are manufacturing, one food, one building materials. This is the only page in the cluster with no case it can borrow, so it needs original material or it ships without proof.</div>`,
+    spec: `<b>Elementor:</b> Heading · Image · EK Icon List · EK Icon Box ×3. Keep the client anonymous where the work is confidential.`,
+  },
+
+  {
+    n: "BLOCK 08 · RELATED INSIGHTS",
+    h: `
+  <h2>Related insights</h2>
+  <div class="g3" style="margin-top:22px">
+   ${INSIGHTS.map((t) => `<div class="card">${photo("1280×720 (16:9) · editorial thumbnail")}<h3 style="margin-top:16px">${t}</h3><a class="readmore" href="${u("/overview")}">Read More »</a></div>`).join("")}
+  </div>
+  <div class="note stop"><b>The deck says these titles “map to existing articles”. They do not.</b> There is no peak-season playbook post and no DC-launch post. The third is closest to <b>“Why <i>Manufacturing Workforce</i> Gaps Become Operational Problems”</b> — a real post, but about manufacturing, not warehousing. <b>All three need commissioning or re-pointing</b>, and this page has no logistics blog content to fall back on.</div>`,
+    spec: `<b>Elementor:</b> EK Post Grid (3-up, category filter). Needs a Logistics blog category before it can filter — which needs logistics posts first.`,
+  },
+
+  {
+    cls: "sky",
+    n: "BLOCK 09 · READY TO TALK (LEAD FORM)",
+    h: `
+  <div class="g2">
+   <div>
+    <h2>Let’s talk today, and we’ll match a solution to your facility.</h2>
+    <p>Tell us what you’re facing and we’ll come back with:</p>
+    <ul class="tick"><li>Available labor resources for your roles</li><li>Rapid deployment timing to your facility</li><li>Ballpark costs</li><li>Estimated ROI &amp; risk-avoided impact</li></ul>
+    <p style="margin-top:22px"><b style="color:#fff">Urgent line</b> · 1.844.99.AFIMAC</p>
+   </div>
+   <div>
+    <div class="form">
+     <input placeholder="First name"><input placeholder="Last name">
+     <input class="full" placeholder="Company">
+     <input placeholder="Work email"><input placeholder="Phone">
+     <input class="full" placeholder="Facility location (City, State/Province)">
+     <textarea class="full" rows="4" placeholder="Tell us about your situation (roles, timing, shift coverage)"></textarea>
+     <div class="full"><a class="btn" href="${u("/get-in-touch")}">Let’s talk</a></div>
+     <p class="full" style="font-size:12.5px">By submitting, you agree to AFIMAC’s Privacy Policy. We respond within one business day.</p>
+    </div>
+   </div>
+  </div>
+  <div class="note stop"><b>Shown as delivered, including the old phone number.</b> Do not build this until the number is confirmed — see the scope flag at the top.</div>
+  <div class="note"><b>Two small divergences from the cluster form:</b> “Facility location” rather than “Site location”, and the situation field asks for roles, timing and shift coverage. Both are improvements for this audience. Either adopt them everywhere or accept the difference deliberately.</div>`,
+    spec: `<b>Elementor:</b> Metform · EK Icon List · Button. Four bullets, matching <a href="${u("/vs-local-staffing")}">CSTL vs. Local Staffing</a> rather than the three-bullet role-page form.`,
+  },
+
+  {
+    cls: "wash",
+    n: "OPEN ITEM · SEO",
+    h: `<div class="note stop" style="margin-top:0"><b>The meta description runs 211 characters</b> against the 145–160 the house formula sets, so Google will cut it around “deployed to your facility in days”. The title is fine at 59. Trim the description before build — the parenthetical role list is the obvious cut, since the H1 and body already carry it.</div>`,
+    spec: `Second deck in this drop to miss the meta length — see <a href="${u("/vs-local-staffing")}">CSTL vs. Local Staffing</a>, which misses on both fields.`,
+  },
+];
+---
+
+<Prototype
+  title="Logistics &amp; Warehouse Travel Labor"
+  crumb="Solutions › CSTL › Industries › Logistics &amp; Warehousing"
+  url={`${B}industries/logistics-warehousing/`}
+  status="build"
+  active="/industries/logistics-warehousing"
+  meta={{
+    t: "Warehouse Staffing & Logistics Travel Labor | AFIMAC Global",
+    d: "AFIMAC delivers skilled warehouse staffing and logistics travel labor (pickers, packers, forklift operators, and dock crews) deployed to your facility in days to protect throughput, hold SLAs, and clear backlog.",
+    k: "logistics warehousing travel labor · warehouse staffing · distribution center staffing · forklift & dock crews · pick & pack labor · peak-season warehouse labor · 3PL surge staffing · fulfillment center staffing",
+  }}
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

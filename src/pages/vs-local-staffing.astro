@@ -1,134 +1,238 @@
 ---
-/** CSTL VS. LOCAL STAFFING — bottom-funnel comparison page. */
+/**
+ * CSTL VS. LOCAL STAFFING — bottom-funnel comparison page.
+ *
+ * Full approved copy, v1, replacing the partial build. The page's own numbers
+ * changed with this drop: direct hire moves from 30–90 days to 45–90, which
+ * settles a conflict the prototype has been carrying.
+ */
 import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { B } from "../data/nav";
-import { bars, photo } from "../lib/wireframe";
+import { photo, liveImg } from "../lib/wireframe";
+import { postArt, postTitleDrift } from "../data/live-media";
 import type { Block as BlockType } from "../lib/types";
+
+const OPTIONS: [string, string[], boolean][] = [
+  ["Direct local hire", ["For filling permanent headcount", "You own recruiting, onboarding, and management", "Hiring timelines can be too long when the need is urgent"], false],
+  ["Local staffing agency", ["For filling short-term local gaps and seasonal peaks", "Agency sources; you still manage the crew", "When local talent pool is small, hiring is a challenge"], false],
+  ["AFIMAC Critical Situation Travel Labor", ["Best for critical, time-sensitive gaps local hiring can’t fill", "AFIMAC recruits, travels, houses, and manages the team on site", "Right answer when the need is urgent and the cost of waiting is high"], true],
+];
+
+const AGENCY_ROWS: [string, string, string][] = [
+  ["What you get", "Candidates to manage", "A working, supervised crew"],
+  ["Speed to productive crew", "14–35 days", "Days"],
+  ["Labor pool", "Local market only", "National network, mobilized to you"],
+  ["Travel &amp; housing", "Rarely handled", "Fully handled"],
+  ["Screening &amp; safety onboarding", "Partial", "AFIMAC, site-specific"],
+  ["On-site supervision", "You", "AFIMAC, single point of contact"],
+  ["Scales for a surge", "Limited by local supply", "Built for it"],
+  ["Who owns the outcome", "You", "AFIMAC"],
+];
+
+const CONTRACT_ROWS: [string, string, string][] = [
+  ["Commitment", "Ongoing, fixed", "Length of the situation"],
+  ["Cost profile", "Salary, benefits, overhead", "Scoped to the engagement"],
+  ["Time to productive", "45–90 days", "Within days, as fast as 72 hours"],
+  ["When the gap closes", "Headcount to manage down", "Planned demobilization"],
+  ["Flexes with demand", "Slowly, market dependent", "Scale up or down as needed"],
+  ["Best for", "Steady, long-term roles", "Time-bound, critical gaps"],
+];
+
+const MATRIX: [string, string, boolean][] = [
+  ["Steady, long-term headcount, no time pressure", "Direct local hire", false],
+  ["A small local gap, ample local supply", "Local staffing agency", false],
+  ["A deadline, launch, or backlog at risk right now", "AFIMAC CSTL", true],
+  ["Local market is tight or tapped out", "AFIMAC CSTL", true],
+  ["You need a capable team in days", "AFIMAC CSTL", true],
+  ["The need is temporary and will demobilize", "AFIMAC CSTL", true],
+  ["A workforce disruption looms", "AFIMAC CSTL", true],
+];
+
+const FAQ: [string, string][] = [
+  ["What’s the difference between CSTL and a local staffing agency?", "A local agency sources candidates from the local market and hands them to you to manage. CSTL sources from a national network, travels and houses the crew, handles safety onboarding, and supervises the work on site. You end up with a working crew, not a pile of resumes to sort through."],
+  ["Is travel labor more expensive than hiring locally?", "The day rate can be higher, but the right comparison is total cost. When an open gap lets a deadline slip, penalties, lost orders, and overtime usually cost more than travel labor would have. AFIMAC scopes the full cost against the risk avoided during the consultation."],
+  ["When should I use travel labor instead of local hiring?", "When the local market can’t supply the skills fast enough, the gap is large or time-critical, and you need a crew productive in days rather than weeks."],
+  ["Contract or permanent: which is right for a temporary gap?", "For a gap with a clear beginning and end (a launch, backlog, or changeover), contract labor is the cleaner fit. You employ a team while you need it and demobilize when your permanent workforce recovers, with no long-term cost left on the books."],
+  ["How fast can CSTL move compared to the alternatives?", "Direct hire typically runs 45–90 days to a productive crew and an agency 14–35 days. For most roles, AFIMAC can provide a CSTL team within days of a signed plan."],
+  ["Do I still have to manage the workers?", "No. AFIMAC provides on-site supervision and a single point of contact, working alongside your team, so your managers aren’t absorbing the workers on top of their typical duties."],
+];
+
+const RAIL = [
+  "3 Common Missteps to Avoid When Hiring Travel Labor",
+  "When AFIMAC is the Right Fit",
+  "Ready on Day 1: The Case for Travel Labor at Your Next Line Launch",
+];
+
+const row3 = (rows: [string, string, string][], a: string, b: string) =>
+  `<div class="tscroll"><table class="cmp"><thead><tr><th></th><th>${a}</th><th class="hl">${b}</th></tr></thead><tbody>${rows
+    .map(([k, l, r]) => `<tr><th>${k}</th><td>${l}</td><td class="hl">${r}</td></tr>`)
+    .join("")}</tbody></table></div>`;
+
+const RAIL_CARDS = RAIL.map((t) => {
+  const art = postArt(t);
+  const live = postTitleDrift(t);
+  return `<div class="card">${art ? liveImg(art) : photo("1280×720 (16:9) · post featured image")}<h3 style="margin-top:16px">${t}</h3>${
+    art ? "" : `<p style="font-size:12.5px;color:var(--spec)">No live post found under this title</p>`
+  }${live ? `<p style="font-size:12.5px;color:var(--stop)">Published as “${live}”</p>` : ""}<a class="readmore" href="${u("/overview")}">Read More »</a></div>`;
+}).join("");
 
 const blocks: BlockType[] = [
   {
+    n: "SCOPE · WHAT THIS DROP CHANGES",
+    h: `
+  <div class="note" style="margin-top:0"><b>This is the full approved copy, replacing the partial build.</b> The comparison tables were already here; everything around them — hero, framing, the cost-of-waiting section, the FAQ — was grey bars until now.</div>
+  <div class="note stop"><b>It also changes a number the prototype has been carrying, and that is the useful part.</b> The direct-hire figure moves from <b>30–90 days</b> to <b>45–90</b>. That was the last page disagreeing with the automotive speed graphic and <a href="${u("/vs-traditional")}">Travel vs. Traditional</a>, both of which say 45–90. <b>Direct hire is now settled at 45–90 across the section.</b> The agency figure stays 14–35, which leaves the graphic's 21–35 as the only outlier left. <a href="${u("/brand-check")}">All conflicts →</a></div>
+  <div class="note stop"><b>Both SEO fields break the house formula, by a lot.</b> The title runs <b>79 characters</b> against the 50–60 the other twelve decks follow, and the meta description runs <b>186</b> against 145–160. Google will truncate both. This is the only deck in the set that misses on either.</div>`,
+    spec: `The SEO fields need trimming before build — everything else is ready to drop in.`,
+  },
+
+  {
     n: "BLOCK 02 · HERO",
     h: `
-  <p class="eyebrow">Critical Situation Travel Labor · Compare</p>
-  <h1>CSTL vs. Local Staffing</h1>
-  <div class="ph t"></div>${bars(3)}
-  <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Let’s talk</a><a class="btn ghost" href="#compare">See the comparison</a></div>`,
-    spec: `<b>Elementor:</b> Container (centred) · Breadcrumbs · Heading ×3 · Text Editor · Button ×2. Light, text-led, no hero photo — this buyer already understands travel labor. <b>Copy not written.</b>`,
+  <p class="eyebrow">Critical Situation Travel Labor · Compare Your Options</p>
+  <h1>CSTL vs. Local Staffing: Which Fits Your Situation</h1>
+  <p class="sub"><b>Travel labor, a local agency, or a direct hire, compared what keeps operations moving.</b></p>
+  <p class="lead">There are three real ways to fill a labor gap, and each one fits a different situation. Compare each side by side on speed, cost, control, and risk, to see which one fits yours before you act.</p>
+  <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Let’s talk</a><a class="btn ghost" href="#compare">Jump to the comparison</a></div>
+  <div class="note stop"><b>The sub-headline is missing a word.</b> “compared what keeps operations moving” — most likely “compared <b>on</b> what keeps operations moving”. Shown as delivered.</div>`,
+    spec: `<b>Elementor:</b> Container (centred) · Breadcrumbs · Heading ×3 · Text Editor · Button ×2. Light, text-led, no hero photo — this buyer already understands travel labor. The brief asks for documentary hero photography; the built page has run without it and reads better that way.`,
   },
 
   {
     cls: "wash",
     n: "BLOCK 03 · FRAME THE DECISION",
     h: `
-  <h2>Three ways to fill a workforce gap</h2>
-  <div class="g3" style="margin-top:24px">
-   <div class="card"><h3>Traditional hiring</h3><p>Building your permanent workforce.</p></div>
-   <div class="card"><h3>Local staffing agencies</h3><p>Ongoing, flexible capacity from the labor market around your operation.</p></div>
-   <div class="card" style="border-color:var(--cstl-blue);border-width:2px"><h3>AFIMAC travel labor</h3><p>Urgent, time-bound, skilled workforce gaps, anywhere in North America.</p></div>
+  <h2>Comparison: 3 ways to fill a gap</h2>
+  <p class="lead">When you’re short on labor, you’ve got three options. Each one works in the right situation. The problem is picking the slow option when the gap is urgent, or the expensive one when the gap is routine.</p>
+  <div class="g3" style="margin-top:26px">
+   ${OPTIONS.map(([t, pts, hl]) => `<div class="card"${hl ? ' style="border-color:var(--cstl-blue);border-width:2px"' : ""}><h3>${t}</h3><ul class="tick" style="margin-top:10px">${pts.map((p) => `<li>${p}</li>`).join("")}</ul></div>`).join("")}
   </div>`,
-    spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×3. Copy lifted from the approved comparison sheet — safe to use as is.`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×3, CSTL card highlighted. Copy is final — this replaces the one-line placeholder cards.`,
   },
 
   {
     id: "compare",
     n: "BLOCK 04 · CSTL VS. LOCAL STAFFING",
     h: `
-  <h2>How the three compare when the pressure is on</h2>
-  <div class="tscroll"><table class="cmp"><thead><tr><th></th><th>Traditional hiring</th><th>Local staffing agencies</th><th class="hl">AFIMAC travel labor</th></tr></thead><tbody>
-  <tr><th>Lead time</th><td>30–90 days from requisition to first day, longer for skilled trades</td><td>Days to weeks, depending on the local labor pool</td><td class="hl">Within days, as fast as 72 hours</td></tr>
-  <tr><th>Reach</th><td>Your local labor market</td><td>Typically within ~50 miles of your facility</td><td class="hl">National pool of 20,000+ travel-ready personnel</td></tr>
-  <tr><th>Skilled trades under pressure</th><td>You’re competing for the same candidates with other employers</td><td>Strong for general labor; skilled trades depend on local talent pool</td><td class="hl">Nationally sourced general, semi-, and highly-skilled workers</td></tr>
-  <tr><th>During an active disruption</th><td>Hiring can’t move at the speed of the disruption</td><td>The local pool may be the same one affected by the disruption</td><td class="hl">Personnel travel from outside the situation, and can deploy alongside security</td></tr>
-  <tr><th>Vetting</th><td>Your process, your timeline</td><td>Varies by agency; speed and depth trade off when demand spikes</td><td class="hl">Background-checked, drug-tested, fully insured before they arrive</td></tr>
-  <tr><th>On-site management</th><td>Your supervisors</td><td>Agency places workers; your team manages them</td><td class="hl">Dedicated on-site workforce manager</td></tr>
-  <tr><th>Commitment</th><td>Permanent headcount</td><td>Time-based contracts, terms vary</td><td class="hl">Scale from 1 to 500+ and ramp down the day you no longer need us</td></tr>
-  </tbody></table></div>`,
-    spec: `<b>Elementor:</b> Text Editor (native table) or TablePress · EK Progress Bar ×2 for the speed-to-crew bars above it. Nine rows is long for mobile — consider splitting “speed” out as bars and keeping the table to seven rows.`,
-  },
-
-  {
-    n: "BLOCK 05 · WHEN LOCAL HIRING CAN’T WORK",
-    h: `
-  <h2>When local hiring can’t work</h2>
-  <div class="g2" style="margin-top:24px"><div><h3>Travel labor</h3>${bars(5)}</div><div><h3>Local labor</h3>${bars(5)}</div></div>`,
-    spec: `<b>Elementor:</b> Container (2-col) · EK Icon List ×2. <b>Copy not written.</b> Keep the tone from the brief: local agencies are partners, not competitors.`,
+  <h2>Travel labor vs. a local staffing agency</h2>
+  <p class="lead">The key factors to consider in deciding when to use travel labor versus staffing is talent sourcing and workforce management. Assess whether your local market has the skills you need and if the floor managers have the capacity for more oversight.</p>
+  ${row3(AGENCY_ROWS, "Local staffing agency", "AFIMAC CSTL")}
+  <div class="note stop"><b>Subject–verb slip in that paragraph:</b> “The key factors … <b>is</b> talent sourcing and workforce management”. Shown as delivered; should read “are”.</div>
+  <div class="note"><b>Keep the agency column factual, not a straw man</b> — the deck's own instruction, and the reason this page is credible. Confirm the timing ranges against AFIMAC's standard SLAs before publishing.</div>`,
+    spec: `<b>Elementor:</b> Text Editor (native table) or TablePress, AFIMAC column emphasised. Eight rows is manageable on mobile; the earlier nine-row version was not.`,
   },
 
   {
     cls: "wash",
+    n: "BLOCK 05 · TRAVEL LABOR VS. LOCAL LABOR",
+    h: `
+  <h2>Travel labor vs. hiring directly</h2>
+  <p class="lead">Local hiring works when the skilled people you need are already in your market. When they’re not, no local recruiter can conjure them, however fast they move. Travel labor draws from a bigger and deeper talent pool. AFIMAC recruits from a national network to bring Day 1 ready workers to your site.</p>
+  <div class="g2" style="margin-top:26px">
+   <div class="card"><h3>Choose local labor when</h3><ul class="tick"><li>The local market has the skills you need</li><li>The gap is modest and not urgent</li><li>You have months, not days, to fill it</li><li>The role is a permanent addition to the team</li></ul></div>
+   <div class="card" style="border-color:var(--cstl-blue);border-width:2px"><h3>Choose travel labor when</h3><ul class="tick"><li>The local market is tight or tapped out</li><li>The gap is large or time-critical</li><li>You need a team operational in days</li><li>The need is temporary</li></ul></div>
+  </div>
+  <div class="note"><b>“Day 1 ready workers” now has a page of its own</b> — link it to <a href="${u("/day-1-ready")}">Day 1 Ready</a>, which did not exist when this copy was written. The cheapest internal link in the drop.</div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · EK Icon List ×2. <b>Copy is final</b> — this replaces the grey-bar placeholder.`,
+  },
+
+  {
     n: "BLOCK 06 · CONTRACT VS. PERMANENT LABOR",
     h: `
-  <h2>Match commitment to need</h2><div class="ph t"></div>${bars(2)}
-  <div class="tscroll"><table class="cmp" style="margin-top:22px"><thead><tr><th></th><th>Contract</th><th class="hl">Permanent</th></tr></thead><tbody>
-  ${[1, 2, 3, 4].map(() => `<tr><th><div class="ph xs" style="margin:0"></div></th><td><div class="ph s" style="margin:0"></div></td><td class="hl"><div class="ph s" style="margin:0"></div></td></tr>`).join("")}
-  </tbody></table></div>`,
-    spec: `<b>Elementor:</b> Text Editor (native table) or TablePress. <b>Copy not written.</b>`,
+  <h2>Hiring contract vs. permanent labor</h2>
+  <p class="lead">Permanent hiring adds fixed, ongoing cost, making it the right call when the work is steady and long-term. Contract labor flexes with the work, giving you the opportunity to employ the team only while you need it, with no long-term cost on the books once the situation clears. For a sudden gap or one with a distinct beginning and end, such as a launch, a backlog, a changeover, a contract workforce is the cleaner fit.</p>
+  ${row3(CONTRACT_ROWS, "Permanent hire", "Contract labor (CSTL)")}
+  <div class="note stop"><b>“Within days, as fast as 72 hours” is the sharpest speed claim in the section and the most contested one.</b> Five other wordings are in circulation — 24–72 hours on the live pillar meta, 2–7 days in the ad tracker, 6–7 days on the live process graphic, 5–7 days on <a href="${u("/industries/logistics-warehousing")}">Logistics</a>, and “within days” everywhere else. <a href="${u("/brand-check")}">All conflicts →</a></div>`,
+    spec: `<b>Elementor:</b> Text Editor (native table) or TablePress. Six rows.`,
   },
 
   {
     cls: "blue",
     n: "BLOCK 07 · THE REAL COST OF WAITING",
     h: `
-  <h2>The real cost of waiting</h2>
-  <div class="g3" style="margin-top:26px">
-   <div><div class="stat">$2.3M</div><p>per hour — idle automotive assembly</p></div>
-   <div><div class="stat">$36K</div><p>per hour lost on fast-moving consumer goods lines</p></div>
-   <div><div class="stat">~2 months</div><p>national average time-to-fill</p></div>
-  </div>
-  <p style="margin-top:24px">Against figures like these, the premium attached to skilled travel labor is small relative to the cost of a line that is not running.</p>`,
-    spec: `<b>Elementor:</b> Container (2-col) · EK Icon List ×2 or EK Funfact ×3, blue band. <b>Sourced stats</b> (Siemens TCOD 2024; HR Dive / Employ 2025) — attribute them on the page.`,
+  <h2>What an open gap costs</h2>
+  <p class="lead">Every day a critical role sits open, the cost compounds. It’s not just the open seat, it’s the missed shipment, the line that can’t run, and the overtime you’re paying your core team to cover the gap. When you’re evaluating how fast a staffing agency or continuity partner can actually get workers with the skills you need on-site, speed is the number that matters most.</p>
+  <div class="g2" style="margin-top:26px">
+   <div><h3>What an open gap can cost</h3><ul class="warn"><li>Penalties, chargebacks, and missed SLAs</li><li>Lost customers, contracts, or market share</li><li>Idle equipment and facilities</li><li>Overtime and burnout on your permanent team</li></ul></div>
+   <div><h3>What CSTL protects</h3><ul class="tick"><li>The deadline, launch, or delivery on the line</li><li>Your core team’s capacity and morale</li><li>Throughput while the gap is open</li><li>The customer relationship behind it all</li></ul></div>
+  </div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · EK Icon List ×2 on the blue band. <b>Copy is final</b> — replaces the grey bars.`,
   },
 
   {
     n: "BLOCK 08 · WHICH SHOULD YOU CHOOSE?",
     h: `
-  <h2>Which should you choose?</h2>
-  <div class="tscroll"><table class="cmp" style="margin-bottom:26px"><thead><tr><th>If your situation is…</th><th>Choose</th><th>Because</th></tr></thead><tbody>
-  ${[1, 2, 3, 4].map(() => `<tr><td><div class="ph s" style="margin:0"></div></td><td><div class="ph xs" style="margin:0"></div></td><td><div class="ph s" style="margin:0"></div></td></tr>`).join("")}
-  </tbody></table></div>
-  <div class="g2">
-   <div class="card"><h3>Go local when…</h3>${bars(3)}</div>
-   <div class="card" style="border-color:var(--cstl-blue);border-width:2px"><h3>Call AFIMAC when…</h3>${bars(3)}<div class="btns"><a class="btn" href="${u("/get-in-touch")}">Talk to a specialist</a></div></div>
-  </div>`,
-    spec: `<b>Elementor:</b> Text Editor (native table) or TablePress · Container (2-col) · Button. <b>Copy not written.</b>`,
+  <h2>How to decide</h2>
+  <p class="lead">Match your situation to the model. When more than one row points to CSTL, it’s time to call AFIMAC.</p>
+  <div class="tscroll" style="margin-top:22px"><table class="cmp"><thead><tr><th>If your situation is…</th><th class="hl">The fit is…</th></tr></thead><tbody>
+  ${MATRIX.map(([sit, fit, hl]) => `<tr><th>${sit}</th><td${hl ? ' class="hl"' : ""}>${fit}</td></tr>`).join("")}
+  </tbody></table></div>`,
+    spec: `<b>Elementor:</b> Text Editor (native table), CSTL rows visually grouped. This is the decision matrix that stays on this page — <a href="${u("/vs-traditional")}">Travel vs. Traditional</a> carries the decision tree instead, so the two never repeat a device.`,
   },
 
   {
     cls: "wash",
     n: "BLOCK 09 · FAQ",
     h: `
-  <h2>Frequently asked questions</h2>
-  <div class="acc" style="margin-top:22px">${[1, 2, 3, 4, 5, 6].map(() => `<details><summary><span class="ph xs" style="width:280px;margin:0"></span></summary><div class="ans">${bars(2)}</div></details>`).join("")}</div>`,
-    spec: `<b>Elementor:</b> EK Accordion (6 items) + FAQPage schema. <b>Questions not written.</b> Keep them distinct from the How It Works FAQ.`,
+  <h2>CSTL vs. local staffing FAQ</h2>
+  <div class="acc" style="margin-top:22px">
+  ${FAQ.map(([q, a], i) => `<details${i === 0 ? " open" : ""}><summary>${q}</summary><div class="ans">${a}</div></details>`).join("")}
+  </div>
+  <p style="margin-top:22px"><a href="${u("/faq")}">See the full Travel Labor FAQ →</a></p>
+  <div class="note"><b>Four of these six are already on the <a href="${u("/faq")}">cluster FAQ</a> verbatim</b>, which is how it should be — that page gathers them deliberately. The two that are not are the agency-difference question and the supervision question. <b>Keep the wording identical in both places</b> or the structured data disagrees with itself.</div>`,
+    spec: `<b>Elementor:</b> EK Accordion (6 items) + FAQPage structured data. The cluster FAQ carries the canonical set; this page repeats a subset.`,
   },
 
   {
     n: "BLOCK 10 · RELATED INSIGHTS",
-    h: `<h2>Related insights</h2><div class="g3" style="margin-top:22px">${[1, 2, 3].map(() => `<div class="card">${photo("1280×720")}<div class="ph t" style="margin-top:16px"></div>${bars(2)}</div>`).join("")}</div>`,
-    spec: `<b>Elementor:</b> EK Post Grid (3-up).`,
+    h: `
+  <h2>Related insights</h2>
+  <div class="g3" style="margin-top:22px">${RAIL_CARDS}</div>
+  <div class="note stop"><b>One of these three posts does not exist.</b> “3 Common Missteps to Avoid When Hiring Travel Labor” has no match in the live blog. And “Ready on Day 1” is cited under a title the site does not use — the post is published as “Ready on Day One: The Case for <b>Skilled</b> Travel Labor at Your Next Line Launch”. Only <b>When AFIMAC is the Right Fit</b> is cited correctly.</div>`,
+    spec: `<b>Elementor:</b> EK Post Grid (3-up). Replace the missing post or commission it — a rail with a dead card is worse than a rail of two.`,
   },
 
   {
     cls: "sky",
-    n: "BLOCK 11 · READY TO TALK",
-    h: `<h2>Ready to talk</h2><p class="lead">Shared lead-form block.</p><div class="btns"><a class="btn" href="${u("/get-in-touch")}">Talk to a specialist</a></div>`,
-    spec: `<b>Elementor:</b> Metform · EK Icon List · Button. Global block.`,
+    n: "BLOCK 11 · READY TO TALK (LEAD FORM)",
+    h: `
+  <div class="g2">
+   <div>
+    <h2>Not sure which fits? Let’s scope it together.</h2>
+    <p>Tell us what you’re facing and we’ll come back with:</p>
+    <ul class="tick"><li>The staffing model that actually fits your situation</li><li>The roles and crew size we’d deploy</li><li>A realistic timeline to a working crew</li><li>A ballpark cost</li></ul>
+    <p style="margin-top:22px"><b style="color:#fff">Urgent line</b> · 1.800.554.4622</p>
+   </div>
+   <div>
+    <div class="form">
+     <input placeholder="First name"><input placeholder="Last name">
+     <input class="full" placeholder="Company">
+     <input placeholder="Work email"><input placeholder="Phone">
+     <input class="full" placeholder="Site location (City, State/Province)">
+     <textarea class="full" rows="4" placeholder="Tell us about your situation"></textarea>
+     <div class="full"><a class="btn" href="${u("/get-in-touch")}">Let’s talk</a></div>
+     <p class="full" style="font-size:12.5px">By submitting, you agree to AFIMAC’s Privacy Policy. We respond within one business day.</p>
+    </div>
+   </div>
+  </div>
+  <div class="note"><b>Four bullets here where every other form in the cluster has three.</b> The extra one — “the staffing model that actually fits your situation” — is right for a comparison page. Worth keeping, and worth noting it is deliberate.</div>`,
+    spec: `<b>Elementor:</b> Metform · EK Icon List · Button. Button reads “Let’s talk” here, not “Talk to a specialist” — the one form in the cluster that differs. Align or accept.`,
   },
 ];
 ---
 
 <Prototype
   title="CSTL vs. Local Staffing"
-  crumb="Solutions › CSTL › CSTL vs. Local Staffing"
+  crumb="Solutions › CSTL › vs. Local Staffing"
   url={`${B}vs-local-staffing/`}
   status="build"
   active="/vs-local-staffing"
   meta={{
-    t: "[SEO title not written — 50–60 chars]",
-    d: "[meta description not written — 145–160 chars]",
-    k: "[bottom-funnel comparison cluster]",
+    t: "CSTL vs. Local Staffing: Travel Labor vs. Local Hiring Compared | AFIMAC Global",
+    d: "CSTL vs. local staffing, travel labor vs. local hiring, and contract vs. permanent labor, compared side by side on speed, cost, and control. See which staffing model fits your situation.",
+    k: "CSTL vs local staffing · travel labor vs local · contract vs permanent labor · travel labor vs staffing agency · contract labor vs direct hire · when to use travel labor · rapid staffing comparison · managed workforce vs temp agency",
   }}
 >
   {blocks.map((b) => <Block {...b} />)}

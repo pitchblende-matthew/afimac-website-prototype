@@ -84,7 +84,7 @@ export const NAV: NavItem[] = [
       k("What Is Travel Labor", "/what-is-travel-labor", "ready"),
       k("How Travel Labor Works", "/how-it-works", "ready"),
       k("Travel vs. Traditional Labor", "/vs-traditional", "ready"),
-      k("Travel Labor vs. Local Staffing", "/vs-local-staffing", "partial"),
+      k("Travel Labor vs. Local Staffing", "/vs-local-staffing", "ready"),
       k("Day 1 Ready", "/day-1-ready", "ready"),
       k("Pre-Deployment Checklist", "/pre-deployment", "ready"),
       k("Travel Labor FAQ — needs a slot", "/faq", "ready"),
@@ -106,7 +106,7 @@ export const NAV: NavItem[] = [
       k("Food &amp; Beverage", "/industries/food-beverage", "partial", true),
       k("Industrial Equipment", "/industries/industrial-equipment", "todo", true),
       k("Oil &amp; Energy", "/industries/oil-energy", "todo", true),
-      k("Logistics &amp; Warehousing — needs a slot", "/industries/logistics-warehousing", "partial"),
+      k("Logistics &amp; Warehousing — needs a slot", "/industries/logistics-warehousing", "ready"),
     ],
   },
 
