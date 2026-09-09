@@ -66,9 +66,15 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
   <div class="g2" style="margin-top:28px">
    <div><h3>What’s happening on the floor</h3>${bars(5)}</div>
    <div><h3>What it costs you</h3>${bars(5)}
-     <div style="margin-top:20px">${["", "", ""].map(() => `<div class="ph" style="height:9px"></div>`).join("")}</div></div>
-  </div>`,
-    spec: `<b>Elementor:</b> Container (2-col) · EK Icon List ×2 · EK Progress Bar ×3. <b>Copy not written.</b>`,
+     ${o.deployArt && !o.speedArt ? "" : `<div style="margin-top:20px">${["", "", ""].map(() => `<div class="ph" style="height:9px"></div>`).join("")}</div>`}</div>
+  </div>${
+    o.deployArt && !o.speedArt
+      ? `<div class="note stop"><b>No speed comparison on this page, confirmed 9 Sep 2026 — and both the copy doc and this block still expect one.</b> The copy doc carries the infographic label “Time to a working crew on your floor” with bar figures under its labor-gap section, and this block used to spec <code>EK Progress Bar ×3</code>. The bars are removed here so the page does not read as missing an asset; <b>take the label out of the copy doc too</b>, or it will be built from.</div>`
+      : ""
+  }`,
+    spec: o.deployArt && !o.speedArt
+      ? `<b>Elementor:</b> Container (2-col) · EK Icon List ×2. <b>The EK Progress Bar ×3 this block used to spec is gone</b> — see the note above. <b>Copy not written.</b>`
+      : `<b>Elementor:</b> Container (2-col) · EK Icon List ×2 · EK Progress Bar ×3. <b>Copy not written.</b>`,
   };
 
   const numsN = "BLOCK 0" + (numbersFirst ? "4" : "6") + " · AFIMAC BY THE NUMBERS";
@@ -141,6 +147,11 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
       h: `
   <h2>How we deploy</h2>
   <div style="margin:22px 0">${artPair(PHASE_TIMELINE)}</div>
+  ${
+    o.slug === "food-beverage"
+      ? `<div class="note stop"><b>The durations do not reconcile on this page.</b> The copy doc says <b>Consultation: 2–3 days</b>, but the day scale in the graphic runs Consultation across <b>D1–2</b> — two days of slot for three days of work. <a href="${u("/industries/logistics-warehousing")}">Logistics</a> has this right, at 1–2 days against D1–2, so F&amp;B is the outlier. Fix the copy or re-cut the scale.</div>`
+      : ""
+  }
   <div class="note">${
     o.slug === "food-beverage"
       ? `<b>The shared timeline, standing in.</b> The F&amp;B deck specs a bespoke seven-day deployment bar, which does not exist. Given this one carries the same four phases and real durations, <b>the bespoke version is hard to justify</b> — drop it unless F&amp;B genuinely deploys on a different clock.`
@@ -258,7 +269,11 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
          : `<div class="ph t" style="background:rgba(255,255,255,.17)"></div>${bars(4)}`
      }
       <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Get the Numbers</a><a class="btn ghost" href="${u("/how-it-works")}">See how it works</a></div></div>
-     ${photo(o.heroImg)}
+     <div>${photo(o.heroImg)}${
+       o.heroChip
+         ? `<div style="margin-top:16px">${figure(o.heroChip)}</div>`
+         : ""
+     }</div>
     </div>`,
         spec: `<b>Elementor:</b> Container (2-col, bg image + navy overlay) · Heading ×3 · Text Editor · Button ×2. <b>Headline and body copy not written.</b>`,
       },

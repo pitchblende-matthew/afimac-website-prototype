@@ -123,6 +123,8 @@ and added the widgets:
 | `afimac-auto-line-map-static` / `-roles` | Automotive · BLOCK 05 |
 | `afimac-auto-deployment-timeline` | Automotive · How We Deploy |
 | `afimac-vs-speed-comparison` | CSTL vs. Local Staffing · BLOCK 04 |
+| `afimac-fb-*` | Food &amp; Beverage · line map, deployment timeline, hero chip |
+| `afimac-log-*` | Logistics &amp; Warehousing · line map, deployment timeline, hero chip |
 
 Most ship as a **desktop/mobile pair** — a wide bar chart cannot just be scaled
 down, so the narrow versions are separately laid out. `artPair()` renders them
@@ -130,9 +132,8 @@ through `<picture>` with a 780px `media` query, so the browser fetches only the
 one it needs; `figure()` still handles single assets. Both are in
 `src/lib/wireframe.ts`, and `src/data/graphics.ts` holds the inventory.
 
-Seven HTML widgets render live through `Embed.astro`, byte-for-byte the file the
-Elementor build pastes in. Two of the seven carry no script, which is expected —
-they are static markup. The delivered font stacks (Zilla Slab / Jost) were
+Eleven HTML widgets render live through `Embed.astro`, byte-for-byte the file the
+Elementor build pastes in. Two carry no script, which is expected — they are static markup. The delivered font stacks (Zilla Slab / Jost) were
 swapped for the site's Museo faces in every widget, originals kept as fallbacks,
 so all seven render in one type system. **The SVGs have their text converted to
 outlines**, so those keep the delivered faces — worth knowing if the theme fonts
