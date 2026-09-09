@@ -110,107 +110,40 @@ unresolved content conflicts.
 
 ### Delivered artwork
 
-Finished graphics live in `public/graphics/` and render through `figure()` in
-`src/lib/wireframe.ts` — a green rule and a caption, the same signal the asset
-bands use, so a delivered graphic never reads as a dashed placeholder. Five are
-placed so far, three of them on Automotive — which the
-[industry template](src/lib/industry-page.ts) builds from
-[`src/data/industries.ts`](src/data/industries.ts):
+Finished graphics live in `public/graphics/`, HTML widgets in `public/embeds/`.
+The 2026-08-20 pitchblende delivery replaced every PNG stand-in with a real SVG
+and added the widgets:
 
-| File | Natural size | Placed as |
-| :--- | :--- | :--- |
-| `afimac-cstl-four-phase-timeline.png` | 2400×600 | The four-phase block on How It Works, What Is Travel Labor, and all three industry pages |
-| `afimac-cstl-mobilization-map.svg` | 960×960 | How It Works · BLOCK 02 — **a stand-in, see below** |
-| `afimac-auto-speed-comparison.png` | 1200×1296 | Automotive · BLOCK 02a, Speed to Production |
-| `afimac-auto-assembly-sequence.png` | 2400×440 | Automotive · superseded on the page by the live line-map embed, kept as the flat fallback |
-| `afimac-auto-seven-day-deployment.svg` | 2400×470 | Automotive · How We Deploy, under the shared timeline — **a stand-in, see below** |
-
-The first four arrived as `.png` under an `.svg` filename, and two were misnamed for
-what they contain — one supplied as a deployment timeline is an assembly
-sequence, and one supplied as a mobilization map is the deployment timeline.
-Each is stored under a name that describes what it actually is. At 2400px both
-of the wide ones would hold up better as real SVGs.
-
-The timeline answers its How It Works spec line for line — day-scale bar, tick
-marks, four phases with durations, crew-live marker at the Deployment tick — so
-it lands there rather than in the mobilization-map slot its filename suggests.
-It also **decides an open question**: it labels phase 1 `Assessment · 1–2 days`
-where the live overview says `Consultation · 2–3 days` and the live process
-circle says `Assessment + Consultation`. Three names, two durations. See
-[`/brand-check`](src/pages/brand-check.astro) item 04.
-
-The speed graphic also carries three numbers that disagree with the written
-copy, flagged in coral on the page itself: agency turnaround (21–35 vs. 14–35),
-direct hire (45–90 vs. 30–90), and a hard "6–7 days" where the copy hedges to
-"within days". Resolve those before it ships — a graphic and a table on the
-same site quoting different benchmarks is worse than either alone.
-
-Two of them are **stand-ins, not delivered assets** — both for the same reason:
-the design was pasted into the brief rather than supplied as a file, so the bytes
-never reached this repo.
-
-The **automotive seven-day deployment timeline** is reconstructed from the pasted
-design — same three phases, same day scale, same crew-on-your-floor marker, drawn
-as a real 2400×470 SVG. It sits *under* the shared four-phase timeline rather than
-replacing it, because the two disagree: four phases against three, `Assessment`
-against `Consultation`, no day numbers against hard ones. That disagreement is the
-finding, so the page shows both and says to ship one.
-
-Three more automotive designs were pasted into the same brief and are **not** in
-the repo. Two are superseded by the HTML embeds below — the flat stat band and the
-assembly sequence with its role cards drawn out — so nothing is lost. The third is
-a **landscape cut of the speed-comparison chart**, same three bars and same
-figures as the portrait `afimac-auto-speed-comparison.png` that ships today. Drop
-the landscape export into `public/graphics/` and repoint `speedArt` in
-`src/data/industries.ts` to swap it in.
-
-The **mobilization map** was sent the same way;
-it is reconstructed from the design — same structure, same six waypoints, same
-copy, drawn as a real 960×960 SVG, but with a cruder coastline than the
-original. It renders with an amber dashed rule rather than the green one so it
-cannot be mistaken for finished artwork, and its caption says so on the page.
-Dropping the real export at `public/graphics/afimac-cstl-mobilization-map.svg`
-swaps it in with no code change; clear `standIn` in `src/data/graphics.ts` at
-the same time to turn the rule green.
-
-To add another: drop the file in `public/graphics/`, then give the industry an
-`Art` entry in `src/data/industries.ts` (`src`, `alt`, `width`, `height`,
-`caption`, optional `maxWidth` for portrait art). Paths go through `u()`
-automatically — do not prefix the mount path by hand.
-
-### HTML widget embeds
-
-Two of the automotive assets are not pictures at all — they are self-contained
-Elementor HTML widgets, delivered as paste-in files. They live in
-`public/embeds/`, which makes them both a repo artefact and a real URL the build
-can open and copy from:
-
-| File | Where it goes |
+| Asset | Where |
 | :--- | :--- |
-| `afimac-auto-line-map.html` | Automotive · BLOCK 05, under the H2 and above the role cards |
-| `afimac-auto-stat-band.html` | Automotive · BLOCK 06, AFIMAC by the Numbers |
+| `afimac-cstl-process-timeline` | How It Works · What Is Travel Labor · all three industry pages |
+| `afimac-cstl-mobilization-map` | How It Works · BLOCK 02 |
+| `afimac-cstl-form-illustration` | How It Works · BLOCK 10 |
+| `afimac-auto-speed-comparison` | Automotive · BLOCK 02a |
+| `afimac-auto-line-map-static` / `-roles` | Automotive · BLOCK 05 |
+| `afimac-auto-deployment-timeline` | Automotive · How We Deploy |
+| `afimac-vs-speed-comparison` | CSTL vs. Local Staffing · BLOCK 04 |
 
-Each is one file: markup, a `<style>` scoped to its own class prefix, and a
-`<script>` that guards against double-initialisation. No libraries, no external
-requests, no browser storage — paste the whole file into an HTML widget and it
-works.
+Most ship as a **desktop/mobile pair** — a wide bar chart cannot just be scaled
+down, so the narrow versions are separately laid out. `artPair()` renders them
+through `<picture>` with a 780px `media` query, so the browser fetches only the
+one it needs; `figure()` still handles single assets. Both are in
+`src/lib/wireframe.ts`, and `src/data/graphics.ts` holds the inventory.
 
-**The prototype renders those same bytes**, so the review and the build cannot
-drift apart. `src/lib/embeds.ts` imports each file with `?raw` and splits the
-trailing `<script>` off, because Astro's `set:html` uses innerHTML semantics and a
-script inserted that way never runs; `Embed.astro` re-emits it as
-`<script is:inline>`. The file itself is never modified at render time. Give an
-industry a `lineMapEmbed` / `statBandEmbed` key in `src/data/industries.ts` and the
-embed replaces the flat artwork in that slot, with the block's `hEnd` markup
-following it.
+Seven HTML widgets render live through `Embed.astro`, byte-for-byte the file the
+Elementor build pastes in. Two of the seven carry no script, which is expected —
+they are static markup. The delivered font stacks (Zilla Slab / Jost) were
+swapped for the site's Museo faces in every widget, originals kept as fallbacks,
+so all seven render in one type system. **The SVGs have their text converted to
+outlines**, so those keep the delivered faces — worth knowing if the theme fonts
+are ever confirmed as something else.
 
-**One edit was made to the delivered files**: their two `--afx-*` font stacks
-asked for Zilla Slab and Jost. Both now ask for the site's Museo and Museo Sans
-Custom Fonts first and keep the original faces as fallbacks — which is what the
-line map's own build comment says to do. Nothing else was touched.
-
-The line map's callout button targets `#get-the-numbers`, so BLOCK 09 carries that
-anchor id.
+**Editorial ruled the speed figures on 21 Aug 2026** — direct hire 45–90 days,
+agency 21–35, AFIMAC 6–7 — and the artwork was cut to match. Several pages of
+copy were not: "as fast as 72 hours" and "14–35" are still in the text. The
+prototype renders the copy as approved and flags the disagreement wherever a
+graphic and its page contradict each other, rather than quietly correcting
+either. See [`/brand-check`](src/pages/brand-check.astro) item 03.
 
 ### Live page images
 

@@ -1,14 +1,19 @@
 /**
  * Delivered artwork vendored into public/graphics/.
  *
- * Distinct from src/data/live-media.ts, which references images that already
- * sit on afimacglobal.com. These are files supplied to this repo, so they ship
- * with the app and render through figure() rather than liveImg().
+ * Distinct from src/data/live-media.ts, which references images already on
+ * afimacglobal.com. These are files supplied to this repo, so they ship with
+ * the app and render through figure() or artPair().
+ *
+ * Everything here is from the 2026-08-20 pitchblende delivery: real SVGs with
+ * text converted to outlines, transparent backgrounds, cut for the #E4ECEF
+ * section tint. Most ship as a desktop/mobile pair because a wide bar chart
+ * cannot just be scaled down — the narrow versions are separately laid out.
  */
 
 /** A finished graphic sitting in public/graphics/. */
 export interface Art {
-  /** Path under public/, e.g. "/graphics/foo.png". Routed through u(). */
+  /** Path under public/, e.g. "/graphics/foo.svg". Routed through u(). */
   src: string;
   alt: string;
   width: number;
@@ -20,30 +25,98 @@ export interface Art {
   standIn?: boolean;
 }
 
-/**
- * The four-phase deployment timeline.
- *
- * Supplied as `afimaccstlmobilizationmap.svg`; it is neither a mobilization map
- * nor an SVG. Stored under a name that says what it is. It answers the
- * "Deployment timeline · SVG 2400×600 (4:1) · day-scale bar with tick marks ·
- * crew-live marker at the Deployment tick" spec on How It Works line for line,
- * which is why it lands there rather than in the mobilization-map slot.
- */
-export const MOBILIZATION_MAP: Art = {
-  src: "/graphics/afimac-cstl-mobilization-map.svg",
-  alt: "Crews sourced from twelve points across the United States converging on one site, above the six things AFIMAC handles: recruits, screens, travels, houses, manages, deploys",
-  width: 960,
-  height: 960,
-  standIn: true,
-  caption:
-    "<b>Rebuilt here, not delivered.</b> The supplied artwork could not be transferred, so this is a reconstruction from the design — same structure, same six waypoints, same copy, drawn as a real 960×960 SVG. <b>The coastline is cruder than the original and it is not the approved asset.</b> Drop the real export at <code>public/graphics/afimac-cstl-mobilization-map.svg</code> and it swaps in with no code change.",
-};
+/** A graphic with a separately laid-out narrow version. */
+export interface ArtPair extends Art {
+  mobile: string;
+}
 
-export const PHASE_TIMELINE: Art = {
-  src: "/graphics/afimac-cstl-four-phase-timeline.png",
+const DELIVERED = "<b>Delivered artwork.</b>";
+
+/* ---------------- How It Works ---------------- */
+
+export const PHASE_TIMELINE: ArtPair = {
+  src: "/graphics/afimac-cstl-process-timeline.svg",
+  mobile: "/graphics/afimac-cstl-process-timeline-mobile.svg",
   alt: "Four-phase deployment timeline: Assessment 1 to 2 days, Mobilization 2 to 3 days, Deployment with the team on site for as long as the gap lasts, Demobilization 2 to 3 days",
   width: 2400,
   height: 600,
   caption:
-    "<b>Real artwork, delivered.</b> Four-phase timeline, 2400×600. Supplied as a PNG named <code>.svg</code>, and named a mobilization map — it is the deployment timeline. At this width a real SVG would hold up better.",
+    `${DELIVERED} Four-phase timeline, 2400×600, with a separately laid-out stacked version under 780px. <b>This is the real SVG</b> — it replaces the PNG that arrived misnamed as a mobilization map.`,
+};
+
+export const MOBILIZATION_MAP: Art = {
+  src: "/graphics/afimac-cstl-mobilization-map.svg",
+  alt: "Crews sourced from across the United States converging on one site, above the six things AFIMAC handles: recruits, screens, travels, houses, manages, deploys",
+  width: 960,
+  height: 960,
+  caption:
+    `${DELIVERED} Mobilization map, 960×960 SVG. <b>This replaces the reconstruction that stood in for it</b> — the real artwork uses an Albers projection of the North America outline rather than the approximation the stand-in carried.`,
+};
+
+export const FORM_ILLUSTRATION: Art = {
+  src: "/graphics/afimac-cstl-form-illustration.svg",
+  alt: "Flat isometric illustration: routes converging on a facility",
+  width: 1200,
+  height: 1200,
+  caption: `${DELIVERED} Form illustration, 1200×1200 SVG.`,
+  maxWidth: 520,
+};
+
+/* ---------------- Automotive ---------------- */
+
+export const AUTO_SPEED: ArtPair = {
+  src: "/graphics/afimac-auto-speed-comparison.svg",
+  mobile: "/graphics/afimac-auto-speed-comparison-mobile.svg",
+  alt: "Time to an on-site crew: direct local hire 45 to 90 days, temp or contract agency 21 to 35 days, AFIMAC travel labor 6 to 7 days",
+  width: 2400,
+  height: 1072,
+  caption:
+    `${DELIVERED} Speed comparison, re-cut after the 2026-08-21 editorial ruling: the axis label and the “measured from first call” footnote were dropped, because both framed 6–7 days as a measurement rather than a stated capability. Canvas re-cropped to 2400×1072 as a result.`,
+};
+
+export const AUTO_LINE_MAP_ROLES: Art = {
+  src: "/graphics/afimac-auto-line-map-roles.png",
+  alt: "Automotive assembly sequence across seven stations, with all twenty-nine roles listed beneath each station",
+  width: 2400,
+  height: 1220,
+  caption:
+    `${DELIVERED} The full role grid — seven stations and all <b>29</b> roles. Built because the interactive widget shows one station at a time, so a screenshot of it drops 24 of them. PNG only; the slim sequence-rail alternative is an SVG.`,
+};
+
+export const AUTO_LINE_MAP_STATIC: Art = {
+  src: "/graphics/afimac-auto-line-map-static.svg",
+  alt: "Automotive assembly sequence: Body & Weld, Paint & Finish, General Assembly, Powertrain & Machining, Quality & Launch, Automation & Maintenance, Material & Logistics",
+  width: 2400,
+  height: 440,
+  caption: `${DELIVERED} The slim alternative: the sequence rail only, no roles. Real SVG, replacing the PNG that stood in for it.`,
+};
+
+export const AUTO_DEPLOY_TIMELINE: ArtPair = {
+  src: "/graphics/afimac-auto-deployment-timeline.svg",
+  mobile: "/graphics/afimac-auto-deployment-timeline-mobile.svg",
+  alt: "Automotive deployment timeline from first call to a crew on the floor",
+  width: 2400,
+  height: 600,
+  caption: `${DELIVERED} Deployment timeline, 2400×600, stacked version under 780px.`,
+};
+
+export const AUTO_HERO_CHIP: Art = {
+  src: "/graphics/afimac-auto-hero-chip.svg",
+  alt: "Overlay chip: a crew on your floor in 6 to 7 days",
+  width: 588,
+  height: 277,
+  caption: `${DELIVERED} Hero overlay chip, sits on the hero photograph.`,
+  maxWidth: 300,
+};
+
+/* ---------------- CSTL vs. Local Staffing ---------------- */
+
+export const VS_SPEED: ArtPair = {
+  src: "/graphics/afimac-vs-speed-comparison.svg",
+  mobile: "/graphics/afimac-vs-speed-comparison-mobile.svg",
+  alt: "Lead time to a productive crew: direct local hire 45 to 90 days, temp or contract agency 21 to 35 days, AFIMAC travel labor 6 to 7 days",
+  width: 2400,
+  height: 1072,
+  caption:
+    `${DELIVERED} Lead-time bars, matching Automotive. <b>Lead time moved out of the comparison table and became this chart</b>, which is what the prototype's own build note asked for — the table is six rows as a result.`,
 };

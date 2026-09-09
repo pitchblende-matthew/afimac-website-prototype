@@ -1,0 +1,163 @@
+<!-- AFIMAC · CSTL "How it works" · comparison matrix
+     Paste this whole block into an Elementor HTML widget.
+     Everything is scoped to .afm-cmp so it can't collide with theme CSS.
+     Real text, so it stays selectable, translatable and indexable. 
+     WHERE IT GOES: How Travel Labor Works (/how-it-works/) — BLOCK 05, How CSTL compares.
+     FONTS: the delivered Zilla Slab / Jost stacks were swapped for the site's
+     Museo / Museo Sans Elementor Custom Fonts, originals kept as fallbacks.
+     Nothing else was changed from the delivered file.
+-->
+<div class="afm-cmp">
+  <table class="afm-cmp__t">
+    <caption class="afm-cmp__cap">Critical Situation Travel Labor compared with direct local hiring and a staffing agency</caption>
+    <thead>
+      <tr>
+        <td class="afm-cmp__corner"></td>
+        <th scope="col">Direct local hire</th>
+        <th scope="col">Staffing agency</th>
+        <th scope="col" class="is-afimac">AFIMAC CSTL</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Speed to on-site crew</th>
+        <td>45&ndash;90 days</td>
+        <td>21&ndash;35 days</td>
+        <td class="is-afimac"><strong>Within days</strong></td>
+      </tr>
+      <tr>
+        <th scope="row">Who manages the crew</th>
+        <td>You</td>
+        <td>You</td>
+        <td class="is-afimac"><strong>AFIMAC, on site</strong></td>
+      </tr>
+      <tr>
+        <th scope="row">Travel &amp; housing handled</th>
+        <td>No</td>
+        <td>Rarely</td>
+        <td class="is-afimac"><strong>Yes</strong></td>
+      </tr>
+      <tr>
+        <th scope="row">Screening &amp; safety onboarding</th>
+        <td>You</td>
+        <td>Partial</td>
+        <td class="is-afimac"><strong>AFIMAC</strong></td>
+      </tr>
+      <tr>
+        <th scope="row">Scales for surges</th>
+        <td>Slow</td>
+        <td>Limited</td>
+        <td class="is-afimac"><strong>Built for it</strong></td>
+      </tr>
+      <tr>
+        <th scope="row">Best for</th>
+        <td>Steady headcount</td>
+        <td>Short local gaps</td>
+        <td class="is-afimac"><strong>Critical, time-sensitive gaps</strong></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<style>
+.afm-cmp{
+  --afm-navy:#0D4A7C; --afm-navy-deep:#08355A; --afm-orange:#E8701A;
+  --afm-orange-deep:#AE510C; --afm-orange-pale:#FDF1E8;
+  --afm-ink:#12303F; --afm-muted:#4F6472; --afm-rule:#CFDBE2; --afm-panel:#fff;
+  font-family:"Museo Sans","MuseoSans","Museo Sans W01",Mulish,"Segoe UI",Roboto,Arial,sans-serif;
+  color:var(--afm-ink);
+  container-type:inline-size;
+}
+.afm-cmp__cap{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.afm-cmp__t{
+  width:100%;border-collapse:separate;border-spacing:0;
+  background:var(--afm-panel);
+  border:1px solid var(--afm-rule);border-radius:10px;overflow:hidden;
+}
+.afm-cmp__t th,.afm-cmp__t td{
+  padding:18px 20px;text-align:left;font-size:1rem;line-height:1.35;
+  border-bottom:1px solid var(--afm-rule);
+}
+.afm-cmp__t tbody tr:last-child th,
+.afm-cmp__t tbody tr:last-child td{border-bottom:0}
+
+/* column heads */
+.afm-cmp__t thead th{
+  font-family:"Zilla Slab",Georgia,serif;font-weight:700;font-size:1.0625rem;
+  color:var(--afm-navy);background:#E4ECEF;
+  border-bottom:2px solid var(--afm-rule);
+}
+.afm-cmp__corner{background:#E4ECEF;border-bottom:2px solid var(--afm-rule)}
+
+/* row labels */
+.afm-cmp__t tbody th{
+  font-weight:500;color:var(--afm-muted);width:30%;
+  background:#F5F8F9;
+}
+.afm-cmp__t tbody td{color:var(--afm-ink)}
+
+/* the AFIMAC column — the one thing this table is here to show */
+.afm-cmp__t thead th.is-afimac{
+  background:var(--afm-orange-deep);color:#fff;
+  border-bottom-color:var(--afm-orange-deep);
+}
+.afm-cmp__t tbody td.is-afimac{
+  background:var(--afm-orange-pale);
+  box-shadow:inset 2px 0 0 var(--afm-orange),inset -2px 0 0 var(--afm-orange);
+}
+.afm-cmp__t tbody tr:last-child td.is-afimac{
+  box-shadow:inset 2px 0 0 var(--afm-orange),inset -2px 0 0 var(--afm-orange),
+             inset 0 -2px 0 var(--afm-orange);
+}
+.afm-cmp__t td.is-afimac strong{color:var(--afm-orange-deep);font-weight:600}
+
+/* --- stack to cards on narrow screens ---------------------------------- */
+@media (max-width:767px){
+  .afm-cmp__t,.afm-cmp__t thead,.afm-cmp__t tbody,
+  .afm-cmp__t tr,.afm-cmp__t th,.afm-cmp__t td{display:block}
+  .afm-cmp__t{border:0;background:none;border-radius:0}
+  .afm-cmp__t thead{display:none}
+  .afm-cmp__t tbody tr{
+    background:var(--afm-panel);border:1px solid var(--afm-rule);
+    border-radius:10px;margin-bottom:14px;overflow:hidden;
+  }
+  .afm-cmp__t tbody th{
+    width:auto;background:#E4ECEF;color:var(--afm-navy);
+    font-family:"Zilla Slab",Georgia,serif;font-weight:700;font-size:1rem;
+    padding:13px 16px;border-bottom:1px solid var(--afm-rule);
+  }
+  .afm-cmp__t tbody td{
+    padding:11px 16px 13px;box-shadow:none !important;
+  }
+  .afm-cmp__t tbody td::before{
+    content:attr(data-label);display:block;margin-bottom:2px;
+    color:var(--afm-muted);font-size:.75rem;
+    text-transform:uppercase;letter-spacing:.09em;
+  }
+  /* the cell above must not also draw a rule, or the divider doubles up */
+  .afm-cmp__t tbody td:nth-last-child(2){border-bottom:0}
+  .afm-cmp__t tbody td.is-afimac{
+    background:var(--afm-orange-pale);
+    border-top:2px solid var(--afm-orange);
+    border-bottom:0;
+  }
+  .afm-cmp__t tbody td.is-afimac::before{color:var(--afm-orange-deep)}
+}
+</style>
+
+<script>
+/* Mirrors the column heads onto each stacked cell so the mobile cards say
+   which option they belong to. Runs once, no dependencies. */
+(function () {
+  var cmp = document.querySelector('.afm-cmp');
+  if (!cmp) return;
+  var heads = cmp.querySelectorAll('thead th');
+  var labels = [];
+  heads.forEach(function (h) { labels.push(h.textContent.trim()); });
+  cmp.querySelectorAll('tbody tr').forEach(function (tr) {
+    tr.querySelectorAll('td').forEach(function (td, i) {
+      td.setAttribute('data-label', labels[i] || '');
+    });
+  });
+})();
+</script>

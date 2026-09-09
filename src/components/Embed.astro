@@ -34,4 +34,4 @@ const embed = EMBEDS[name];
   }
 </figure>
 
-<script is:inline set:html={embed.js} />
+{embed.js && <script is:inline set:html={embed.js} />}

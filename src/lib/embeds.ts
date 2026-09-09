@@ -14,26 +14,49 @@
  */
 import lineMapRaw from "../../public/embeds/afimac-auto-line-map.html?raw";
 import statBandRaw from "../../public/embeds/afimac-auto-stat-band.html?raw";
+import compareMatrixRaw from "../../public/embeds/afimac-cstl-comparison-matrix.html?raw";
+import vsDecisionCardsRaw from "../../public/embeds/afimac-vs-decision-cards.html?raw";
+import vsThreeWayRaw from "../../public/embeds/afimac-vs-three-way-matrix.html?raw";
+import vsPermContractRaw from "../../public/embeds/afimac-vs-permanent-contract.html?raw";
+import vsDecisionMatrixRaw from "../../public/embeds/afimac-vs-decision-matrix.html?raw";
 
-export type EmbedKey = "auto-line-map" | "auto-stat-band";
+export type EmbedKey =
+  | "auto-line-map"
+  | "auto-stat-band"
+  | "cstl-comparison-matrix"
+  | "vs-decision-cards"
+  | "vs-three-way-matrix"
+  | "vs-permanent-contract"
+  | "vs-decision-matrix";
 
 export interface EmbedSource {
   /** Path under public/, for the "copy this file" build note. Routed through u(). */
   file: string;
   /** Markup plus the scoped <style>. Safe for set:html. */
   html: string;
-  /** The embed's own IIFE, re-emitted as an inline script so it runs. */
+  /** The embed's own IIFE, re-emitted as an inline script so it runs. Empty
+      for the purely static widgets, which carry no script at all. */
   js: string;
 }
 
-/** Peel the trailing `<script>` off a paste-in embed. */
+/**
+ * Peel the trailing `<script>` off a paste-in embed.
+ *
+ * Two of the seven — the vs. decision cards and decision matrix — are static
+ * markup with no behaviour, so a missing script is expected rather than an
+ * error. Anything else is passed through untouched.
+ */
 const split = (raw: string, file: string): EmbedSource => {
   const m = raw.match(/<script>([\s\S]*)<\/script>\s*$/);
-  if (!m) throw new Error(`Embed ${file} has no trailing <script> block`);
-  return { file, html: raw.slice(0, m.index), js: m[1] };
+  return m ? { file, html: raw.slice(0, m.index), js: m[1] } : { file, html: raw, js: "" };
 };
 
 export const EMBEDS: Record<EmbedKey, EmbedSource> = {
   "auto-line-map": split(lineMapRaw, "/embeds/afimac-auto-line-map.html"),
   "auto-stat-band": split(statBandRaw, "/embeds/afimac-auto-stat-band.html"),
+  "cstl-comparison-matrix": split(compareMatrixRaw, "/embeds/afimac-cstl-comparison-matrix.html"),
+  "vs-decision-cards": split(vsDecisionCardsRaw, "/embeds/afimac-vs-decision-cards.html"),
+  "vs-three-way-matrix": split(vsThreeWayRaw, "/embeds/afimac-vs-three-way-matrix.html"),
+  "vs-permanent-contract": split(vsPermContractRaw, "/embeds/afimac-vs-permanent-contract.html"),
+  "vs-decision-matrix": split(vsDecisionMatrixRaw, "/embeds/afimac-vs-decision-matrix.html"),
 };
