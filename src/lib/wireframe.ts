@@ -77,6 +77,36 @@ export const liveImg = (o: {
     <div class="photo">${o.fallback}</div>
   </div>`;
 
+/**
+ * Delivered artwork that ships as a desktop/mobile pair.
+ *
+ * The decks all spec "stacks vertically under 768px" and the delivery includes
+ * a separately laid-out narrow version of most graphics — a wide bar chart
+ * cannot simply be scaled down and stay readable. `<picture>` does the swap
+ * natively, so the browser only ever fetches the one it needs.
+ *
+ * Breakpoint is 780px rather than 768: the mobile files are cut for "under
+ * ~780px" per the delivery's own placement notes.
+ */
+export const artPair = (o: {
+  /** Wide asset, path under public/. */
+  src: string;
+  /** Narrow asset, path under public/. */
+  mobile: string;
+  alt: string;
+  width: number;
+  height: number;
+  caption?: string;
+  standIn?: boolean;
+}): string =>
+  `<figure class="figure${o.standIn ? " standin" : ""}">
+    <picture>
+      <source media="(max-width:780px)" srcset="${u(o.mobile)}">
+      <img src="${u(o.src)}" alt="${o.alt}" width="${o.width}" height="${o.height}" loading="lazy" decoding="async">
+    </picture>
+    ${o.caption ? `<figcaption>${o.caption}</figcaption>` : ""}
+  </figure>`;
+
 /** Two-column tick list, used for the role inventories. */
 export const roleList = (a: string[]): string =>
   `<ul class="tick" style="columns:2;column-gap:40px">${a

@@ -8,9 +8,11 @@
  */
 import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
+import Embed from "../components/Embed.astro";
 import { u } from "../lib/base";
 import { B } from "../data/nav";
-import { photo, liveImg } from "../lib/wireframe";
+import { photo, liveImg, artPair } from "../lib/wireframe";
+import { VS_SPEED } from "../data/graphics";
 import { postArt, postTitleDrift } from "../data/live-media";
 import type { Block as BlockType } from "../lib/types";
 
@@ -109,7 +111,11 @@ const blocks: BlockType[] = [
   <div class="g3" style="margin-top:26px">
    ${OPTIONS.map(([t, pts, hl]) => `<div class="card"${hl ? ' style="border-color:var(--cstl-blue);border-width:2px"' : ""}><h3>${t}</h3><ul class="tick" style="margin-top:10px">${pts.map((p) => `<li>${p}</li>`).join("")}</ul></div>`).join("")}
   </div>`,
-    spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×3, CSTL card highlighted. Copy is final — this replaces the one-line placeholder cards.`,
+    embed: {
+      name: "vs-decision-cards",
+      caption: `<b>Delivered widget.</b> The same three options as live HTML — the cards above are the prototype's own rendering of the copy, shown together so the difference is visible. <b>Ship the widget.</b>`,
+    },
+    spec: `<b>Elementor:</b> HTML widget (paste the whole file). Stacks to one column under 768px.`,
   },
 
   {
@@ -118,10 +124,17 @@ const blocks: BlockType[] = [
     h: `
   <h2>Travel labor vs. a local staffing agency</h2>
   <p class="lead">The key factors to consider in deciding when to use travel labor versus staffing is talent sourcing and workforce management. Assess whether your local market has the skills you need and if the floor managers have the capacity for more oversight.</p>
+  <div style="margin:26px 0">${artPair(VS_SPEED)}</div>
   ${row3(AGENCY_ROWS, "Local staffing agency", "AFIMAC CSTL")}
   <div class="note stop"><b>Subject–verb slip in that paragraph:</b> “The key factors … <b>is</b> talent sourcing and workforce management”. Shown as delivered; should read “are”.</div>
   <div class="note"><b>Keep the agency column factual, not a straw man</b> — the deck's own instruction, and the reason this page is credible. Confirm the timing ranges against AFIMAC's standard SLAs before publishing.</div>`,
-    spec: `<b>Elementor:</b> Text Editor (native table) or TablePress, AFIMAC column emphasised. Eight rows is manageable on mobile; the earlier nine-row version was not.`,
+    embed: {
+      name: "vs-three-way-matrix",
+      caption: `<b>Delivered widget, and it is not the table above.</b> The delivery built the <i>prototype's</i> three-column comparison — traditional hiring, local agencies and CSTL — not the copy doc's two-column one, because that is the version you picked. Six rows, because <b>lead time came out of the table and became the bars</b>, which is exactly what this block's own build note asked for.`,
+    },
+    hEnd: `
+  <div class="note stop"><b>So the copy doc's two-column table is now unused.</b> Two of its rows have no home on the page — <i>What you get</i> (“candidates to manage” vs “a working, supervised crew”) and <i>Who owns the outcome</i> (“you” vs “AFIMAC”). <b>Both are among the sharpest lines in the deck.</b> Fold them into the three-column widget rather than losing them.</div>`,
+    spec: `<b>Elementor:</b> HTML widget for the matrix, Image for the bars. Live text, not a picture — the comparison tables are why this page will rank.`,
   },
 
   {
@@ -145,7 +158,13 @@ const blocks: BlockType[] = [
   <p class="lead">Permanent hiring adds fixed, ongoing cost, making it the right call when the work is steady and long-term. Contract labor flexes with the work, giving you the opportunity to employ the team only while you need it, with no long-term cost on the books once the situation clears. For a sudden gap or one with a distinct beginning and end, such as a launch, a backlog, a changeover, a contract workforce is the cleaner fit.</p>
   ${row3(CONTRACT_ROWS, "Permanent hire", "Contract labor (CSTL)")}
   <div class="note stop"><b>“Within days, as fast as 72 hours” is the sharpest speed claim in the section and the most contested one.</b> Five other wordings are in circulation — 24–72 hours on the live pillar meta, 2–7 days in the ad tracker, 6–7 days on the live process graphic, 5–7 days on <a href="${u("/industries/logistics-warehousing")}">Logistics</a>, and “within days” everywhere else. <a href="${u("/brand-check")}">All conflicts →</a></div>`,
-    spec: `<b>Elementor:</b> Text Editor (native table) or TablePress. Six rows.`,
+    embed: {
+      name: "vs-permanent-contract",
+      caption: `<b>Delivered widget.</b> Permanent hire against contract labor, as live text.`,
+    },
+    hEnd: `
+  <div class="note stop"><b>The widget says 6–7 days where the table above says “as fast as 72 hours”, and the widget is right.</b> Editorial ruled <b>6–7 days</b> defendable on 21 Aug 2026, and the delivery's own note is blunt about the consequence: “as fast as 72 hours” now appears nowhere in the graphics, <b>but it is still in the copy doc and still in the prototype's table</b>. Both need correcting or the page contradicts its own artwork.</div>`,
+    spec: `<b>Elementor:</b> HTML widget (paste the whole file).`,
   },
 
   {
@@ -169,7 +188,11 @@ const blocks: BlockType[] = [
   <div class="tscroll" style="margin-top:22px"><table class="cmp"><thead><tr><th>If your situation is…</th><th class="hl">The fit is…</th></tr></thead><tbody>
   ${MATRIX.map(([sit, fit, hl]) => `<tr><th>${sit}</th><td${hl ? ' class="hl"' : ""}>${fit}</td></tr>`).join("")}
   </tbody></table></div>`,
-    spec: `<b>Elementor:</b> Text Editor (native table), CSTL rows visually grouped. This is the decision matrix that stays on this page — <a href="${u("/vs-traditional")}">Travel vs. Traditional</a> carries the decision tree instead, so the two never repeat a device.`,
+    embed: {
+      name: "vs-decision-matrix",
+      caption: `<b>Delivered widget.</b> The five CSTL rows grouped under one band, which the table above cannot do.`,
+    },
+    spec: `<b>Elementor:</b> HTML widget (paste the whole file), CSTL rows visually grouped. This is the decision matrix that stays on this page — <a href="${u("/vs-traditional")}">Travel vs. Traditional</a> carries the decision tree instead, so the two never repeat a device.`,
   },
 
   {

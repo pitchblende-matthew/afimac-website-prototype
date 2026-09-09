@@ -390,6 +390,7 @@ body.noassets .assetband{display:none}
 .figure.standin figcaption{color:#7a5510}
 .figure.standin figcaption b{color:#8a5a06}
 .figure img{display:block;width:100%;height:auto;background:#fff}
+.figure picture{display:block}
 .figure figcaption{margin-top:12px;font-size:12.5px;line-height:1.55;color:#25583f}
 .figure figcaption b{color:#14683f}
 .blue .figure figcaption,.dark .figure figcaption,.sky .figure figcaption,.readiness .figure figcaption{color:#dff0e6}

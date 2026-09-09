@@ -6,7 +6,7 @@
  * mockup — the discrepancy is surfaced as an OPEN ITEM block on that page
  * rather than silently normalised, because it is a live sign-off question.
  */
-import { bars, photo, figure } from "./wireframe";
+import { bars, photo, figure, artPair } from "./wireframe";
 import { PHASE_TIMELINE } from "../data/graphics";
 import { u } from "./base";
 import type { Industry } from "../data/industries";
@@ -81,7 +81,8 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
       n: "BLOCK 05 · " + o.rolesTitle.toUpperCase(),
       h:
         `<h2>${o.rolesTitle}</h2>` +
-        (o.lineMapEmbed ? "" : `<div style="margin:22px 0">${o.mapArt ? figure(o.mapArt) : photo(o.map)}</div>`),
+        (o.lineMapEmbed ? "" : `<div style="margin:22px 0">${o.mapArt ? figure(o.mapArt) : photo(o.map)}</div>`) +
+        (o.rolesArt ? `<div style="margin:22px 0">${figure(o.rolesArt)}</div>` : ""),
       ...(o.lineMapEmbed
         ? {
             embed: {
@@ -109,7 +110,7 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
       n: "BLOCK 0" + (numbersFirst ? "6" : "5") + " · HOW WE DEPLOY",
       h: `
   <h2>How we deploy</h2>
-  <div style="margin:22px 0">${figure(PHASE_TIMELINE)}</div>
+  <div style="margin:22px 0">${artPair(PHASE_TIMELINE)}</div>
   <div class="note">${
     o.slug === "food-beverage"
       ? `<b>The shared timeline, standing in.</b> The F&amp;B deck specs a bespoke seven-day deployment bar, which does not exist. Given this one carries the same four phases and real durations, <b>the bespoke version is hard to justify</b> — drop it unless F&amp;B genuinely deploys on a different clock.`
@@ -117,7 +118,7 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
   }</div>
   ${
     o.deployArt
-      ? `<div style="margin:30px 0 22px">${figure(o.deployArt)}</div>
+      ? `<div style="margin:30px 0 22px">${artPair(o.deployArt)}</div>
   <div class="note stop"><b>Two timelines for the same deployment, on the same block, disagreeing.</b> The shared graphic above runs <b>four</b> phases, calls phase 1 <b>Assessment</b> and puts no day numbers on anything. The ${o.short} one runs <b>three</b>, calls phase 1 <b>Consultation</b>, pins a hard day range to each, and demotes Demobilization to a footnote. Between them this page answers the open phase-1 naming question in both directions at once. It also puts the crew on your floor partway through <b>day 6</b> — the same “6–7 days” commitment the speed graphic makes at the top of this page, where the written copy deliberately hedges to “within days”. <b>Ship one of these two.</b></div>`
       : ""
   }
@@ -198,14 +199,14 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
               n: "BLOCK 02a · SPEED TO PRODUCTION",
               h: `
     <h2>Time to a working crew on your floor</h2>
-    <div class="g2" style="margin-top:24px;align-items:start">
-     ${figure(o.speedArt)}
+    <div style="margin-top:24px">${artPair(o.speedArt)}</div>
+    <div class="g2" style="margin-top:26px;align-items:start">
      <div>
       <p class="lead">The first real graphic delivered for this cluster, and the page's sharpest argument: the alternatives are measured in months, this is measured in days.</p>
       <div class="pullstat"><span class="pullstat-n">6–7 days</span><span class="pullstat-l">from call to crew on your line</span></div>
       <div class="note"><b>The pull-stat above is markup, not artwork.</b> It was supplied as a picture of a type lockup; built as type it stays selectable, searchable, translatable and legible at any zoom, and it inherits Museo automatically. <b>Do not place it as an image.</b> In Elementor it is a Heading plus a Text Editor in a container with a left orange border — no HTML widget needed.</div>
-      <div class="note"><b>A landscape cut of this chart was also supplied</b> — same three bars, same figures, laid out wide rather than tall. It would suit a full-bleed row better than this two-column split does. <b>That file has not reached the repo</b>, so the 1200×1296 portrait version is what renders here; drop the landscape export into <code>public/graphics/</code> and repoint <code>speedArt</code> in <code>src/data/industries.ts</code>.</div>
-      <div class="note stop"><b>Its three figures do not all match the copy.</b> The graphic says a temp or contract agency takes <b>21 to 35 days</b>; the <a href="${u("/how-it-works")}">How It Works</a> table and the <a href="${u("/faq")}">FAQ</a> both say <b>14 to 35</b>. It says direct hire is <b>45 to 90 days</b>; <a href="${u("/vs-local-staffing")}">CSTL vs. Local Staffing</a> says <b>30 to 90</b>. One of each pair is wrong.</div>
+      <div class="note"><b>The landscape cut has arrived and is what renders here.</b> Wide rather than tall, so it now runs full width instead of fighting the two-column split — and a separately laid-out narrow version swaps in under 780px.</div>
+      <div class="note"><b>Its figures are now the ruled ones, and the copy is what needs correcting.</b> Editorial confirmed 45–90 / 21–35 / 6–7 as defendable on 21 Aug 2026 and the artwork was cut to match. Where a page still says 14–35 for an agency — <a href="${u("/how-it-works")}">How It Works</a>, the <a href="${u("/faq")}">FAQ</a>, <a href="${u("/vs-traditional")}">Travel vs. Traditional</a> — <b>the copy is the thing that is out of date.</b> <a href="${u("/brand-check")}">All conflicts →</a></div>
       <div class="note stop"><b>And it commits to “6–7 days”</b> — one of the five deployment-speed figures already in circulation, where the surrounding copy deliberately hedges to “within days”. Placing this graphic settles that argument by accident. <a href="${u("/brand-check")}">All conflicts →</a></div>
      </div>
     </div>`,

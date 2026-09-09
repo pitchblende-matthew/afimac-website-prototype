@@ -2,9 +2,10 @@
 /** HOW IT WORKS — full approved copy from the content package. */
 import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
+import Embed from "../components/Embed.astro";
 import { u } from "../lib/base";
-import { liveImg, figure } from "../lib/wireframe";
-import { PHASE_TIMELINE, MOBILIZATION_MAP } from "../data/graphics";
+import { liveImg, figure, artPair } from "../lib/wireframe";
+import { PHASE_TIMELINE, MOBILIZATION_MAP, FORM_ILLUSTRATION } from "../data/graphics";
 import { GAP_ART, CASE_ART, postArt, postTitleDrift } from "../data/live-media";
 import { B } from "../data/nav";
 import { photo } from "../lib/wireframe";
@@ -50,7 +51,7 @@ const blocks: BlockType[] = [
    <div class="note">Copy fix carried into the build: the source doc reads “(CSTL) A distinct workforce category”; an “is a” was added. Flagged to Kavitha.</div></div>
    <div>${figure(MOBILIZATION_MAP)}</div>
   </div>
-  <div class="note"><b>The six waypoints match the paragraph beside them exactly</b> — recruits, screens, travels, houses, manages, deploys, in that order. It is the first graphic in this set that starts no argument with the copy.</div>
+  <div class="note"><b>The six waypoints match the paragraph beside them exactly</b> — recruits, screens, travels, houses, manages, deploys, in that order. It is the first graphic in this set that starts no argument with the copy. <b>The real artwork has now landed</b> and replaces the reconstruction that stood in for it.</div>
   <div class="note"><b>Six verbs here, four phases below.</b> They are not competing lists and should not be reconciled: this is <i>what</i> AFIMAC does, the timeline is <i>when</i>. Worth saying once in the build notes so nobody files it as a conflict.</div>`,
     spec: `<b>Elementor:</b> Heading · Text Editor · Image (SVG). The wireframe calls for three pillar cards under the definition — the copy doc has no card copy, so cards are held until it exists.`,
   },
@@ -62,7 +63,7 @@ const blocks: BlockType[] = [
     h: `
   <h2>The four-phase process</h2>
   <p class="lead">Every engagement follows the same proven path. Timing varies by role and location, but the sequence does not.</p>
-  <div style="margin:26px 0">${figure(PHASE_TIMELINE)}</div>
+  <div style="margin:26px 0">${artPair(PHASE_TIMELINE)}</div>
   <div class="note"><b>This block's spec is now met.</b> Day-scale bar, tick marks, the four phases with their durations, and the crew-live marker at the Deployment tick — the delivered graphic matches the brief line for line, and agrees with the phase cards below on every number. The process circle stays on the <a href="${u("/overview")}">overview</a> because that is what is live there; replacing it with this is a separate change to a live page.</div>
   <div class="note stop"><b>It also settles the phase-1 argument below, so somebody should agree to that on purpose.</b> The graphic says <b>Assessment · 1–2 days</b>. The live overview calls the same phase <b>Consultation · 2–3 days</b>, and the circle on that page labels it <b>Assessment + Consultation</b>. Three names and two durations for one phase — and the duration half of that has not been raised before. Shipping this makes “Assessment, 1–2 days” the published answer by default. <a href="${u("/brand-check")}">All conflicts →</a></div>
   <div class="g4">
@@ -87,7 +88,14 @@ const blocks: BlockType[] = [
   <tr><th>Scales for surges</th><td>Slow</td><td>Limited</td><td class="hl">Built for it</td></tr>
   <tr><th>Best for</th><td>Steady headcount</td><td>Short local gaps</td><td class="hl">Critical, time-sensitive gaps</td></tr>
   </tbody></table></div>`,
-    spec: `<b>Elementor:</b> Text Editor (native table) or TablePress — <b>not</b> an image, so it stays crawlable for the comparison keywords. Scrolls horizontally on mobile.`,
+    embed: {
+      name: "cstl-comparison-matrix",
+      caption: `<b>Delivered widget.</b> The same comparison as live HTML rather than an image, so it stays selectable, translatable and indexable — which matters on a page targeting the CSTL-process cluster. Stacks to cards under 768px.`,
+    },
+    hEnd: `
+  <div class="note stop"><b>The widget and the table above it disagree, and the widget is right.</b> The table says an agency takes <b>14 to 35 days</b>; the widget says <b>21 to 35</b>. <b>Editorial ruled 21–35 defendable on 21 Aug 2026</b> and the graphics were cut to match — the copy doc was not. It still reads 14–35 in three places: this table, the <a href="${u("/faq")}">FAQ</a> answer, and the asset brief. <b>Correct the copy, not the artwork.</b> <a href="${u("/brand-check")}">All conflicts →</a></div>
+  <div class="note"><b>Ship one of the two, not both.</b> They are the same comparison. The widget is the better placement — the delivery's own note says so and the prototype's build note already asked for live text rather than an image. Shown together here only so the difference is visible.</div>`,
+    spec: `<b>Elementor:</b> HTML widget (paste the whole file). <b>Not an image</b>, so it stays crawlable for the comparison keywords.`,
   },
 
   {
@@ -174,7 +182,7 @@ const blocks: BlockType[] = [
     <p>Tell us what you’re facing and we’ll come back with:</p>
     <ul class="tick"><li>The roles and team size we’d deploy</li><li>A realistic timeline to a working team</li><li>A ballpark cost</li></ul>
     <p style="margin-top:22px"><b style="color:#fff">Urgent line</b> · 1.800.554.4622</p>
-    <div style="margin-top:22px">${photo("1200×1200 flat isometric vector · routes converging on a facility · greys with safety-orange and blue · distinct subject from the Executive Protection form illustration")}</div>
+    <div style="margin-top:22px">${figure(FORM_ILLUSTRATION)}</div>
    </div>
    <div>
     <div class="form">

@@ -10,10 +10,10 @@
  * under review is the URL structure that ships.
  */
 import { B } from "./nav";
-import type { Art } from "./graphics";
+import type { Art, ArtPair } from "./graphics";
 import type { EmbedKey } from "../lib/embeds";
 
-export type { Art };
+export type { Art, ArtPair };
 
 /** An industry page with CSTL update copy written and wireframed. */
 export interface Industry {
@@ -34,14 +34,16 @@ export interface Industry {
   map: string;
   /** Real line-map artwork, once it has been produced. */
   mapArt?: Art;
+  /** The full station-and-role grid. Delivered as PNG only. */
+  rolesArt?: Art;
   /** Real speed-comparison artwork, rendered as its own block. */
-  speedArt?: Art;
+  speedArt?: ArtPair;
   /**
    * An industry-specific deployment timeline, shown alongside the shared
    * four-phase one rather than instead of it — the two disagree, and that
    * disagreement is the finding.
    */
-  deployArt?: Art;
+  deployArt?: ArtPair;
   /**
    * Elementor HTML-widget embeds built for this industry. Where one exists it
    * renders live in place of the flat artwork it supersedes — the prototype
@@ -63,30 +65,38 @@ export const INDUSTRIES: Record<string, Industry> = {
     rolesTitle: "Plant staffing, role-ready",
     map: "Line map · HTML widget · assembly sequence with the six staffed stations called out",
     mapArt: {
-      src: "/graphics/afimac-auto-assembly-sequence.png",
+      src: "/graphics/afimac-auto-line-map-static.svg",
       alt: "Automotive assembly sequence: Body & Weld, Paint & Finish, General Assembly, Powertrain & Machining, Quality & Launch, Automation & Maintenance, Material & Logistics",
       width: 2400,
       height: 440,
       caption:
-        "<b>Real artwork, delivered.</b> Assembly sequence, 2400×440. Note it runs <b>seven</b> stations where the brief said six, and they are process stages rather than the six roles listed below — the two do not map one to one. Supplied as a PNG named <code>.svg</code>; an actual SVG would hold up better at this width.",
+        "<b>Delivered artwork.</b> The slim sequence rail, now as a real SVG — it replaces the PNG that stood in for it. It runs <b>seven</b> stations where the brief said six, and they are process stages rather than the six roles listed below; the two do not map one to one.",
+    },
+    rolesArt: {
+      src: "/graphics/afimac-auto-line-map-roles.png",
+      alt: "Automotive assembly sequence across seven stations, with all twenty-nine roles listed beneath each station",
+      width: 2400,
+      height: 1220,
+      caption:
+        "<b>Delivered artwork, and the one to use if you go with images.</b> Seven stations and all <b>29</b> roles. The delivery built it because the interactive widget shows one station at a time, so a screenshot of that drops 24 of them. PNG only — the slim rail above is the SVG alternative.",
     },
     speedArt: {
-      src: "/graphics/afimac-auto-speed-comparison.png",
-      alt: "Time to a working crew on your floor: direct local hire 45 to 90 days, temp or contract agency 21 to 35 days, AFIMAC travel labor 6 to 7 days",
-      width: 1200,
-      height: 1296,
+      src: "/graphics/afimac-auto-speed-comparison.svg",
+      mobile: "/graphics/afimac-auto-speed-comparison-mobile.svg",
+      alt: "Time to an on-site crew: direct local hire 45 to 90 days, temp or contract agency 21 to 35 days, AFIMAC travel labor 6 to 7 days",
+      width: 2400,
+      height: 1072,
       caption:
-        "<b>Real artwork, delivered.</b> Speed to production, 1200×1296 portrait. Supplied as a PNG named <code>.svg</code>.",
-      maxWidth: 620,
+        "<b>Delivered artwork — and the landscape cut this page asked for has arrived.</b> Real SVG, with a separately laid-out narrow version under 780px. Re-cut after the 21 Aug 2026 editorial ruling: the axis label and the “measured from first call” footnote were dropped because both framed 6–7 days as a measurement rather than a stated capability, and the canvas was re-cropped to 2400×1072 as a result.",
     },
     deployArt: {
-      src: "/graphics/afimac-auto-seven-day-deployment.svg",
-      alt: "Seven-day automotive deployment: Consultation days 1 to 2, Mobilization days 3 to 4, Deployment days 5 to 7, crew on your floor partway through day 6, demobilization 2 to 3 days at project close",
+      src: "/graphics/afimac-auto-deployment-timeline.svg",
+      mobile: "/graphics/afimac-auto-deployment-timeline-mobile.svg",
+      alt: "Automotive deployment timeline from first call to a crew on the floor",
       width: 2400,
-      height: 470,
-      standIn: true,
+      height: 600,
       caption:
-        "<b>Rebuilt here, not delivered.</b> The design was pasted into the brief rather than supplied as a file, so the bytes never reached this repo; this is a reconstruction — same three phases, same day scale, same crew-on-your-floor marker, drawn as a real 2400×470 SVG. <b>It is not the approved asset.</b> Drop the real export at <code>public/graphics/afimac-auto-seven-day-deployment.svg</code> and it swaps in with no code change, then clear <code>standIn</code> in <code>src/data/industries.ts</code> to turn the rule green.",
+        "<b>Delivered artwork, replacing the reconstruction.</b> The real deployment timeline, 2400×600, with a stacked version under 780px.",
     },
     lineMapEmbed: "auto-line-map",
     statBandEmbed: "auto-stat-band",
