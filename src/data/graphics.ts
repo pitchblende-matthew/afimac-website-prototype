@@ -133,12 +133,17 @@ export const LOG_DEPLOY: ArtPair = {
     `${DELIVERED} Deployment timeline on the seven-day scale, with a separately laid-out stacked version under 780px. The crew-live marker sits at <b>day 5</b>, built to this page's own 5–7 figure rather than the ruled 6–7.`,
 };
 
+/**
+ * NOT PLACED, decided 9 Sep 2026. Built to sit on the hero photograph over the
+ * navy scrim; with no photograph sourced it can only float in an empty box,
+ * which reads as a stray graphic. Kept for whoever builds the hero in Elementor.
+ */
 export const LOG_HERO_CHIP: Art = {
   src: "/graphics/afimac-log-hero-chip.svg",
   alt: "Overlay chip: 5 to 7 days from call to crew on your floor",
   width: 602,
   height: 277,
-  caption: `${DELIVERED} Hero overlay chip, sits on the hero photograph over the navy scrim.`,
+  caption: `${DELIVERED} Hero overlay chip — sits on the hero photograph over the navy scrim. Not placed in the prototype; see the hero block.`,
   maxWidth: 310,
 };
 

@@ -14,8 +14,8 @@ import Prototype from "../../layouts/Prototype.astro";
 import Block from "../../components/Block.astro";
 import { u } from "../../lib/base";
 import { B } from "../../data/nav";
-import { photo, artPair, heroPhotoWithChip } from "../../lib/wireframe";
-import { LOG_DEPLOY, LOG_HERO_CHIP } from "../../data/graphics";
+import { photo, artPair } from "../../lib/wireframe";
+import { LOG_DEPLOY } from "../../data/graphics";
 import type { Block as BlockType } from "../../lib/types";
 
 const SITUATIONS = [
@@ -69,13 +69,9 @@ const blocks: BlockType[] = [
   <p class="sub"><b>When a peak surge, a new DC launch, or a backlog outpaces local hiring, a working crew on your floor in days.</b></p>
   <p class="lead">AFIMAC delivers skilled warehouse staffing (pickers, packers, forklift operators, and dock crews) on demand, so your throughput, SLAs, and ship dates hold when local hiring can’t keep up.</p>
   <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Let’s talk</a><a class="btn ghost" href="#deploy">See how we deploy</a></div>
-  <div style="margin-top:30px">${heroPhotoWithChip({
-    photo:
-      "Hero · wide shot of a live warehouse or distribution center floor · racking aisles, workers in hi-vis, forklift in frame · clean, bright tone under the navy scrim · landscape, min 2000px wide",
-    chip: LOG_HERO_CHIP,
-  })}</div>
-  <div class="note"><b>The chip sits on the photograph, over the navy scrim, as delivered</b> — not as a separate card under it. Below 600px it drops beneath the shot, because at phone width it would cover the picture.</div>
-  <div class="note stop"><b>The chip is built to this page’s own figure, not the ruled one.</b> It reads <b>5–7 days</b>, matching the copy doc and the phase math here — Consultation is 1–2 days on this page against 2–3 elsewhere. Editorial ruled <b>6–7</b>. The delivery built to 5–7 deliberately and says it is one value and a re-run to change. <b>With the speed comparison gone, the chip and the timeline marker are the only two places a day figure appears on this page.</b> <a href="${u("/brand-check")}">All conflicts →</a></div>`,
+  <div style="margin-top:30px">${photo("Hero · wide shot of a live warehouse or distribution center floor · racking aisles, workers in hi-vis, forklift in frame · clean, bright tone under the navy scrim · landscape, min 2000px wide")}</div>
+  <div class="note"><b>The delivered hero overlay chip is not placed.</b> <code>afimac-log-hero-chip.svg</code> is built to sit <i>on</i> the photograph, over the navy scrim — with no photograph yet it can only float in an empty box, which reads as a stray graphic rather than a design. It stays in <code>public/graphics/</code> for whoever builds the hero in Elementor. <b>Decided 9 Sep 2026.</b></div>
+  <div class="note stop"><b>And the figure on it is unresolved anyway.</b> The chip reads <b>5–7 days</b>, matching the copy doc and the phase math here — Consultation is 1–2 days on this page against 2–3 elsewhere. Editorial ruled <b>6–7</b>. The delivery built to 5–7 deliberately and says it is one value and a re-run to change. <b>With the chip off the hero and the speed comparison gone, the timeline marker below is now the only place a day figure appears on this page.</b> <a href="${u("/brand-check")}">All conflicts →</a></div>`,
     spec: `<b>Elementor:</b> Container (bg image + navy overlay) · Heading ×3 · Text Editor · Button ×2.`,
   },
 

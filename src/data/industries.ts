@@ -132,6 +132,7 @@ export const INDUSTRIES: Record<string, Industry> = {
       caption:
         "<b>Delivered artwork.</b> Deployment timeline, 2400×600, with a separately laid-out stacked version under 780px.",
     },
+    /** NOT PLACED — see the hero block note. Kept so the file stays findable. */
     heroChip: {
       src: "/graphics/afimac-fb-hero-chip.svg",
       alt: "Overlay chip: days from call to crew on your line",

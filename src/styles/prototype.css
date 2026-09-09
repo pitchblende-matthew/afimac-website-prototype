@@ -391,18 +391,6 @@ body.noassets .assetband{display:none}
 .figure.standin figcaption b{color:#8a5a06}
 .figure img{display:block;width:100%;height:auto;background:#fff}
 .figure picture{display:block}
-/* Hero overlay chip. The delivered chip sits on the hero photograph over the
-   navy scrim, not stacked beneath it — so it is positioned inside the panel.
-   Under 600px it drops below, because at phone width it would cover the shot. */
-.herophoto{position:relative}
-.herophoto>.photo{min-height:300px;align-items:flex-start;padding-bottom:190px}
-.herochip{position:absolute;left:26px;bottom:26px;width:min(300px,44%);height:auto;
-  filter:drop-shadow(0 8px 22px rgba(4,26,44,.34))}
-@media(max-width:600px){
-  .herochip{position:static;display:block;width:230px;margin-top:14px}
-  /* Nothing is overlaid down here, so the reserved space comes back. */
-  .herophoto>.photo{min-height:210px;padding-bottom:26px}
-}
 .figure figcaption{margin-top:12px;font-size:12.5px;line-height:1.55;color:#25583f}
 .figure figcaption b{color:#14683f}
 .blue .figure figcaption,.dark .figure figcaption,.sky .figure figcaption,.readiness .figure figcaption{color:#dff0e6}
