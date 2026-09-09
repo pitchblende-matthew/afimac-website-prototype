@@ -208,5 +208,15 @@ const blocks: BlockType[] = [
     k: "logistics warehousing travel labor · warehouse staffing · distribution center staffing · forklift & dock crews · pick & pack labor · peak-season warehouse labor · 3PL surge staffing · fulfillment center staffing",
   }}
 >
-  {blocks.map((b) => <Block {...b} />)}
+  <Block
+    cls="wash pv-pre"
+    n="LAUNCH PHASE · THIS PAGE DOES NOT EXIST YET"
+    h={`
+  <h2>Nothing is here at phase 0 or 1</h2>
+  <p class="lead">Every other page in the Industries dropdown opens onto copy that is already live. This one does not — <b>there is no Logistics &amp; Warehousing page on afimacglobal.com at all</b>, so at phases 0 and 1 this slot is a link to a page that has to be built first.</p>
+  <div class="note stop"><b>Which makes it the one industry slot phase 1 cannot ship with.</b> Phase 1 puts the Industries dropdown up; seven of its eight entries point at live pages. If this eighth entry goes up with it, the dropdown carries a dead link. Either this page ships with phase 1, or the slot waits for phase 2. <a href="${u("/launch-phases")}">The rollout plan →</a></div>
+  <div class="note">Set the launch phase to <b>2</b> or later in the pink bar to see the page as written.</div>`}
+    spec="Prototype chrome. The whole page below is phase 2 work — there is no phase 0 version of it to show."
+  />
+  {blocks.map((b) => <Block {...b} cls={`${b.cls ?? ""} pv-post`.trim()} />)}
 </Prototype>

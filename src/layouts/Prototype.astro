@@ -10,7 +10,7 @@ import type { PageProps } from "../lib/types";
 
 type Props = PageProps;
 
-const { title, crumb, url, status, meta, active } = Astro.props;
+const { title, crumb, url, status, meta, metaPre, active } = Astro.props;
 
 const plainTitle = title.replace(/&amp;/g, "&");
 
@@ -159,7 +159,12 @@ const TOGGLES = [
         <a href={u("/overview")}>Home</a> › <Fragment set:html={crumb} />
         <span style="float:right">
           {
-            status === "live" ? (
+            metaPre ? (
+              <Fragment>
+                <span class="tag live pv-pre">LIVE</span>
+                <span class="tag build pv-post">BUILD</span>
+              </Fragment>
+            ) : status === "live" ? (
               <span class="tag live">LIVE</span>
             ) : (
               <span class="tag build">BUILD</span>
@@ -171,7 +176,8 @@ const TOGGLES = [
     </div>
 
     <main id="app">
-      {meta && <PageMeta meta={meta} url={url} />}
+      {metaPre && <PageMeta meta={metaPre} url={url} cls="pv-pre" asLive />}
+      {meta && <PageMeta meta={meta} url={url} cls={metaPre ? "pv-post" : ""} />}
       <AssetBand route={active} />
       <slot />
     </main>

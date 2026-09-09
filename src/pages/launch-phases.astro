@@ -8,6 +8,7 @@
  */
 import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
+import { u } from "../lib/base";
 import { phaseAudit, WORK_SHORT, type Work } from "../data/nav";
 import type { Block as BlockType } from "../lib/types";
 
@@ -37,7 +38,13 @@ const phaseBlocks: BlockType[] = audit.map((p) => ({
   n: `PHASE ${p.n} · ${p.name.toUpperCase()}`,
   h: `
   <h2><span class="pchip${p.n === 0 ? " now" : ""}">${p.n}</span>${p.name}</h2>
-  <p class="lead">${p.adds}</p>
+  <p class="lead">${p.adds}</p>${
+    p.n === 1
+      ? `\n  <div class="note stop"><b>Phase 1 adds the Industries slot, not new industry copy.</b> Seven of the eight entries open onto the pages that are live today, word for word — including <a href="${u("/industries/automotive")}">Automotive</a> and <a href="${u("/industries/food-beverage")}">Food &amp; Beverage</a>, whose rewrites are written but do not ship until phase 2. The eighth, <a href="${u("/industries/logistics-warehousing")}">Logistics &amp; Warehousing</a>, has no live page at all. <b>Set the phase to 1 and open any industry page to see exactly what this slot delivers.</b></div>`
+      : p.n === 2
+        ? `\n  <div class="note"><b>This is where the industry copy actually changes.</b> Automotive and Food &amp; Beverage swap to their rewrites; the other five keep the copy they have had since phase 0, because nothing has been written for them.</div>`
+        : ""
+  }
   ${
     p.entries.length
       ? `<div class="tscroll"><table class="cmp"><thead><tr><th>Page</th><th>Route</th><th class="hl">Status</th></tr></thead><tbody>${p.entries
