@@ -8,6 +8,7 @@
  */
 import { bars, photo, figure, artPair } from "./wireframe";
 import { PHASE_TIMELINE } from "../data/graphics";
+import { LIVE_INDUSTRIES, LIVE_ROLE_GROUPS, LIVE_SITUATIONS } from "../data/live-industries";
 import { u } from "./base";
 import type { Industry } from "../data/industries";
 import type { Block, PageProps } from "./types";
@@ -26,6 +27,35 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
       ? `Needs a sub-nav slot, a URL sign-off, and the full asset set — nothing can be inherited.`
       : `Everything the live page already has — hero, situations cards, credibility block, post grid, form — stays in place unless a block below explicitly replaces it.`,
   };
+
+  /**
+   * What this page carries today, for the two industries whose update copy is
+   * already written. The five without an update render the live page in full
+   * from [slug].astro; here a condensed version is enough — the point is the
+   * delta, not a second copy of the page.
+   */
+  const live = LIVE_INDUSTRIES[o.slug];
+  const asLive: Block[] = live
+    ? [
+        {
+          cls: "wash",
+          n: "PHASE 0 · WHAT THIS PAGE CARRIES TODAY",
+          h: `
+  <p class="lead">Everything below this block is the <a href="${u("/launch-phases")}">phase 2</a> update. This is <b>phase 0</b> — the page as published, read off afimacglobal.com on 9 Sep 2026.</p>
+  <div class="tscroll" style="margin-top:20px"><table class="cmp"><thead><tr><th>Block</th><th>As live today</th><th class="hl">After the update</th></tr></thead><tbody>
+   <tr><th>H1</th><td>${live.h1}<br><span style="color:var(--spec)">${live.tagline}</span></td><td class="hl">${o.title}</td></tr>
+   <tr><th>Roles</th><td>The same <b>15</b> generic roles as every other industry page, in three groups: ${LIVE_ROLE_GROUPS.map(([g]) => g).join(" · ")}</td><td class="hl">${o.roles.length} written for ${o.short}</td></tr>
+   <tr><th>Situations</th><td>The same five on all seven pages: ${LIVE_SITUATIONS.join(" · ")}</td><td class="hl">Industry-specific</td></tr>
+   <tr><th>Risks</th><td>${live.risks.join(" · ")}</td><td class="hl">Industry-specific</td></tr>
+   <tr><th>Analyst citation</th><td>${live.source}</td><td class="hl">Keep it</td></tr>
+   <tr><th>Form heading</th><td>${live.formHeading}</td><td class="hl">Get the Numbers, section-wide</td></tr>
+  </tbody></table></div>
+  <div class="note"><b>The live page's one genuinely industry-specific block is its analyst citation</b> — ${live.source}. Everything else above is either shared verbatim with the other six pages or, on this page, written for the industry and worth keeping. <b>Do not lose the citation in the rewrite.</b></div>
+  <div class="note"><b>See it in full on a page without an update:</b> <a href="${u("/industries/chemicals-plastics")}">Chemicals &amp; Plastics</a> renders the live page block for block.</div>`,
+          spec: `Live SEO title: <code>${live.seoTitle}</code>. This block is prototype chrome — it does not ship.`,
+        },
+      ]
+    : [];
 
   const gap: Block = {
     cls: "wash",
@@ -193,6 +223,7 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
     },
     blocks: [
       scope,
+      ...asLive,
       ...(o.speedArt
         ? [
             {

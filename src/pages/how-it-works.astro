@@ -2,7 +2,6 @@
 /** HOW IT WORKS — full approved copy from the content package. */
 import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
-import Embed from "../components/Embed.astro";
 import { u } from "../lib/base";
 import { liveImg, figure, artPair } from "../lib/wireframe";
 import { PHASE_TIMELINE, MOBILIZATION_MAP, FORM_ILLUSTRATION } from "../data/graphics";
@@ -80,21 +79,14 @@ const blocks: BlockType[] = [
     n: "BLOCK 04 · TRAVEL LABOR VS. THE ALTERNATIVES",
     h: `
   <h2>How CSTL compares</h2>
-  <div class="tscroll"><table class="cmp"><thead><tr><th></th><th>Direct local hire</th><th>Staffing agency</th><th class="hl">AFIMAC CSTL</th></tr></thead><tbody>
-  <tr><th>Speed to on-site crew</th><td>45 to 90 days</td><td>14 to 35 days</td><td class="hl">Within days</td></tr>
-  <tr><th>Who manages the crew</th><td>You</td><td>You</td><td class="hl">AFIMAC, on site</td></tr>
-  <tr><th>Travel &amp; housing handled</th><td>No</td><td>Rarely</td><td class="hl">Yes</td></tr>
-  <tr><th>Screening &amp; safety onboarding</th><td>You</td><td>Partial</td><td class="hl">AFIMAC</td></tr>
-  <tr><th>Scales for surges</th><td>Slow</td><td>Limited</td><td class="hl">Built for it</td></tr>
-  <tr><th>Best for</th><td>Steady headcount</td><td>Short local gaps</td><td class="hl">Critical, time-sensitive gaps</td></tr>
-  </tbody></table></div>`,
+  `,
     embed: {
       name: "cstl-comparison-matrix",
       caption: `<b>Delivered widget.</b> The same comparison as live HTML rather than an image, so it stays selectable, translatable and indexable — which matters on a page targeting the CSTL-process cluster. Stacks to cards under 768px.`,
     },
     hEnd: `
-  <div class="note stop"><b>The widget and the table above it disagree, and the widget is right.</b> The table says an agency takes <b>14 to 35 days</b>; the widget says <b>21 to 35</b>. <b>Editorial ruled 21–35 defendable on 21 Aug 2026</b> and the graphics were cut to match — the copy doc was not. It still reads 14–35 in three places: this table, the <a href="${u("/faq")}">FAQ</a> answer, and the asset brief. <b>Correct the copy, not the artwork.</b> <a href="${u("/brand-check")}">All conflicts →</a></div>
-  <div class="note"><b>Ship one of the two, not both.</b> They are the same comparison. The widget is the better placement — the delivery's own note says so and the prototype's build note already asked for live text rather than an image. Shown together here only so the difference is visible.</div>`,
+  <div class="note stop"><b>The widget says an agency takes 21 to 35 days; the copy doc says 14 to 35.</b> <b>Editorial ruled 21–35 defendable on 21 Aug 2026</b> and the graphics were cut to match — the copy doc was not. It still reads 14–35 in three places: this table, the <a href="${u("/faq")}">FAQ</a> answer, and the asset brief. <b>Correct the copy, not the artwork.</b> <a href="${u("/brand-check")}">All conflicts →</a></div>
+  `,
     spec: `<b>Elementor:</b> HTML widget (paste the whole file). <b>Not an image</b>, so it stays crawlable for the comparison keywords.`,
   },
 

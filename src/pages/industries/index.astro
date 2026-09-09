@@ -10,6 +10,7 @@ import Block from "../../components/Block.astro";
 import { u } from "../../lib/base";
 import { liveImg } from "../../lib/wireframe";
 import { EBOOK_ART } from "../../data/live-media";
+import { LIVE_HUB, LIVE_CREDIBILITY_BODY, LIVE_COUNTERS } from "../../data/live-industries";
 import { B } from "../../data/nav";
 import { INDUSTRIES, EXISTING, INDUSTRY_ORDER } from "../../data/industries";
 import type { Block as BlockType } from "../../lib/types";
@@ -74,6 +75,21 @@ const blocks: BlockType[] = [
   </div>
   <div class="note"><b>Seven tiles, seven live pages.</b> Logistics &amp; Warehousing is not among them — it has no live page and no slot in the agreed sub-nav, and it is the only genuinely new page in this cluster. Everything else here is an update to a page that already exists.</div>`,
     spec: `<b>Elementor:</b> Container (3-col) · EK Image Box ×7. Seven into a 3-col grid leaves an orphan on the last row; adding Logistics &amp; Warehousing makes it eight and squares the grid — a small argument for building it.`,
+  },
+
+  {
+    cls: "center",
+    n: "BLOCK 02b · AFIMAC CREDIBILITY — AS LIVE",
+    h: `
+  <h2>AFIMAC Credibility</h2>
+  <p class="lead">${LIVE_HUB.credibilityLead}</p>
+  <p>${LIVE_CREDIBILITY_BODY}</p>
+  <div class="g4" style="margin-top:30px">
+   ${LIVE_COUNTERS.map((c) => `<div><div class="stat" style="color:var(--ph)">—</div><p>${c}</p></div>`).join("")}
+  </div>
+  <div class="note stop"><b>The hub names one industry, and it is the wrong one.</b> That lead line reads “…resources to <b>aerospace, aviation, and defense</b>” — on the page about all seven. It is the <a href="${u("/industries/aerospace-aviation-defense")}">Aerospace page’s</a> line, copied and never localised. <b>Live on the site today.</b> The fix is one sentence.</div>
+  <div class="note">The paragraph beneath it and the four counters are identical on the hub and on all seven industry pages.</div>`,
+    spec: `<b>Elementor:</b> Heading ×2 · Text Editor · EK Funfact / Counter ×4. Shared saved section — which is how the aerospace line got here.`,
   },
 
   {
