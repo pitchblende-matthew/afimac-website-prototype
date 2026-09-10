@@ -66,6 +66,11 @@ export interface LiveIndustry {
   headwindsH2: string;
   headwindsBody: string;
   source: string;
+  /**
+   * The footnote line exactly as published, for the one page that does not fit
+   * the "*Source: X." pattern — Oil & Energy carries two numbered sources.
+   */
+  sourceLine?: string;
   /** "Leading X call on AFIMAC when…" */
   situationsIntro: string;
   risks: string[];
@@ -185,8 +190,9 @@ export const LIVE_INDUSTRIES: Record<string, LiveIndustry> = {
     intro: "When timing is critical, AFIMAC is the premier resource for leading oil and energy companies looking to bridge labor gaps and overcome shortages.",
     seoTitle: "Oil &amp; Energy Travel Labor &amp; Skilled Trades | AFIMAC Global",
     headwindsH2: "Labor Shortages Threaten Productivity in Oil and Energy",
-    headwindsBody: "The U.S. manufacturing industry continues to face significant labor shortages throughout the value chain, from production to transportation and warehousing. A recent survey from Deloitte revealed that over 80% of manufacturing professionals experienced production disruptions due to labor turnover, leading to delays and increased costs.¹ Meanwhile, on the logistics side, transportation experts predict that truck driver shortages may double by 2028.² Attrition, skill gaps, and turnover are persistent challenges. This shortfall creates safety and quality issues while reducing operational efficiency and capacity. What’s on the line? Timely delivery, difficulty scaling, and realizing profitability. To overcome labor shortages, leading companies trust AFIMAC to deliver skilled travel labor to keep their North American manufacturing, warehousing, and logistics operations running strong.",
+    headwindsBody: "The U.S. manufacturing industry continues to face significant labor shortages throughout the value chain, from production to transportation and warehousing. A recent survey from Deloitte revealed that over 80% of manufacturing professionals experienced production disruptions due to labor turnover, leading to delays and increased costs.<sup>1</sup> Meanwhile, on the logistics side, transportation experts predict that truck driver shortages may double by 2028.<sup>2</sup> Attrition, skill gaps, and turnover are persistent challenges. This shortfall creates safety and quality issues while reducing operational efficiency and capacity. What’s on the line? Timely delivery, difficulty scaling, and realizing profitability. To overcome labor shortages, leading companies trust AFIMAC to deliver skilled travel labor to keep their North American manufacturing, warehousing, and logistics operations running strong.",
     source: "1: Deloitte · 2: IRU",
+    sourceLine: "Sources: *1: Deloitte. *2: IRU.",
     situationsIntro: "Leading oil and energy organizations call on AFIMAC when labor resources pose a significant risk to the business and timing is critical.",
     risks: GENERIC_RISKS,
     gapsH2: "Oil &amp; Energy Workforce Gaps We Fill",
