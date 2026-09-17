@@ -38,7 +38,8 @@ const phaseBlocks: BlockType[] = audit.map((p) => ({
   n: `PHASE ${p.n} · ${p.name.toUpperCase()}`,
   h: `
   <h2><span class="pchip${p.n === 0 ? " now" : ""}">${p.n}</span>${p.name}</h2>
-  <p class="lead">${p.adds}</p>${
+  <p class="lead">${p.adds}</p>
+  <div class="btns"><a class="btn ghost" href="?phase=${p.n}">Preview phase ${p.n} →</a></div>${
     p.n === 1
       ? `\n  <div class="note stop"><b>Phase 1 adds the Industries slot, not new industry copy.</b> Seven of the eight entries open onto the pages that are live today, word for word — including <a href="${u("/industries/automotive")}">Automotive</a> and <a href="${u("/industries/food-beverage")}">Food &amp; Beverage</a>, whose rewrites are written but do not ship until phase 2. The eighth, <a href="${u("/industries/logistics-warehousing")}">Logistics &amp; Warehousing</a>, has no live page at all. <b>Set the phase to 1 and open any industry page to see exactly what this slot delivers.</b></div>`
       : p.n === 2
@@ -69,7 +70,7 @@ const phaseBlocks: BlockType[] = audit.map((p) => ({
         } before this phase ships, or hold the slot${p.hollow.length > 1 ? "s" : ""} back to a later one.</div>`
       : ""
   }`,
-  spec: `Preview it: set the launch phase to ${p.n} in the pink bar above, then use the sub-nav.`,
+  spec: `Preview it with the button above, or set the launch phase to ${p.n} in the pink bar. Either way the phase lands in the URL as <code>?phase=${p.n}</code>, so the link can be shared.`,
 }));
 
 const blocks: BlockType[] = [

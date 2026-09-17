@@ -494,6 +494,9 @@ body[data-phase="0"] .mobtoggle{display:none}
 .phasebar .cap{color:#8a5f6d;font-size:12px;margin-left:4px}
 .phasetable td.h{color:#b4402c;font-weight:700}
 .phasetable td.ok{color:#1c7a4c;font-weight:700}
+/* The phase is in the URL; the caption says so, quietly. */
+.phurl{color:var(--spec)}
+.phurl code{background:rgba(0,0,0,.05);padding:1px 4px;border-radius:2px}
 .pchip{display:inline-block;min-width:17px;text-align:center;border-radius:9px;padding:1px 6px;
   background:#eef2f5;color:#5a6b7a;font-size:11px;font-weight:700;margin-right:8px}
 .pchip.now{background:#e3f0e8;color:#1c7a4c}
