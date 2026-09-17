@@ -52,7 +52,15 @@ const TOGGLES = [
       try {
         var saved = JSON.parse(localStorage.getItem("afimac-cstl:chrome") || "{}");
         for (var cls in saved) if (!saved[cls]) document.body.classList.add(cls);
-        var ph = localStorage.getItem("afimac-cstl:phase");
+      } catch (e) {}
+      /* The launch phase lives in the URL, because two people looking at the
+         same industry page could not tell which version they were on. ?phase=N
+         wins over the saved value, so a pasted link shows what the sender saw;
+         with no parameter the saved value is used and then written into the
+         address bar, so the URL always states the phase on screen. */
+      try {
+        var q = new URLSearchParams(location.search).get("phase");
+        var ph = /^[0-5]$/.test(q || "") ? q : q === null ? localStorage.getItem("afimac-cstl:phase") : "";
         if (ph) document.body.setAttribute("data-phase", ph);
       } catch (e) {}
     </script>
@@ -263,13 +271,37 @@ const TOGGLES = [
         document.getElementById("phaseData")?.textContent || "{}",
       );
 
+      const PHASE_PARAM = "phase";
+      const baseTitle = document.title;
+
+      /**
+       * Put the phase in the address bar, and in the tab title.
+       *
+       * Reviewers had no way to tell a phase 0 industry page from a phase 2 one
+       * without scrolling to the banner — and a pasted link carried none of it,
+       * because the choice lived only in localStorage. Now the URL states it.
+       * replaceState rather than pushState: the phase buttons are a view
+       * control, and filling the back button with them would make Back stop
+       * meaning "the previous page".
+       */
+      const syncUrl = (v: string) => {
+        try {
+          const url = new URL(location.href);
+          if (v) url.searchParams.set(PHASE_PARAM, v);
+          else url.searchParams.delete(PHASE_PARAM);
+          history.replaceState(history.state, "", url);
+          document.title = v ? `${baseTitle} · Phase ${v}` : baseTitle;
+        } catch {}
+      };
+
       const applyPhase = (v: string) => {
         if (v) document.body.setAttribute("data-phase", v);
         else document.body.removeAttribute("data-phase");
+        syncUrl(v);
         opts.forEach((o) => o.setAttribute("aria-pressed", String((o.dataset.phase || "") === v)));
         if (cap) {
           cap.innerHTML = v
-            ? `<b>Phase ${v}.</b> ${PHASE_ADDS[v] || ""} <a href="${
+            ? `<b>Phase ${v}.</b> ${PHASE_ADDS[v] || ""} <span class="phurl">This page is at <code>?phase=${v}</code> — copy the address to share this view.</span> <a href="${
                 document.getElementById("phaseLink")?.getAttribute("href") || "#"
               }">The full plan →</a>`
             : `Showing every page. Pick a phase to see the sub-nav as it ships — <a href="${
@@ -282,14 +314,40 @@ const TOGGLES = [
         } catch {}
       };
 
-      let savedPhase = "";
+      /* ?phase=N wins over the saved value, so a shared link opens on the phase
+         it was shared from. No parameter falls back to the saved choice, which
+         syncUrl then writes into the address bar. */
+      let startPhase = "";
       try {
-        savedPhase = localStorage.getItem(PHASE_KEY) || "";
+        const q = new URLSearchParams(location.search).get(PHASE_PARAM);
+        startPhase = /^[0-5]$/.test(q || "") ? q! : q === null ? localStorage.getItem(PHASE_KEY) || "" : "";
       } catch {}
-      applyPhase(savedPhase);
+      applyPhase(startPhase);
       opts.forEach((o) =>
         o.addEventListener("click", () => applyPhase(o.dataset.phase || "")),
       );
+
+      /* Carry the phase across navigation. Every page in this prototype is a
+         real page load, so without this the next URL would be bare even though
+         the saved phase still applied — which is the mismatch that caused the
+         confusion in the first place. */
+      document.addEventListener("click", (e) => {
+        const a = (e.target as HTMLElement | null)?.closest?.("a");
+        if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        const href = a.getAttribute("href");
+        if (!href || href.startsWith("#") || a.target === "_blank") return;
+        let url: URL;
+        try {
+          url = new URL(a.href);
+        } catch {
+          return;
+        }
+        if (url.origin !== location.origin || url.pathname === location.pathname) return;
+        const v = document.body.getAttribute("data-phase") || "";
+        if (v) url.searchParams.set(PHASE_PARAM, v);
+        else url.searchParams.delete(PHASE_PARAM);
+        a.href = url.toString();
+      });
 
       /* ---- mobile sub-nav ---- */
       document.getElementById("mobtoggle")?.addEventListener("click", () => {

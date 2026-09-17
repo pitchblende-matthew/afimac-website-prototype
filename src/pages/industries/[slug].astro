@@ -44,7 +44,7 @@ const liveTemplate = (slug: string, hasUpdate = false): BlockType[] => {
       n: hasUpdate ? "PHASES 0–1 · THIS IS THE LIVE PAGE" : "PHASE 0 · THIS IS THE LIVE PAGE",
       h: `<div class="note" style="margin-top:0"><b>This is the page as published today</b>, read off afimacglobal.com on 9 Sep 2026 — not a sketch of it. It is what a visitor sees at <a href="${u(`/industries/${slug}`)}">this URL</a> right now. ${
         hasUpdate
-          ? `<b>The sub-nav slot ships in phase 1, but the new copy does not land until phase 2</b> — so at phases 0 and 1 this is what the slot opens onto. <b>Switch the launch phase to 2 in the pink bar to see the update.</b>`
+          ? `<b>The sub-nav slot ships in phase 1, but the new copy does not land until phase 2</b> — so at phases 0 and 1 this is what the slot opens onto. <b><a href="?phase=2">Switch to phase 2 to see the update →</a></b>`
           : `It is what <a href="${u("/launch-phases")}">launch phase 0</a> means for this industry. Updated copy arrives in phase 2.`
       }</div>`,
       spec: `Live SEO title: <code>${p.seoTitle}</code>`,
@@ -161,10 +161,10 @@ const swapBanner: BlockType = {
   cls: "wash",
   n: "LAUNCH PHASE · WHICH VERSION OF THIS PAGE YOU ARE LOOKING AT",
   h: `
-  <div class="note pvnote-pre" style="margin-top:0"><b>You are on launch phase 0 or 1, so this is the page as published today.</b> Phase 1 adds the Industries slot to the sub-nav, but it points at the copy that is already there — <b>the rewrite does not land until phase 2</b>. Switch the launch phase to <b>2</b> in the pink bar to see the update.</div>
-  <div class="note pvnote-post" style="margin-top:0"><b>You are on phase 2 or later, so this is the update.</b> Set the launch phase to <b>0</b> or <b>1</b> in the pink bar to see what the Industries slot actually opens onto before this copy ships.</div>
+  <div class="note pvnote-pre" style="margin-top:0"><b>You are on launch phase 0 or 1, so this is the page as published today.</b> Phase 1 adds the Industries slot to the sub-nav, but it points at the copy that is already there — <b>the rewrite does not land until phase 2</b>. <b><a href="?phase=2">Switch to phase 2 to see the update →</a></b></div>
+  <div class="note pvnote-post" style="margin-top:0"><b>You are on phase 2 or later, so this is the update.</b> Go to <a href="?phase=0"><b>phase 0</b></a> or <a href="?phase=1"><b>phase 1</b></a> to see what the Industries slot actually opens onto before this copy ships.</div>
   <div class="note"><b>Only two industry pages have two versions.</b> The other five have no update written, so they read the same at every phase — that is the gap, not an omission here. <a href="${u("/industries")}">The hub lists which is which →</a></div>`,
-  spec: `Prototype chrome. The live page and the update are both rendered; the launch-phase buttons in the pink bar choose between them, and the choice persists across pages.`,
+  spec: `Prototype chrome. The live page and the update are both rendered; the launch-phase buttons in the pink bar choose between them. <b>The chosen phase is in this page’s URL as <code>?phase=N</code></b>, so a link pasted to someone else opens on the same version, and the browser tab says which.`,
 };
 
 const blocks: BlockType[] = built
