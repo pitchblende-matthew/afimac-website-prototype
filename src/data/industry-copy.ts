@@ -18,6 +18,8 @@
  * surfaced on the page rather than silently reconciled here.
  */
 
+import { SOFT_PHASES } from "./timing";
+
 export interface Station {
   /** "01", "02" … as the deck numbers them. */
   n: string;
@@ -28,7 +30,7 @@ export interface Station {
 export interface DeployPhase {
   n: string;
   title: string;
-  /** "2–3 days", "live in 6–7 days". */
+  /** The directional window for this phase, from SOFT_PHASES. */
   days: string;
   bullets: string[];
 }
@@ -115,7 +117,7 @@ export const INDUSTRY_COPY: Record<string, IndustryCopy> = {
     speedBars: [
       ["Direct local hire", "45–90 days"],
       ["Temp / contract agency", "21–35 days"],
-      ["AFIMAC travel labor", "6–7 days"],
+      ["AFIMAC travel labor", "As little as 72 hours"],
     ],
     rolesSectionTitle: "Automotive Plant Staffing, Role-Ready",
     rolesH2: "The skilled crews that keep the plant moving",
@@ -132,12 +134,12 @@ export const INDUSTRY_COPY: Record<string, IndustryCopy> = {
     ],
     calloutText: "Don’t see the role you need? If it runs on your floor, we can staff it.",
     calloutButton: "Ask about a role",
-    deployH2: "A crew on your floor in 6–7 days",
+    deployH2: "A crew on your floor in as little as 72 hours",
     phases: [
-      { n: "01", title: "Consultation", days: "2–3 days", bullets: ["Assess plant labor needs", "Align on roles &amp; shift coverage", "Finalize deployment plan"] },
-      { n: "02", title: "Mobilization", days: "2–3 days", bullets: ["Select &amp; screen candidates", "Finalize travel &amp; housing", "Plant-specific safety training"] },
-      { n: "03", title: "Deployment", days: "live in 6–7 days", bullets: ["Crew works your line", "Establish feedback loop", "Measure &amp; optimize output"] },
-      { n: "04", title: "Demobilization", days: "2–3 days", bullets: ["Final performance assessment", "Support transition planning", "Release travel crews"] },
+      { n: "01", title: "Consultation", days: SOFT_PHASES[0].timing, bullets: ["Assess plant labor needs", "Align on roles &amp; shift coverage", "Finalize deployment plan"] },
+      { n: "02", title: "Mobilization", days: SOFT_PHASES[1].timing, bullets: ["Select &amp; screen candidates", "Finalize travel &amp; housing", "Plant-specific safety training"] },
+      { n: "03", title: "Deployment", days: SOFT_PHASES[2].timing, bullets: ["Crew works your line", "Establish feedback loop", "Measure &amp; optimize output"] },
+      { n: "04", title: "Demobilization", days: SOFT_PHASES[3].timing, bullets: ["Final performance assessment", "Support transition planning", "Release travel crews"] },
     ],
     numbersH2: "The premier resource for automotive labor under pressure",
     numbersBody:
@@ -205,7 +207,7 @@ export const INDUSTRY_COPY: Record<string, IndustryCopy> = {
     speedBars: [
       ["Direct local hire", "45–90 days"],
       ["Temp / contract agency", "21–35 days"],
-      ["AFIMAC travel labor", "6–7 days"],
+      ["AFIMAC travel labor", "As little as 72 hours"],
     ],
     rolesSectionTitle: "Food &amp; Beverage Plant Staffing, Role-Ready",
     rolesH2: "The skilled crews that keep the plant running",
@@ -222,12 +224,12 @@ export const INDUSTRY_COPY: Record<string, IndustryCopy> = {
     ],
     calloutText: "Don’t see the role you need? If it runs on your floor, we can staff it.",
     calloutButton: "Ask about a role",
-    deployH2: "A crew on your floor in 6–7 days",
+    deployH2: "A crew on your floor in as little as 72 hours",
     phases: [
-      { n: "01", title: "Consultation", days: "2–3 days", bullets: ["Assess plant labor needs", "Align on roles, shifts &amp; food-safety requirements", "Finalize deployment plan"] },
-      { n: "02", title: "Mobilization", days: "2–3 days", bullets: ["Select &amp; screen candidates", "Finalize travel &amp; housing", "Plant-specific GMP &amp; safety training"] },
-      { n: "03", title: "Deployment", days: "live in 6–7 days", bullets: ["Crew works your line", "Establish feedback loop", "Measure &amp; optimize output"] },
-      { n: "04", title: "Demobilization", days: "2–3 days", bullets: ["Final performance assessment", "Support transition planning", "Release travel crews"] },
+      { n: "01", title: "Consultation", days: SOFT_PHASES[0].timing, bullets: ["Assess plant labor needs", "Align on roles, shifts &amp; food-safety requirements", "Finalize deployment plan"] },
+      { n: "02", title: "Mobilization", days: SOFT_PHASES[1].timing, bullets: ["Select &amp; screen candidates", "Finalize travel &amp; housing", "Plant-specific GMP &amp; safety training"] },
+      { n: "03", title: "Deployment", days: SOFT_PHASES[2].timing, bullets: ["Crew works your line", "Establish feedback loop", "Measure &amp; optimize output"] },
+      { n: "04", title: "Demobilization", days: SOFT_PHASES[3].timing, bullets: ["Final performance assessment", "Support transition planning", "Release travel crews"] },
     ],
     numbersH2: "The premier resource for food &amp; beverage labor under pressure",
     numbersBody:

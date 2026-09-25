@@ -41,7 +41,7 @@ export const PHASE_TIMELINE: ArtPair = {
   width: 2400,
   height: 600,
   caption:
-    `${DELIVERED} Four-phase timeline, 2400×600, with a separately laid-out stacked version under 780px. <b>This is the real SVG</b> — it replaces the PNG that arrived misnamed as a mobilization map.`,
+    `${DELIVERED} Four-phase timeline, 2400×600, with a separately laid-out stacked version under 780px. <b>This is the real SVG</b> — it replaces the PNG that arrived misnamed as a mobilization map. <b>Needs a re-cut:</b> it letters Assessment at 1–2 days and Mobilization and Demobilization at 2–3, which the directional timing adopted 25 Sep 2026 removes. It is the most-used asset in the section — How It Works plus the How We Deploy block on all three industry pages — so it is the first one to re-run.`,
 };
 
 export const MOBILIZATION_MAP: Art = {
@@ -71,7 +71,7 @@ export const AUTO_SPEED: ArtPair = {
   width: 2400,
   height: 1072,
   caption:
-    `${DELIVERED} Speed comparison, re-cut after the 2026-08-21 editorial ruling: the axis label and the “measured from first call” footnote were dropped, because both framed 6–7 days as a measurement rather than a stated capability. Canvas re-cropped to 2400×1072 as a result.`,
+    `${DELIVERED} Speed comparison, re-cut after the 2026-08-21 editorial ruling: the axis label and the “measured from first call” footnote were dropped, because both framed 6–7 days as a measurement rather than a stated capability. Canvas re-cropped to 2400×1072 as a result. <b>Needs a re-cut again:</b> its third bar reads <b>6–7 days</b>, and under the directional timing adopted 25 Sep 2026 the page states <b>as little as 72 hours</b>. The two market bars are unaffected.`,
 };
 
 export const AUTO_LINE_MAP_ROLES: Art = {
@@ -105,7 +105,7 @@ export const AUTO_HERO_CHIP: Art = {
   alt: "Overlay chip: a crew on your floor in 6 to 7 days",
   width: 588,
   height: 277,
-  caption: `${DELIVERED} Hero overlay chip, sits on the hero photograph.`,
+  caption: `${DELIVERED} Hero overlay chip. Not placed, and carrying a day figure the section has dropped. <b>Needs a re-cut.</b>`,
   maxWidth: 300,
 };
 
@@ -118,7 +118,7 @@ export const VS_SPEED: ArtPair = {
   width: 2400,
   height: 1072,
   caption:
-    `${DELIVERED} Lead-time bars, matching Automotive. <b>Lead time moved out of the comparison table and became this chart</b>, which is what the prototype's own build note asked for — the table is six rows as a result.`,
+    `${DELIVERED} Lead-time bars, matching Automotive. <b>Lead time moved out of the comparison table and became this chart</b>, which is what the prototype's own build note asked for — the table is six rows as a result. <b>Needs a re-cut:</b> its AFIMAC bar reads <b>6–7 days</b> against the page's <b>as little as 72 hours</b>. The two market bars are unaffected.`,
 };
 
 /* ---------------- Food & Beverage · Logistics ---------------- */
@@ -130,7 +130,7 @@ export const LOG_DEPLOY: ArtPair = {
   width: 2400,
   height: 600,
   caption:
-    `${DELIVERED} Deployment timeline on the seven-day scale, with a separately laid-out stacked version under 780px. The crew-live marker sits at <b>day 5</b>, built to this page's own 5–7 figure rather than the ruled 6–7.`,
+    `${DELIVERED} Deployment timeline on the seven-day scale, with a separately laid-out stacked version under 780px. The crew-live marker sits at <b>day 5</b>. <b>Needs a re-cut:</b> the page it sits on no longer states a day figure at all, under the directional timing adopted 25 Sep 2026.`,
 };
 
 /**
@@ -143,7 +143,7 @@ export const LOG_HERO_CHIP: Art = {
   alt: "Overlay chip: 5 to 7 days from call to crew on your floor",
   width: 602,
   height: 277,
-  caption: `${DELIVERED} Hero overlay chip — sits on the hero photograph over the navy scrim. Not placed in the prototype; see the hero block.`,
+  caption: `${DELIVERED} Hero overlay chip. Not placed — see the hero block — and now carrying a figure the section has dropped: it reads <b>5–7 days</b> where every page says <b>as little as 72 hours</b>. <b>Needs a re-cut.</b>`,
   maxWidth: 310,
 };
 

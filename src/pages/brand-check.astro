@@ -8,6 +8,25 @@ import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import type { Block as BlockType } from "../lib/types";
+import { SOFT_PHASES, SOFT, MARKET, RETIRED, RECUT, RECUT_NOTE } from "../data/timing";
+
+/**
+ * Table rows for the timing blocks, built above `blocks` rather than inside it.
+ * The Astro compiler cannot parse a third level of nested template
+ * interpolation, and these would be exactly that.
+ */
+const SOFT_ROWS = SOFT_PHASES.map((ph) => {
+  const anchor = ph.anchored ? ' <span style="color:var(--spec)">· rests on the anchor</span>' : "";
+  return `<tr><th>${ph.name}</th><td class="hl">${ph.timing}${anchor}</td></tr>`;
+}).join("");
+
+const RETIRED_ROWS = RETIRED.map(
+  (r) => `<tr><th>${r.figure}</th><td>${r.where}</td><td class="hl">${r.now}</td></tr>`,
+).join("");
+
+const RECUT_ROWS = RECUT.map(
+  (r) => `<tr><th><code>${r.file}</code></th><td>${r.carries}</td><td class="hl">${r.where}</td></tr>`,
+).join("");
 
 const blocks: BlockType[] = [
   {
@@ -60,12 +79,53 @@ const blocks: BlockType[] = [
   <div class="g2" style="margin-top:24px">
    <div class="card"><div class="blocknum">01 · INDUSTRY COUNT</div><h3>26 or 18?</h3><p>The credibility counter says <b>26 Industries</b>. The list higher up the same page has <b>18</b>. One of three credibility figures on the page, contradicted within a single scroll.</p><p style="margin:0"><b>Now two to one.</b> The <a href="${u("/industries/logistics-warehousing")}">Logistics</a> deck states <b>18+ Industries Served</b> as an approved stat, agreeing with the list and not the counter. Close enough to settled that somebody should settle it.</p></div>
    <div class="card"><div class="blocknum">02 · NETWORK SIZE</div><h3>20,000+ or 12,000+?</h3><p style="margin:0">The live page, eBook, comparison sheet and Messaging brief all say <b>20,000+</b>. The Brand Foundation terminology page instructs pairing screened-and-drug-tested with <b>12,000+</b>. The number appears on nine pages in this build.</p></div>
-   <div class="card" style="border-color:#1c7a4c;border-width:2px"><div class="blocknum">03 · DEPLOYMENT SPEED — RULED</div><h3>6–7 days</h3><p><b>Settled.</b> Editorial reviewed the speed figures on <b>21 Aug 2026</b> and confirmed this set as defendable: direct local hire <b>45–90 days</b>, temp or contract agency <b>21–35</b>, AFIMAC <b>6–7</b>. There is no neutral third-party benchmark in this space — most published figures come from staffing agencies with an interest in the answer — so these stand as AFIMAC’s own positions rather than cited data, and the artwork was cut to say so: the speed chart dropped its axis label and its “measured from first call” footnote, because both framed 6–7 days as a measurement.</p><p style="margin:0"><b>The copy has not caught up.</b> “As fast as 72 hours” still sits in the <a href="${u("/vs-local-staffing")}">comparison table</a>, and <b>14–35</b> still sits in <a href="${u("/how-it-works")}">How It Works</a>, the <a href="${u("/faq")}">FAQ</a> and <a href="${u("/vs-traditional")}">Travel vs. Traditional</a>. <b>Correct the copy, not the artwork.</b></p></div>
+   <div class="card" style="border-color:#b3261e;border-width:2px"><div class="blocknum">03 · DEPLOYMENT SPEED — REOPENED</div><h3>6–7 days, or 72 hours?</h3><p style="margin:0"><b>Was settled; is not now.</b> Editorial ruled <b>6–7 days</b> defendable on <b>21 Aug 2026</b> and had “as fast as 72 hours” removed from the graphics. The directional timing adopted <b>25 Sep 2026</b> makes <b>72 hours</b> the single anchor the section’s “as little as” language rests on. <b>The later decision reverses the earlier one on the one number that matters.</b> See the timing block below.</p></div>
    <div class="card"><div class="blocknum">03b · THE OLD SPEED TANGLE, FOR THE RECORD</div><h3>What the ruling replaced</h3><p style="margin:0">eBook and comparison sheet say <b>72 hours or less</b>. Brand Foundation defines Rapid Response as <b>2–7 days</b>. The live process graphic says <b>6-7 days from consultation</b>. The new pages hedge with “within days,” which is safe but discards the sharpest claim AFIMAC has.</p><p style="margin:0"><b>The count is now six.</b> Add <b>24 to 72 hours</b> from the live pillar meta, <b>5 to 7 days</b> from the <a href="${u("/industries/logistics-warehousing")}">Logistics</a> deck, and <b>as fast as 72 hours</b> from <a href="${u("/vs-local-staffing")}">CSTL vs. Local Staffing</a>. Six wordings of one promise across live pages, ads and approved copy.</p></div>
    <div class="card"><div class="blocknum">04 · PHASE 1 NAME</div><h3>Assessment or Consultation?</h3><p>Confirmed in three forms on one screen: the live infographic reads <b>“Assessment + Consultation”</b>, the card beneath it reads <b>Consultation</b>, and the new copy reads <b>Assessment</b>.</p><p style="margin:0"><b>A delivered graphic has now taken a side.</b> The four-phase timeline on <a href="${u("/how-it-works")}">How It Works</a> says <b>Assessment · 1–2 days</b>. The live overview says <b>Consultation · 2–3 days</b> — so the duration is in dispute too, not just the name. Publishing the timeline makes “Assessment, 1–2 days” the answer by default. <b>Decide it deliberately instead.</b></p><p style="margin:0"><b>And it is no longer only live-copy versus new-copy.</b> The <a href="${u("/industries/logistics-warehousing")}">Logistics &amp; Warehousing</a> deck says <b>Consultation</b>; every other deck in the same drop says <b>Assessment</b>. <b>Two approved decks now disagree with each other in writing</b>, which makes this the one conflict that cannot be resolved by picking the newer document.</p></div>
   </div>
-  <div class="note stop">All four are one email, not four. None of them block design — all of them block final copy.</div>`,
+  <div class="note stop">All four are one email, not four. None of them block design — all of them block final copy. <b>Number three is the urgent one</b>, because it is now the only figure the section states about its own speed.</div>`,
     spec: `Suggest putting these to Maria as a single decision list at structure sign-off.`,
+  },
+
+  {
+    cls: "wash",
+    n: "TIMING · THE DIRECTIONAL DECISION, 25 SEP 2026",
+    h: `
+  <h2>The section states windows, not day counts</h2>
+  <p class="lead">Three options were put up: hard day ranges per phase, soft named windows with qualifying language, or the four phases with no timeframes at all. <b>The soft option was chosen.</b> It is written down once, in <code>src/data/timing.ts</code>, so the section cannot drift back into per-page numbers.</p>
+  <div class="tscroll" style="margin-top:24px"><table class="cmp"><thead><tr><th>Phase</th><th class="hl">What every page now says</th></tr></thead><tbody>
+   ${SOFT_ROWS}
+  </tbody></table></div>
+  <div class="note"><b>The two market figures are untouched.</b> Direct hire at <b>${MARKET.directHire}</b> and an agency at <b>${MARKET.agency}</b> are claims about other routes to labor, not AFIMAC commitments, so the directional timing does not cover them — and the comparison would say nothing without them. <b>The agency figure is still unreconciled on its own account</b>: 14–35 on several pages, 14–30 in the Logistics deck, 21–35 in the August ruling.</div>
+  <div class="note stop"><b>The one thing to decide, and it is not a copy question.</b> The option’s own stated risk is that “as little as” language <b>needs at least one verified anchor point or it reads as unsubstantiated</b>. <b>${SOFT.anchor}</b> is that anchor and now the only number the section states about AFIMAC’s speed — and it is the figure the 21 Aug ruling rejected in favour of 6–7 days. Either 72 hours is re-verified, or the anchor changes. <b>Nothing else is left to carry the claim.</b></div>`,
+    spec: `Adopted from “How AFIMAC Delivers Teams · Timeline Comparison”. One source of truth: <code>src/data/timing.ts</code>.`,
+  },
+
+  {
+    n: "TIMING · WHAT THE DECISION RETIRES",
+    h: `
+  <h2>${RETIRED.length} figures out, and the conflicts between them with&nbsp;them</h2>
+  <p class="lead">The section had four answers to “how fast”, and the arguments between them ran across a dozen pages. These are the figures the directional timing removes.</p>
+  <div class="tscroll" style="margin-top:22px"><table class="cmp"><thead><tr><th>Was</th><th>Where</th><th class="hl">Now</th></tr></thead><tbody>
+   ${RETIRED_ROWS}
+  </tbody></table></div>
+  <div class="note"><b>The phase-1 argument is half closed.</b> Assessment ran 1–2 days on How It Works and 2–3 on the live overview; neither figure is stated anywhere now, so the duration half of that conflict is gone. <b>The naming half — Assessment, Consultation, or “Assessment + Consultation” — is untouched and still open</b> (card 04 above).</div>
+  <div class="note"><b>The live overview keeps its day counts,</b> because that page reproduces what is published today. It is the one place the old figures still appear, and changing it is a change to a live page.</div>`,
+    spec: `Read from <code>RETIRED</code> in <code>src/data/timing.ts</code>, so this table cannot fall out of step with the pages.`,
+  },
+
+  {
+    cls: "wash",
+    n: "TIMING · ARTWORK THAT NOW CONTRADICTS THE COPY",
+    h: `
+  <h2>${RECUT.length} delivered assets still carry a hard figure</h2>
+  <p class="lead">Copy could be changed here. Artwork could not. Every asset below has a day count or a day scale drawn into it, and now disagrees with the page it sits on.</p>
+  <div class="tscroll" style="margin-top:22px"><table class="cmp"><thead><tr><th>Asset</th><th>What it carries</th><th class="hl">Where it appears</th></tr></thead><tbody>
+   ${RECUT_ROWS}
+  </tbody></table></div>
+  <div class="note stop"><b>${RECUT_NOTE}</b> The four-phase timeline is the one to re-run first: it appears on How It Works and in the How We Deploy block on all three industry pages, so one re-cut fixes four pages.</div>
+  <div class="note"><b>Two of them are already out of the build for other reasons</b> — the Logistics and F&amp;B hero chips were pulled when the hero overlay was dropped. They are listed anyway, because the files are still in <code>public/graphics/</code> and would carry the old figure straight into a deck or a PDF.</div>`,
+    spec: `Read from <code>RECUT</code> in <code>src/data/timing.ts</code>. <b>None of these can be corrected in this repository.</b>`,
   },
 ];
 ---
