@@ -262,18 +262,18 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
   <div style="margin:22px 0">${artPair(PHASE_TIMELINE)}</div>
   ${
     o.slug === "food-beverage"
-      ? `<div class="note stop"><b>The durations do not reconcile on this page.</b> The copy doc says <b>Consultation: 2–3 days</b>, but the day scale in the graphic runs Consultation across <b>D1–2</b> — two days of slot for three days of work. <a href="${u("/industries/logistics-warehousing")}">Logistics</a> has this right, at 1–2 days against D1–2, so F&amp;B is the outlier. Fix the copy or re-cut the scale.</div>`
+      ? `<div class="note"><b>The durations used not to reconcile on this page, and now nothing states one.</b> The copy doc said <b>Consultation: 2–3 days</b> against a day scale that ran it across <b>D1–2</b> — two days of slot for three days of work. Under the directional timing the cards state a window instead, so the mismatch is gone from the copy. <b>It is still drawn into the graphic</b>, which needs a re-cut. <a href="${u("/brand-check")}">Every asset affected →</a></div>`
       : ""
   }
   <div class="note">${
     o.slug === "food-beverage"
-      ? `<b>The shared timeline, standing in.</b> The F&amp;B deck specs a bespoke seven-day deployment bar, which does not exist. Given this one carries the same four phases and real durations, <b>the bespoke version is hard to justify</b> — drop it unless F&amp;B genuinely deploys on a different clock.`
+      ? `<b>The shared timeline, standing in.</b> The F&amp;B deck specs a bespoke seven-day deployment bar, which does not exist. <b>Under the directional timing it should not be commissioned</b> — a seven-day bar is a hard timeline drawn as a picture, which is the thing the section has just moved away from.`
       : `<b>The shared four-phase timeline, exactly as this block's spec asks</b> — one asset across the section rather than a new one per industry.`
   }</div>
   ${
     o.deployArt
       ? `<div style="margin:30px 0 22px">${artPair(o.deployArt)}</div>
-  <div class="note stop"><b>Two timelines for the same deployment, on the same block, disagreeing.</b> The shared graphic above runs <b>four</b> phases, calls phase 1 <b>Assessment</b> and puts no day numbers on anything. The ${o.short} one runs <b>three</b>, calls phase 1 <b>Consultation</b>, pins a hard day range to each, and demotes Demobilization to a footnote. Between them this page answers the open phase-1 naming question in both directions at once. It also puts the crew on your floor partway through <b>day 6</b> — the same “6–7 days” commitment the speed graphic makes at the top of this page, where the written copy deliberately hedges to “within days”. <b>Ship one of these two.</b></div>`
+  <div class="note stop"><b>Two timelines for the same deployment, on the same block, disagreeing.</b> The shared graphic above runs <b>four</b> phases, calls phase 1 <b>Assessment</b> and puts no day numbers on anything. The ${o.short} one runs <b>three</b>, calls phase 1 <b>Consultation</b>, pins a hard day range to each, and demotes Demobilization to a footnote. Between them this page answers the open phase-1 naming question in both directions at once. It also puts the crew on your floor partway through <b>day 6</b>. <b>Both now contradict the page around them</b>, which states no phase durations and one figure — as little as 72 hours. Both need a re-cut; their text is outlined to paths and cannot be corrected here. <a href="${u("/brand-check")}">Every asset affected →</a></div>`
       : ""
   }
   ${
@@ -378,11 +378,11 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
     <div class="g2" style="margin-top:26px;align-items:start">
      <div>
       <p class="lead">The first real graphic delivered for this cluster, and the page's sharpest argument: the alternatives are measured in months, this is measured in days.</p>
-      <div class="pullstat"><span class="pullstat-n">6–7 days</span><span class="pullstat-l">from call to crew on your line</span></div>
+      <div class="pullstat"><span class="pullstat-n">As little as 72 hours</span><span class="pullstat-l">from call to crew on your line</span></div>
       <div class="note"><b>The pull-stat above is markup, not artwork.</b> It was supplied as a picture of a type lockup; built as type it stays selectable, searchable, translatable and legible at any zoom, and it inherits Museo automatically. <b>Do not place it as an image.</b> In Elementor it is a Heading plus a Text Editor in a container with a left orange border — no HTML widget needed.</div>
       <div class="note"><b>The landscape cut has arrived and is what renders here.</b> Wide rather than tall, so it now runs full width instead of fighting the two-column split — and a separately laid-out narrow version swaps in under 780px.</div>
-      <div class="note"><b>Its figures are now the ruled ones, and the copy is what needs correcting.</b> Editorial confirmed 45–90 / 21–35 / 6–7 as defendable on 21 Aug 2026 and the artwork was cut to match. Where a page still says 14–35 for an agency — <a href="${u("/how-it-works")}">How It Works</a>, the <a href="${u("/faq")}">FAQ</a>, <a href="${u("/vs-traditional")}">Travel vs. Traditional</a> — <b>the copy is the thing that is out of date.</b> <a href="${u("/brand-check")}">All conflicts →</a></div>
-      <div class="note stop"><b>And it commits to “6–7 days”</b> — one of the five deployment-speed figures already in circulation, where the surrounding copy deliberately hedges to “within days”. Placing this graphic settles that argument by accident. <a href="${u("/brand-check")}">All conflicts →</a></div>
+      <div class="note"><b>Its two market figures still stand; its AFIMAC figure does not.</b> Editorial confirmed 45–90 / 21–35 / 6–7 defendable on 21 Aug 2026 and the artwork was cut to match. <b>45–90 and 21–35 are claims about other routes to labor, not AFIMAC commitments</b>, so the directional timing leaves them alone — and where a page still says 14–35 for an agency, that copy is still the thing out of date. <b>Only the third bar changes.</b> <a href="${u("/brand-check")}">All conflicts →</a></div>
+      <div class="note stop"><b>The graphic still says “6–7 days”; the page no longer does.</b> Under the directional timing adopted 25 Sep 2026 the pull-stat above and every phase card on this page read <b>as little as 72 hours</b>, and the artwork is the last thing here holding the old figure. Its text is outlined to paths, so it cannot be corrected in this repository — <b>it needs a re-cut before this block ships</b>. <a href="${u("/brand-check")}">Every asset affected →</a></div>
      </div>
     </div>`,
               spec: `<b>Elementor:</b> Image, 2-col container. <b>Resolve the two number mismatches before this goes live</b> — a graphic and a table on the same site disagreeing about the same benchmark is worse than either alone.`,

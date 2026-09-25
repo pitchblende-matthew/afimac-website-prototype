@@ -16,6 +16,7 @@ import { u } from "../../lib/base";
 import { B } from "../../data/nav";
 import { photo, artPair } from "../../lib/wireframe";
 import { LOG_DEPLOY } from "../../data/graphics";
+import { SOFT_PHASES } from "../../data/timing";
 import type { Block as BlockType } from "../../lib/types";
 
 const SITUATIONS = [
@@ -37,10 +38,10 @@ const RISKS = [
 ];
 
 const PHASES: [string, string, string[]][] = [
-  ["01 · Consultation", "1–2 days", ["Assess warehouse labor needs", "Align on roles, shifts &amp; site requirements", "Finalize deployment plan"]],
-  ["02 · Mobilization", "2–3 days", ["Select &amp; screen candidates", "Finalize travel &amp; housing", "Site-specific safety training"]],
-  ["03 · Deployment", "live in 5–7 days", ["Crew works your floor", "Establish feedback loop", "Measure &amp; optimize throughput"]],
-  ["04 · Demobilization", "2–3 days", ["Final performance assessment", "Support transition planning", "Release travel crews"]],
+  ["01 · Consultation", SOFT_PHASES[0].timing, ["Assess warehouse labor needs", "Align on roles, shifts &amp; site requirements", "Finalize deployment plan"]],
+  ["02 · Mobilization", SOFT_PHASES[1].timing, ["Select &amp; screen candidates", "Finalize travel &amp; housing", "Site-specific safety training"]],
+  ["03 · Deployment", SOFT_PHASES[2].timing, ["Crew works your floor", "Establish feedback loop", "Measure &amp; optimize throughput"]],
+  ["04 · Demobilization", SOFT_PHASES[3].timing, ["Final performance assessment", "Support transition planning", "Release travel crews"]],
 ];
 
 const INSIGHTS = [
@@ -55,7 +56,7 @@ const blocks: BlockType[] = [
     h: `
   <div class="note stop" style="margin-top:0"><b>1 · It calls phase 1 “Consultation”.</b> Every other deck in this drop says <b>Assessment</b>, and so does the delivered <a href="${u("/how-it-works")}">four-phase timeline</a>. This is the only new page that sides with the live overview instead. <b>The naming question is no longer theoretical — two approved decks now disagree in writing.</b> <a href="${u("/brand-check")}">All conflicts →</a></div>
   <div class="note stop"><b>2 · The URL drops the <code>/industries/</code> level.</b> The deck specifies <code>${B}logistics-warehousing/</code>; the other seven industry pages all live under <code>${B}industries/</code>, which is where the prototype serves this one. One page in a cluster of eight sitting a level up will read as an accident to anyone auditing the site.</div>
-  <div class="note stop"><b>3 · Its speed figures are new again.</b> Agency here is <b>14–30 days</b>, where How It Works, the FAQ and <a href="${u("/vs-traditional")}">Travel vs. Traditional</a> all say <b>14–35</b>. And the AFIMAC promise is a specific <b>5–7 days</b>, where <a href="${u("/vs-local-staffing")}">CSTL vs. Local Staffing</a> says “as fast as 72 hours”. Direct hire at 45–90 does match.</div>
+  <div class="note stop"><b>3 · Its speed figures were new again; one half of that is now moot.</b> The deck put AFIMAC at <b>5–7 days</b> where How It Works and the FAQ said 14–35 for an agency and the decks said 6–7 for AFIMAC. The AFIMAC half is settled — every page now says <b>as little as 72 hours</b>. <b>The agency figure still is not</b>: this deck says <b>14–30 days</b> where the rest of the section says <b>14–35</b> and the 21 Aug ruling says <b>21–35</b>. Three figures for one market claim, which the directional timing does not touch.</div>
   <div class="note stop"><b>4 · The urgent line is the old number.</b> This deck ends on <b>1.844.99.AFIMAC</b>; the <a href="${u("/get-in-touch")}">contact page</a> deck says the published number is <b>1.800.554.4622</b> and flags 1.844.99.AFIMAC as coming from the older F&amp;B doc. Two live decks, two phone numbers.</div>`,
     spec: `All four are decisions, not copy edits. The phone number is the one that costs money if it ships wrong.`,
   },
@@ -71,7 +72,7 @@ const blocks: BlockType[] = [
   <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Let’s talk</a><a class="btn ghost" href="#deploy">See how we deploy</a></div>
   <div style="margin-top:30px">${photo("Hero · wide shot of a live warehouse or distribution center floor · racking aisles, workers in hi-vis, forklift in frame · clean, bright tone under the navy scrim · landscape, min 2000px wide")}</div>
   <div class="note"><b>The delivered hero overlay chip is not placed.</b> <code>afimac-log-hero-chip.svg</code> is built to sit <i>on</i> the photograph, over the navy scrim — with no photograph yet it can only float in an empty box, which reads as a stray graphic rather than a design. It stays in <code>public/graphics/</code> for whoever builds the hero in Elementor. <b>Decided 9 Sep 2026.</b></div>
-  <div class="note stop"><b>And the figure on it is unresolved anyway.</b> The chip reads <b>5–7 days</b>, matching the copy doc and the phase math here — Consultation is 1–2 days on this page against 2–3 elsewhere. Editorial ruled <b>6–7</b>. The delivery built to 5–7 deliberately and says it is one value and a re-run to change. <b>With the chip off the hero and the speed comparison gone, the timeline marker below is now the only place a day figure appears on this page.</b> <a href="${u("/brand-check")}">All conflicts →</a></div>`,
+  <div class="note stop"><b>And the figure on it is now the wrong one entirely.</b> The chip reads <b>5–7 days</b>. Under the directional timing adopted 25 Sep 2026 this page states no phase durations and one figure — <b>as little as 72 hours</b> — so the chip contradicts every other element on it. Its text is outlined to paths, so it needs a re-cut, not an edit. <a href="${u("/brand-check")}">Every asset affected →</a></div>`,
     spec: `<b>Elementor:</b> Container (bg image + navy overlay) · Heading ×3 · Text Editor · Button ×2.`,
   },
 
@@ -87,7 +88,7 @@ const blocks: BlockType[] = [
    <div class="duo risk"><div class="duohead">Risks we help you mitigate</div><div class="duobody"><ul class="warn">${RISKS.map((r) => `<li>${r}</li>`).join("")}</ul></div></div>
   </div>
   <div class="note stop"><b>No speed comparison on this page, confirmed 9 Sep 2026 — so the bars specified here are not being built.</b> The placeholder is removed rather than left standing, because a slot with nothing coming reads as a missing asset. <b>The copy doc still carries the label “Time to a working crew on your floor” with its bar figures under this section; take it out there too.</b></div>
-  <div class="note"><b>Which quietly retires a conflict.</b> Those bars would have run 45–90 / <b>14–30</b> / 5–7 against Automotive’s 45–90 / 21–35 / 6–7 — two of three differing between two pages using one device. The agency figure never made it into a graphic as a result, but <b>14–30 is still in the copy doc</b> against the ruled 21–35, and should be reconciled before that copy ships.</div>`,
+  <div class="note"><b>Which quietly retired a conflict, and the directional timing retires the rest of it.</b> Those bars would have run 45–90 / <b>14–30</b> / 5–7 against Automotive’s 45–90 / 21–35 / 6–7 — two of three differing between two pages using one device. The AFIMAC figure is gone from both now. <b>The agency figure is not</b>: 14–30 is still in this page’s copy doc against the ruled 21–35, and that is a market claim the directional timing does not cover. It still needs reconciling.</div>`,
     spec: `<b>Elementor:</b> Container (2-col) · EK Icon List ×2 · HTML widget (speed bars). Mirrors the overview's two-card structure.`,
   },
 
@@ -111,7 +112,7 @@ const blocks: BlockType[] = [
     cls: "wash",
     n: "BLOCK 05 · HOW WE DEPLOY",
     h: `
-  <h2>A crew on your floor in 5–7 days</h2>
+  <h2>A crew on your floor in as little as 72 hours</h2>
   <div style="margin:24px 0">${artPair(LOG_DEPLOY)}</div>
   <div class="g4">
    ${PHASES.map(([name, dur, items]) => `<div class="card"><div class="blocknum">${name.toUpperCase()} · ${dur.toUpperCase()}</div><ul class="tick" style="margin-top:10px">${items.map((i) => `<li>${i}</li>`).join("")}</ul></div>`).join("")}
@@ -215,7 +216,7 @@ const blocks: BlockType[] = [
   <h2>Nothing is here at phase 0 or 1</h2>
   <p class="lead">Every other page in the Industries dropdown opens onto copy that is already live. This one does not — <b>there is no Logistics &amp; Warehousing page on afimacglobal.com at all</b>, so at phases 0 and 1 this slot is a link to a page that has to be built first.</p>
   <div class="note stop"><b>Which makes it the one industry slot phase 1 cannot ship with.</b> Phase 1 puts the Industries dropdown up; seven of its eight entries point at live pages. If this eighth entry goes up with it, the dropdown carries a dead link. Either this page ships with phase 1, or the slot waits for phase 2. <a href="${u("/launch-phases")}">The rollout plan →</a></div>
-  <div class="note">Set the launch phase to <b>2</b> or later in the pink bar to see the page as written.</div>`}
+  <div class="note"><a href="?phase=2"><b>Switch to phase 2 to see the page as written →</b></a></div>`}
     spec="Prototype chrome. The whole page below is phase 2 work — there is no phase 0 version of it to show."
   />
   {blocks.map((b) => <Block {...b} cls={`${b.cls ?? ""} pv-post`.trim()} />)}
