@@ -11,6 +11,7 @@
  */
 import { B } from "./nav";
 import type { Art, ArtPair } from "./graphics";
+import { AUTO_SPEED, AUTO_DEPLOY_TIMELINE, FB_PLANT_FLOW } from "./graphics";
 import type { EmbedKey } from "../lib/embeds";
 
 export type { Art, ArtPair };
@@ -82,24 +83,8 @@ export const INDUSTRIES: Record<string, Industry> = {
       caption:
         "<b>Delivered artwork, and the one to use if you go with images.</b> Seven stations and all <b>29</b> roles. The delivery built it because the interactive widget shows one station at a time, so a screenshot of that drops 24 of them. PNG only — the slim rail above is the SVG alternative.",
     },
-    speedArt: {
-      src: "/graphics/afimac-auto-speed-comparison.svg",
-      mobile: "/graphics/afimac-auto-speed-comparison-mobile.svg",
-      alt: "Time to an on-site crew: direct local hire 45 to 90 days, temp or contract agency 21 to 35 days, AFIMAC travel labor 6 to 7 days",
-      width: 2400,
-      height: 1072,
-      caption:
-        "<b>Delivered artwork — and the landscape cut this page asked for has arrived.</b> Real SVG, with a separately laid-out narrow version under 780px. Re-cut after the 21 Aug 2026 editorial ruling: the axis label and the “measured from first call” footnote were dropped because both framed 6–7 days as a measurement rather than a stated capability, and the canvas was re-cropped to 2400×1072 as a result.",
-    },
-    deployArt: {
-      src: "/graphics/afimac-auto-deployment-timeline.svg",
-      mobile: "/graphics/afimac-auto-deployment-timeline-mobile.svg",
-      alt: "Automotive deployment timeline from first call to a crew on the floor",
-      width: 2400,
-      height: 600,
-      caption:
-        "<b>Delivered artwork, replacing the reconstruction.</b> The real deployment timeline, 2400×600, with a stacked version under 780px.",
-    },
+    speedArt: AUTO_SPEED,
+    deployArt: AUTO_DEPLOY_TIMELINE,
     lineMapEmbed: "auto-line-map",
     statBandEmbed: "auto-stat-band",
     roles: ["CNC Operators", "Welders", "Assemblers", "Machinists", "Material Handlers", "Quality Inspectors"],
@@ -115,30 +100,23 @@ export const INDUSTRIES: Record<string, Industry> = {
     heroImg: "Hero photo, right column · F&amp;B production floor · muted industrial tone",
     rolesTitle: "Plant staffing, role-ready",
     map: "Seven-station production line map · HTML widget · sits above the role grid",
-    rolesArt: {
-      src: "/graphics/afimac-fb-line-map-roles.svg",
-      alt: "Food and beverage production line across seven stations, with every crew listed beneath each station",
-      width: 2400,
-      height: 1220,
-      caption:
-        "<b>Delivered artwork.</b> Every station and every crew in one image, for placing pictures rather than embedding. The widget above reveals one station at a time, which is right on the page but means a screenshot of it drops six of the seven.",
-    },
+    rolesArt: FB_PLANT_FLOW,
     deployArt: {
       src: "/graphics/afimac-fb-deployment-timeline.svg",
       mobile: "/graphics/afimac-fb-deployment-timeline-mobile.svg",
-      alt: "Food and beverage deployment timeline from first call to a crew on the line",
+      alt: "Assessment, timing varies by engagement. Mobilization, can begin rapidly once approved. Deployment, crew on your line in as little as 72 hours. Demobilization, in as little as 48 hours.",
       width: 2400,
       height: 600,
       caption:
-        "<b>Delivered artwork.</b> Deployment timeline, 2400×600, with a separately laid-out stacked version under 780px.",
+        "<b>Delivered artwork.</b> <b>Re-cut 5 Oct 2026</b> to the directional timing. Four phases on equal segments, Assessment first, no day scale. Stacked version under 780px.",
     },
     /** NOT PLACED — see the hero block note. Kept so the file stays findable. */
     heroChip: {
       src: "/graphics/afimac-fb-hero-chip.svg",
-      alt: "Overlay chip: days from call to crew on your line",
+      alt: "Overlay chip: as little as 72 hours from call to crew on your line",
       width: 588,
-      height: 277,
-      caption: "<b>Delivered artwork.</b> Overlay chip, sits on the hero photograph over the navy scrim.",
+      height: 310,
+      caption: "<b>Delivered artwork.</b> <b>Re-cut 5 Oct 2026</b>, now reading as little as 72 hours. Sits on the hero photograph over the navy scrim.",
       maxWidth: 300,
     },
     lineMapEmbed: "fb-line-map",
