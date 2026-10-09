@@ -23,9 +23,12 @@ export const copyPh = (n = 4): string => `<div class="ph t"></div>${bars(n)}`;
 
 /** A dashed photo/illustration panel carrying its art-direction note. */
 /**
- * A photography placeholder. The art direction inside it is a production note,
- * so it is wrapped rather than loose: with notes switched off the words go and
- * the dashed panel stays, which is what the reviewer asked to see.
+ * A placeholder for an image that does not exist yet.
+ *
+ * The art direction inside it is wrapped so the stylesheet can label it. It is
+ * deliberately NOT treated as a note: notes are observations about the work,
+ * and this is the brief for a missing asset — the reviewer needs it in every
+ * view, or an empty dashed box is all that says anything is outstanding.
  */
 export const photo = (t: string): string => `<div class="photo"><span class="art">${t}</span></div>`;
 

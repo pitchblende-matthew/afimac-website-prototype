@@ -133,9 +133,19 @@ body.nonotes .figure figcaption,
 body.nonotes .caseart .cap{display:none}
 body.nonotes .figure,
 body.nonotes .figure.embed{border-left:0;padding-left:0}
-/* Art direction inside a photography placeholder is a note as well. The panel
-   stays so the layout still shows that a picture belongs there. */
-body.nonotes .photo .art{display:none}
+/* Art direction inside a placeholder is NOT a note — it is the brief for an
+   image that does not exist yet, and the reviewer needs it whatever the
+   toggles say. It stays visible in every view, inside the panel, labelled so
+   a missing asset reads as missing rather than as an empty box. */
+.photo .art{display:block;max-width:62ch}
+.photo .art::before{content:"Image to create";display:block;margin-bottom:8px;
+  font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;
+  color:#8a5a06;background:#fdf3e0;border:1px solid #efd9ad;border-radius:3px;
+  padding:3px 9px;align-self:center;width:max-content;margin-left:auto;margin-right:auto}
+/* On the navy and blue bands the chip has to carry its own contrast. */
+.blue .photo .art::before,.dark .photo .art::before,
+.sky .photo .art::before,.readiness .photo .art::before{
+  color:#ffe6bd;background:rgba(255,255,255,.12);border-color:rgba(255,224,170,.5)}
 /* A band whose every element is switched off, measured at toggle time.
    !important because the launch-phase rules below are more specific — a band
    revealed by the phase swap must still collapse when it has nothing in it. */
