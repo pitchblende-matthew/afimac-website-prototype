@@ -9,10 +9,13 @@
 import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
-import { phaseAudit, WORK_SHORT, type Work } from "../data/nav";
+import { phaseAudit, PHASES, WORK_SHORT, type Work } from "../data/nav";
 import type { Block as BlockType } from "../lib/types";
 
 const audit = phaseAudit();
+
+/** Read rather than written down: this number moved when phase 2 was split. */
+const RESOURCES_PHASE = PHASES.find((p) => p.name === "Resources")?.n ?? 5;
 const ORDER: Work[] = ["settled", "ready", "partial", "todo"];
 
 /** Phases that still put a nav slot over a page that does not exist. */
@@ -41,10 +44,13 @@ const phaseBlocks: BlockType[] = audit.map((p) => ({
   <p class="lead">${p.adds}</p>
   <div class="btns"><a class="btn ghost" href="?phase=${p.n}">Preview phase ${p.n} →</a></div>${
     p.n === 1
-      ? `\n  <div class="note stop"><b>Phase 1 adds the Industries slot, not new industry copy.</b> Seven of the eight entries open onto the pages that are live today, word for word — including <a href="${u("/industries/automotive")}">Automotive</a> and <a href="${u("/industries/food-beverage")}">Food &amp; Beverage</a>, whose rewrites are written but do not ship until phase 2. The eighth, <a href="${u("/industries/logistics-warehousing")}">Logistics &amp; Warehousing</a>, has no live page at all. <b>Set the phase to 1 and open any industry page to see exactly what this slot delivers.</b></div>`
+      ? `\n  <div class="note"><b>Phase 1 adds the Industries slot, not new industry copy.</b> Seven of the eight entries open onto the pages that are live today, word for word — including <a href="${u("/industries/automotive")}">Automotive</a> and <a href="${u("/industries/food-beverage")}">Food &amp; Beverage</a>, whose rewrites are written but do not ship until phase 3. <b>The eighth, <a href="${u("/industries/logistics-warehousing")}">Logistics &amp; Warehousing</a>, is no longer in this phase at all</b> — it has no live page, so its slot would have been a dead link. It moves to phase 3 with the rewrites.</div>`
       : p.n === 2
-        ? `\n  <div class="note"><b>This is where the industry copy actually changes.</b> Automotive and Food &amp; Beverage swap to their rewrites; the other five keep the copy they have had since phase 0, because nothing has been written for them.</div>`
-        : ""
+        ? `\n  <div class="note"><b>Nothing changes on the industry pages here.</b> This phase adds the How It Works dropdown. The Industries slot has been up since phase 1 and still opens onto the live copy — <a href="${u("/industries/automotive")}?phase=2">see for yourself</a>.</div>`
+        : p.n === 3
+          ? `\n  <div class="note"><b>This is where the industry copy actually changes</b>, and it is the half of the old phase 2 that was split out. Automotive and Food &amp; Beverage swap to their rewrites and Logistics &amp; Warehousing arrives; the other five keep the copy they have had since phase 0, because nothing has been written for them.</div>
+  <div class="note"><b>The split is why the dead link is gone.</b> Under the old order the Logistics slot went up at phase 1 against a page that did not exist until phase 2. Now the slot and the page arrive together.</div>`
+          : ""
   }
   ${
     p.entries.length
@@ -107,7 +113,7 @@ const blocks: BlockType[] = [
    </div>
    <div>
     <h3>The shape to watch</h3>
-    <p>Phase 4 now carries three fully written child pages — White Papers, Case Studies and Sales Sheets — hanging off a Resources hub with no approved copy of its own. <b>The leaves are ready and the branch is not.</b> Either write the hub, or let one of the three children serve as the landing page and drop the hub from the nav.</p>
+    <p>Phase ${RESOURCES_PHASE} now carries three fully written child pages — White Papers, Case Studies and Sales Sheets — hanging off a Resources hub with no approved copy of its own. <b>The leaves are ready and the branch is not.</b> Either write the hub, or let one of the three children serve as the landing page and drop the hub from the nav.</p>
     <div class="note stop" style="margin-top:22px"><b>Written is not the same as shippable.</b> Case Studies needs client permissions before four of its five rows can run, and Sales Sheets has no finished asset behind any of its five downloads. Those are asset problems, not copy problems, and this table cannot see them — read each page for its own blockers.</div>
    </div>
   </div>`,

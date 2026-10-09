@@ -26,7 +26,7 @@ export type Work = "settled" | "ready" | "partial" | "todo";
  * Phase 0 is today: the Overview and the Industries pages are live, but there is
  * no CSTL sub-nav at all. Each later phase adds to the one before it.
  */
-export type Phase = 0 | 1 | 2 | 3 | 4 | 5;
+export type Phase = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 export const WORK_LABEL: Record<Work, string> = {
   settled: "Live · no change planned",
@@ -106,7 +106,12 @@ export const NAV: NavItem[] = [
       k("Food &amp; Beverage", "/industries/food-beverage", "partial", true),
       k("Industrial Equipment", "/industries/industrial-equipment", "todo", true),
       k("Oil &amp; Energy", "/industries/oil-energy", "todo", true),
-      k("Logistics &amp; Warehousing — needs a slot", "/industries/logistics-warehousing", "ready"),
+      {
+        ...k("Logistics &amp; Warehousing — needs a slot", "/industries/logistics-warehousing", "ready"),
+        // The only genuinely new page in the cluster, so its slot cannot go up
+        // with the others at phase 1 — there would be nothing behind it.
+        phase: 3,
+      },
     ],
   },
 
@@ -114,7 +119,7 @@ export const NAV: NavItem[] = [
     label: "Roles",
     route: "/roles",
     work: "ready",
-    phase: 3,
+    phase: 4,
     kids: [
       k("CNC Operators", "/roles/cnc-operators", "ready"),
       k("Forklift Operators", "/roles/forklift-operators", "ready"),
@@ -131,7 +136,7 @@ export const NAV: NavItem[] = [
     label: "Resources",
     route: "/resources",
     work: "todo",
-    phase: 4,
+    phase: 5,
     kids: [
       k("White Papers", "/resources/white-papers", "ready"),
       k("Named Case Studies", "/resources/case-studies", "ready"),
@@ -139,7 +144,7 @@ export const NAV: NavItem[] = [
     ],
   },
 
-  { label: "Pricing &amp; ROI", route: "/pricing-roi", work: "todo", phase: 5 },
+  { label: "Pricing &amp; ROI", route: "/pricing-roi", work: "todo", phase: 6 },
 ];
 
 /** Dropdown caption: "2 part-written · 5 to write · 7 live". */
@@ -191,10 +196,11 @@ export interface LaunchPhase {
 export const PHASES: LaunchPhase[] = [
   { n: 0, name: "Current state", adds: "No CSTL sub-nav. The Overview and the seven industry pages are live, but nothing links them as a section." },
   { n: 1, name: "Section exists", adds: "Overview, Industries and Contact. The first phase in which CSTL reads as a section rather than a set of loose pages." },
-  { n: 2, name: "How It Works", adds: "The How It Works dropdown and its seven pages." },
-  { n: 3, name: "Roles", adds: "The Roles dropdown and its eight pages." },
-  { n: 4, name: "Resources", adds: "The Resources dropdown and the gated library." },
-  { n: 5, name: "Pricing & ROI", adds: "The last nav slot." },
+  { n: 2, name: "How It Works", adds: "The How It Works dropdown and its seven pages. The Industries slot is already up, and still opens onto the copy that is live today." },
+  { n: 3, name: "Industry pages", adds: "The rewritten industry copy, and Logistics &amp; Warehousing — the one page in the cluster that does not exist yet. No new nav slot except that one: this phase changes what the Industries dropdown opens onto." },
+  { n: 4, name: "Roles", adds: "The Roles dropdown and its eight pages." },
+  { n: 5, name: "Resources", adds: "The Resources dropdown and the gated library." },
+  { n: 6, name: "Pricing & ROI", adds: "The last nav slot." },
 ];
 
 /** Every entry that first appears in the sub-nav at this phase. */

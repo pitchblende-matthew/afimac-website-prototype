@@ -439,70 +439,39 @@ body.noassets .assetband{display:none}
    would just be the same page twice.                                     */
 .pv-pre{display:none}
 body[data-phase="0"] .pv-pre,
-body[data-phase="1"] .pv-pre{display:block}
+body[data-phase="1"] .pv-pre,
+body[data-phase="2"] .pv-pre{display:block}
 body[data-phase="0"] .pv-post,
-body[data-phase="1"] .pv-post{display:none}
+body[data-phase="1"] .pv-post,
+body[data-phase="2"] .pv-post{display:none}
 /* The swap also covers the crumb-bar badge, which is inline — the block
    default above would drop the URL beside it onto its own line. */
 body[data-phase="0"] .tag.pv-pre,
-body[data-phase="1"] .tag.pv-pre{display:inline-block}
+body[data-phase="1"] .tag.pv-pre,
+body[data-phase="2"] .tag.pv-pre{display:inline-block}
 /* Banners that speak to one side of that swap. */
 .pvnote-pre{display:none}
 body[data-phase="0"] .pvnote-pre,
-body[data-phase="1"] .pvnote-pre{display:block}
+body[data-phase="1"] .pvnote-pre,
+body[data-phase="2"] .pvnote-pre{display:block}
 body[data-phase="0"] .pvnote-post,
-body[data-phase="1"] .pvnote-post{display:none}
+body[data-phase="1"] .pvnote-post,
+body[data-phase="2"] .pvnote-post{display:none}
 
 /* ---- launch-phase preview -------------------------------------------
    The reviewer picks a launch phase in the control bar; body[data-phase]
    then hides every nav entry that has not shipped by then, so the sub-nav
    shows what the section actually looks like at that point in the rollout.
    No attribute = show everything, which is the default. */
-body[data-phase="0"] .snitem[data-min="1"],
-body[data-phase="0"] .dd a[data-min="1"],
-body[data-phase="0"] .snCta[data-min="1"],
-body[data-phase="0"] .snitem[data-min="2"],
-body[data-phase="0"] .dd a[data-min="2"],
-body[data-phase="0"] .snCta[data-min="2"],
-body[data-phase="0"] .snitem[data-min="3"],
-body[data-phase="0"] .dd a[data-min="3"],
-body[data-phase="0"] .snCta[data-min="3"],
-body[data-phase="0"] .snitem[data-min="4"],
-body[data-phase="0"] .dd a[data-min="4"],
-body[data-phase="0"] .snCta[data-min="4"],
-body[data-phase="0"] .snitem[data-min="5"],
-body[data-phase="0"] .dd a[data-min="5"],
-body[data-phase="0"] .snCta[data-min="5"]{display:none}
-body[data-phase="1"] .snitem[data-min="2"],
-body[data-phase="1"] .dd a[data-min="2"],
-body[data-phase="1"] .snCta[data-min="2"],
-body[data-phase="1"] .snitem[data-min="3"],
-body[data-phase="1"] .dd a[data-min="3"],
-body[data-phase="1"] .snCta[data-min="3"],
-body[data-phase="1"] .snitem[data-min="4"],
-body[data-phase="1"] .dd a[data-min="4"],
-body[data-phase="1"] .snCta[data-min="4"],
-body[data-phase="1"] .snitem[data-min="5"],
-body[data-phase="1"] .dd a[data-min="5"],
-body[data-phase="1"] .snCta[data-min="5"]{display:none}
-body[data-phase="2"] .snitem[data-min="3"],
-body[data-phase="2"] .dd a[data-min="3"],
-body[data-phase="2"] .snCta[data-min="3"],
-body[data-phase="2"] .snitem[data-min="4"],
-body[data-phase="2"] .dd a[data-min="4"],
-body[data-phase="2"] .snCta[data-min="4"],
-body[data-phase="2"] .snitem[data-min="5"],
-body[data-phase="2"] .dd a[data-min="5"],
-body[data-phase="2"] .snCta[data-min="5"]{display:none}
-body[data-phase="3"] .snitem[data-min="4"],
-body[data-phase="3"] .dd a[data-min="4"],
-body[data-phase="3"] .snCta[data-min="4"],
-body[data-phase="3"] .snitem[data-min="5"],
-body[data-phase="3"] .dd a[data-min="5"],
-body[data-phase="3"] .snCta[data-min="5"]{display:none}
-body[data-phase="4"] .snitem[data-min="5"],
-body[data-phase="4"] .dd a[data-min="5"],
-body[data-phase="4"] .snCta[data-min="5"]{display:none}
+/* Hide every sub-nav entry whose own phase is later than the chosen one.
+   Written as "not any phase up to N" so adding a phase is one line rather
+   than nine selectors — data-min appears only on sub-nav entries. */
+body[data-phase="0"] [data-min]:not([data-min="0"]){display:none}
+body[data-phase="1"] [data-min]:not([data-min="0"]):not([data-min="1"]){display:none}
+body[data-phase="2"] [data-min]:not([data-min="0"]):not([data-min="1"]):not([data-min="2"]){display:none}
+body[data-phase="3"] [data-min]:not([data-min="0"]):not([data-min="1"]):not([data-min="2"]):not([data-min="3"]){display:none}
+body[data-phase="4"] [data-min]:not([data-min="0"]):not([data-min="1"]):not([data-min="2"]):not([data-min="3"]):not([data-min="4"]){display:none}
+body[data-phase="5"] [data-min]:not([data-min="0"]):not([data-min="1"]):not([data-min="2"]):not([data-min="3"]):not([data-min="4"]):not([data-min="5"]){display:none}
 .phase0note{display:none;font-size:12.5px;color:#7d8b98;font-style:italic}
 body[data-phase="0"] .phase0note{display:inline}
 body[data-phase="0"] .mobtoggle{display:none}
