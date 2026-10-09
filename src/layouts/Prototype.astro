@@ -233,8 +233,34 @@ const TOGGLES = [
           JSON.stringify(Object.fromEntries(boxes.map((b) => [b.dataset.toggle!, b.checked]))),
         );
 
+      /**
+       * Collapse any band left with nothing in it.
+       *
+       * Several blocks are notes and nothing else, so switching the notes off
+       * used to leave a 140px empty stripe where the observation had been.
+       * Measured rather than guessed at build time: a band is blank when every
+       * child of its wrap is hidden, which stays correct whatever the mix of
+       * toggles and whatever a block happens to contain.
+       */
+      const collapseEmpty = () => {
+        document.querySelectorAll<HTMLElement>("section.block").forEach((sec) => {
+          sec.classList.remove("blank");
+          // A band already hidden for another reason — the launch-phase swap
+          // hides a whole stack — measures as zero too. Leave those alone, or
+          // the blank class would outlive the reason and keep them hidden when
+          // the phase changes back.
+          if (sec.offsetHeight === 0) return;
+          const host = sec.querySelector<HTMLElement>(".wrap") ?? sec;
+          const filled = Array.from(host.children).some(
+            (el) => (el as HTMLElement).offsetHeight > 0,
+          );
+          if (!filled) sec.classList.add("blank");
+        });
+      };
+
       const apply = () => {
         boxes.forEach((b) => document.body.classList.toggle(b.dataset.toggle!, !b.checked));
+        collapseEmpty();
         save();
       };
 
@@ -299,6 +325,9 @@ const TOGGLES = [
         else document.body.removeAttribute("data-phase");
         syncUrl(v);
         opts.forEach((o) => o.setAttribute("aria-pressed", String((o.dataset.phase || "") === v)));
+        // The swap changes which stack is on screen, so what counts as a blank
+        // band changes with it.
+        collapseEmpty();
         if (cap) {
           cap.innerHTML = v
             ? `<b>Phase ${v}.</b> ${PHASE_ADDS[v] || ""} <span class="phurl">This page is at <code>?phase=${v}</code> — copy the address to share this view.</span> <a href="${

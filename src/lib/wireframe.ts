@@ -22,7 +22,12 @@ export const bars = (n: number, cls = ""): string =>
 export const copyPh = (n = 4): string => `<div class="ph t"></div>${bars(n)}`;
 
 /** A dashed photo/illustration panel carrying its art-direction note. */
-export const photo = (t: string): string => `<div class="photo">${t}</div>`;
+/**
+ * A photography placeholder. The art direction inside it is a production note,
+ * so it is wrapped rather than loose: with notes switched off the words go and
+ * the dashed panel stays, which is what the reviewer asked to see.
+ */
+export const photo = (t: string): string => `<div class="photo"><span class="art">${t}</span></div>`;
 
 /** A 3-up grid of numbered placeholder cards, with a spec caption. */
 export const cards = (n: number, label: string): string =>

@@ -124,6 +124,24 @@ footer.site .logo .logotext,.logo.logo-rev .logotext{color:#fff}
 
 /* what each toggle hides */
 body.nonotes .note{display:none}
+/* Captions under artwork are observations too — "Delivered artwork…", "Live
+   embed…", "Needs a re-cut…" — so they go with the notes rather than staying
+   behind on a page the reviewer asked to see clean. The green and amber rules
+   go with them: they are the delivered/stand-in signal, and a coloured bar
+   beside no comment reads as a styling bug. */
+body.nonotes .figure figcaption,
+body.nonotes .caseart .cap{display:none}
+body.nonotes .figure,
+body.nonotes .figure.embed{border-left:0;padding-left:0}
+/* Art direction inside a photography placeholder is a note as well. The panel
+   stays so the layout still shows that a picture belongs there. */
+body.nonotes .photo .art{display:none}
+/* A band whose every element is switched off, measured at toggle time.
+   !important because the launch-phase rules below are more specific — a band
+   revealed by the phase swap must still collapse when it has nothing in it. */
+.block.blank{display:none!important}
+/* Blocks that are observations about the page rather than part of it. */
+body.nonotes .protoblock{display:none}
 body.nometa .pagemeta{display:none}
 body.nolabels .blocklabel{display:none}
 
