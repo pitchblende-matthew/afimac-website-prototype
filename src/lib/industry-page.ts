@@ -71,9 +71,9 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
     ? [
         {
           cls: "wash protoblock",
-          n: "PHASE 0 · WHAT THIS PAGE CARRIES TODAY",
+          n: "PHASES 0–2 · WHAT THIS PAGE CARRIES TODAY",
           h: `
-  <p class="lead">Everything below this block is the <a href="${u("/launch-phases")}">phase 2</a> update. This is <b>phase 0</b> — the page as published, read off afimacglobal.com on 9 Sep 2026.</p>
+  <p class="lead">Everything below this block is the <a href="${u("/launch-phases")}">phase 3</a> update. This is <b>phase 0</b> — the page as published, read off afimacglobal.com on 9 Sep 2026.</p>
   <div class="tscroll" style="margin-top:20px"><table class="cmp"><thead><tr><th>Block</th><th>As live today</th><th class="hl">After the update</th></tr></thead><tbody>
    <tr><th>H1</th><td>${live.h1}<br><span style="color:var(--spec)">${live.tagline}</span></td><td class="hl">${o.title}</td></tr>
    <tr><th>Roles</th><td>The same <b>15</b> generic roles as every other industry page, in three groups: ${LIVE_ROLE_GROUPS.map(([g]) => g).join(" · ")}</td><td class="hl">${o.roles.length} written for ${o.short}</td></tr>

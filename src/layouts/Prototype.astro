@@ -60,7 +60,7 @@ const TOGGLES = [
          address bar, so the URL always states the phase on screen. */
       try {
         var q = new URLSearchParams(location.search).get("phase");
-        var ph = /^[0-5]$/.test(q || "") ? q : q === null ? localStorage.getItem("afimac-cstl:phase") : "";
+        var ph = /^[0-6]$/.test(q || "") ? q : q === null ? localStorage.getItem("afimac-cstl:phase") : "";
         if (ph) document.body.setAttribute("data-phase", ph);
       } catch (e) {}
     </script>
@@ -349,7 +349,7 @@ const TOGGLES = [
       let startPhase = "";
       try {
         const q = new URLSearchParams(location.search).get(PHASE_PARAM);
-        startPhase = /^[0-5]$/.test(q || "") ? q! : q === null ? localStorage.getItem(PHASE_KEY) || "" : "";
+        startPhase = /^[0-6]$/.test(q || "") ? q! : q === null ? localStorage.getItem(PHASE_KEY) || "" : "";
       } catch {}
       applyPhase(startPhase);
       opts.forEach((o) =>
