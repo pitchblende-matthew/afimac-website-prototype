@@ -14,8 +14,8 @@ import Prototype from "../../layouts/Prototype.astro";
 import Block from "../../components/Block.astro";
 import { u } from "../../lib/base";
 import { B } from "../../data/nav";
-import { photo, artPair } from "../../lib/wireframe";
-import { LOG_DEPLOY } from "../../data/graphics";
+import { photo, artPair, figure } from "../../lib/wireframe";
+import { LOG_DEPLOY, LOG_FLOOR_PLAN } from "../../data/graphics";
 import { SOFT_PHASES } from "../../data/timing";
 import type { Block as BlockType } from "../../lib/types";
 
@@ -72,7 +72,7 @@ const blocks: BlockType[] = [
   <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Let’s talk</a><a class="btn ghost" href="#deploy">See how we deploy</a></div>
   <div style="margin-top:30px">${photo("Hero · wide shot of a live warehouse or distribution center floor · racking aisles, workers in hi-vis, forklift in frame · clean, bright tone under the navy scrim · landscape, min 2000px wide")}</div>
   <div class="note"><b>The delivered hero overlay chip is not placed.</b> <code>afimac-log-hero-chip.svg</code> is built to sit <i>on</i> the photograph, over the navy scrim — with no photograph yet it can only float in an empty box, which reads as a stray graphic rather than a design. It stays in <code>public/graphics/</code> for whoever builds the hero in Elementor. <b>Decided 9 Sep 2026.</b></div>
-  <div class="note stop"><b>And the figure on it is now the wrong one entirely.</b> The chip reads <b>5–7 days</b>. Under the directional timing adopted 25 Sep 2026 this page states no phase durations and one figure — <b>as little as 72 hours</b> — so the chip contradicts every other element on it. Its text is outlined to paths, so it needs a re-cut, not an edit. <a href="${u("/brand-check")}">Every asset affected →</a></div>`,
+  <div class="note"><b>The chip has been re-cut and now matches the page.</b> It read <b>5–7 days</b>; since the 5 Oct 2026 delivery it reads <b>as little as 72 hours from call to crew on your floor</b>, the same figure as the deploy block. Still not placed, for the reason above.</div>`,
     spec: `<b>Elementor:</b> Container (bg image + navy overlay) · Heading ×3 · Text Editor · Button ×2.`,
   },
 
@@ -97,13 +97,14 @@ const blocks: BlockType[] = [
     h: `
   <h2>The skilled crews that keep freight moving</h2>
   <p class="lead">Drawn from our network of 20,000+ skilled and unskilled workers: vetted, mobile, and ready to work.</p>
-  <div class="note"><b>The seven-card role grid is gone, because the widget already carries every one of them.</b> The delivery's note is explicit: “the separate <code>EK Icon Box ×7</code> grid is redundant if you use it — pick one.” Picked. <b>The flat roles map ships alongside the widget and is deliberately not rendered here either</b> — same content, same either/or: the widget reveals one station at a time, which is right on the page; <code>afimac-cstl-logistics-line-map-roles.png</code> stays in <code>public/graphics/</code> for print, email and PDF, where nothing is clickable.</div>
+  <div class="note"><b>The seven-card role grid is gone, because the widget already carries every one of them.</b> The delivery's note is explicit: “the separate <code>EK Icon Box ×7</code> grid is redundant if you use it — pick one.” Picked. <b>The static version ships alongside the widget and sits collapsed under it rather than open on the page</b> — same content, same either/or: the widget reveals one station at a time, which is right on the page, and the static version is for print, email and PDF, where nothing is clickable. <b>As of 5 Oct 2026 the static version is a floor plan</b> rather than the seven-station rail.</div>
   <div class="note"><b>And the separate “Don’t see the role?” card is gone with it.</b> The widget ends on that exact CTA already — same line, same <b>Ask about a role</b> button — so building it a second time as an Elementor card put the same offer on screen twice, a few hundred pixels apart. The widget’s own build comment says to delete its callout <i>if</i> the card is built separately; here the card is the one that goes, because the widget’s version cannot be separated from the widget.</div>
   <div class="note"><b>Thirty roles in seven groups, against six flat roles on every other industry page.</b> That is a genuinely different page, not a variant — and it is the reason this one does not run the shared template. Worth confirming the depth is wanted before it ships, because it sets an expectation the other seven pages will be measured against.</div>`,
     embed: {
       name: "log-line-map",
       caption: `<b>Live embed, delivered.</b> The HTML widget itself, not a picture of it — click or tab a station to see its crews. Scoped to its own class prefix, loads nothing external, uses no browser storage.`,
     },
+    hEnd: `<details class="staticart" style="margin:18px 0 6px"><summary style="cursor:pointer;font-weight:700;color:var(--cstl-blue)">Static version, for print, email and PDF</summary><div style="margin-top:16px">${figure(LOG_FLOOR_PLAN)}</div></details>`,
     spec: `<b>Elementor:</b> HTML widget (paste the whole file) — that is the entire block. <b>No separate callout card:</b> the widget carries its own “Don’t see the role?” CTA. <b>The EK Icon Box ×7 grid this block used to spec is redundant</b> — the widget carries every role.`,
   },
 
@@ -117,9 +118,9 @@ const blocks: BlockType[] = [
   <div class="g4">
    ${PHASES.map(([name, dur, items]) => `<div class="card"><div class="blocknum">${name.toUpperCase()} · ${dur.toUpperCase()}</div><ul class="tick" style="margin-top:10px">${items.map((i) => `<li>${i}</li>`).join("")}</ul></div>`).join("")}
   </div>
-  <div class="note stop"><b>This block is where the naming split shows.</b> Phase 1 is <b>Consultation</b> here and <b>Assessment</b> on <a href="${u("/how-it-works")}">How It Works</a>, <a href="${u("/day-1-ready")}">Day 1 Ready</a>, the <a href="${u("/pre-deployment")}">checklist</a> and all seven role pages. The delivered four-phase timeline says Assessment too. <b>One of the two has to move.</b></div>
-  <div class="note"><b>A seven-day timeline is also a fourth day-scale graphic in the section</b>, after the delivered four-phase bar, the Day 1 Ready stepped version and the checklist swimlane. This one is the only one that commits to specific day numbers.</div>`,
-    spec: `<b>Elementor:</b> HTML widget (7-day bar) · EK Icon Box ×4. Phase names must match whatever the naming decision lands on.`,
+  <div class="note stop"><b>This block is where the naming split shows.</b> Phase 1 is <b>Consultation</b> here and <b>Assessment</b> on <a href="${u("/how-it-works")}">How It Works</a>, <a href="${u("/day-1-ready")}">Day 1 Ready</a>, the <a href="${u("/pre-deployment")}">checklist</a> and all seven role pages. Every delivered graphic says Assessment too, including the timeline above it since the 5 Oct re-cut, and the delivery reports the approved option card does as well. <b>If that is settled, the cards are what move.</b></div>
+  <div class="note"><b>The seven-day scale is gone.</b> Re-cut 5 Oct 2026: the timeline used to put the crew on your floor at <b>day 5</b> on a seven-day bar. It now runs the same four phases, in the same words, as the shared <a href="${u("/how-it-works")}">How It Works</a> timeline, with one figure, <b>as little as 72 hours</b>, which is also what this block’s H2 says.</div>`,
+    spec: `<b>Elementor:</b> Image (SVG timeline, stacked cut under 780px) · EK Icon Box ×4. Phase names must match whatever the naming decision lands on.`,
   },
 
   {

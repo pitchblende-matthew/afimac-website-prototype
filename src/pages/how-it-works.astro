@@ -4,12 +4,12 @@ import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { liveImg, figure, artPair } from "../lib/wireframe";
-import { PHASE_TIMELINE, MOBILIZATION_MAP, FORM_ILLUSTRATION } from "../data/graphics";
+import { PHASE_TIMELINE, MOBILIZATION_MAP, FORM_ILLUSTRATION, INCLUDED_ICONS } from "../data/graphics";
 import { GAP_ART, CASE_ART, postArt, postTitleDrift } from "../data/live-media";
 import { B } from "../data/nav";
 import { photo } from "../lib/wireframe";
 import type { Block as BlockType } from "../lib/types";
-import { SOFT_PHASES, SOFT, RECUT_NOTE } from "../data/timing";
+import { SOFT_PHASES, SOFT } from "../data/timing";
 
 const FAQ: [string, string][] = [
   ["How does travel labor work?", "AFIMAC sources, screens, travels, houses, and supervises a team, then deploys them to your site for the length of the situation. You get a working crew and a single point of contact, not a stack of resumes to manage."],
@@ -27,6 +27,17 @@ const RELATED: [string, string][] = [
   ["When AFIMAC is the Right Fit", "confirmed live"],
   ["Ready on Day 1: The Case for Travel Labor at Your Next Line Launch", "directional"],
 ];
+
+/**
+ * Block 06's checklist with its delivered icons. Hoisted out of the block
+ * because the Astro compiler cannot parse a third level of nested template
+ * interpolation. The icons are navy line work cut for light grounds, so on the
+ * blue band each sits on a white tile.
+ */
+const iconItem = (i: { src: string; label: string }) =>
+  `<li style="display:flex;align-items:center;gap:16px;margin:0 0 16px"><span style="flex:0 0 64px;width:64px;height:64px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center"><img src="${u(i.src)}" alt="" width="48" height="48" style="width:48px;height:48px;display:block"></span><span>${i.label}</span></li>`;
+const ICON_LIST_A = INCLUDED_ICONS.slice(0, 4).map(iconItem).join("");
+const ICON_LIST_B = INCLUDED_ICONS.slice(4).map(iconItem).join("");
 
 const blocks: BlockType[] = [
   {
@@ -65,7 +76,8 @@ const blocks: BlockType[] = [
   <p class="lead">Every engagement follows the same proven path. Timing varies by role and location, but the sequence does not.</p>
   <div class="note"><b>Directional timing, adopted 25 Sep 2026.</b> The cards below name a window rather than a day count for each phase. ${SOFT.stance} The one number the section still states about AFIMAC's own speed is <b>${SOFT.anchor}</b>, and it is the anchor the “as little as” language rests on — <a href="${u("/brand-check")}">the full record →</a>.</div>
   <div style="margin:26px 0">${artPair(PHASE_TIMELINE)}</div>
-  <div class="note stop"><b>The graphic still carries the day counts the cards no longer do.</b> It draws a day-scale bar with <b>Assessment 1–2 days</b>, <b>Mobilization 2–3</b> and <b>Demobilization 2–3</b> — the hard timeline, which the soft direction replaces. <b>It needs a re-cut before this block can ship</b>, and it is the asset the rest of the section leans on hardest: it appears here and in the How We Deploy block on all three industry pages. ${RECUT_NOTE} <a href="${u("/brand-check")}">Every asset affected →</a></div>
+  <div class="note"><b>The graphic and the cards now say the same thing.</b> Re-cut 5 Oct 2026: the day-scale bar is gone, the four segments are equal width so the bar reads as a sequence rather than a schedule, and each phase carries the same line as its card below. The same file runs in the How We Deploy block on every industry page that has no timeline of its own.</div>
+  <div class="note stop"><b>One drawing fault to send back.</b> In the desktop cut the <b>as little as 72 hours</b> flag is drawn over the Deployment heading and its subline, so both are half hidden behind it. The stacked cut under 780px is clean. Text is outlined to paths, so it needs a nudge in the design source rather than an edit here.</div>
   <div class="note">The process circle stays on the <a href="${u("/overview")}">overview</a> because that is what is live there; replacing it with this is a separate change to a live page.</div>
   <div class="note"><b>Half of the phase-1 argument is now closed.</b> The graphic said <b>Assessment · 1–2 days</b> and the live overview says <b>Consultation · 2–3 days</b> — three names and two durations for one phase. <b>The soft direction ends the duration half of it</b>: no page states a figure for phase 1 any more, so there is nothing left to disagree about there. The naming half — Assessment, Consultation, or the circle’s “Assessment + Consultation” — is untouched and still open. <a href="${u("/brand-check")}">All conflicts →</a></div>
   <div class="g4">
@@ -85,7 +97,7 @@ const blocks: BlockType[] = [
   `,
     embed: {
       name: "cstl-comparison-matrix",
-      caption: `<b>Delivered widget.</b> The same comparison as live HTML rather than an image, so it stays selectable, translatable and indexable — which matters on a page targeting the CSTL-process cluster. Stacks to cards under 768px.`,
+      caption: `<b>Delivered widget.</b> The same comparison as live HTML rather than an image, so it stays selectable, translatable and indexable — which matters on a page targeting the CSTL-process cluster. Stacks to cards under 768px. <b>Re-cut 5 Oct 2026:</b> the AFIMAC speed cell now reads <b>As little as 72 hours</b> where it said “Within days”. Only that one cell changed; the Museo font swap is carried over.`,
     },
     hEnd: `
   <div class="note stop"><b>The widget says an agency takes 21 to 35 days; the copy doc says 14 to 35.</b> <b>Editorial ruled 21–35 defendable on 21 Aug 2026</b> and the graphics were cut to match — the copy doc was not. It still reads 14–35 in three places: this table, the <a href="${u("/faq")}">FAQ</a> answer, and the asset brief. <b>Correct the copy, not the artwork.</b> <a href="${u("/brand-check")}">All conflicts →</a></div>
@@ -117,11 +129,15 @@ const blocks: BlockType[] = [
     h: `
   <h2>One partner, the whole engagement</h2>
   <p class="lead">CSTL is turnkey. You bring the site and the goal; AFIMAC handles the rest.</p>
-  <div class="g2" style="margin-top:24px">
-   <ul class="tick"><li>Recruiting and sourcing from a national skilled and semi-skilled talent network</li><li>Background, credential, and role screening</li><li>Travel, lodging, and logistics</li><li>Site-specific safety and compliance onboarding</li></ul>
-   <ul class="tick"><li>On-site supervision and a single point of contact</li><li>Daily reporting, with crews that scale up or down</li><li>Demobilization and transition support</li></ul>
-  </div>`,
-    spec: `<b>Elementor:</b> Container (2-col) · EK Icon List with check icons. <b>Asset gap:</b> seven line icons, SVG 96×96, matching the existing CSTL page icon style — not yet drawn.`,
+  <figure class="figure" style="margin-top:24px;border-left-color:#7fd4a5">
+   <div class="g2">
+    <ul style="list-style:none;padding:0;margin:0">${ICON_LIST_A}</ul>
+    <ul style="list-style:none;padding:0;margin:0">${ICON_LIST_B}</ul>
+   </div>
+   <figcaption style="color:#d6efe1"><b style="color:#fff">Delivered artwork, 5 Oct 2026.</b> Seven line icons, 96×96 SVG, one per checklist item in copy order: one stroke weight, round caps, navy line work with a single orange accent marking the part AFIMAC does.</figcaption>
+  </figure>
+  <div class="note"><b>The icons are drawn for a light ground and this block is navy.</b> Navy line work disappears on the blue band, so each one sits on a white tile here. The alternative is to move the block to a white or tinted section, which would let the icons sit bare as the delivery’s contact sheet shows them.</div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · EK Icon List with a custom SVG per item — <code>/graphics/icons/afimac-cstl-icon-01…07</code>. If the block stays on the blue band, give each icon a white background in the Icon List style settings.`,
   },
 
   {

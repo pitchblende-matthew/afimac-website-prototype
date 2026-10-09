@@ -206,6 +206,19 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
         .join("")
     : "";
 
+  /**
+   * The flat version of the line map, collapsed under the widget. The delivery
+   * says pick one for the page, so it is not shown open; it is still on hand
+   * for review and for print, email and PDF, where nothing is clickable.
+   */
+  const staticMap =
+    o.lineMapEmbed && o.rolesArt
+      ? `<details class="staticart" style="margin:18px 0 6px"><summary style="cursor:pointer;font-weight:700;color:var(--cstl-blue)">Static version, for print, email and PDF</summary><div style="margin-top:16px">${figure(o.rolesArt)}</div></details>`
+      : "";
+
+  /** The industry's own deployment timeline where one was delivered, else the shared one. */
+  const deployTimeline = o.deployArt ?? PHASE_TIMELINE;
+
   const rest: Block[] = [
     {
       n: "BLOCK 05 · " + (c ? c.rolesSectionTitle.replace(/&amp;/g, "&").toUpperCase() : o.rolesTitle.toUpperCase()),
@@ -222,11 +235,12 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
         ? {
             embed: {
               name: o.lineMapEmbed,
-              caption: `<b>Live embed, delivered.</b> This is the HTML widget itself, not a picture of it — the prototype renders the same file the build pastes into Elementor, so the two cannot drift apart. Click a station, or arrow-key along the rail, to change the panel. It supersedes the flat <code>afimac-auto-assembly-sequence.png</code> in this slot; that file stays in <code>public/graphics/</code> as the fallback for print, email and PDF, where nothing is clickable. <b>The flat roles map ships with it and is deliberately not rendered here</b> — the delivery calls them one choice, not two elements: the widget reveals one station at a time, which is right on the page; the image is the same content flat, for placing pictures rather than embedding.`,
+              caption: `<b>Live embed, delivered.</b> This is the HTML widget itself, not a picture of it — the prototype renders the same file the build pastes into Elementor, so the two cannot drift apart. Click a station, or arrow-key along the rail, to change the panel. It supersedes the flat <code>afimac-auto-assembly-sequence.png</code> in this slot; that file stays in <code>public/graphics/</code> as the fallback for print, email and PDF, where nothing is clickable. <b>The flat version ships with it and sits collapsed under the widget rather than open on the page</b>, since the delivery calls them one choice, not two elements: the widget reveals one station at a time, which is right on the page, and the image is the same content flat, for placing pictures rather than embedding.`,
             } as const,
           }
         : {}),
       hEnd: `
+  ${staticMap}
   ${
     o.lineMapEmbed
       ? `<div class="note"><b>The station cards below are the deck's own role inventory, not a summary of it</b> — ${
@@ -259,30 +273,19 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
       n: "BLOCK 0" + (numbersFirst ? "6" : "5") + " · HOW WE DEPLOY",
       h: `
   <h2>${c ? c.deployH2 : "How we deploy"}</h2>
-  <div style="margin:22px 0">${artPair(PHASE_TIMELINE)}</div>
-  ${
-    o.slug === "food-beverage"
-      ? `<div class="note"><b>The durations used not to reconcile on this page, and now nothing states one.</b> The copy doc said <b>Consultation: 2–3 days</b> against a day scale that ran it across <b>D1–2</b> — two days of slot for three days of work. Under the directional timing the cards state a window instead, so the mismatch is gone from the copy. <b>It is still drawn into the graphic</b>, which needs a re-cut. <a href="${u("/brand-check")}">Every asset affected →</a></div>`
-      : ""
-  }
+  <div style="margin:22px 0">${artPair(deployTimeline)}</div>
   <div class="note">${
-    o.slug === "food-beverage"
-      ? `<b>The shared timeline, standing in.</b> The F&amp;B deck specs a bespoke seven-day deployment bar, which does not exist. <b>Under the directional timing it should not be commissioned</b> — a seven-day bar is a hard timeline drawn as a picture, which is the thing the section has just moved away from.`
+    o.deployArt
+      ? `<b>The ${o.short} deployment timeline, re-cut 5 Oct 2026 to the directional timing.</b> It now runs the same four phases, in the same words, as the shared <a href="${u("/how-it-works")}">How It Works</a> timeline: Assessment first, no day scale, and one figure, <b>as little as 72 hours</b>, flagged where the crew arrives. The only difference is the label on that flag, written for this page. <b>So the two no longer disagree</b>, and this one replaces the shared timeline in this slot rather than sitting under it, which is what the delivery specs. The day-6 pin, the seven-day scale and the three-phase layout are all gone.`
       : `<b>The shared four-phase timeline, exactly as this block's spec asks</b> — one asset across the section rather than a new one per industry.`
   }</div>
   ${
-    o.deployArt
-      ? `<div style="margin:30px 0 22px">${artPair(o.deployArt)}</div>
-  <div class="note stop"><b>Two timelines for the same deployment, on the same block, disagreeing.</b> The shared graphic above runs <b>four</b> phases, calls phase 1 <b>Assessment</b> and puts no day numbers on anything. The ${o.short} one runs <b>three</b>, calls phase 1 <b>Consultation</b>, pins a hard day range to each, and demotes Demobilization to a footnote. Between them this page answers the open phase-1 naming question in both directions at once. It also puts the crew on your floor partway through <b>day 6</b>. <b>Both now contradict the page around them</b>, which states no phase durations and one figure — as little as 72 hours. Both need a re-cut; their text is outlined to paths and cannot be corrected here. <a href="${u("/brand-check")}">Every asset affected →</a></div>`
-      : ""
-  }
-  ${
     c
-      ? `<div class="note stop"><b>The graphic and the cards under it now disagree in writing.</b> The shared timeline says <b>Assessment</b>; the deck’s own phase cards, below, say <b>${c.phases[0].title}</b> — and so does the live <a href="${u("/overview")}">overview</a>. Two of the three say Consultation. <b>This is the naming decision, no longer hypothetical.</b> <a href="${u("/brand-check")}">All conflicts →</a></div>`
+      ? `<div class="note stop"><b>The graphic and the cards under it still disagree on one word.</b> Every delivered graphic now says <b>Assessment</b> for phase 1, and the delivery reports that the approved option card names it Assessment too. The deck’s own phase cards, below, still say <b>${c.phases[0].title}</b>, and so does the live <a href="${u("/overview")}">overview</a>. <b>If Assessment is settled, this is now a copy change to the cards</b>, not an open question. <a href="${u("/brand-check")}">All conflicts →</a></div>`
       : `<div class="note stop"><b>Its phase names must match the ones below it before this ships.</b> The graphic says Assessment · Mobilization · Deployment · Demobilization; the cards under it say the same, but the live <a href="${u("/overview")}">overview</a> calls phase 1 Consultation. That decision is still open.</div>`
   }
   <div class="g4">${c ? phaseCards : ["Assessment", "Mobilization", "Deployment", "Demobilization"].map((x, i) => `<div class="card"><div class="blocknum">PHASE 0${i + 1}</div><h3>${x}</h3>${bars(3)}</div>`).join("")}</div>`,
-      spec: `<b>Elementor:</b> HTML widget (timeline) or EK Advanced Timeline · EK Icon Box ×4. Phase names must match How It Works — pending the Assessment/Consultation decision.`,
+      spec: `<b>Elementor:</b> HTML widget (timeline) or EK Advanced Timeline · EK Icon Box ×4. Phase names must match How It Works — the graphics now say Assessment; the cards follow once the copy is changed.`,
     },
     {
       n: "BLOCK 07 · " + (c ? c.successTitle.replace(/&amp;/g, "&").toUpperCase() : "CLIENT SUCCESS"),
@@ -381,8 +384,8 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
       <div class="pullstat"><span class="pullstat-n">As little as 72 hours</span><span class="pullstat-l">from call to crew on your line</span></div>
       <div class="note"><b>The pull-stat above is markup, not artwork.</b> It was supplied as a picture of a type lockup; built as type it stays selectable, searchable, translatable and legible at any zoom, and it inherits Museo automatically. <b>Do not place it as an image.</b> In Elementor it is a Heading plus a Text Editor in a container with a left orange border — no HTML widget needed.</div>
       <div class="note"><b>The landscape cut has arrived and is what renders here.</b> Wide rather than tall, so it now runs full width instead of fighting the two-column split — and a separately laid-out narrow version swaps in under 780px.</div>
-      <div class="note"><b>Its two market figures still stand; its AFIMAC figure does not.</b> Editorial confirmed 45–90 / 21–35 / 6–7 defendable on 21 Aug 2026 and the artwork was cut to match. <b>45–90 and 21–35 are claims about other routes to labor, not AFIMAC commitments</b>, so the directional timing leaves them alone — and where a page still says 14–35 for an agency, that copy is still the thing out of date. <b>Only the third bar changes.</b> <a href="${u("/brand-check")}">All conflicts →</a></div>
-      <div class="note stop"><b>The graphic still says “6–7 days”; the page no longer does.</b> Under the directional timing adopted 25 Sep 2026 the pull-stat above and every phase card on this page read <b>as little as 72 hours</b>, and the artwork is the last thing here holding the old figure. Its text is outlined to paths, so it cannot be corrected in this repository — <b>it needs a re-cut before this block ships</b>. <a href="${u("/brand-check")}">Every asset affected →</a></div>
+      <div class="note"><b>The two market figures stand unchanged.</b> 45–90 and 21–35 are claims about other routes to labor, not AFIMAC commitments, so the directional timing leaves them alone — and where a page still says 14–35 for an agency, that copy is still the thing out of date. <a href="${u("/brand-check")}">All conflicts →</a></div>
+      <div class="note"><b>The graphic and the page now say the same thing.</b> Re-cut 5 Oct 2026: the AFIMAC bar reads <b>as little as 72 hours</b>, matching the pull-stat above and every phase card on this page, and it fades out past the 72-hour line labelled <i>timing varies by engagement</i> rather than ending in a cap, so it cannot be read as a ceiling.</div>
      </div>
     </div>`,
               spec: `<b>Elementor:</b> Image, 2-col container. <b>Resolve the two number mismatches before this goes live</b> — a graphic and a table on the same site disagreeing about the same benchmark is worse than either alone.`,

@@ -8,7 +8,7 @@ import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import type { Block as BlockType } from "../lib/types";
-import { SOFT_PHASES, SOFT, MARKET, RETIRED, RECUT, RECUT_NOTE } from "../data/timing";
+import { SOFT_PHASES, SOFT, MARKET, RETIRED, RECUT, RECUT_DONE } from "../data/timing";
 
 /**
  * Table rows for the timing blocks, built above `blocks` rather than inside it.
@@ -26,6 +26,10 @@ const RETIRED_ROWS = RETIRED.map(
 
 const RECUT_ROWS = RECUT.map(
   (r) => `<tr><th><code>${r.file}</code></th><td>${r.carries}</td><td class="hl">${r.where}</td></tr>`,
+).join("");
+
+const RECUT_DONE_ROWS = RECUT_DONE.map(
+  (r) => `<tr><th><code>${r.file}</code></th><td>${r.carried}</td><td class="hl">${r.where}</td></tr>`,
 ).join("");
 
 const blocks: BlockType[] = [
@@ -116,16 +120,20 @@ const blocks: BlockType[] = [
 
   {
     cls: "wash",
-    n: "TIMING · ARTWORK THAT NOW CONTRADICTS THE COPY",
+    n: "TIMING · ARTWORK RE-CUT TO THE DIRECTIONAL TIMING",
     h: `
-  <h2>${RECUT.length} delivered assets still carry a hard figure</h2>
-  <p class="lead">Copy could be changed here. Artwork could not. Every asset below has a day count or a day scale drawn into it, and now disagrees with the page it sits on.</p>
-  <div class="tscroll" style="margin-top:22px"><table class="cmp"><thead><tr><th>Asset</th><th>What it carries</th><th class="hl">Where it appears</th></tr></thead><tbody>
+  <h2>${RECUT_DONE.length} delivered assets re-cut on 5 Oct 2026</h2>
+  <p class="lead">Every asset that had a day count or a day scale drawn into it has been rebuilt to the approved wording, with phase 1 named Assessment throughout. The files in <code>public/graphics/</code> and <code>public/embeds/</code> are the re-cut versions.</p>
+  <div class="tscroll" style="margin-top:22px"><table class="cmp"><thead><tr><th>Asset</th><th>What it used to carry</th><th class="hl">Where it appears</th></tr></thead><tbody>
+   ${RECUT_DONE_ROWS}
+  </tbody></table></div>
+  <h3 style="margin-top:34px">${RECUT.length} still carries a hard figure</h3>
+  <div class="tscroll" style="margin-top:12px"><table class="cmp"><thead><tr><th>Asset</th><th>What it carries</th><th class="hl">Where it appears</th></tr></thead><tbody>
    ${RECUT_ROWS}
   </tbody></table></div>
-  <div class="note stop"><b>${RECUT_NOTE}</b> The four-phase timeline is the one to re-run first: it appears on How It Works and in the How We Deploy block on all three industry pages, so one re-cut fixes four pages.</div>
-  <div class="note"><b>Two of them are already out of the build for other reasons</b> — the Logistics and F&amp;B hero chips were pulled when the hero overlay was dropped. They are listed anyway, because the files are still in <code>public/graphics/</code> and would carry the old figure straight into a deck or a PDF.</div>`,
-    spec: `Read from <code>RECUT</code> in <code>src/data/timing.ts</code>. <b>None of these can be corrected in this repository.</b>`,
+  <div class="note"><b>It is not on any page.</b> It was superseded before the re-cut and stays in <code>public/graphics/</code> only so the file is findable. Its text is outlined to paths, so it cannot be corrected here. Delete it, or keep it out of any deck or PDF.</div>
+  <div class="note stop"><b>One drawing fault in the re-cut.</b> In the desktop four-phase timeline the <b>as little as 72 hours</b> flag is drawn over the Deployment heading and its subline. The stacked cut is clean. Needs a nudge in the design source.</div>`,
+    spec: `Read from <code>RECUT_DONE</code> and <code>RECUT</code> in <code>src/data/timing.ts</code>.`,
   },
 ];
 ---

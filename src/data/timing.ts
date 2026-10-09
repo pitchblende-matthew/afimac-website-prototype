@@ -90,28 +90,32 @@ export const RETIRED: RetiredFigure[] = [
 ];
 
 /**
+ * Delivered artwork that had a hard figure drawn into it, re-cut by pitchblende
+ * on 5 Oct 2026 to the directional timing. Kept as the audit trail: what each
+ * file used to carry, and where it appears.
+ */
+export const RECUT_DONE: { file: string; carried: string; where: string }[] = [
+  { file: "afimac-cstl-process-timeline.svg (+ mobile)", carried: "Assessment one to two days, Mobilization two to three, Demobilization two to three", where: "How It Works, What Is Travel Labor, and How We Deploy on industry pages without their own timeline" },
+  { file: "afimac-auto-speed-comparison.svg (+ mobile)", carried: "AFIMAC travel labor 6 to 7 days", where: "Automotive" },
+  { file: "afimac-auto-deployment-timeline.svg (+ mobile)", carried: "a seven-day scale, crew on the floor by day 6 to 7", where: "Automotive" },
+  { file: "afimac-fb-deployment-timeline.svg (+ mobile)", carried: "a seven-day scale, crew on the line by day 6", where: "Food &amp; Beverage" },
+  { file: "afimac-log-deployment-timeline.svg (+ mobile)", carried: "a seven-day scale, crew on the floor by day 5", where: "Logistics" },
+  { file: "afimac-vs-speed-comparison.svg (+ mobile)", carried: "AFIMAC travel labor 6 to 7 days", where: "Travel Labor vs. Local Staffing" },
+  { file: "afimac-vs-permanent-contract.html", carried: "6–7 days, already corrected here by hand; the delivered file now matches", where: "Travel Labor vs. Local Staffing" },
+  { file: "afimac-cstl-comparison-matrix.html", carried: "“Within days” in the AFIMAC speed cell", where: "How It Works" },
+  { file: "afimac-log-hero-chip.svg", carried: "5–7 days from call to crew on your floor", where: "Logistics — not placed" },
+  { file: "afimac-fb-hero-chip.svg", carried: "6–7 days from call to crew on your line", where: "Food &amp; Beverage — not placed" },
+  { file: "afimac-auto-hero-chip.svg", carried: "a day figure from call to crew", where: "Automotive — not placed" },
+];
+
+/**
  * Delivered artwork that still has a hard figure drawn into it. Copy can be
  * changed here; a delivered SVG cannot be re-lettered without a re-run, so each
  * one is listed rather than quietly left contradicting the page around it.
  */
 export const RECUT: { file: string; carries: string; where: string }[] = [
-  { file: "afimac-cstl-process-timeline.svg (+ mobile)", carries: "Assessment one to two days, Mobilization two to three, Demobilization two to three", where: "How It Works, and the How We Deploy block on every industry page" },
-  { file: "afimac-auto-speed-comparison.svg (+ mobile)", carries: "AFIMAC travel labor 6 to 7 days", where: "Automotive" },
-  { file: "afimac-auto-deployment-timeline.svg (+ mobile)", carries: "a seven-day scale, crew on the floor by day 6 to 7", where: "Automotive" },
-  { file: "afimac-auto-seven-day-deployment.svg", carries: "a labelled DAY 1–7 scale", where: "superseded, still in public/graphics/" },
-  { file: "afimac-fb-deployment-timeline.svg (+ mobile)", carries: "a seven-day scale, crew on the line by day 6", where: "Food &amp; Beverage" },
-  { file: "afimac-log-deployment-timeline.svg (+ mobile)", carries: "a seven-day scale, crew on the floor by day 5", where: "Logistics" },
-  { file: "afimac-vs-speed-comparison.svg (+ mobile)", carries: "AFIMAC travel labor 6 to 7 days", where: "Travel Labor vs. Local Staffing" },
-  { file: "afimac-vs-permanent-contract.html", carries: "6–7 days — already corrected, being HTML rather than outlined type", where: "Travel Labor vs. Local Staffing · done" },
-  { file: "afimac-log-hero-chip.svg", carries: "5–7 days from call to crew on your floor", where: "Logistics — already not placed" },
-  { file: "afimac-fb-hero-chip.svg", carries: "6–7 days from call to crew on your line", where: "Food &amp; Beverage — already not placed" },
-  { file: "afimac-auto-hero-chip.svg", carries: "a day figure from call to crew", where: "Automotive — not placed" },
+  { file: "afimac-auto-seven-day-deployment.svg", carries: "a labelled DAY 1–7 scale", where: "superseded and not rendered, still in public/graphics/" },
 ];
 
-/**
- * All of the above have their text outlined to paths — the words exist only in
- * each file's aria-label. None can be re-lettered in this repository; every one
- * needs a re-run from the design source.
- */
 export const RECUT_NOTE =
   "Text in the delivered SVGs is outlined to paths, so none of these can be edited here — each needs a re-run from the design source.";
