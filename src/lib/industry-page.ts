@@ -70,7 +70,7 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
   const asLive: Block[] = live
     ? [
         {
-          cls: "wash",
+          cls: "wash protoblock",
           n: "PHASE 0 · WHAT THIS PAGE CARRIES TODAY",
           h: `
   <p class="lead">Everything below this block is the <a href="${u("/launch-phases")}">phase 2</a> update. This is <b>phase 0</b> — the page as published, read off afimacglobal.com on 9 Sep 2026.</p>
