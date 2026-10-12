@@ -10,7 +10,8 @@ import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { B } from "../data/nav";
-import { photo } from "../lib/wireframe";
+import { photo, artPair } from "../lib/wireframe";
+import { PDC_SWIMLANE } from "../data/graphics";
 import { CLIENT_CHECKLIST, READY_CHECKS, DAY1_FORM_BULLETS } from "../data/day1";
 import type { Block as BlockType } from "../lib/types";
 
@@ -83,7 +84,7 @@ const blocks: BlockType[] = [
     n: "BLOCK 03 · THE FULL CHECKLIST, BY PHASE",
     h: `
   <h2>What happens when, and whose it is</h2>
-  <div style="margin:24px 0">${photo("Pre-deployment swimlane · SVG 2400×600 (4:1), stacks vertically under 768px · two horizontal lanes on a shared day scale from first call to first shift, labelled You and AFIMAC, with the items below plotted as markers in their lanes")}</div>
+  <div style="margin:24px 0">${artPair(PDC_SWIMLANE)}</div>
   ${PHASES.map(
     ([label, items]) => `
   <div style="margin-top:28px">
@@ -91,9 +92,9 @@ const blocks: BlockType[] = [
    <ul class="tick" style="margin-top:10px">${items.map(([who, what]) => `<li><b>${who}:</b> ${what}</li>`).join("")}</ul>
   </div>`,
   ).join("")}
-  <div class="note"><b>Third day-scale graphic specified in this package.</b> The <a href="${u("/how-it-works")}">four-phase timeline</a> is delivered, <a href="${u("/day-1-ready")}">Day 1 Ready</a> specs a stepped version, and this one adds two lanes. The deck is right that a two-lane swimlane is a genuinely different device — but three timelines on one day scale is worth a look before all three get drawn.</div>
+  <div class="note"><b>The third timeline in the package, and none of them now carries a day scale.</b> The <a href="${u("/how-it-works")}">four-phase timeline</a> asks when the crew arrives, <a href="${u("/day-1-ready")}">Day 1 Ready</a> asks what is done by then, and this one asks who does it, with both sides on the same sequence. Three questions, three devices, so they no longer read as the same chart drawn three times.</div>
   <div class="note stop"><b>Carries the open phase-1 naming flag.</b> Phase names and durations follow the approved process doc, which still says Assessment where the live overview says Consultation. <a href="${u("/brand-check")}">Still open →</a></div>`,
-    spec: `<b>Elementor:</b> HTML widget (swimlane) · Heading ×3 · EK Icon List ×3. <b>Asset not drawn.</b>`,
+    spec: `<b>Elementor:</b> Image (SVG swimlane, stacked cut under 780px via responsive visibility) · Heading ×3 · EK Icon List ×3.`,
   },
 
   {
