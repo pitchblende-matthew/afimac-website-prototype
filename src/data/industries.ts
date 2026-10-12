@@ -104,19 +104,19 @@ export const INDUSTRIES: Record<string, Industry> = {
     deployArt: {
       src: "/graphics/afimac-fb-deployment-timeline.svg",
       mobile: "/graphics/afimac-fb-deployment-timeline-mobile.svg",
-      alt: "Assessment, timing varies by engagement. Mobilization, can begin rapidly once approved. Deployment, crew on your line in as little as 72 hours. Demobilization, in as little as 48 hours.",
+      alt: "Assessment: timing varies by engagement. Mobilization: can begin rapidly once approved. Deployment: teams can mobilize in as little as 72 hours. De-Mobilization: demobilize in as little as 48 hours.",
       width: 2400,
       height: 600,
       caption:
-        "<b>Delivered artwork.</b> <b>Re-cut 5 Oct 2026</b> to the directional timing. Four phases on equal segments, Assessment first, no day scale. Stacked version under 780px.",
+        "<b>Delivered artwork.</b> <b>Re-cut 5 Oct 2026, reworded 12 Oct</b> to the option card verbatim. Four phases on equal segments, Assessment first, no day scale. Stacked version under 780px.",
     },
     /** NOT PLACED — see the hero block note. Kept so the file stays findable. */
     heroChip: {
       src: "/graphics/afimac-fb-hero-chip.svg",
-      alt: "Overlay chip: as little as 72 hours from call to crew on your line",
-      width: 588,
+      alt: "Overlay chip: teams can mobilize in as little as 72 hours",
+      width: 501,
       height: 310,
-      caption: "<b>Delivered artwork.</b> <b>Re-cut 5 Oct 2026</b>, now reading as little as 72 hours. Sits on the hero photograph over the navy scrim.",
+      caption: "<b>Delivered artwork.</b> <b>Re-cut 5 Oct 2026, reworded 12 Oct</b>, now reading as little as 72 hours for teams to mobilize. Sits on the hero photograph over the navy scrim.",
       maxWidth: 300,
     },
     lineMapEmbed: "fb-line-map",
