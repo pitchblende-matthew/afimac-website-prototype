@@ -283,3 +283,15 @@ export const TVT_DECISION_TREE: Art = {
     `<b>Delivered artwork, 12 Oct 2026.</b> Decision tree, 960×960 SVG, holds up down to 640px. Three yes/no questions in the script’s order and wording, each with an honest exit. Orange marks only the travel labor outcome. <b>Drawn flat rather than isometric</b>, a deliberate departure from the brief: a tree on an isometric plane is much harder to follow, and the logic being easy to read is the whole job.`,
   maxWidth: 640,
 };
+
+/* ---------------- Pre-Deployment Checklist ---------------- */
+
+export const PDC_SWIMLANE: ArtPair = {
+  src: "/graphics/afimac-pdc-swimlane.svg",
+  mobile: "/graphics/afimac-pdc-swimlane-mobile.svg",
+  alt: "Pre-deployment swimlane from first call to first shift, in two lanes, You and AFIMAC, across Assessment, Before the crew travels, and Day one morning, with each checklist item placed in its lane",
+  width: 2400,
+  height: 600,
+  caption:
+    `<b>Delivered artwork, 12 Oct 2026.</b> Pre-deployment swimlane, 2400×600, with a stacked version under 780px that keeps the two lanes as side-by-side columns. Both sides against the same sequence: open markers are yours, filled are AFIMAC’s, and the one shared step straddles the lanes. Item labels are condensed from the checklist, which runs in full directly beneath. <b>No day scale</b>: the script asked for one, but the directional timing adopted 25 Sep 2026 retired day counts, so the phases sit on equal segments and carry the approved window wording instead.`,
+};
