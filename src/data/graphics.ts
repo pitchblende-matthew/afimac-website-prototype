@@ -38,18 +38,18 @@ export interface ArtPair extends Art {
 }
 
 const DELIVERED = "<b>Delivered artwork.</b>";
-const RECUT_1005 = "<b>Re-cut 5 Oct 2026</b> to the directional timing.";
+const RECUT_1005 = "<b>Re-cut 5 Oct 2026</b> to the directional timing, <b>reworded 12 Oct 2026</b> to the approved option card verbatim.";
 
 /* ---------------- How It Works ---------------- */
 
 export const PHASE_TIMELINE: ArtPair = {
   src: "/graphics/afimac-cstl-process-timeline.svg",
   mobile: "/graphics/afimac-cstl-process-timeline-mobile.svg",
-  alt: "Four-phase process: Assessment, timing varies by engagement. Mobilization, can begin rapidly once approved. Deployment, teams can mobilize in as little as 72 hours. Demobilization, in as little as 48 hours.",
+  alt: "Assessment: timing varies by engagement. Mobilization: can begin rapidly once approved. Deployment: teams can mobilize in as little as 72 hours. De-Mobilization: demobilize in as little as 48 hours.",
   width: 2400,
   height: 600,
   caption:
-    `${DELIVERED} ${RECUT_1005} Four phases on equal segments, so the bar reads as a sequence rather than a measured duration, with the approved line under each phase name and an <b>as little as 72 hours</b> flag where the team arrives on site. Stacked version under 780px. <b>One defect in the delivered desktop file:</b> the 72-hour flag is drawn over the Deployment heading and its subline, so “Deployment” and “As little as 72 hours” are half hidden. The mobile cut is clean. Send back for a nudge before this ships.`,
+    `${DELIVERED} ${RECUT_1005} Four phases on equal segments, so the bar reads as a sequence rather than a measured duration, with each phase’s name and line exactly as the option card words them, including <b>De-Mobilization</b>. The <b>as little as 72 hours</b> flag now sits below the bar, which fixes the overlap with the Deployment heading in the 5 Oct cut. Stacked version under 780px.`,
 };
 
 export const MOBILIZATION_MAP: Art = {
@@ -122,7 +122,7 @@ export const D1R_SEAL_STANDALONE: Art = {
 export const D1R_TIMELINE: ArtPair = {
   src: "/graphics/afimac-d1r-pre-deployment-timeline.svg",
   mobile: "/graphics/afimac-d1r-pre-deployment-timeline-mobile.svg",
-  alt: "From first call to first shift. Assessment, timing varies by engagement: roles, shift coverage, site requirements. Mobilization, can begin rapidly once approved: sourcing and screening, credential and role checks, travel and housing, safety onboarding. Arrival, as little as 72 hours: crew badged and briefed, supervisor on site.",
+  alt: "From first call to first shift. Assessment, timing varies by engagement: roles, shift coverage, site requirements. Mobilization, can begin rapidly once approved: sourcing and screening, credential and role checks, travel and housing, safety onboarding. Deployment, teams can mobilize in as little as 72 hours: crew badged and briefed, supervisor on site.",
   width: 2400,
   height: 600,
   caption:
@@ -170,7 +170,7 @@ export const AUTO_LINE_MAP_STATIC: Art = {
 export const AUTO_DEPLOY_TIMELINE: ArtPair = {
   src: "/graphics/afimac-auto-deployment-timeline.svg",
   mobile: "/graphics/afimac-auto-deployment-timeline-mobile.svg",
-  alt: "Assessment, timing varies by engagement. Mobilization, can begin rapidly once approved. Deployment, crew on your line in as little as 72 hours. Demobilization, in as little as 48 hours.",
+  alt: "Assessment: timing varies by engagement. Mobilization: can begin rapidly once approved. Deployment: teams can mobilize in as little as 72 hours. De-Mobilization: demobilize in as little as 48 hours.",
   width: 2400,
   height: 600,
   caption: `${DELIVERED} ${RECUT_1005} Four phases, Assessment first, no day scale. Stacked version under 780px.`,
@@ -178,10 +178,10 @@ export const AUTO_DEPLOY_TIMELINE: ArtPair = {
 
 export const AUTO_HERO_CHIP: Art = {
   src: "/graphics/afimac-auto-hero-chip.svg",
-  alt: "Overlay chip: as little as 72 hours from call to crew on your line",
-  width: 588,
+  alt: "Overlay chip: teams can mobilize in as little as 72 hours",
+  width: 501,
   height: 310,
-  caption: `${DELIVERED} ${RECUT_1005} Hero overlay chip, now reading <b>as little as 72 hours</b>. Not placed until the hero photograph exists.`,
+  caption: `${DELIVERED} ${RECUT_1005} Hero overlay chip, now reading <b>as little as 72 hours for teams to mobilize</b>, the card’s claim rather than the old “from call to crew”. Not placed until the hero photograph exists.`,
   maxWidth: 300,
 };
 
@@ -217,7 +217,7 @@ export const FB_PLANT_FLOW: Art = {
 export const LOG_DEPLOY: ArtPair = {
   src: "/graphics/afimac-log-deployment-timeline.svg",
   mobile: "/graphics/afimac-log-deployment-timeline-mobile.svg",
-  alt: "Assessment, timing varies by engagement. Mobilization, can begin rapidly once approved. Deployment, crew on your floor in as little as 72 hours. Demobilization, in as little as 48 hours.",
+  alt: "Assessment: timing varies by engagement. Mobilization: can begin rapidly once approved. Deployment: teams can mobilize in as little as 72 hours. De-Mobilization: demobilize in as little as 48 hours.",
   width: 2400,
   height: 600,
   caption:
@@ -231,10 +231,10 @@ export const LOG_DEPLOY: ArtPair = {
  */
 export const LOG_HERO_CHIP: Art = {
   src: "/graphics/afimac-log-hero-chip.svg",
-  alt: "Overlay chip: as little as 72 hours from call to crew on your floor",
-  width: 602,
+  alt: "Overlay chip: teams can mobilize in as little as 72 hours",
+  width: 501,
   height: 310,
-  caption: `${DELIVERED} ${RECUT_1005} Hero overlay chip, now reading <b>as little as 72 hours</b> where it used to say 5–7 days. Not placed; see the hero block.`,
+  caption: `${DELIVERED} ${RECUT_1005} Hero overlay chip, now reading <b>as little as 72 hours for teams to mobilize</b> where it used to say 5–7 days. Not placed; see the hero block.`,
   maxWidth: 310,
 };
 
@@ -289,9 +289,9 @@ export const TVT_DECISION_TREE: Art = {
 export const PDC_SWIMLANE: ArtPair = {
   src: "/graphics/afimac-pdc-swimlane.svg",
   mobile: "/graphics/afimac-pdc-swimlane-mobile.svg",
-  alt: "Pre-deployment swimlane from first call to first shift, in two lanes, You and AFIMAC, across Assessment, Before the crew travels, and Day one morning, with each checklist item placed in its lane",
+  alt: "Pre-deployment swimlane from first call to first shift, in two lanes, You and AFIMAC, across Assessment, Mobilization and Deployment, with each checklist item placed in its lane",
   width: 2400,
   height: 600,
   caption:
-    `<b>Delivered artwork, 12 Oct 2026.</b> Pre-deployment swimlane, 2400×600, with a stacked version under 780px that keeps the two lanes as side-by-side columns. Both sides against the same sequence: open markers are yours, filled are AFIMAC’s, and the one shared step straddles the lanes. Item labels are condensed from the checklist, which runs in full directly beneath. <b>No day scale</b>: the script asked for one, but the directional timing adopted 25 Sep 2026 retired day counts, so the phases sit on equal segments and carry the approved window wording instead.`,
+    `<b>Delivered artwork, 12 Oct 2026.</b> Pre-deployment swimlane, 2400×600, with a stacked version under 780px that keeps the two lanes as side-by-side columns. Both sides against the same sequence: open markers are yours, filled are AFIMAC’s, and the one shared step straddles the lanes. Item labels are condensed from the checklist, which runs in full directly beneath. <b>No day scale</b>: the script asked for one, but the directional timing retired day counts, so the phases sit on equal segments. Phase names and lines follow the approved option card: Assessment, Mobilization, Deployment. <b>The page’s own phase headings below still read “Before the crew travels” and “Day one morning”</b>, which is page copy rather than artwork.`,
 };
