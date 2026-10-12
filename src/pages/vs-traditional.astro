@@ -12,7 +12,8 @@ import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { B } from "../data/nav";
-import { photo, liveImg } from "../lib/wireframe";
+import { photo, liveImg, figure, artPair } from "../lib/wireframe";
+import { TVT_PLAYBOOK_STRIP, TVT_DECISION_TREE } from "../data/graphics";
 import { postArt } from "../data/live-media";
 import type { Block as BlockType } from "../lib/types";
 
@@ -50,10 +51,10 @@ const blocks: BlockType[] = [
    <div class="card"><div class="blocknum">PLAY 02 · BUY</div><h3>Call a temp agency</h3><p>Faster, at 14 to 35 days for most roles. But an agency hands you candidates to manage. Screening depth varies, and the crew is only as deep as the local pool. The onboarding, the scheduling, and the turnover all land on your supervisors.</p></div>
    <div class="card"><div class="blocknum">PLAY 03 · STRETCH</div><h3>Overtime on the core team</h3><p>The fastest play and the most expensive one to sustain. Overtime buys weeks, not months, and it spends your best people to do it. Burnout on the core team is one of the stakes the traditional playbook rarely prices in.</p></div>
   </div>
-  <div style="margin:28px 0">${photo("Playbook clock strip · SVG 2400×600 (4:1), stacks vertically under 768px · three duration bars: Hire &amp; train 45–90 days · Temp agency 14–35 days · Overtime, immediate but time-limited (short bar that fades out) · no AFIMAC bar")}</div>
-  <div class="note stop"><b>Both figures here disagree with a page already in the build, and they do not disagree the same way.</b> On direct hire this page says <b>45 to 90 days</b> and so does the automotive speed graphic, while <a href="${u("/vs-local-staffing")}">CSTL vs. Local Staffing</a> says <b>30 to 90</b>. On the agency figure this page says <b>14 to 35</b>, matching <a href="${u("/how-it-works")}">How It Works</a> and the <a href="${u("/faq")}">FAQ</a>, while the graphic says <b>21 to 35</b>. So the new copy sides with the graphic on one number and against it on the other. <b>Two votes to one each way — which is a resolution if somebody makes it one.</b> <a href="${u("/brand-check")}">All conflicts →</a></div>
+  <div style="margin:28px 0">${artPair(TVT_PLAYBOOK_STRIP)}</div>
+  <div class="note stop"><b>The strip and the Play 02 card now disagree on the same screen.</b> The strip draws the agency play at <b>21 to 35 days</b>, editorial’s 21 Aug 2026 ruling, which How It Works and vs. Local Staffing already carry in their artwork. The card above it, from the script, still says <b>14 to 35</b>. <b>Change the card’s copy to 21 to 35</b>, or tell us and the strip goes back to 14; it is one value in the build script. Direct hire is 45 to 90 in both, though <a href="${u("/vs-local-staffing")}">CSTL vs. Local Staffing</a> still says 30 to 90 in its own copy. <a href="${u("/brand-check")}">All conflicts →</a></div>
   <div class="note"><b>No AFIMAC bar on this graphic, deliberately.</b> The deck makes the travel labor case in prose here and saves the comparison for block 05. Worth holding that line — an AFIMAC bar would turn an honest article into a sales chart.</div>`,
-    spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×3 · HTML widget (clock strip). Distinct device from the comparison page's decision matrix and the industry deployment bars.`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×3 · Image (SVG clock strip, stacked cut under 780px via responsive visibility). Distinct device from the comparison page's decision matrix and the industry deployment bars.`,
   },
 
   {
@@ -85,9 +86,9 @@ const blocks: BlockType[] = [
     n: "BLOCK 05 · THE DECISION",
     h: `
   <h2>Which play fits your gap?</h2>
-  <div style="margin:24px 0">${photo("Decision tree · SVG square, art 960×960, min render 640×640 · three yes/no nodes with honest exits: Is time on your side? → Hire locally · Can the local market supply the skills? → Local hire or agency · Is the gap large or time-critical? → Travel labor, else Agency or overtime, short term · flat isometric, greys with safety-orange and blue")}</div>
+  <div style="margin:24px 0">${figure(TVT_DECISION_TREE)}</div>
   <p>For the full head-to-head against local staffing, see <a href="${u("/vs-local-staffing")}">CSTL vs. Local Staffing</a>.</p>`,
-    spec: `<b>Elementor:</b> HTML widget (decision tree) · Text Editor. Distinct device from every graphic in the cluster; the comparison page keeps the decision matrix. <b>Asset not drawn.</b>`,
+    spec: `<b>Elementor:</b> Image (SVG, <code>/graphics/afimac-tvt-decision-tree.svg</code>) · Text Editor. Distinct device from every graphic in the cluster; the comparison page keeps the decision matrix.`,
   },
 
   {

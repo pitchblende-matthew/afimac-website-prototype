@@ -261,3 +261,25 @@ export const LOG_ROLES_MAP: Art = {
   caption:
     `${DELIVERED} Every station and every crew in one image. Superseded by the floor plan in the 5 Oct 2026 delivery.`,
 };
+
+/* ---------------- Travel vs. Traditional ---------------- */
+
+export const TVT_PLAYBOOK_STRIP: ArtPair = {
+  src: "/graphics/afimac-tvt-playbook-strip.svg",
+  mobile: "/graphics/afimac-tvt-playbook-strip-mobile.svg",
+  alt: "The traditional playbook, time to people on the floor: hire and train 45 to 90 days, temp agency 21 to 35 days, overtime immediate but time-limited",
+  width: 2400,
+  height: 600,
+  caption:
+    `<b>Delivered artwork, 12 Oct 2026.</b> Playbook clock strip, 2400×600, with a stacked version under 780px. Floating range bars on one day scale, since “45 to 90 days” is a span rather than a total, so the three plays land at three different points on the clock. Overtime starts at zero and fades out. <b>No AFIMAC bar and no orange</b>, as the script asks: this is the one graphic in the cluster that makes no AFIMAC claim.`,
+};
+
+export const TVT_DECISION_TREE: Art = {
+  src: "/graphics/afimac-tvt-decision-tree.svg",
+  alt: "Decision tree. A labor gap opens. Is time on your side? Yes: hire locally. No: can the local market supply the skills? Yes: local hire or agency. No: is the gap large or time-critical? Yes: travel labor. No: agency or overtime, short term.",
+  width: 960,
+  height: 960,
+  caption:
+    `<b>Delivered artwork, 12 Oct 2026.</b> Decision tree, 960×960 SVG, holds up down to 640px. Three yes/no questions in the script’s order and wording, each with an honest exit. Orange marks only the travel labor outcome. <b>Drawn flat rather than isometric</b>, a deliberate departure from the brief: a tree on an isometric plane is much harder to follow, and the logic being easy to read is the whole job.`,
+  maxWidth: 640,
+};
