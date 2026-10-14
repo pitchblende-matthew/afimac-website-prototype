@@ -2,8 +2,9 @@
 /**
  * DAY 1 READY — package anchor page.
  *
- * Full approved copy, v1. Two blocks are specified but held: the printable
- * checklist download (block 04) and the gated one-sheet (block 07) both wait on
+ * Full approved copy, v1. The printable checklist download (block 04) is still
+ * held; block 07 now carries the What is Day 1 Ready one-pager as a direct
+ * download. The held block waits on
  * assets still in production, and the deck says to hide them until those ship.
  * They are built here and marked, rather than omitted, so the page can be
  * turned on in one edit rather than rebuilt.
@@ -12,7 +13,7 @@ import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { B } from "../data/nav";
-import { photo, figure, artPair } from "../lib/wireframe";
+import { photo, figure, artPair, downloadCard } from "../lib/wireframe";
 import { D1R_SEAL, D1R_SEAL_STANDALONE, D1R_TIMELINE, D1R_FORM_ILLUSTRATION } from "../data/graphics";
 import { CLIENT_CHECKLIST, READY_CHECKS, DAY1_FORM_BULLETS } from "../data/day1";
 import type { Block as BlockType } from "../lib/types";
@@ -99,25 +100,24 @@ const blocks: BlockType[] = [
 
   {
     cls: "sky",
-    n: "BLOCK 07 · GATED ONE-SHEET",
+    id: "one-pager",
+    n: "BLOCK 07 · THE ONE-PAGER",
     h: `
-  <div class="g2">
-   <div>
-    <h2>Day 1 With AFIMAC, on one page</h2>
-    <p>The whole standard, from pre-deployment through the first shift, in a one-sheet you can hand to your operations team.</p>
-    <div style="margin-top:24px;max-width:480px">${photo("One-sheet cover mockup, 480px wide max on the card · AFIMAC navy, logo top, benefit-driven cover · matching the house style on the white paper cards")}</div>
-   </div>
-   <div>
-    <div class="form">
-     <input class="full" placeholder="Name">
-     <input class="full" placeholder="Work email">
-     <input placeholder="Company"><input placeholder="Job title">
-     <div class="full"><a class="btn" href="${u("/resources")}">Get the One-Sheet</a></div>
-    </div>
-   </div>
-  </div>
-  <div class="note stop"><b>Held: hide this whole block until the asset ships.</b> The one-sheet is a package deliverable still in production, and its content lifts directly from blocks 02 to 06 of this page — so it cannot be written until this page is signed off. Gate fields follow the LinkedIn lead-gen standard from the ad tracker.</div>`,
-    spec: `<b>Elementor:</b> Container (2-col) · Image · Metform (gate). Four fields only — do not add to them, the LinkedIn form has to match.`,
+  ${downloadCard({
+    file: "/downloads/afimac-what-is-day-1-ready.pdf",
+    saveAs: "AFIMAC - What is Day 1 Ready.pdf",
+    cover: "/graphics/afimac-what-is-day-1-ready-cover.jpg",
+    coverAlt: "Cover of the What is Day 1 Ready one-pager",
+    heading: "Want to learn more? Download the one-pager",
+    body: "What Day 1 Ready means and what it takes to get there, on a single page you can print or pass along to your operations team.",
+    button: "Download the one-pager",
+    meta: "PDF · 1 page · 118 KB",
+  })}
+  <div class="note"><b>Why here.</b> The script reserves this slot for the standard on one page, after the reader has been through the definition, the pre-deployment work, day one and how success is measured, and just before the related reading. By this point the reader is deciding whether to take it to their team, which is what the one-pager is for. Placing it higher, beside the definition in block 02, would offer a summary of a page the reader has not read yet.</div>
+  <div class="note"><b>Ungated, as asked.</b> This slot was specced as a gated one-sheet behind a four-field Metform. It now downloads directly, which also settles the earlier worry about two forms on adjacent pages. If the team wants the lead capture back, the same card works with the button pointing at a Metform popup instead of the file.</div>
+  <div class="note stop"><b>The one-pager’s speed line does not follow the approved wording.</b> Its footer reads <b>“Your team can typically deploy in 72 hours or less.”</b> “Or less” makes 72 hours a ceiling, which is the hard promise the Soft/Directional card was chosen to avoid; the approved line is <b>“Teams can mobilize in as little as 72 hours.”</b> Worth correcting in the design file before this goes live, since everything else on the page says “as little as”.</div>
+  <div class="note"><b>Its four pillars are not the seal’s five checks.</b> The one-pager defines Day 1 Ready as <b>Skilled · Vetted · Matched · Ready</b>; block 02 and the seal say <b>Screened · Credentialed · Housed · Safety-onboarded · Supervised</b>. They are compatible rather than contradictory, but a reader who downloads it after reading the page will see two different lists for the same standard.</div>`,
+    spec: `<b>Elementor:</b> Container (2-col, white background, 14px radius, 1px #CFDBE2 border) · Image (cover JPG, linked to the PDF) · Heading (eyebrow, “Free one-pager · PDF”) · Heading (H3) · Text Editor · Button. <b>Upload the PDF to the Media Library and paste its URL into the Button link and the Image link.</b> To make it download rather than open, in the link options (cog icon) add the custom attribute <code>download|AFIMAC - What is Day 1 Ready.pdf</code>; without it the PDF opens in a new tab, which is an acceptable fallback, so also tick “Open in new window”. Stack the columns under 640px.`,
   },
 
   {
