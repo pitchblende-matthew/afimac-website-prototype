@@ -1,0 +1,232 @@
+---
+/**
+ * NAV OPTIONS — internal working page, not part of the site IA.
+ *
+ * Six ways to handle the Roles slot, each rendered as a sub-nav you can
+ * actually open rather than a picture of one. The bars are mock markup under
+ * their own `no-` class prefix: nothing here touches the real SubNav, so a
+ * reviewer can play with all six without changing what the rest of the
+ * prototype shows.
+ */
+import Prototype from "../layouts/Prototype.astro";
+import Block from "../components/Block.astro";
+import { u } from "../lib/base";
+import { BY_FUNCTION, BY_INDUSTRY, LABEL_CANDIDATES, OPTIONS, ROLE_PAGES, type RoleGroup, type RoleLink } from "../data/nav-options";
+import type { Block as BlockType } from "../lib/types";
+
+/** The four slots that are not under discussion, shown so the bar reads true. */
+const FIXED = ["Overview", "How It Works", "Industries"];
+
+const link = (r: RoleLink): string =>
+  `<a href="${u(r.route)}"${r.written ? "" : ' class="no-todo"'}>${r.label}${r.written ? "" : " <span>no copy yet</span>"}</a>`;
+
+/** A plain dropdown: one column of links. */
+const flat = (): string => `<div class="no-dd">${ROLE_PAGES.map(link).join("")}</div>`;
+
+/** One panel, links under group headings — no second level. */
+const grouped = (groups: RoleGroup[]): string =>
+  `<div class="no-dd no-wide">${groups
+    .map(
+      (g) =>
+        `<div class="no-col"><div class="no-colhead">${g.label}</div><p class="no-gist">${g.gist}</p>${g.roles
+          .map(link)
+          .join("")}</div>`,
+    )
+    .join("")}</div>`;
+
+/** A true nested flyout: category rows, each opening a panel beside it. */
+const flyout = (groups: RoleGroup[]): string =>
+  `<div class="no-dd">${groups
+    .map(
+      (g) =>
+        `<div class="no-sub"><a href="${u("/roles")}" class="no-subhead">${g.label}<span class="no-caret">›</span></a><div class="no-flyout">${g.roles
+          .map(link)
+          .join("")}</div></div>`,
+    )
+    .join("")}</div>`;
+
+/** Categories on the left, roles on the right, one panel, no nesting. */
+const twopane = (groups: RoleGroup[]): string =>
+  `<div class="no-dd no-pane">
+    <div class="no-rail">${groups
+      .map((g, i) => `<button type="button" class="no-railbtn${i === 0 ? " on" : ""}" data-pane="${i}">${g.label}<span class="no-caret">›</span></button>`)
+      .join("")}</div>
+    <div class="no-panes">${groups
+      .map(
+        (g, i) =>
+          `<div class="no-panebody${i === 0 ? " on" : ""}" data-pane="${i}"><p class="no-gist">${g.gist}</p>${g.roles.map(link).join("")}</div>`,
+      )
+      .join("")}</div>
+  </div>`;
+
+/**
+ * One mock sub-nav bar. `slot` is the markup for the slot under discussion;
+ * pass an empty string to show the bar without it.
+ */
+const bar = (slot: string): string =>
+  `<div class="no-bar">
+    <span class="no-mark">Travel Labor</span>
+    ${FIXED.map((f) => `<div class="no-item">${f}${f === "Overview" ? "" : '<span class="no-caret">▾</span>'}</div>`).join("")}
+    ${slot}
+    <a class="no-cta">Get in Touch</a>
+  </div>`;
+
+/** The slot under discussion, open-on-hover, with its dropdown inside. */
+const slot = (label: string, dd: string, extra = ""): string =>
+  `<div class="no-item no-has${extra ? " " + extra : ""}"><span class="no-live">${label}</span><span class="no-caret">▾</span>${dd}</div>`;
+
+const opt = (id: string) => OPTIONS.find((o) => o.id === id)!;
+
+const tradeoffs = (id: string): string => {
+  const o = opt(id);
+  return `<div class="g2" style="margin-top:22px">
+   <div class="duo"><div class="duohead">What it buys</div><div class="duobody"><p style="margin:0">${o.buys}</p></div></div>
+   <div class="duo risk"><div class="duohead">What it costs</div><div class="duobody"><p style="margin:0">${o.costs}</p></div></div>
+  </div>`;
+};
+
+const candidateRows = LABEL_CANDIDATES.map(
+  (c) => `<tr><th>${c.label}</th><td>${c.note}</td></tr>`,
+).join("");
+
+const summaryRows = OPTIONS.map(
+  (o) =>
+    `<tr><th>${o.n} · ${o.title}</th><td>${o.label}</td><td>${o.nested ? "Yes" : "No"}</td><td class="hl">${o.costs.split(".")[0]}.</td></tr>`,
+).join("");
+
+const blocks: BlockType[] = [
+  {
+    cls: "dark",
+    n: "NAV OPTIONS · THE ROLES SLOT",
+    h: `
+  <h1>Six ways to handle the Roles slot</h1>
+  <p class="lead">The client does not want a sub-nav entry that reads as a list of job titles. Two directions were asked for — rename the slot, or give it a second level that categorises the roles — and both are below, with the versions either side of them for comparison.</p>
+  <p class="sub"><b>Every bar on this page is live.</b> Hover or tab into the highlighted slot to open it. Nothing here changes the real sub-nav at the top of the window.</p>`,
+    spec: `Internal working page. Not in the IA, not in the sub-nav, and nothing on it ships as-is.`,
+  },
+
+  {
+    n: "WHAT IS ACTUALLY IN THERE",
+    h: `
+  <h2>Eight pages, and only the way in is in question</h2>
+  <p class="lead">Seven role pages are written and one — Warehouse &amp; Logistics — is on the build sheet with no copy deck. None of the options below adds or removes a page. They change the label above the list, the shape of the list, or both.</p>
+  <div class="g3" style="margin-top:24px">${BY_FUNCTION.map(
+    (g) =>
+      `<div><div class="catbar mfg">${g.label}</div><ul class="check">${g.roles
+        .map((r) => `<li>${r.label}${r.written ? "" : " <span style=\"color:var(--spec)\">· no copy yet</span>"}</li>`)
+        .join("")}</ul></div>`,
+  ).join("")}</div>
+  <div class="note"><b>This grouping is the one that divides cleanly.</b> Each page sits in exactly one category. The industry grouping used in option D does not have that property, which is the main thing separating the two.</div>`,
+    spec: `Drawn from the eight routes in the roles hub, grouped in src/data/nav-options.ts.`,
+  },
+
+  {
+    cls: "wash",
+    n: "OPTION A · RENAME THE SLOT",
+    h: `
+  <h2>A · Rename the slot, keep the flat list</h2>
+  <p class="lead">The cheapest change on the page: one word in the Elementor header template. The dropdown is untouched.</p>
+  ${bar(slot(opt("rename").label, flat(), "is-focus"))}
+  <h3 style="margin-top:34px">Label candidates</h3>
+  <div class="tscroll"><table class="cmp"><tbody>${candidateRows}</tbody></table></div>
+  ${tradeoffs("rename")}`,
+    spec: `<b>Elementor:</b> rename the menu item. No new pages, no new URLs, no redirect work.`,
+  },
+
+  {
+    n: "OPTION B · ONE PANEL, GROUPED",
+    h: `
+  <h2>B · One panel, roles grouped under headings</h2>
+  <p class="lead">Still one level — the panel just gets wider and the eight links sit under three headings. The headings carry the argument the bare list could not.</p>
+  ${bar(slot(opt("grouped").label, grouped(BY_FUNCTION), "is-focus no-wideslot"))}
+  ${tradeoffs("grouped")}
+  <div class="note"><b>This is the one that solves the stated problem with the least new machinery.</b> It stops reading as vacancies without introducing an interaction the bar does not already have.</div>`,
+    spec: `<b>Elementor:</b> a mega-menu dropdown on one item. Most themes support this natively; otherwise one HTML widget in the header template.`,
+  },
+
+  {
+    cls: "wash",
+    n: "OPTION C · SECOND LEVEL, BY FUNCTION",
+    h: `
+  <h2>C · A further dropdown, categorised by what the crew does</h2>
+  <p class="lead">The brief as asked: three categories, each opening a flyout of its own. Hover a category below to see it.</p>
+  ${bar(slot(opt("flyout-function").label, flyout(BY_FUNCTION), "is-focus"))}
+  ${tradeoffs("flyout-function")}
+  <div class="note stop"><b>Try this one on a phone before signing it off.</b> A flyout that opens on hover has no equivalent on touch: the first tap opens the category, and the second has to find a panel that may have opened off the side of the screen. <b>Option E is the same structure without that problem.</b></div>`,
+    spec: `<b>Elementor:</b> a third-level menu. Supported, but the mobile behaviour needs testing on a real device, not the editor preview.`,
+  },
+
+  {
+    n: "OPTION D · SECOND LEVEL, BY INDUSTRY",
+    h: `
+  <h2>D · A further dropdown, categorised by industry</h2>
+  <p class="lead">Same mechanic as C, categorised the way a buyer arrives — by the plant they run rather than the job title they need.</p>
+  ${bar(slot(opt("flyout-industry").label, flyout(BY_INDUSTRY), "is-focus"))}
+  ${tradeoffs("flyout-industry")}
+  <div class="note stop"><b>Count the repeats.</b> Forklift Operators appears under all three industries, Packaging Operations under two, Assemblers under two. <b>Twelve entries for eight pages.</b> The nav looks bigger than the site, and three routes lead to one URL — which is a canonical-tag question as well as a navigation one.</div>
+  <div class="note"><b>It also duplicates the slot above it.</b> Industries is already in the bar, and each industry page already maps its own crews. This option puts the same three industries in the nav twice.</div>`,
+    spec: `<b>Elementor:</b> as option C. <b>Decide the canonical URL for each role page first</b> — the duplication is in the nav, not the content, but search engines see the links.`,
+  },
+
+  {
+    cls: "wash",
+    n: "OPTION E · TWO-PANE PANEL",
+    h: `
+  <h2>E · Categories on the left, roles on the right</h2>
+  <p class="lead">What option C is trying to be, in one panel instead of two. Click or tab a category on the left and the roles swap on the right — no nesting, so nothing has to be hovered twice.</p>
+  ${bar(slot(opt("twopane").label, twopane(BY_FUNCTION), "is-focus no-wideslot"))}
+  ${tradeoffs("twopane")}
+  <div class="note"><b>The same panel works by industry.</b> The rail is just a list — swapping the three categories for Automotive, Food &amp; Beverage and Logistics takes the content from option D without its hover problem. <b>The duplication would come with it, though.</b></div>`,
+    spec: `<b>Elementor:</b> one HTML widget in the header template, scoped like the line-map widgets already in the build.`,
+  },
+
+  {
+    n: "OPTION F · NO SLOT AT ALL",
+    h: `
+  <h2>F · Remove the slot and let Industries carry the roles</h2>
+  <p class="lead">The bar drops to four items. Nothing is deleted — the role pages stay where they are, reached from the station maps already on each industry page.</p>
+  ${bar("")}
+  ${tradeoffs("fold")}
+  <div class="note stop"><b>This is on the page because it is the honest end of the argument, not because we recommend it.</b> Eight written pages would have no nav entry, and the role pages are the deepest keyword surface in the section — they are the pages that answer "CNC operator staffing" rather than "travel labor".</div>`,
+    spec: `Would also return the Roles phase to the plan as unused — see <a href="${u("/launch-phases")}">launch phases</a>.`,
+  },
+
+  {
+    cls: "wash",
+    n: "SIDE BY SIDE",
+    h: `
+  <h2>The six, in one table</h2>
+  <div class="tscroll" style="margin-top:20px"><table class="cmp"><thead><tr><th>Option</th><th>Slot reads</th><th>Second level</th><th class="hl">The main cost</th></tr></thead><tbody>${summaryRows}</tbody></table></div>
+  <div class="note"><b>Our recommendation is B, with the label decided separately.</b> It fixes what was actually objected to — a column of job titles — without adding an interaction the bar does not already use, and it is the only option here that needs no mobile testing beyond what the existing dropdowns already get. <b>If the client wants the categories to be industries rather than functions, E is the way to do it</b>; C and D are the same idea with a hover-chain attached.</div>
+  <div class="note"><b>The label is a separate decision from the structure.</b> Any of the four candidates in option A works with any of the structures in B, C, D and E. Worth settling the shape first and the word second, rather than debating both at once.</div>`,
+    spec: `Read from <code>OPTIONS</code> in <code>src/data/nav-options.ts</code>, so this table cannot fall out of step with the mockups above it.`,
+  },
+];
+---
+
+<Prototype
+  title="Nav options"
+  crumb="Prototype › Nav options"
+  url="(internal — not a site page)"
+  status="build"
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>
+
+<script is:inline>
+  /* The two-pane panel. Click or keyboard only — the rail is buttons, so it
+     behaves the same on touch as on a desktop, which is the whole point of
+     the option. */
+  document.querySelectorAll(".no-pane").forEach((pane) => {
+    pane.querySelectorAll(".no-railbtn").forEach((btn) => {
+      const show = () => {
+        pane.querySelectorAll(".no-railbtn").forEach((b) => b.classList.toggle("on", b === btn));
+        pane.querySelectorAll(".no-panebody").forEach((b) =>
+          b.classList.toggle("on", b.dataset.pane === btn.dataset.pane),
+        );
+      };
+      btn.addEventListener("click", show);
+      btn.addEventListener("focus", show);
+    });
+  });
+</script>
