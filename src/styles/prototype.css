@@ -551,3 +551,90 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
 .pullstat-n{display:block;font-family:var(--museo);font-weight:700;font-size:clamp(38px,4.6vw,58px);line-height:1.05;color:var(--cstl-blue)}
 .pullstat-l{display:block;margin-top:6px;font-size:18px;color:var(--ink)}
 .blue .pullstat-n,.dark .pullstat-n,.sky .pullstat-n,.blue .pullstat-l,.dark .pullstat-l,.sky .pullstat-l{color:#fff}
+
+/* ---- nav-options mockups -------------------------------------------------
+   Scoped under `no-` so none of it can reach the real sub-nav. Each bar is a
+   working mock: the slot under discussion opens on hover and on focus, and
+   the two-pane option is driven by buttons so it behaves the same on touch. */
+.no-bar{display:flex;align-items:stretch;gap:0;background:#fff;border:1px solid var(--line);
+  border-radius:3px;padding:0 16px;min-height:58px;margin-top:26px;position:relative}
+.no-mark{display:flex;align-items:center;font-family:var(--museo);font-weight:700;
+  color:var(--cstl-blue);letter-spacing:.04em;font-size:15px;padding-right:18px;
+  margin-right:6px;border-right:1px solid var(--line)}
+.no-item{display:flex;align-items:center;gap:5px;padding:0 15px;font-size:14.5px;
+  font-weight:700;color:#5d6b78;position:relative;white-space:nowrap}
+.no-caret{font-size:9px;opacity:.6}
+.no-cta{margin-left:auto;align-self:center;background:var(--coral);color:#fff;
+  font-weight:700;font-size:13.5px;padding:10px 18px;border-radius:2px;text-decoration:none}
+/* The slot under discussion. */
+.no-has{cursor:default}
+.no-has .no-live{position:relative;color:var(--cstl-blue);box-shadow:inset 0 -2px 0 var(--coral)}
+/* Anchored to the label, not the item, so a wide panel can take the item out
+   of the positioning chain without dragging the badge with it. */
+.no-has.is-focus .no-live::after{content:"the slot in question";position:absolute;top:-25px;left:0;
+  font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;
+  color:#7a2f4a;background:#fdeef3;border:1px solid #efc9d6;border-radius:2px;padding:1px 6px}
+
+/* Dropdowns. Hover or keyboard focus opens them; nothing is click-only
+   except the two-pane rail, which is the point of that option. */
+.no-dd{display:none;position:absolute;top:100%;left:0;z-index:30;background:#fff;
+  border:1px solid var(--line);box-shadow:0 14px 34px rgba(10,40,70,.16);
+  padding:10px 0;min-width:252px;border-radius:0 0 3px 3px}
+.no-has:hover>.no-dd,.no-has:focus-within>.no-dd{display:block}
+.no-dd a{display:block;padding:8px 18px;font-size:13.5px;font-weight:600;
+  color:#44525f;text-decoration:none}
+.no-dd a:hover,.no-dd a:focus{background:#f2f6f9;color:var(--cstl-blue)}
+.no-dd a.no-todo{color:#9aa7b2}
+.no-dd a.no-todo span{font-size:11px;font-style:italic}
+
+/* B — one wide panel, three columns of grouped links. */
+.no-wide{display:none;min-width:660px;padding:22px 10px;grid-template-columns:repeat(3,1fr);gap:8px}
+.no-has:hover>.no-wide,.no-has:focus-within>.no-wide{display:grid}
+.no-col{padding:0 12px}
+.no-colhead{font-family:var(--museo);font-weight:700;color:var(--cstl-blue);font-size:14px;
+  padding:0 6px 2px;border-bottom:2px solid var(--coral);display:inline-block;margin-bottom:4px}
+.no-gist{margin:4px 6px 10px;font-size:12px;line-height:1.5;color:var(--spec)}
+.no-wide a,.no-pane a{padding:6px 6px}
+/* The wide panels span the bar rather than hanging off the item: the slot sits
+   mid-bar, and a 660px panel anchored to it runs off one edge or the other
+   whatever side it opens from. Taking the item out of the positioning chain
+   lets the panel resolve against .no-bar instead. */
+.no-wideslot{position:static}
+.no-wideslot>.no-dd{left:14px;right:14px;min-width:0}
+
+/* C and D — a true nested flyout, hover-chained on purpose so the problem is
+   visible rather than described. */
+.no-sub{position:relative}
+.no-subhead{display:flex!important;align-items:center;justify-content:space-between;gap:14px;
+  font-weight:700!important;color:var(--cstl-blue)!important}
+.no-flyout{display:none;position:absolute;top:-10px;left:100%;background:#fff;
+  border:1px solid var(--line);box-shadow:0 14px 34px rgba(10,40,70,.16);
+  padding:10px 0;min-width:234px}
+.no-sub:hover>.no-flyout,.no-sub:focus-within>.no-flyout{display:block}
+/* The flyout opens rightward from a dropdown that is already mid-bar, which is
+   exactly how this pattern runs off the edge of a narrower window. Shown as it
+   would really behave rather than nudged into place. */
+@media(max-width:1180px){.no-flyout{left:auto;right:100%}}
+
+/* E — one panel, categories on the left, roles on the right. */
+.no-pane{min-width:620px;padding:0}
+.no-has:hover>.no-pane,.no-has:focus-within>.no-pane{display:flex}
+.no-rail{flex:0 0 232px;background:#f5f8fa;border-right:1px solid var(--line);padding:12px 0}
+.no-railbtn{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;
+  text-align:left;background:none;border:0;font:inherit;font-size:13.5px;font-weight:700;
+  color:#44525f;padding:10px 18px;cursor:pointer}
+.no-railbtn.on{background:#fff;color:var(--cstl-blue);box-shadow:inset 3px 0 0 var(--coral)}
+.no-panes{flex:1;padding:16px 18px}
+.no-panebody{display:none}
+.no-panebody.on{display:block}
+
+@media(max-width:900px){
+  .no-bar{flex-wrap:wrap;min-height:0;padding:10px 12px}
+  .no-cta{margin-left:0;margin-top:8px}
+  .no-wide,.no-pane{min-width:0;width:100%}
+  .no-wide{grid-template-columns:1fr}
+  .no-pane{flex-direction:column}
+  .no-rail{flex:1 1 auto;border-right:0;border-bottom:1px solid var(--line)}
+  .no-flyout{position:static;box-shadow:none;border:0;border-left:2px solid var(--line);
+    margin-left:18px;min-width:0}
+}
