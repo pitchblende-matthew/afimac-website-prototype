@@ -120,3 +120,39 @@ export const roleList = (a: string[]): string =>
   `<ul class="tick" style="columns:2;column-gap:40px">${a
     .map((x) => `<li>${x}</li>`)
     .join("")}</ul>`;
+
+/**
+ * Downloadable one-pager card. Built from stock Elementor widgets so it can be
+ * rebuilt by hand: Container (2-col, white) · Image (cover, linked to the PDF)
+ * · Heading (eyebrow) · Heading · Text Editor · Button (link to the PDF with a
+ * `download` custom attribute). The cover is a link too, since people click
+ * the picture of a document before they look for a button.
+ */
+export const downloadCard = (o: {
+  /** PDF path under public/. */
+  file: string;
+  /** Saved filename the browser offers. */
+  saveAs: string;
+  /** Cover thumbnail path under public/. */
+  cover: string;
+  coverAlt: string;
+  heading: string;
+  body: string;
+  button: string;
+  /** e.g. "PDF · 1 page · 118 KB" */
+  meta: string;
+}): string =>
+  `<div class="dlcard" style="display:flex;gap:32px;align-items:center;background:#fff;border:1px solid #cfdbe2;border-radius:14px;padding:28px;color:#12303f;max-width:880px">
+    <a href="${u(o.file)}" download="${o.saveAs}" style="flex:0 0 176px;display:block;line-height:0" aria-label="${o.button}">
+      <img src="${u(o.cover)}" alt="${o.coverAlt}" width="176" height="228" loading="lazy" style="width:176px;height:auto;border-radius:6px;box-shadow:0 6px 18px rgba(13,74,124,.18);border:1px solid #dde5e9">
+    </a>
+    <div style="flex:1;min-width:0">
+      <div style="font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#4f6472">Free one-pager · PDF</div>
+      <h3 style="margin:8px 0 10px;color:#0d4a7c">${o.heading}</h3>
+      <p style="margin:0 0 18px;color:#12303f">${o.body}</p>
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <a class="btn" href="${u(o.file)}" download="${o.saveAs}" style="margin:0">${o.button}</a>
+        <span style="font-size:12.5px;color:#4f6472">${o.meta}</span>
+      </div>
+    </div>
+  </div>`;

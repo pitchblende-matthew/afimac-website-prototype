@@ -10,7 +10,7 @@ import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { B } from "../data/nav";
-import { photo, artPair } from "../lib/wireframe";
+import { photo, artPair, downloadCard } from "../lib/wireframe";
 import { PDC_SWIMLANE } from "../data/graphics";
 import { CLIENT_CHECKLIST, READY_CHECKS, DAY1_FORM_BULLETS } from "../data/day1";
 import type { Block as BlockType } from "../lib/types";
@@ -98,6 +98,25 @@ const blocks: BlockType[] = [
   },
 
   {
+    id: "one-pager",
+    n: "BLOCK 03a · THE ONE-PAGER",
+    h: `
+  ${downloadCard({
+    file: "/downloads/afimac-getting-ready-for-day-1.pdf",
+    saveAs: "AFIMAC - Getting Ready for Day 1.pdf",
+    cover: "/graphics/afimac-getting-ready-for-day-1-cover.jpg",
+    coverAlt: "Cover of the Getting Ready for Day 1 one-pager",
+    heading: "Want to learn more? Download the one-pager",
+    body: "Getting Ready for Day 1 walks through what to expect once we partner, from a signed contract through assessment and mobilization to the first shift, on one page you can share with your team.",
+    button: "Download the one-pager",
+    meta: "PDF · 1 page · 132 KB",
+  })}
+  <div class="note"><b>Why here.</b> The one-pager walks the same three phases as the swimlane and checklist directly above it, so this is the point where the reader has just taken in the sequence and is most likely to want a copy to share. It sits before “Already handled” rather than at the foot of the page so it is not lost among the printable, the related links and the form. <b>Block 05’s printable is a different file</b>, the “What to Do Before We Arrive” checklist, and stays held until that PDF exists.</div>
+  <div class="note"><b>Two small mismatches with the page.</b> The one-pager starts the clock at <b>“Contract signed”</b> where the swimlane says <b>“First call”</b>, and names the third phase <b>“Day One”</b> where the approved card says <b>Deployment</b>. Neither is wrong for a one-pager, but both are worth aligning in the next revision of the design file.</div>`,
+    spec: `<b>Elementor:</b> Container (2-col, white background, 14px radius, 1px #CFDBE2 border) · Image (cover JPG, linked to the PDF) · Heading (eyebrow) · Heading (H3) · Text Editor · Button. <b>Upload the PDF to the Media Library and paste its URL into the Button link and the Image link</b>, then add the custom attribute <code>download|AFIMAC - Getting Ready for Day 1.pdf</code> in the link options (cog icon) so it saves rather than opens; tick “Open in new window” as the fallback. Stack under 640px.`,
+  },
+
+  {
     n: "BLOCK 04 · ALREADY HANDLED",
     h: `
   <h2>Don’t duplicate what’s already done</h2>
@@ -116,7 +135,7 @@ const blocks: BlockType[] = [
   <p>The same checklist as a one-page PDF, formatted to print.</p>
   <div class="btns"><a class="btn" href="${u("/resources")}">Download the PDF</a></div>
   <div class="note stop"><b>Held: hide this block and the hero’s download button until the PDF ships.</b> It is the package’s “What to Do Before We Arrive” deliverable and this page is its landing page.</div>
-  <div class="note"><b>The deck recommends running it ungated, and that recommendation is worth taking.</b> The Day 1 With AFIMAC one-sheet is the package’s gated asset; a checklist download converts better free, and gating both would put two forms in front of the same reader on adjacent pages.</div>`,
+  <div class="note"><b>The deck recommends running it ungated, and that recommendation is worth taking.</b> The Day 1 Ready page’s one-pager now downloads ungated too, as does the Getting Ready for Day 1 one-pager above; a checklist download converts better free, and gating both would put two forms in front of the same reader on adjacent pages.</div>`,
     spec: `<b>Elementor:</b> Heading · Text Editor · Button (direct file link, no form). Confirm ungated with the team before build.`,
   },
 
