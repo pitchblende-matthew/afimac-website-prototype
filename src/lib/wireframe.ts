@@ -115,6 +115,41 @@ export const artPair = (o: {
     ${o.caption ? `<figcaption>${o.caption}</figcaption>` : ""}
   </figure>`;
 
+/**
+ * The crew module: every station and every crew, all on the page at once.
+ *
+ * This replaces the interactive line-map widget, which was rejected on two
+ * counts — it could not be built with stock Elementor widgets, and it put six
+ * of its seven stations behind a click. Both are fixed by not being
+ * interactive: there is no JavaScript here, no state, and nothing to reveal.
+ *
+ * The sequence is carried by the numbering and the eyebrow rather than by a
+ * drawn rail. A rail that cannot be clicked is decoration, and it would have
+ * been one more thing for the build to reproduce.
+ *
+ * In Elementor this is a Container set to grid plus one Icon Box per station —
+ * stock widgets, no HTML widget, nothing to paste.
+ */
+export const stationFlow = (o: {
+  /** Sequence label, e.g. "Inbound to outbound". */
+  eyebrow: string;
+  stations: { n: string; title: string; roles: string[] }[];
+}): string => {
+  const cards = o.stations
+    .map(
+      (st) =>
+        `<div class="stn"><div class="stn-n">${st.n}</div><h3 class="stn-t">${st.title}</h3><ul class="stn-l">${st.roles
+          .map((r) => `<li>${r}</li>`)
+          .join("")}</ul></div>`,
+    )
+    .join("");
+  const crews = o.stations.reduce((n, st) => n + st.roles.length, 0);
+  return `<div class="stationflow">
+    <p class="stn-eyebrow">${o.eyebrow} <span>${o.stations.length} stations · ${crews} crews</span></p>
+    <div class="stn-grid">${cards}</div>
+  </div>`;
+};
+
 /** Two-column tick list, used for the role inventories. */
 export const roleList = (a: string[]): string =>
   `<ul class="tick" style="columns:2;column-gap:40px">${a

@@ -10,8 +10,9 @@
  *   Automotive      · "Automotive Travel Labor - Page Copy.docx" (v1)
  *   Food & Beverage · "Food Beverage Manufacturing Labor - Page Copy.docx" (v1)
  *
- * Logistics & Warehousing has its own deck and its own page, which already runs
- * this copy — see src/pages/industries/logistics-warehousing.astro.
+ * Logistics & Warehousing has its own deck and its own page, so only its station
+ * list lives here — LOG_STATIONS, below — because the crew module is shared
+ * across all three industry pages and has to read from one place.
  *
  * Text is stored exactly as the deck writes it, entity-escaped for HTML. Where a
  * figure here conflicts with one elsewhere in the section, the conflict is
@@ -265,3 +266,20 @@ export const INDUSTRY_COPY: Record<string, IndustryCopy> = {
     },
   },
 };
+
+/**
+ * Logistics & Warehousing stations, from that page's own deck (section 04).
+ *
+ * Lifted verbatim out of afimac-log-line-map.html when the interactive widget
+ * was retired, so the content survived the module change unchanged — seven
+ * stations, twenty-nine crews, in deck order.
+ */
+export const LOG_STATIONS: Station[] = [
+  { n: "01", title: "Inbound &amp; Receiving", roles: ["Dock &amp; unload crew", "Receiving associates", "Freight handlers", "Returns processors", "Cross-dock crew"] },
+  { n: "02", title: "Put-away &amp; Storage", roles: ["Stockers &amp; put-away crew", "Reach-truck operators", "Slotting &amp; replenishment", "Bulk &amp; rack handlers"] },
+  { n: "03", title: "Picking &amp; Fulfillment", roles: ["Order pickers", "Batch &amp; wave pickers", "RF scanner operators", "Zone &amp; case pickers"] },
+  { n: "04", title: "Packing &amp; Kitting", roles: ["Packers &amp; sorters", "Kitting &amp; assembly crew", "Label &amp; scan techs", "Value-add / VAS crew"] },
+  { n: "05", title: "Loading &amp; Outbound", roles: ["Loaders &amp; dock workers", "Palletizers &amp; wrappers", "Shipping associates", "Yard &amp; trailer crew"] },
+  { n: "06", title: "Inventory &amp; Cycle Count", roles: ["Cycle counters", "Inventory clerks", "Audit &amp; reconciliation", "WMS data entry support"] },
+  { n: "07", title: "Equipment &amp; Facility", roles: ["Forklift operators", "Cherry-picker operators", "Maintenance technicians", "Janitorial &amp; housekeeping"] },
+];

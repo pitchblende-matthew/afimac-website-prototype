@@ -6,7 +6,7 @@
  * mockup — the discrepancy is surfaced as an OPEN ITEM block on that page
  * rather than silently normalised, because it is a live sign-off question.
  */
-import { bars, photo, figure, artPair } from "./wireframe";
+import { bars, photo, figure, artPair, stationFlow } from "./wireframe";
 import { PHASE_TIMELINE } from "../data/graphics";
 import { LIVE_INDUSTRIES, LIVE_ROLE_GROUPS, LIVE_SITUATIONS } from "../data/live-industries";
 import { u } from "./base";
@@ -169,21 +169,6 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
         spec: `<b>Elementor:</b> Container · EK Funfact / Counter ×4, blue band. Figures are the four already approved in the June-05 package — no new stats without sourcing.`,
       };
 
-  /**
-   * The deck's station grid. Hoisted out of the block below because the Astro
-   * compiler cannot parse a third level of nested template interpolation.
-   */
-  const stationCards = c
-    ? c.stations
-        .map(
-          (st) =>
-            `<div class="card"><div class="blocknum">${st.n}</div><h3 style="margin-top:6px">${st.title}</h3><ul class="check" style="margin-top:12px">${st.roles
-              .map((r) => `<li>${r}</li>`)
-              .join("")}</ul></div>`,
-        )
-        .join("")
-    : "";
-
   /** The deck's four deployment phases, with their durations and bullets. */
   const phaseCards = c
     ? c.phases
@@ -206,16 +191,6 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
         .join("")
     : "";
 
-  /**
-   * The flat version of the line map, collapsed under the widget. The delivery
-   * says pick one for the page, so it is not shown open; it is still on hand
-   * for review and for print, email and PDF, where nothing is clickable.
-   */
-  const staticMap =
-    o.lineMapEmbed && o.rolesArt
-      ? `<details class="staticart" style="margin:18px 0 6px"><summary style="cursor:pointer;font-weight:700;color:var(--cstl-blue)">Static version, for print, email and PDF</summary><div style="margin-top:16px">${figure(o.rolesArt)}</div></details>`
-      : "";
-
   /** The industry's own deployment timeline where one was delivered, else the shared one. */
   const deployTimeline = o.deployArt ?? PHASE_TIMELINE;
 
@@ -224,47 +199,32 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
       n: "BLOCK 05 · " + (c ? c.rolesSectionTitle.replace(/&amp;/g, "&").toUpperCase() : o.rolesTitle.toUpperCase()),
       h:
         (c ? `<h2>${c.rolesH2}</h2><p class="lead">${c.rolesBody}</p>` : `<h2>${o.rolesTitle}</h2>`) +
-        // The flat roles map and the live widget are the same content. The
-        // delivery says to pick one: the widget where it can be embedded, the
-        // image where pictures are being placed. So the image renders only when
-        // there is no embed to carry it.
-        (o.lineMapEmbed
-          ? ""
-          : `<div style="margin:22px 0">${o.rolesArt ? figure(o.rolesArt) : o.mapArt ? figure(o.mapArt) : photo(o.map)}</div>`),
-      ...(o.lineMapEmbed
-        ? {
-            embed: {
-              name: o.lineMapEmbed,
-              caption: `<b>Live embed, delivered.</b> This is the HTML widget itself, not a picture of it — the prototype renders the same file the build pastes into Elementor, so the two cannot drift apart. Click a station, or arrow-key along the rail, to change the panel. It supersedes the flat <code>afimac-auto-assembly-sequence.png</code> in this slot; that file stays in <code>public/graphics/</code> as the fallback for print, email and PDF, where nothing is clickable. <b>The flat version ships with it and sits collapsed under the widget rather than open on the page</b>, since the delivery calls them one choice, not two elements: the widget reveals one station at a time, which is right on the page, and the image is the same content flat, for placing pictures rather than embedding.`,
-            } as const,
-          }
-        : {}),
-      hEnd: `
-  ${staticMap}
-  ${
-    o.lineMapEmbed
-      ? `<div class="note"><b>The station cards below are the deck's own role inventory, not a summary of it</b> — ${
-        c ? `${c.stations.length} stations and ${c.stations.reduce((n, st) => n + st.roles.length, 0)} crews` : "seven stations"
-      }, in the deck's order and wording. They previously showed six generic roles with grey bars for blurbs, which is what made this block look thin. <b>The embed above carries the same list</b>, one station at a time; the cards make all of it visible at once and are what a printed or emailed version would use.</div>
-  <div class="note"><b>Two CTAs in one block.</b> The embed ends with its own callout card — “Don’t see the role you need?” with an <b>Ask about a role</b> button — and the block ends with <b>See all CSTL roles</b>. The embed’s own build comment says to delete that callout where it is built as a separate Elementor element; <b>that is the recommendation here</b>, since the callout targets <code>#get-the-numbers</code> further down this same page while the block button goes to the roles hub.</div>
-  <div class="note"><b>Colour.</b> The embed and all four automotive graphics use <code>#E8701A</code> orange; the live site’s CTAs are <code>#ff5544</code> coral and the brand guide says <code>#ed6344</code>. On top of that the embed’s <b>Ask about a role</b> button is navy, so it will not match the coral <b>Get the Numbers</b> button further down this page. <a href="${u("/brand-check")}">All conflicts →</a></div>`
-      : ""
-  }
-  ${
-    c
-      ? `<div class="g3" style="margin-top:26px">${stationCards}</div>
-  <div class="card" style="margin-top:26px;border-color:var(--cstl-blue);border-width:2px">
+        // Every station and every crew, flat on the page. The interactive line
+        // map that used to sit here was rejected on two counts: it could not be
+        // built with stock Elementor widgets, and it put six of its seven
+        // stations behind a click. Neither is true of this.
+        (c
+          ? stationFlow({ eyebrow: o.flowEyebrow ?? "Start to finish", stations: c.stations })
+          : `<div style="margin:22px 0">${o.rolesArt ? figure(o.rolesArt) : o.mapArt ? figure(o.mapArt) : photo(o.map)}</div>`) +
+        (c
+          ? `<div class="card" style="margin-top:26px;border-color:var(--cstl-blue);border-width:2px">
    <h3 style="margin-top:0">${c.calloutText}</h3>
    <div class="btns" style="margin-top:12px"><a class="btn ghost" href="${u("/get-in-touch")}">${c.calloutButton}</a></div>
   </div>`
-      : `<div class="g3">${o.roles.map((r) => `<div class="card"><div class="ph" style="width:34px;height:34px;margin-bottom:14px"></div><h3>${r}</h3>${bars(2)}</div>`).join("")}</div>`
+          : ""),
+      hEnd: `
+  ${
+    c
+      ? `<div class="note"><b>The interactive line map is gone, and this replaces it.</b> It revealed one station at a time behind a click, and it was an HTML widget with its own JavaScript rather than anything the build could assemble from stock parts. <b>All ${c.stations.length} stations and all ${c.stations.reduce((n, st) => n + st.roles.length, 0)} crews are on the page at once</b>, in the deck's order and the deck's words.</div>
+  <div class="note"><b>Which also settles the two-CTAs problem.</b> The widget ended on its own “${c.calloutText}” callout, so the block carried that offer twice. There is one now, and it is an ordinary card the build already knows how to make.</div>
+  <div class="note"><b>The flat roles map is not shown, and it was behind a click before.</b> It sat collapsed under a “Static version, for print, email and PDF” toggle — the same content the station cards above carry, hidden behind the same kind of interaction the client objected to. <b>Rendering it open would just be the list twice</b>, so it stays in <code>public/graphics/</code> for print, email and PDF, where nothing is clickable.</div>
+    <div class="note"><b>And the six generic role cards are gone for good.</b> They were the thing that made this block read thin — six titles with grey bars where blurbs would go, against a widget that held ${c.stations.reduce((n, st) => n + st.roles.length, 0)}. The stations are the role inventory now.</div>`
+      : ""
   }
   <div class="btns"><a class="btn ghost" href="${u("/roles")}">See all CSTL roles</a></div>`,
-      spec: o.lineMapEmbed
-        ? `<b>Elementor:</b> HTML widget — paste <code>/embeds/afimac-auto-line-map.html</code> whole, directly under the H2. Self-contained: no libraries, no external requests, no browser storage, all styles scoped to <code>.afx-lm</code>. Its two <code>--afx-*</code> font stacks were pointed at the Museo / Museo Sans Custom Fonts already loaded in Elementor. Then Container (3-col) · EK Icon Box ×${c ? c.stations.length : o.roles.length}${
-            c ? ", one per station" : ""
-          } · Button.${c ? " Station names and crew lists are deck section 04, verbatim." : " <b>Role blurbs not written.</b>"}`
-        : `<b>Elementor:</b> HTML widget (${o.slug === "food-beverage" ? "seven-station line map" : "line map"}) · Container (3-col) · EK Icon Box ×${c ? c.stations.length : o.roles.length} · Button.${c ? " Station names and crew lists are deck section 04, verbatim." : " <b>Role blurbs not written.</b>"}`,
+      spec: c
+        ? `<b>Elementor:</b> Container set to grid (auto-fit, min 248px) · <b>EK Icon Box ×${c.stations.length}</b>, one per station, each with its own Icon List · highlighted callout card · Button. <b>No HTML widget and no custom script.</b> Station names and crew lists are deck section 04, verbatim.`
+        : `<b>Elementor:</b> Container (3-col) · EK Icon Box ×${o.roles.length} · Button. <b>Role blurbs not written.</b>`,
     },
     {
       cls: "wash",

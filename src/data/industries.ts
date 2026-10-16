@@ -33,6 +33,11 @@ export interface Industry {
   rolesTitle: string;
   /** Line-map art-direction note, used when no real artwork exists yet. */
   map: string;
+  /**
+   * Sequence label above the crew module, e.g. "Body shop to shipping". Says
+   * which way the floor runs, now that the module carries no drawn rail.
+   */
+  flowEyebrow?: string;
   /** Real line-map artwork, once it has been produced. */
   mapArt?: Art;
   /** The full station-and-role grid, every station and role in one image. */
@@ -85,6 +90,7 @@ export const INDUSTRIES: Record<string, Industry> = {
     },
     speedArt: AUTO_SPEED,
     deployArt: AUTO_DEPLOY_TIMELINE,
+    flowEyebrow: "Body shop to shipping",
     lineMapEmbed: "auto-line-map",
     statBandEmbed: "auto-stat-band",
     roles: ["CNC Operators", "Welders", "Assemblers", "Machinists", "Material Handlers", "Quality Inspectors"],
@@ -119,6 +125,7 @@ export const INDUSTRIES: Record<string, Industry> = {
       caption: "<b>Delivered artwork.</b> <b>Re-cut 5 Oct 2026, reworded 12 Oct</b>, now reading as little as 72 hours for teams to mobilize. Sits on the hero photograph over the navy scrim.",
       maxWidth: 300,
     },
+    flowEyebrow: "Receiving to cold chain",
     lineMapEmbed: "fb-line-map",
     statBandEmbed: "fb-stat-band",
     roles: ["Packaging Operators", "Sanitation Crews", "Line Prep", "Forklift Operators", "Quality Control Inspectors", "Boiler Operators", "Wastewater Techs"],
