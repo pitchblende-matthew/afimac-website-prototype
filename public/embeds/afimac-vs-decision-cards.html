@@ -79,7 +79,10 @@
   min-height:2.4em}   /* two lines, so all three cards align */
 .afm-vs__lede{font-size:1.0625rem;line-height:1.35;color:var(--ink);
   font-weight:500;margin:0 0 16px;padding-bottom:16px;
-  border-bottom:1px solid var(--rule)}
+  border-bottom:1px solid var(--rule);
+  min-height:calc(2.7em + 16px)}   /* two lines + the rule's gap, so the rule
+                                      and the bullets below it line up across
+                                      all three cards */
 .afm-vs__card.is-afimac .afm-vs__lede{border-bottom-color:var(--orange);
   color:var(--orange-deep)}
 .afm-vs__card ul{list-style:none;margin:0;padding:0}

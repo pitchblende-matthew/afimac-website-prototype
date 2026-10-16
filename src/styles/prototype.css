@@ -197,6 +197,19 @@ body.nospec .spec,body.nospec .herospec{display:none}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start;text-align:left}
 .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;text-align:left}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:left}
+/* Five-up strip. A five-item list in .g4 orphans the fifth on its own row. */
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;text-align:left}
+/* Cards carrying one short line each: full card padding leaves them hollow. */
+.g5-tight .card{padding:20px 16px;display:flex;align-items:center;justify-content:center;min-height:0}
+.g5-tight .card h3{font-size:16px;line-height:1.3}
+/* A self-contained diagram sits centred rather than against the left edge. */
+.figcenter{display:flex;justify-content:center}
+/* --figw is the art's own cap; the figure adds the green rule and its gutter,
+   which notes-off strips back off again. Sizing the figure rather than the
+   image keeps the rule and caption with the art instead of stranding them. */
+.figcenter>.figure{flex:0 1 auto;width:min(100%,calc(var(--figw,100%) + 23px))}
+body.nonotes .figcenter>.figure{width:min(100%,var(--figw,100%))}
+.figcenter>.figure img{width:100%;max-width:100%!important}
 .card{border:1px solid var(--line);padding:28px;background:#fff}
 .blue .card,.dark .card,.readiness .card,.sky .card{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.09)}
 
@@ -526,7 +539,10 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
   .snCta{margin-left:12px}
 }
 @media(max-width:940px){
-  .g2,.g3,.g4{grid-template-columns:1fr}
+  /* .g5 stacks rather than halving: five items in two columns orphan the
+     fifth, which is the thing the five-up strip exists to avoid. */
+  .g2,.g3,.g4,.g5{grid-template-columns:1fr}
+  .figcenter{display:block}
   ul.cols{columns:1}
   ul.stakes{columns:1}
   .ledger,.casecard{grid-template-columns:1fr}
