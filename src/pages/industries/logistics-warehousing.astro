@@ -52,15 +52,6 @@ const INSIGHTS = [
 ];
 
 const blocks: BlockType[] = [
-  {
-    n: "SCOPE · FOUR THINGS THIS DECK CHANGES",
-    h: `
-  <div class="note stop" style="margin-top:0"><b>1 · It calls phase 1 “Consultation”.</b> Every other deck in this drop says <b>Assessment</b>, and so does the delivered <a href="${u("/how-it-works")}">four-phase timeline</a>. This is the only new page that sides with the live overview instead. <b>The naming question is no longer theoretical — two approved decks now disagree in writing.</b> <a href="${u("/brand-check")}">All conflicts →</a></div>
-  <div class="note stop"><b>2 · The URL drops the <code>/industries/</code> level.</b> The deck specifies <code>${B}logistics-warehousing/</code>; the other seven industry pages all live under <code>${B}industries/</code>, which is where the prototype serves this one. One page in a cluster of eight sitting a level up will read as an accident to anyone auditing the site.</div>
-  <div class="note stop"><b>3 · Its speed figures were new again; one half of that is now moot.</b> The deck put AFIMAC at <b>5–7 days</b> where How It Works and the FAQ said 14–35 for an agency and the decks said 6–7 for AFIMAC. The AFIMAC half is settled — every page now says <b>as little as 72 hours</b>. <b>The agency figure still is not</b>: this deck says <b>14–30 days</b> where the rest of the section says <b>14–35</b> and the 21 Aug ruling says <b>21–35</b>. Three figures for one market claim, which the directional timing does not touch.</div>
-  <div class="note stop"><b>4 · The urgent line is the old number.</b> This deck ends on <b>1.844.99.AFIMAC</b>; the <a href="${u("/get-in-touch")}">contact page</a> deck says the published number is <b>1.800.554.4622</b> and flags 1.844.99.AFIMAC as coming from the older F&amp;B doc. Two live decks, two phone numbers.</div>`,
-    spec: `All four are decisions, not copy edits. The phone number is the one that costs money if it ships wrong.`,
-  },
 
   {
     cls: "dark",
@@ -100,9 +91,9 @@ const blocks: BlockType[] = [
   <p class="lead">Drawn from our network of 20,000+ skilled and unskilled workers: vetted, mobile, and ready to work.</p>
   <div style="margin:24px 0">${figure(LOG_FLOOR_PLAN)}</div>
   ${stationFlow({ eyebrow: "Inbound to outbound", stations: LOG_STATIONS })}
-  <div class="card" style="margin-top:26px;border-color:var(--cstl-blue);border-width:2px">
+  <div class="card rolecta" style="margin-top:26px">
    <h3 style="margin-top:0">Don’t see the role? If it runs on your floor, we can staff it.</h3>
-   <div class="btns" style="margin-top:12px"><a class="btn ghost" href="${u("/get-in-touch")}">Ask about a role</a></div>
+   <div class="rolecta-act"><a class="btn" href="${u("/get-in-touch")}">Ask about a role</a><a class="rolecta-alt" href="${u("/roles")}">or browse every CSTL role &rsaquo;</a></div>
   </div>
   <div class="note"><b>The interactive line map is gone, and this replaces it.</b> It showed one station at a time behind a click, and it could not be built with stock Elementor widgets — it was an HTML widget carrying its own JavaScript. <b>All seven stations and all twenty-nine crews are now on the page at once</b>, in the same order and the same words, with nothing to click and no script.</div>
   <div class="note"><b>The callout card is back, because the widget that carried it is gone.</b> It was removed when the widget was placed, since the widget ended on the same CTA. That is no longer true.</div>
@@ -120,8 +111,9 @@ const blocks: BlockType[] = [
   <h2>A crew on your floor in as little as 72 hours</h2>
   <div style="margin:24px 0">${artPair(LOG_DEPLOY)}</div>
   <div class="g4">
-   ${PHASES.map(([name, dur, items]) => `<div class="card"><div class="blocknum">${name.toUpperCase()} · ${dur.toUpperCase()}</div><ul class="tick" style="margin-top:10px">${items.map((i) => `<li>${i}</li>`).join("")}</ul></div>`).join("")}
+   ${PHASES.map(([name, , items]) => `<div class="card"><div class="blocknum">${name.toUpperCase()}</div><ul class="tick" style="margin-top:10px">${items.map((i) => `<li>${i}</li>`).join("")}</ul></div>`).join("")}
   </div>
+  <div class="note"><b>The cards no longer repeat the graphic.</b> It names all four phases and states each one’s timing, so the cards carried the same two things again before getting to the work. <b>The timing lines are gone from the cards</b> — the graphic owns the sequence and the clock, the cards own the steps.</div>
   <div class="note stop"><b>This block is where the naming split shows.</b> Phase 1 is <b>Consultation</b> here and <b>Assessment</b> on <a href="${u("/how-it-works")}">How It Works</a>, <a href="${u("/day-1-ready")}">Day 1 Ready</a>, the <a href="${u("/pre-deployment")}">checklist</a> and all seven role pages. Every delivered graphic says Assessment too, including the timeline above it since the 5 Oct re-cut, and the delivery reports the approved option card does as well. <b>If that is settled, the cards are what move.</b></div>
   <div class="note"><b>The seven-day scale is gone.</b> Re-cut 5 Oct 2026: the timeline used to put the crew on your floor at <b>day 5</b> on a seven-day bar. It now runs the same four phases, in the same words, as the shared <a href="${u("/how-it-works")}">How It Works</a> timeline, with one figure, <b>as little as 72 hours</b>, which is also what this block’s H2 says.</div>`,
     spec: `<b>Elementor:</b> Image (SVG timeline, stacked cut under 780px) · EK Icon Box ×4. Phase names must match whatever the naming decision lands on.`,
@@ -198,6 +190,17 @@ const blocks: BlockType[] = [
     n: "OPEN ITEM · SEO",
     h: `<div class="note stop" style="margin-top:0"><b>The meta description runs 211 characters</b> against the 145–160 the house formula sets, so Google will cut it around “deployed to your facility in days”. The title is fine at 59. Trim the description before build — the parenthetical role list is the obvious cut, since the H1 and body already carry it.</div>`,
     spec: `Second deck in this drop to miss the meta length — see <a href="${u("/vs-local-staffing")}">CSTL vs. Local Staffing</a>, which misses on both fields.`,
+  },
+
+  // A note about the page, after the page.
+  {
+    n: "SCOPE · FOUR THINGS THIS DECK CHANGES",
+    h: `
+  <div class="note stop" style="margin-top:0"><b>1 · It calls phase 1 “Consultation”.</b> Every other deck in this drop says <b>Assessment</b>, and so does the delivered <a href="${u("/how-it-works")}">four-phase timeline</a>. This is the only new page that sides with the live overview instead. <b>The naming question is no longer theoretical — two approved decks now disagree in writing.</b> <a href="${u("/brand-check")}">All conflicts →</a></div>
+  <div class="note stop"><b>2 · The URL drops the <code>/industries/</code> level.</b> The deck specifies <code>${B}logistics-warehousing/</code>; the other seven industry pages all live under <code>${B}industries/</code>, which is where the prototype serves this one. One page in a cluster of eight sitting a level up will read as an accident to anyone auditing the site.</div>
+  <div class="note stop"><b>3 · Its speed figures were new again; one half of that is now moot.</b> The deck put AFIMAC at <b>5–7 days</b> where How It Works and the FAQ said 14–35 for an agency and the decks said 6–7 for AFIMAC. The AFIMAC half is settled — every page now says <b>as little as 72 hours</b>. <b>The agency figure still is not</b>: this deck says <b>14–30 days</b> where the rest of the section says <b>14–35</b> and the 21 Aug ruling says <b>21–35</b>. Three figures for one market claim, which the directional timing does not touch.</div>
+  <div class="note stop"><b>4 · The urgent line is the old number.</b> This deck ends on <b>1.844.99.AFIMAC</b>; the <a href="${u("/get-in-touch")}">contact page</a> deck says the published number is <b>1.800.554.4622</b> and flags 1.844.99.AFIMAC as coming from the older F&amp;B doc. Two live decks, two phone numbers.</div>`,
+    spec: `All four are decisions, not copy edits. The phone number is the one that costs money if it ships wrong.`,
   },
 ];
 ---

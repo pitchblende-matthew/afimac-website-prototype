@@ -41,15 +41,6 @@ const CASE_ROWS = CASES.map(([eyebrow, title, summary, named]) => {
 
 const blocks: BlockType[] = [
   {
-    n: "SCOPE · WHAT BLOCKS THIS PAGE",
-    h: `
-  <div class="note stop" style="margin-top:0"><b>Four of the five rows cannot ship as written.</b> This page exists to name clients; AFIMAC’s published cases are anonymized — Fortune 500 manufacturer, agricultural equipment manufacturer, food manufacturer. Every one of rows 01 to 04 needs <b>written permission to be named and logo’d</b> before it runs. <b>Qualcomm is the only client currently named in public</b>, and row 05 is a testimonial rather than a case study. Until permissions land, each row either runs with the anonymized descriptor in place of the bracket, or stays off the page.</div>
-  <div class="note"><b>A page that ships with four bracketed placeholders is worse than a page with one Qualcomm row.</b> The realistic launch is row 05 plus whichever of 01–04 clears legal — so treat the permission chase as the critical path, not the build.</div>
-  <div class="note stop"><b>And this page may not belong under CSTL at all.</b> Row 05 is protective services. If more protective-services cases are approved, the deck says the page may belong one level up — which would take it out of the <a href="${u("/launch-phases")}">CSTL rollout</a> entirely.</div>`,
-    spec: `Permissions are a legal task with a lead time. Start it now; the build is a day and the approvals are not.`,
-  },
-
-  {
     cls: "dark",
     n: "BLOCK 01 · HERO",
     h: `
@@ -83,6 +74,16 @@ const blocks: BlockType[] = [
   </div>
   <div class="note"><b>No form on this page, by design.</b> The strip routes to the contact page instead — the only resources page that does. Keep it that way; a case-study reader is further along than a library browser.</div>`,
     spec: `<b>Elementor:</b> Container (full-width strip) · Heading · Button. Global block candidate — <a href="${u("/resources/sales-sheets")}">Sales Sheets</a> runs the same strip with different wording.`,
+  },
+
+  // A note about the page, after the page.
+  {
+    n: "SCOPE · WHAT BLOCKS THIS PAGE",
+    h: `
+  <div class="note stop" style="margin-top:0"><b>Four of the five rows cannot ship as written.</b> This page exists to name clients; AFIMAC’s published cases are anonymized — Fortune 500 manufacturer, agricultural equipment manufacturer, food manufacturer. Every one of rows 01 to 04 needs <b>written permission to be named and logo’d</b> before it runs. <b>Qualcomm is the only client currently named in public</b>, and row 05 is a testimonial rather than a case study. Until permissions land, each row either runs with the anonymized descriptor in place of the bracket, or stays off the page.</div>
+  <div class="note"><b>A page that ships with four bracketed placeholders is worse than a page with one Qualcomm row.</b> The realistic launch is row 05 plus whichever of 01–04 clears legal — so treat the permission chase as the critical path, not the build.</div>
+  <div class="note stop"><b>And this page may not belong under CSTL at all.</b> Row 05 is protective services. If more protective-services cases are approved, the deck says the page may belong one level up — which would take it out of the <a href="${u("/launch-phases")}">CSTL rollout</a> entirely.</div>`,
+    spec: `Permissions are a legal task with a lead time. Start it now; the build is a day and the approvals are not.`,
   },
 ];
 ---

@@ -185,10 +185,13 @@ const TOGGLES = [
     </div>
 
     <main id="app">
+      {/* The page first, then the working notes about it. Both of these are
+          prototype chrome, and sitting them between the sub-nav and the hero
+          meant every page opened on a table about itself. */}
+      <slot />
       {metaPre && <PageMeta meta={metaPre} url={url} cls="pv-pre" asLive />}
       {meta && <PageMeta meta={meta} url={url} cls={metaPre ? "pv-post" : ""} />}
       <AssetBand route={active} />
-      <slot />
     </main>
 
     <footer class="site">

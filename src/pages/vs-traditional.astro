@@ -25,12 +25,6 @@ const RAIL: [string, string, string | null][] = [
 
 const blocks: BlockType[] = [
   {
-    n: "SCOPE · NEW PAGE",
-    h: `<div class="note stop" style="margin-top:0"><b>The deck's slug is not the route this page has.</b> It specifies <code>${B}travel-vs-traditional-labor/</code>; the agreed sub-nav points at <code>${B}vs-traditional/</code>, which is what the prototype serves. Neither is live yet, so this is free to settle either way — but settle it before the page is built, not after. The longer slug carries the primary keyword; the shorter one matches the sibling <a href="${u("/vs-local-staffing")}">comparison page</a>'s pattern.</div>`,
-    spec: `Same class of decision as the industry URLs. Roll it into that sign-off.`,
-  },
-
-  {
     n: "BLOCK 01 · EDITORIAL HERO",
     h: `
   <p class="eyebrow">Critical Situation Travel Labor · Perspective</p>
@@ -144,6 +138,13 @@ const blocks: BlockType[] = [
   </div>
   <div class="note"><b>“Including when we’d tell you to hire locally instead” is the strongest line on the page.</b> It is also a promise the sales team has to keep. Worth confirming they will.</div>`,
     spec: `<b>Elementor:</b> Metform · EK Icon List · Button. Same field set as every other CSTL form — keep it identical so lead scoring stays consistent.`,
+  },
+
+  // A note about the page, after the page.
+  {
+    n: "SCOPE · NEW PAGE",
+    h: `<div class="note stop" style="margin-top:0"><b>The deck's slug is not the route this page has.</b> It specifies <code>${B}travel-vs-traditional-labor/</code>; the agreed sub-nav points at <code>${B}vs-traditional/</code>, which is what the prototype serves. Neither is live yet, so this is free to settle either way — but settle it before the page is built, not after. The longer slug carries the primary keyword; the shorter one matches the sibling <a href="${u("/vs-local-staffing")}">comparison page</a>'s pattern.</div>`,
+    spec: `Same class of decision as the industry URLs. Roll it into that sign-off.`,
   },
 ];
 ---
