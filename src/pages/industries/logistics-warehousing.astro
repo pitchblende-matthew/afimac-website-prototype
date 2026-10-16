@@ -14,8 +14,8 @@ import Prototype from "../../layouts/Prototype.astro";
 import Block from "../../components/Block.astro";
 import { u } from "../../lib/base";
 import { B } from "../../data/nav";
-import { photo, artPair, figure, stationFlow } from "../../lib/wireframe";
-import { LOG_DEPLOY, LOG_FLOOR_PLAN } from "../../data/graphics";
+import { photo, artPair, stationFlow } from "../../lib/wireframe";
+import { LOG_DEPLOY } from "../../data/graphics";
 import { SOFT_PHASES } from "../../data/timing";
 import { LOG_STATIONS } from "../../data/industry-copy";
 import type { Block as BlockType } from "../../lib/types";
@@ -89,7 +89,6 @@ const blocks: BlockType[] = [
     h: `
   <h2>The skilled crews that keep freight moving</h2>
   <p class="lead">Drawn from our network of 20,000+ skilled and unskilled workers: vetted, mobile, and ready to work.</p>
-  <div style="margin:24px 0">${figure(LOG_FLOOR_PLAN)}</div>
   ${stationFlow({ eyebrow: "Inbound to outbound", stations: LOG_STATIONS })}
   <div class="card rolecta" style="margin-top:26px">
    <h3 style="margin-top:0">Don’t see the role? If it runs on your floor, we can staff it.</h3>
@@ -97,7 +96,7 @@ const blocks: BlockType[] = [
   </div>
   <div class="note"><b>The interactive line map is gone, and this replaces it.</b> It showed one station at a time behind a click, and it could not be built with stock Elementor widgets — it was an HTML widget carrying its own JavaScript. <b>All seven stations and all twenty-nine crews are now on the page at once</b>, in the same order and the same words, with nothing to click and no script.</div>
   <div class="note"><b>The callout card is back, because the widget that carried it is gone.</b> It was removed when the widget was placed, since the widget ended on the same CTA. That is no longer true.</div>
-  <div class="note"><b>The floor plan was behind a click too, and is not any more.</b> It sat collapsed under a “Static version, for print, email and PDF” toggle. It is a delivered static graphic that shows the building rather than the crews, so it stands on its own above the list — <b>and it is an Image widget, which the build can place without help.</b></div>
+  <div class="note"><b>The floor plan is not placed.</b> <code>afimac-log-floor-plan.svg</code> drew the building on the left and then listed all seven zones and their crews on the right — <b>which is the station grid below it, a second time.</b> Removed 16 Oct 2026; the file stays in <code>public/graphics/</code> for decks and PDFs, where the two halves travel together usefully.</div>
   <div class="note"><b>The sequence is carried by the numbering and the plan, not by a drawn rail.</b> A rail that cannot be clicked is decoration, and it would have been one more thing for the build to reproduce.</div>
   <div class="note"><b>Twenty-nine crews in seven stations, against six flat roles on every other industry page.</b> That is a genuinely different page, not a variant — and it is the reason this one does not run the shared template. Worth confirming the depth is wanted before it ships.</div>`,
     spec: `<b>Elementor:</b> Container set to grid (auto-fit, min 248px) · <b>EK Icon Box ×7</b>, one per station, each with its own Icon List · highlighted callout card. <b>No HTML widget and no custom script</b> — that was the point of the change. <code>/embeds/afimac-log-line-map.html</code> stays in the repository, unused.`,

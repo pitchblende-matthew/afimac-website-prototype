@@ -243,6 +243,11 @@ export const LOG_HERO_CHIP: Art = {
  * carries the same zones and crews; rendered collapsed under the widget for review.
  * Supersedes afimac-log-line-map-roles.svg, which stays in public/graphics/.
  */
+/**
+ * NOT PLACED, 16 Oct 2026. Its right-hand half lists all seven zones and their
+ * crews, which is the station grid on the page a second time. Kept for decks
+ * and PDFs, where the plan and the list travel together usefully.
+ */
 export const LOG_FLOOR_PLAN: Art = {
   src: "/graphics/afimac-log-floor-plan.svg",
   alt: "Top-down distribution centre floor plan: inbound docks, then Inbound & Receiving, Put-away & Storage, Picking & Fulfillment, Packing & Kitting and Loading & Outbound, then outbound docks, with Inventory & Cycle Count over the racks and Equipment & Facility under the floor, and the crews in each of the seven zones",

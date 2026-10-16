@@ -670,3 +670,18 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
 .rolecta-alt{font-size:13.5px;font-weight:700;color:var(--cstl-blue);text-decoration:none;
   border-bottom:1px solid rgba(13,74,124,.35);padding-bottom:1px}
 .rolecta-alt:hover{border-bottom-color:var(--cstl-blue)}
+
+/* Two-column blocks where the halves are very different heights. Left at the
+   top with a tall graphic beside it leaves a void under the text, so these
+   centre instead — and the art gets the wider half, because it is the half
+   that has to stay legible. */
+.g2.g2-art{grid-template-columns:0.88fr 1.12fr;align-items:center}
+.g2.g2-stats{align-items:center}
+/* Stat pairs: the figure and its caption belong together, the pairs apart. */
+.statcol{display:flex;flex-direction:column;gap:30px}
+.statpair .stat{margin:0}
+.statpair p{margin:6px 0 0}
+@media(max-width:860px){
+  .g2.g2-art{grid-template-columns:1fr}
+  .statcol{gap:22px}
+}
