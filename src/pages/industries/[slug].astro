@@ -41,15 +41,6 @@ const liveTemplate = (slug: string, hasUpdate = false): BlockType[] => {
 
   return [
     {
-      n: hasUpdate ? "PHASES 0–2 · THIS IS THE LIVE PAGE" : "PHASE 0 · THIS IS THE LIVE PAGE",
-      h: `<div class="note" style="margin-top:0"><b>This is the page as published today</b>, read off afimacglobal.com on 9 Sep 2026 — not a sketch of it. It is what a visitor sees at <a href="${u(`/industries/${slug}`)}">this URL</a> right now. ${
-        hasUpdate
-          ? `<b>The sub-nav slot ships in phase 1, but the new copy does not land until phase 3</b> — so at phases 0, 1 and 2 this is what the slot opens onto. <b><a href="?phase=3">Switch to phase 3 to see the update →</a></b>`
-          : `It is what <a href="${u("/launch-phases")}">launch phase 0</a> means for this industry, and it stays this way through every phase — <b>no update has been written for this page</b>. The two that have one swap at phase 3.`
-      }</div>`,
-      spec: `Live SEO title: <code>${p.seoTitle}</code>`,
-    },
-    {
       cls: "dark",
       n: "BLOCK 01 · HERO — AS LIVE",
       h: `
@@ -141,6 +132,16 @@ const liveTemplate = (slug: string, hasUpdate = false): BlockType[] => {
   }`,
       spec: `<b>Elementor:</b> Metform · EK Icon List. Global block — note the heading is not global.`,
     },
+    // A note about the page, after the page.
+    {
+      n: hasUpdate ? "PHASES 0–2 · THIS IS THE LIVE PAGE" : "PHASE 0 · THIS IS THE LIVE PAGE",
+      h: `<div class="note" style="margin-top:0"><b>This is the page as published today</b>, read off afimacglobal.com on 9 Sep 2026 — not a sketch of it. It is what a visitor sees at <a href="${u(`/industries/${slug}`)}">this URL</a> right now. ${
+        hasUpdate
+          ? `<b>The sub-nav slot ships in phase 1, but the new copy does not land until phase 3</b> — so at phases 0, 1 and 2 this is what the slot opens onto. <b><a href="?phase=3">Switch to phase 3 to see the update →</a></b>`
+          : `It is what <a href="${u("/launch-phases")}">launch phase 0</a> means for this industry, and it stays this way through every phase — <b>no update has been written for this page</b>. The two that have one swap at phase 3.`
+      }</div>`,
+      spec: `Live SEO title: <code>${p.seoTitle}</code>`,
+    },
   ];
 };
 
@@ -168,8 +169,10 @@ const swapBanner: BlockType = {
 };
 
 const blocks: BlockType[] = built
-  ? [swapBanner, ...view(liveTemplate(built.slug, true), "pre"), ...view(page!.blocks, "post")]
+  ? [...view(liveTemplate(built.slug, true), "pre"), ...view(page!.blocks, "post"), swapBanner]
   : [
+      ...liveTemplate(existing!.slug),
+      // A note about the page, after the page.
       {
         n: "STATUS · LIVE, NO CSTL UPDATE WRITTEN",
         h: `
@@ -184,7 +187,6 @@ const blocks: BlockType[] = built
   <div class="btns"><a class="btn ghost" href="${u("/industries/automotive")}">See what an update looks like →</a></div>`,
         spec: `Wireframed below is the live page as it stands, so the scope of an update is visible. <b>Nothing here is new copy.</b>`,
       },
-      ...liveTemplate(existing!.slug),
     ];
 ---
 

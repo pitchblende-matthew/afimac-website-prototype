@@ -169,12 +169,17 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
         spec: `<b>Elementor:</b> Container · EK Funfact / Counter ×4, blue band. Figures are the four already approved in the June-05 package — no new stats without sourcing.`,
       };
 
-  /** The deck's four deployment phases, with their durations and bullets. */
+  /**
+   * The deck's four deployment phases. The timing line is deliberately absent:
+   * the graphic directly above these cards already names every phase and its
+   * window, so repeating it here made the block say everything twice. The
+   * graphic carries the sequence and the timing, the cards carry the work.
+   */
   const phaseCards = c
     ? c.phases
         .map(
           (ph) =>
-            `<div class="card"><div class="blocknum">PHASE ${ph.n}</div><h3>${ph.title}</h3><p style="font-size:13px;color:var(--cstl-blue);font-weight:700;margin:6px 0 10px">${ph.days}</p><ul class="check">${ph.bullets
+            `<div class="card"><div class="blocknum">PHASE ${ph.n}</div><h3>${ph.title}</h3><ul class="check">${ph.bullets
               .map((x) => `<li>${x}</li>`)
               .join("")}</ul></div>`,
         )
@@ -206,10 +211,13 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
         (c
           ? stationFlow({ eyebrow: o.flowEyebrow ?? "Start to finish", stations: c.stations })
           : `<div style="margin:22px 0">${o.rolesArt ? figure(o.rolesArt) : o.mapArt ? figure(o.mapArt) : photo(o.map)}</div>`) +
+        // One card, two things to do, ranked. Previously this was a callout
+        // card followed by a loose "See all CSTL roles" button — two CTAs of
+        // equal weight, side by side, asking different things.
         (c
-          ? `<div class="card" style="margin-top:26px;border-color:var(--cstl-blue);border-width:2px">
+          ? `<div class="card rolecta" style="margin-top:26px">
    <h3 style="margin-top:0">${c.calloutText}</h3>
-   <div class="btns" style="margin-top:12px"><a class="btn ghost" href="${u("/get-in-touch")}">${c.calloutButton}</a></div>
+   <div class="rolecta-act"><a class="btn" href="${u("/get-in-touch")}">${c.calloutButton}</a><a class="rolecta-alt" href="${u("/roles")}">or browse every CSTL role &rsaquo;</a></div>
   </div>`
           : ""),
       hEnd: `
@@ -221,9 +229,13 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
     <div class="note"><b>And the six generic role cards are gone for good.</b> They were the thing that made this block read thin — six titles with grey bars where blurbs would go, against a widget that held ${c.stations.reduce((n, st) => n + st.roles.length, 0)}. The stations are the role inventory now.</div>`
       : ""
   }
-  <div class="btns"><a class="btn ghost" href="${u("/roles")}">See all CSTL roles</a></div>`,
+  ${
+    c
+      ? `<div class="note"><b>Two CTAs became one.</b> The block ended with a callout card asking “${c.calloutText}” and then a separate <b>See all CSTL roles</b> button — same weight, same place, two different asks. The card now carries both, with the role list as the secondary of the two.</div>`
+      : `<div class="btns"><a class="btn ghost" href="${u("/roles")}">See all CSTL roles</a></div>`
+  }`,
       spec: c
-        ? `<b>Elementor:</b> Container set to grid (auto-fit, min 248px) · <b>EK Icon Box ×${c.stations.length}</b>, one per station, each with its own Icon List · highlighted callout card · Button. <b>No HTML widget and no custom script.</b> Station names and crew lists are deck section 04, verbatim.`
+        ? `<b>Elementor:</b> Container set to grid (auto-fit, min 248px) · <b>EK Icon Box ×${c.stations.length}</b>, one per station, each with its own Icon List · one callout card with a primary button and a text link. <b>No HTML widget and no custom script.</b> Station names and crew lists are deck section 04, verbatim.`
         : `<b>Elementor:</b> Container (3-col) · EK Icon Box ×${o.roles.length} · Button. <b>Role blurbs not written.</b>`,
     },
     {
@@ -243,6 +255,11 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
     c
       ? `<div class="note stop"><b>The graphic and the cards under it still disagree on one word.</b> Every delivered graphic now says <b>Assessment</b> for phase 1, and the delivery reports that the approved option card names it Assessment too. The deck’s own phase cards, below, still say <b>${c.phases[0].title}</b>, and so does the live <a href="${u("/overview")}">overview</a>. <b>If Assessment is settled, this is now a copy change to the cards</b>, not an open question. <a href="${u("/brand-check")}">All conflicts →</a></div>`
       : `<div class="note stop"><b>Its phase names must match the ones below it before this ships.</b> The graphic says Assessment · Mobilization · Deployment · Demobilization; the cards under it say the same, but the live <a href="${u("/overview")}">overview</a> calls phase 1 Consultation. That decision is still open.</div>`
+  }
+  ${
+    c
+      ? `<div class="note"><b>The cards no longer repeat the graphic.</b> It names all four phases and states each one's timing, so the cards used to carry the same two things again before getting to the work. <b>The timing lines are gone from the cards</b> — the graphic owns the sequence and the clock, the cards own the steps.</div>`
+      : ""
   }
   <div class="g4">${c ? phaseCards : ["Assessment", "Mobilization", "Deployment", "Demobilization"].map((x, i) => `<div class="card"><div class="blocknum">PHASE 0${i + 1}</div><h3>${x}</h3>${bars(3)}</div>`).join("")}</div>`,
       spec: `<b>Elementor:</b> HTML widget (timeline) or EK Advanced Timeline · EK Icon Box ×4. Phase names must match How It Works — the graphics now say Assessment; the cards follow once the copy is changed.`,
@@ -328,30 +345,9 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
           k: "[keyword set from the SEO audit]",
         },
     blocks: [
-      scope,
-      ...seoNote,
-      ...asLive,
-      ...(o.speedArt
-        ? [
-            {
-              n: "BLOCK 02a · SPEED TO PRODUCTION",
-              h: `
-    <h2>Time to a working crew on your floor</h2>
-    <div style="margin-top:24px">${artPair(o.speedArt)}</div>
-    <div class="g2" style="margin-top:26px;align-items:start">
-     <div>
-      <p class="lead">The first real graphic delivered for this cluster, and the page's sharpest argument: the alternatives are measured in months, this is measured in days.</p>
-      <div class="pullstat"><span class="pullstat-n">As little as 72 hours</span><span class="pullstat-l">from call to crew on your line</span></div>
-      <div class="note"><b>The pull-stat above is markup, not artwork.</b> It was supplied as a picture of a type lockup; built as type it stays selectable, searchable, translatable and legible at any zoom, and it inherits Museo automatically. <b>Do not place it as an image.</b> In Elementor it is a Heading plus a Text Editor in a container with a left orange border — no HTML widget needed.</div>
-      <div class="note"><b>The landscape cut has arrived and is what renders here.</b> Wide rather than tall, so it now runs full width instead of fighting the two-column split — and a separately laid-out narrow version swaps in under 780px.</div>
-      <div class="note"><b>The two market figures stand unchanged.</b> 45–90 and 21–35 are claims about other routes to labor, not AFIMAC commitments, so the directional timing leaves them alone — and where a page still says 14–35 for an agency, that copy is still the thing out of date. <a href="${u("/brand-check")}">All conflicts →</a></div>
-      <div class="note"><b>The graphic and the page now say the same thing.</b> Re-cut 5 Oct 2026: the AFIMAC bar reads <b>as little as 72 hours</b>, matching the pull-stat above and every phase card on this page, and it fades out past the 72-hour line labelled <i>timing varies by engagement</i> rather than ending in a cap, so it cannot be read as a ceiling.</div>
-     </div>
-    </div>`,
-              spec: `<b>Elementor:</b> Image, 2-col container. <b>Resolve the two number mismatches before this goes live</b> — a graphic and a table on the same site disagreeing about the same benchmark is worse than either alone.`,
-            } as Block,
-          ]
-        : []),
+      // The hero opens the page. Everything that is a note about the page —
+      // the scope block, the SEO open item and the phase 0 delta — now runs
+      // after it rather than in front of it.
       {
         cls: "dark",
         n: "BLOCK 02 · HERO",
@@ -377,8 +373,33 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
           ? `<b>Elementor:</b> Container (2-col, bg image + navy overlay) · Heading ×3 · Text Editor · Button ×2. Copy is deck section 02, verbatim. <b>The deck offers three hero layouts</b> (bold / editorial / overlay) and says the copy is layout-agnostic — the layout choice is still open.`
           : `<b>Elementor:</b> Container (2-col, bg image + navy overlay) · Heading ×3 · Text Editor · Button ×2. <b>Headline and body copy not written.</b>`,
       },
+      ...(o.speedArt
+        ? [
+            {
+              n: "BLOCK 02a · SPEED TO PRODUCTION",
+              h: `
+    <h2>Time to a working crew on your floor</h2>
+    <div style="margin-top:24px">${artPair(o.speedArt)}</div>
+    <div class="g2" style="margin-top:26px;align-items:start">
+     <div>
+      <p class="lead">The first real graphic delivered for this cluster, and the page's sharpest argument: the alternatives are measured in months, this is measured in days.</p>
+      <div class="pullstat"><span class="pullstat-n">As little as 72 hours</span><span class="pullstat-l">from call to crew on your line</span></div>
+      <div class="note"><b>The pull-stat above is markup, not artwork.</b> It was supplied as a picture of a type lockup; built as type it stays selectable, searchable, translatable and legible at any zoom, and it inherits Museo automatically. <b>Do not place it as an image.</b> In Elementor it is a Heading plus a Text Editor in a container with a left orange border — no HTML widget needed.</div>
+      <div class="note"><b>The landscape cut has arrived and is what renders here.</b> Wide rather than tall, so it now runs full width instead of fighting the two-column split — and a separately laid-out narrow version swaps in under 780px.</div>
+      <div class="note"><b>The two market figures stand unchanged.</b> 45–90 and 21–35 are claims about other routes to labor, not AFIMAC commitments, so the directional timing leaves them alone — and where a page still says 14–35 for an agency, that copy is still the thing out of date. <a href="${u("/brand-check")}">All conflicts →</a></div>
+      <div class="note"><b>The graphic and the page now say the same thing.</b> Re-cut 5 Oct 2026: the AFIMAC bar reads <b>as little as 72 hours</b>, matching the pull-stat above and every phase card on this page, and it fades out past the 72-hour line labelled <i>timing varies by engagement</i> rather than ending in a cap, so it cannot be read as a ceiling.</div>
+     </div>
+    </div>`,
+              spec: `<b>Elementor:</b> Image, 2-col container. <b>Resolve the two number mismatches before this goes live</b> — a graphic and a table on the same site disagreeing about the same benchmark is worse than either alone.`,
+            } as Block,
+          ]
+        : []),
       ...ordered,
       ...openItems,
+      // Notes about the page, after the page.
+      scope,
+      ...seoNote,
+      ...asLive,
     ],
   };
 }

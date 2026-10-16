@@ -40,15 +40,6 @@ const RAIL_CARDS = RAIL.map((t) => {
 
 const blocks: BlockType[] = [
   {
-    n: "SCOPE · WHAT THIS DROP CHANGES",
-    h: `
-  <div class="note" style="margin-top:0"><b>This is the full approved copy, replacing the partial build.</b> The comparison tables were already here; everything around them — hero, framing, the cost-of-waiting section, the FAQ — was grey bars until now.</div>
-  <div class="note stop"><b>It also changes a number the prototype has been carrying, and that is the useful part.</b> The direct-hire figure moves from <b>30–90 days</b> to <b>45–90</b>. That was the last page disagreeing with the automotive speed graphic and <a href="${u("/vs-traditional")}">Travel vs. Traditional</a>, both of which say 45–90. <b>Direct hire is now settled at 45–90 across the section.</b> The agency figure stays 14–35, which leaves the graphic's 21–35 as the only outlier left. <a href="${u("/brand-check")}">All conflicts →</a></div>
-  <div class="note stop"><b>Both SEO fields break the house formula, by a lot.</b> The title runs <b>79 characters</b> against the 50–60 the other twelve decks follow, and the meta description runs <b>186</b> against 145–160. Google will truncate both. This is the only deck in the set that misses on either.</div>`,
-    spec: `The SEO fields need trimming before build — everything else is ready to drop in.`,
-  },
-
-  {
     n: "BLOCK 02 · HERO",
     h: `
   <p class="eyebrow">Critical Situation Travel Labor · Compare Your Options</p>
@@ -196,6 +187,16 @@ const blocks: BlockType[] = [
   </div>
   <div class="note"><b>Four bullets here where every other form in the cluster has three.</b> The extra one — “the staffing model that actually fits your situation” — is right for a comparison page. Worth keeping, and worth noting it is deliberate.</div>`,
     spec: `<b>Elementor:</b> Metform · EK Icon List · Button. Button reads “Let’s talk” here, not “Talk to a specialist” — the one form in the cluster that differs. Align or accept.`,
+  },
+
+  // A note about the page, after the page.
+  {
+    n: "SCOPE · WHAT THIS DROP CHANGES",
+    h: `
+  <div class="note" style="margin-top:0"><b>This is the full approved copy, replacing the partial build.</b> The comparison tables were already here; everything around them — hero, framing, the cost-of-waiting section, the FAQ — was grey bars until now.</div>
+  <div class="note stop"><b>It also changes a number the prototype has been carrying, and that is the useful part.</b> The direct-hire figure moves from <b>30–90 days</b> to <b>45–90</b>. That was the last page disagreeing with the automotive speed graphic and <a href="${u("/vs-traditional")}">Travel vs. Traditional</a>, both of which say 45–90. <b>Direct hire is now settled at 45–90 across the section.</b> The agency figure stays 14–35, which leaves the graphic's 21–35 as the only outlier left. <a href="${u("/brand-check")}">All conflicts →</a></div>
+  <div class="note stop"><b>Both SEO fields break the house formula, by a lot.</b> The title runs <b>79 characters</b> against the 50–60 the other twelve decks follow, and the meta description runs <b>186</b> against 145–160. Google will truncate both. This is the only deck in the set that misses on either.</div>`,
+    spec: `The SEO fields need trimming before build — everything else is ready to drop in.`,
   },
 ];
 ---

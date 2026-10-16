@@ -21,14 +21,6 @@ const STEPS: [string, string][] = [
 
 const blocks: BlockType[] = [
   {
-    n: "SCOPE · THIS PAGE IS NOT IN THE CSTL BRANCH",
-    h: `
-  <div class="note" style="margin-top:0"><b>The open question this page carried is answered.</b> It asked whether Get in Touch should be a standalone page or an anchor jump to the inline form. The deck settles it: use the <b>existing <code>/contact/</code> URL</b>, replacing the page’s content and not its address, so <b>no CTA anywhere on the site needs re-pointing</b>. That also resolves the reporting worry — one contact URL, not two.</div>
-  <div class="note stop"><b>Which means this page sits outside the CSTL section.</b> The prototype has been serving it at <code>${B}get-in-touch/</code>; production is <code>/contact/</code>, one level up and shared with protective services. The sub-nav CTA and every inline form still point here, but this is not a CSTL page and should not be counted as one in the <a href="${u("/launch-phases")}">rollout</a> — it already exists.</div>`,
-    spec: `Update the prototype’s URL for this page once confirmed. Everything below is content, and content is what the deck replaces.`,
-  },
-
-  {
     cls: "dark",
     n: "BLOCK 01 · HERO",
     h: `
@@ -94,6 +86,15 @@ const blocks: BlockType[] = [
     n: "OPEN ITEM · THE FORM BACKEND",
     h: `<div class="note stop" style="margin-top:0"><b>Same decision as the <a href="${u("/resources/white-papers")}">White Papers gate</a>, and this is the page to settle it on.</b> Elementor form now, or the CRM’s native embed once the HubSpot implementation is ready. This is the highest-volume form on the site — every CTA in the section lands here — so submissions collected in the wrong place are the most expensive ones to migrate. <b>Decide with Nick before build.</b></div>`,
     spec: `One decision covering this page, the White Papers modal, and every inline form in the cluster.`,
+  },
+
+  // A note about the page, after the page.
+  {
+    n: "SCOPE · THIS PAGE IS NOT IN THE CSTL BRANCH",
+    h: `
+  <div class="note" style="margin-top:0"><b>The open question this page carried is answered.</b> It asked whether Get in Touch should be a standalone page or an anchor jump to the inline form. The deck settles it: use the <b>existing <code>/contact/</code> URL</b>, replacing the page’s content and not its address, so <b>no CTA anywhere on the site needs re-pointing</b>. That also resolves the reporting worry — one contact URL, not two.</div>
+  <div class="note stop"><b>Which means this page sits outside the CSTL section.</b> The prototype has been serving it at <code>${B}get-in-touch/</code>; production is <code>/contact/</code>, one level up and shared with protective services. The sub-nav CTA and every inline form still point here, but this is not a CSTL page and should not be counted as one in the <a href="${u("/launch-phases")}">rollout</a> — it already exists.</div>`,
+    spec: `Update the prototype’s URL for this page once confirmed. Everything below is content, and content is what the deck replaces.`,
   },
 ];
 ---

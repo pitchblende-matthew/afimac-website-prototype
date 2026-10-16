@@ -662,3 +662,11 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
 .blue .stn,.dark .stn,.readiness .stn{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.2)}
 .blue .stn-t,.dark .stn-t,.readiness .stn-t{color:#fff}
 .blue .stn-eyebrow,.dark .stn-eyebrow,.readiness .stn-eyebrow{color:#cfe3f2}
+
+/* Role callout: one card, one primary action, one secondary link. It replaced
+   a callout card plus a loose button of equal weight sitting under it. */
+.rolecta{border-color:var(--cstl-blue);border-width:2px}
+.rolecta-act{display:flex;align-items:center;flex-wrap:wrap;gap:10px 22px;margin-top:14px}
+.rolecta-alt{font-size:13.5px;font-weight:700;color:var(--cstl-blue);text-decoration:none;
+  border-bottom:1px solid rgba(13,74,124,.35);padding-bottom:1px}
+.rolecta-alt:hover{border-bottom-color:var(--cstl-blue)}
