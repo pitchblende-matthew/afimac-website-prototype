@@ -14,9 +14,10 @@ import Prototype from "../../layouts/Prototype.astro";
 import Block from "../../components/Block.astro";
 import { u } from "../../lib/base";
 import { B } from "../../data/nav";
-import { photo, artPair, figure } from "../../lib/wireframe";
+import { photo, artPair, figure, stationFlow } from "../../lib/wireframe";
 import { LOG_DEPLOY, LOG_FLOOR_PLAN } from "../../data/graphics";
 import { SOFT_PHASES } from "../../data/timing";
+import { LOG_STATIONS } from "../../data/industry-copy";
 import type { Block as BlockType } from "../../lib/types";
 
 const SITUATIONS = [
@@ -97,15 +98,18 @@ const blocks: BlockType[] = [
     h: `
   <h2>The skilled crews that keep freight moving</h2>
   <p class="lead">Drawn from our network of 20,000+ skilled and unskilled workers: vetted, mobile, and ready to work.</p>
-  <div class="note"><b>The seven-card role grid is gone, because the widget already carries every one of them.</b> The delivery's note is explicit: “the separate <code>EK Icon Box ×7</code> grid is redundant if you use it — pick one.” Picked. <b>The static version ships alongside the widget and sits collapsed under it rather than open on the page</b> — same content, same either/or: the widget reveals one station at a time, which is right on the page, and the static version is for print, email and PDF, where nothing is clickable. <b>As of 5 Oct 2026 the static version is a floor plan</b> rather than the seven-station rail.</div>
-  <div class="note"><b>And the separate “Don’t see the role?” card is gone with it.</b> The widget ends on that exact CTA already — same line, same <b>Ask about a role</b> button — so building it a second time as an Elementor card put the same offer on screen twice, a few hundred pixels apart. The widget’s own build comment says to delete its callout <i>if</i> the card is built separately; here the card is the one that goes, because the widget’s version cannot be separated from the widget.</div>
-  <div class="note"><b>Thirty roles in seven groups, against six flat roles on every other industry page.</b> That is a genuinely different page, not a variant — and it is the reason this one does not run the shared template. Worth confirming the depth is wanted before it ships, because it sets an expectation the other seven pages will be measured against.</div>`,
-    embed: {
-      name: "log-line-map",
-      caption: `<b>Live embed, delivered.</b> The HTML widget itself, not a picture of it — click or tab a station to see its crews. Scoped to its own class prefix, loads nothing external, uses no browser storage.`,
-    },
-    hEnd: `<details class="staticart" style="margin:18px 0 6px"><summary style="cursor:pointer;font-weight:700;color:var(--cstl-blue)">Static version, for print, email and PDF</summary><div style="margin-top:16px">${figure(LOG_FLOOR_PLAN)}</div></details>`,
-    spec: `<b>Elementor:</b> HTML widget (paste the whole file) — that is the entire block. <b>No separate callout card:</b> the widget carries its own “Don’t see the role?” CTA. <b>The EK Icon Box ×7 grid this block used to spec is redundant</b> — the widget carries every role.`,
+  <div style="margin:24px 0">${figure(LOG_FLOOR_PLAN)}</div>
+  ${stationFlow({ eyebrow: "Inbound to outbound", stations: LOG_STATIONS })}
+  <div class="card" style="margin-top:26px;border-color:var(--cstl-blue);border-width:2px">
+   <h3 style="margin-top:0">Don’t see the role? If it runs on your floor, we can staff it.</h3>
+   <div class="btns" style="margin-top:12px"><a class="btn ghost" href="${u("/get-in-touch")}">Ask about a role</a></div>
+  </div>
+  <div class="note"><b>The interactive line map is gone, and this replaces it.</b> It showed one station at a time behind a click, and it could not be built with stock Elementor widgets — it was an HTML widget carrying its own JavaScript. <b>All seven stations and all twenty-nine crews are now on the page at once</b>, in the same order and the same words, with nothing to click and no script.</div>
+  <div class="note"><b>The callout card is back, because the widget that carried it is gone.</b> It was removed when the widget was placed, since the widget ended on the same CTA. That is no longer true.</div>
+  <div class="note"><b>The floor plan was behind a click too, and is not any more.</b> It sat collapsed under a “Static version, for print, email and PDF” toggle. It is a delivered static graphic that shows the building rather than the crews, so it stands on its own above the list — <b>and it is an Image widget, which the build can place without help.</b></div>
+  <div class="note"><b>The sequence is carried by the numbering and the plan, not by a drawn rail.</b> A rail that cannot be clicked is decoration, and it would have been one more thing for the build to reproduce.</div>
+  <div class="note"><b>Twenty-nine crews in seven stations, against six flat roles on every other industry page.</b> That is a genuinely different page, not a variant — and it is the reason this one does not run the shared template. Worth confirming the depth is wanted before it ships.</div>`,
+    spec: `<b>Elementor:</b> Container set to grid (auto-fit, min 248px) · <b>EK Icon Box ×7</b>, one per station, each with its own Icon List · highlighted callout card. <b>No HTML widget and no custom script</b> — that was the point of the change. <code>/embeds/afimac-log-line-map.html</code> stays in the repository, unused.`,
   },
 
   {
