@@ -89,16 +89,6 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
       ]
     : [];
 
-  /** Bars for the deck's speed infographic, where the deck states one. */
-  const speedRows = c
-    ? c.speedBars
-        .map(
-          ([label, value], i) =>
-            `<tr${i === 2 ? ' class="hl"' : ""}><th>${label}</th><td>${value}</td></tr>`,
-        )
-        .join("")
-    : "";
-
   const gap: Block = {
     cls: "wash",
     n: "BLOCK 03 · " + (c ? c.gapEyebrow.replace(/&amp;/g, "&").toUpperCase() : "THE " + o.short.toUpperCase() + " LABOR GAP"),
@@ -115,10 +105,10 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
   </div>
   ${
     o.speedArt
-      ? `<div class="note"><b>The deck specs the speed comparison here, under this block.</b> It is built, and runs as its own block below so the artwork gets the width it needs.</div>`
-      : `<div class="tscroll" style="margin-top:26px"><table class="cmp" style="max-width:640px"><thead><tr><th>${c.speedLabel}</th><th>Time to a working crew</th></tr></thead><tbody>${speedRows}</tbody></table></div>
-  <div class="note stop"><b>These bars are specified and not built.</b> The deck carries the label “${c.speedLabel}” with the three figures above; no speed graphic was delivered for this page. Shown as a table so the figures are reviewable and nothing reads as a missing asset. <a href="${u("/brand-check")}">All conflicts →</a></div>`
-  }`
+      ? `<div class="note"><b>The delivered speed graphic is no longer placed.</b> <code>${o.speedArt.src.split("/").pop()}</code> ran as its own block above the hero until 16 Oct 2026 — a bar chart of other people's hiring timelines, opening the page. It stays in <code>public/graphics/</code> for decks and PDFs. <b>This page states its own speed in the hero and again in How We Deploy</b>, which is where a buyer is already asking the question.</div>`
+      : ""
+  }
+  <div class="note"><b>The speed comparison is not on this page.</b> The deck specs it under this block — the label “${c.speedLabel}” with ${c.speedBars.map((r) => r[1]).join(" / ")} — and it was rendered here as a table while no graphic existed. <b>Removed 16 Oct 2026:</b> a three-row table of someone else's hiring timelines is not worth the width, and the page already states its own speed in the hero and the deployment block.</div>`
       : `
   <h2>The ${o.short} labor gap</h2>
   <div class="ph t"></div>${bars(2)}
@@ -127,7 +117,7 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
    <div><h3>What it costs you</h3>${bars(5)}</div>
   </div>`,
     spec: c
-      ? `<b>Elementor:</b> Container (2-col) · Heading ×3 · Text Editor · EK Icon List ×2${o.speedArt ? "" : " · EK Progress Bar ×3"}. Copy is deck section 03, verbatim.`
+      ? `<b>Elementor:</b> Container (2-col) · Heading ×3 · Text Editor · EK Icon List ×2. Copy is deck section 03, verbatim. <b>No progress bars:</b> the speed comparison this block used to spec is no longer on the page.`
       : `<b>Elementor:</b> Container (2-col) · EK Icon List ×2 · EK Progress Bar ×3. <b>Copy not written.</b>`,
   };
 
@@ -373,27 +363,6 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
           ? `<b>Elementor:</b> Container (2-col, bg image + navy overlay) · Heading ×3 · Text Editor · Button ×2. Copy is deck section 02, verbatim. <b>The deck offers three hero layouts</b> (bold / editorial / overlay) and says the copy is layout-agnostic — the layout choice is still open.`
           : `<b>Elementor:</b> Container (2-col, bg image + navy overlay) · Heading ×3 · Text Editor · Button ×2. <b>Headline and body copy not written.</b>`,
       },
-      ...(o.speedArt
-        ? [
-            {
-              n: "BLOCK 02a · SPEED TO PRODUCTION",
-              h: `
-    <h2>Time to a working crew on your floor</h2>
-    <div style="margin-top:24px">${artPair(o.speedArt)}</div>
-    <div class="g2" style="margin-top:26px;align-items:start">
-     <div>
-      <p class="lead">The first real graphic delivered for this cluster, and the page's sharpest argument: the alternatives are measured in months, this is measured in days.</p>
-      <div class="pullstat"><span class="pullstat-n">As little as 72 hours</span><span class="pullstat-l">from call to crew on your line</span></div>
-      <div class="note"><b>The pull-stat above is markup, not artwork.</b> It was supplied as a picture of a type lockup; built as type it stays selectable, searchable, translatable and legible at any zoom, and it inherits Museo automatically. <b>Do not place it as an image.</b> In Elementor it is a Heading plus a Text Editor in a container with a left orange border — no HTML widget needed.</div>
-      <div class="note"><b>The landscape cut has arrived and is what renders here.</b> Wide rather than tall, so it now runs full width instead of fighting the two-column split — and a separately laid-out narrow version swaps in under 780px.</div>
-      <div class="note"><b>The two market figures stand unchanged.</b> 45–90 and 21–35 are claims about other routes to labor, not AFIMAC commitments, so the directional timing leaves them alone — and where a page still says 14–35 for an agency, that copy is still the thing out of date. <a href="${u("/brand-check")}">All conflicts →</a></div>
-      <div class="note"><b>The graphic and the page now say the same thing.</b> Re-cut 5 Oct 2026: the AFIMAC bar reads <b>as little as 72 hours</b>, matching the pull-stat above and every phase card on this page, and it fades out past the 72-hour line labelled <i>timing varies by engagement</i> rather than ending in a cap, so it cannot be read as a ceiling.</div>
-     </div>
-    </div>`,
-              spec: `<b>Elementor:</b> Image, 2-col container. <b>Resolve the two number mismatches before this goes live</b> — a graphic and a table on the same site disagreeing about the same benchmark is worse than either alone.`,
-            } as Block,
-          ]
-        : []),
       ...ordered,
       ...openItems,
       // Notes about the page, after the page.
