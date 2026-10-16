@@ -113,9 +113,9 @@ const blocks: BlockType[] = [
     h: `
   <h2>Don’t duplicate what’s already done</h2>
   <p class="lead">Everything below arrives finished. Your team doesn’t recruit, screen, book, house, or orient anyone.</p>
-  <div class="g4" style="margin-top:24px">${READY_CHECKS.map((c) => `<div class="card" style="text-align:center"><h3 style="margin:0">${c}</h3></div>`).join("")}</div>
+  <div class="g5 g5-tight" style="margin-top:24px">${READY_CHECKS.map((c) => `<div class="card" style="text-align:center"><h3 style="margin:0">${c}</h3></div>`).join("")}</div>
   <div class="note"><b>No new asset needed.</b> This reuses the <a href="${u("/day-1-ready")}">Day 1 Ready seal</a> art in strip form — same five checks, same file, laid out horizontally.</div>`,
-    spec: `<b>Elementor:</b> Heading · Text Editor · Image (the seal art, strip crop) or EK Icon List inline. Five items into a four-column grid leaves an orphan — run it as a five-up strip.`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · Image (the seal art, strip crop) or EK Icon List inline. Run it as a five-up strip; a four-column grid leaves the fifth item orphaned on its own row.`,
   },
 
   {
