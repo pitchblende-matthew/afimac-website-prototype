@@ -353,9 +353,11 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
            : `<div class="ph t" style="background:rgba(255,255,255,.17)"></div>${bars(4)}`
      }
       <div class="btns"><a class="btn" href="${u("/get-in-touch")}">${c ? c.ctas[0] : "Get the Numbers"}</a><a class="btn ghost" href="${c ? "#deploy" : u("/how-it-works")}">${c ? c.ctas[1] : "See how it works"}</a></div></div>
-     <div>${photo(o.heroImg)}${
+     <div>${o.heroPhoto ? figure(o.heroPhoto) : photo(o.heroImg)}${
        o.heroChip
-         ? `<div class="note"><b>The delivered hero overlay chip is not placed.</b> <code>${o.heroChip.src.split("/").pop()}</code> is built to sit <i>on</i> the photograph, over the navy scrim. With no photograph yet it can only float in an empty box, which reads as a stray graphic rather than a design. It stays in <code>public/graphics/</code> for whoever builds the hero in Elementor. <b>Decided 9 Sep 2026.</b></div>`
+         ? o.heroPhoto
+           ? `<div class="note"><b>The hero photograph is in, the overlay chip still is not.</b> <code>${o.heroChip.src.split("/").pop()}</code> sits <i>on</i> the photograph over the navy scrim, which is how the Elementor build will layer them as a background image plus overlay. Placing it here would mean rebuilding that layering in the wireframe, so it stays in <code>public/graphics/</code> for the build.</div>`
+           : `<div class="note"><b>The delivered hero overlay chip is not placed.</b> <code>${o.heroChip.src.split("/").pop()}</code> is built to sit <i>on</i> the photograph, over the navy scrim. With no photograph yet it can only float in an empty box, which reads as a stray graphic rather than a design. It stays in <code>public/graphics/</code> for whoever builds the hero in Elementor. <b>Decided 9 Sep 2026.</b></div>`
          : ""
      }</div>
     </div>`,
