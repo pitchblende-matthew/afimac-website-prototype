@@ -42,6 +42,7 @@ const ICON_LIST_B = INCLUDED_ICONS.slice(4).map(iconItem).join("");
 const blocks: BlockType[] = [
   {
     cls: "dark",
+    bg: { src: "/photos/cstl-how-it-works_hero_photo.jpg", focus: "62% center" },
     n: "BLOCK 01 · HERO",
     h: `
   <p class="eyebrow">Critical Situation Travel Labor · How It Works</p>
@@ -49,14 +50,7 @@ const blocks: BlockType[] = [
   <p class="sub">From first call to a working crew on your floor, one accountable partner.</p>
   <p class="lead">When local hiring can’t move fast enough, Critical Situation Travel Labor (CSTL) puts a vetted team with the right skills on your floor in days. Read on to find out how the process works, what’s included, and when to call.</p>
   <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Let’s talk</a><a class="btn ghost" href="#process">See the process</a></div>
-  <div style="margin-top:34px">${shot({
-     src: "/photos/cstl-how-it-works_hero_photo.jpg",
-     alt: "Two workers in hi-vis at a press on a plant floor, the one in front pointing out the next step to the other",
-     width: 2560,
-     height: 1440,
-     eager: true,
-     note: `Delivered 19 Oct 2026. Briefed with the focal area centre-left; it reads centre-right, which only matters if the build runs this as a background with the copy over it. Shown in the content column, not full-bleed, and without the navy scrim — there is no text on top of it here to need one. <b>The mobile crop (1080×1350) was not in the delivery.</b>`,
-   })}</div>`,
+  <div class="note"><b>The hero photograph is the band’s background</b>, under the navy scrim, which is how the Elementor build layers it. <code>cstl-how-it-works_hero_photo.jpg</code>, delivered 19 Oct 2026. Briefed with the focal area centre-left; it reads centre-right, so the crop holds right of centre and the copy sits in the darker half. <b>The mobile crop (1080×1350) was not in the delivery</b>, so narrow screens cover the same file.</div>`,
     spec: `<b>Elementor:</b> Container (centred, bg image + navy overlay) · Breadcrumbs · Heading ×3 · Text Editor · Button ×2. <b>Note the wireframe says text-led with no hero photo</b> — the copy doc specs a full-bleed image. Pick one before build; the photo is shown here because it is the harder of the two to source.`,
   },
 

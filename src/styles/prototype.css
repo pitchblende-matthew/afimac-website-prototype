@@ -167,6 +167,23 @@ body.nolabels .blocklabel{display:none}
 .readiness h1,.readiness h2,.readiness h3,.readiness h4,.sky h1,.sky h2,.sky h3,.sky h4{color:#fff}
 .blue a,.dark a,.readiness a,.sky a{color:#fff}
 
+/* A band with a photograph behind it. The band keeps its own background as the
+   fallback, the photograph covers it, and the scrim sits between the two so the
+   copy stays readable whatever the frame underneath is doing. Content is lifted
+   above both without z-index on the band itself, which would trap the sticky
+   sub-nav in a new stacking context. */
+.block.hasbg{position:relative;background-image:var(--hero-bg);background-size:cover;
+  background-position:var(--hero-focus,center);background-repeat:no-repeat}
+.block.hasbg::before{content:"";position:absolute;inset:0;
+  background:var(--hero-scrim,linear-gradient(90deg,rgba(9,54,90,.94) 0%,rgba(9,54,90,.86) 42%,rgba(9,54,90,.66) 100%))}
+.block.hasbg>*{position:relative}
+/* The photograph is the point of the band; give it room to read. */
+.block.hasbg{padding-top:84px;padding-bottom:84px}
+@media(max-width:940px){
+  /* Half the frame is behind the copy on a phone, so flatten the gradient. */
+  .block.hasbg::before{background:var(--hero-scrim-narrow,rgba(9,54,90,.9))}
+}
+
 /* hero — full-bleed photo, centred, as live */
 .block.hero{padding:0;background:var(--deep)}
 .heroimg{min-height:520px;display:flex;align-items:center;justify-content:center;text-align:center;
