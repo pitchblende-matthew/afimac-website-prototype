@@ -30,6 +30,8 @@ export interface Industry {
   liveH1: string | null;
   heroQs?: string;
   heroImg: string;
+  /** The hero photograph, once supplied. Replaces the heroImg placeholder. */
+  heroPhoto?: Art;
   rolesTitle: string;
   /** Line-map art-direction note, used when no real artwork exists yet. */
   map: string;
@@ -70,6 +72,13 @@ export const INDUSTRIES: Record<string, Industry> = {
     url: `${B}industries/automotive/`,
     liveH1: "Automotive Travel Labor Driving Productivity",
     heroImg: "Hero photo, right column · plant-floor / body shop · muted industrial tone",
+    heroPhoto: {
+      src: "/photos/afimac-auto-hero.jpg",
+      alt: "Assembly technicians in navy coveralls and safety glasses fitting doors and checking the engine bay on a vehicle assembly line",
+      width: 2000,
+      height: 1125,
+      caption: "<b>Delivered photography.</b> Hero photograph, placed 19 Oct 2026. In the Elementor build it becomes the container's background image under the navy overlay.",
+    },
     rolesTitle: "Plant staffing, role-ready",
     map: "Line map · HTML widget · assembly sequence with the six staffed stations called out",
     mapArt: {
@@ -104,6 +113,13 @@ export const INDUSTRIES: Record<string, Industry> = {
     liveH1: "Food &amp; Beverage Travel Labor",
     heroQs: "Seasonal peak? Sanitation shortfall? New line launch?",
     heroImg: "Hero photo, right column · F&amp;B production floor · muted industrial tone",
+    heroPhoto: {
+      src: "/photos/afimac-fb-hero.jpg",
+      alt: "Production worker in a hairnet and blue gloves packing bottled juice from a conveyor line into a case",
+      width: 2000,
+      height: 1125,
+      caption: "<b>Delivered photography.</b> Hero photograph, placed 19 Oct 2026. In the Elementor build it becomes the container's background image under the navy overlay.",
+    },
     rolesTitle: "Plant staffing, role-ready",
     map: "Seven-station production line map · HTML widget · sits above the role grid",
     rolesArt: FB_PLANT_FLOW,
@@ -138,6 +154,13 @@ export const INDUSTRIES: Record<string, Industry> = {
     url: `${B}industries/logistics-warehousing/`,
     liveH1: null,
     heroImg: "Hero photo, right column · DC / dock · muted industrial tone",
+    heroPhoto: {
+      src: "/photos/afimac-log-hero.jpg",
+      alt: "Warehouse associate in a hi-vis vest scanning a carton at a pack station, with pallet racking, forklifts and open dock doors behind him",
+      width: 2000,
+      height: 1125,
+      caption: "<b>Delivered photography.</b> Hero photograph, placed 19 Oct 2026. In the Elementor build it becomes the container's background image under the navy overlay.",
+    },
     rolesTitle: "Warehouse staffing, role-ready",
     map: "Line map · HTML widget · receiving → put-away → pick → pack → ship",
     roles: ["Forklift Operators", "Material Handlers", "Inventory Control Specialists", "Shipping &amp; Receiving Clerks", "CDL Truck Drivers", "Logistics Coordinators"],

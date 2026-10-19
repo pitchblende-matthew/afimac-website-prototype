@@ -126,6 +126,10 @@ and added the widgets:
 | `afimac-fb-*` | Food &amp; Beverage · line map, deployment timeline, hero chip |
 | `afimac-log-*` | Logistics &amp; Warehousing · line map, deployment timeline, hero chip |
 
+Hero photographs for Automotive, Food &amp; Beverage and Logistics &amp; Warehousing
+live in `public/photos/` (2000×1125 JPEG), set on each industry's `heroPhoto` in
+`src/data/industries.ts` and placed 19 Oct 2026.
+
 Most ship as a **desktop/mobile pair** — a wide bar chart cannot just be scaled
 down, so the narrow versions are separately laid out. `artPair()` renders them
 through `<picture>` with a 780px `media` query, so the browser fetches only the
