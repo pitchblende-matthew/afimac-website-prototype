@@ -7,7 +7,7 @@ import { liveImg, figure, artPair } from "../lib/wireframe";
 import { PHASE_TIMELINE, MOBILIZATION_MAP, FORM_ILLUSTRATION, INCLUDED_ICONS } from "../data/graphics";
 import { GAP_ART, CASE_ART, postArt, postTitleDrift } from "../data/live-media";
 import { B } from "../data/nav";
-import { photo } from "../lib/wireframe";
+import { photo, shot } from "../lib/wireframe";
 import type { Block as BlockType } from "../lib/types";
 import { SOFT_PHASES, SOFT } from "../data/timing";
 
@@ -49,7 +49,14 @@ const blocks: BlockType[] = [
   <p class="sub">From first call to a working crew on your floor, one accountable partner.</p>
   <p class="lead">When local hiring can’t move fast enough, Critical Situation Travel Labor (CSTL) puts a vetted team with the right skills on your floor in days. Read on to find out how the process works, what’s included, and when to call.</p>
   <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Let’s talk</a><a class="btn ghost" href="#process">See the process</a></div>
-  <div style="margin-top:34px">${photo("Full-bleed hero · 2560×1440 JPG (min 2000px wide) · documentary shot of a crew mobilizing, hi-vis, first light · navy scrim over full frame · focal area centre-left · mobile crop 1080×1350")}</div>`,
+  <div style="margin-top:34px">${shot({
+     src: "/photos/cstl-how-it-works_hero_photo.jpg",
+     alt: "Two workers in hi-vis at a press on a plant floor, the one in front pointing out the next step to the other",
+     width: 2560,
+     height: 1440,
+     eager: true,
+     note: `Delivered 19 Oct 2026. Briefed with the focal area centre-left; it reads centre-right, which only matters if the build runs this as a background with the copy over it. Shown in the content column, not full-bleed, and without the navy scrim — there is no text on top of it here to need one. <b>The mobile crop (1080×1350) was not in the delivery.</b>`,
+   })}</div>`,
     spec: `<b>Elementor:</b> Container (centred, bg image + navy overlay) · Breadcrumbs · Heading ×3 · Text Editor · Button ×2. <b>Note the wireframe says text-led with no hero photo</b> — the copy doc specs a full-bleed image. Pick one before build; the photo is shown here because it is the harder of the two to source.`,
   },
 
@@ -116,7 +123,13 @@ const blocks: BlockType[] = [
     <h3 style="margin-top:26px">Business stakes</h3>
     <ul class="tick"><li>Penalties, chargebacks, or missed SLAs</li><li>Lost customers or contracts</li><li>Idle equipment or facilities</li><li>Overtime and burnout on your core team</li><li>Reputational and market-share risk</li></ul>
    </div>
-   ${photo("1200×1500 JPG (4:5) · a thinned shift, empty workstations on a live line · muted tone · no staged distress")}
+   ${shot({
+     src: "/photos/cstl-how-it-works_signs-you-need_photo.jpg",
+     alt: "A single operator working a food and beverage line, the workstations either side of them empty",
+     width: 1200,
+     height: 1500,
+     note: `Delivered 19 Oct 2026. Matches the brief — one worker on a line built for several, muted, nothing staged.`,
+   })}
   </div>`,
     spec: `<b>Elementor:</b> Container (2-col) · EK Icon List ×2 · Image. Wireframe called this “six trigger cards”; the copy is two lists of five, so it builds as lists.`,
   },

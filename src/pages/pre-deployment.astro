@@ -10,7 +10,7 @@ import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { B } from "../data/nav";
-import { photo, artPair, downloadCard } from "../lib/wireframe";
+import { photo, shot, artPair, downloadCard } from "../lib/wireframe";
 import { PDC_SWIMLANE } from "../data/graphics";
 import { CLIENT_CHECKLIST, READY_CHECKS, DAY1_FORM_BULLETS } from "../data/day1";
 import type { Block as BlockType } from "../lib/types";
@@ -58,7 +58,16 @@ const blocks: BlockType[] = [
   <h1>The Pre-Deployment Checklist</h1>
   <p class="lead">Everything to have ready before the crew arrives. Most of this travel labor checklist is ours; here’s the whole picture, including your side of it.</p>
   <div class="btns"><a class="btn ghost" href="#printable">Download the PDF</a><a class="btn ghost" href="#printable">Print this page</a></div>
-  <div style="margin-top:28px">${photo("Band crop from a 2560×1440 JPG source, displayed at roughly 2560×800 · a clipboard and badge on a supervisor’s table, shallow depth, muted tone under the navy scrim")}</div>`,
+  <div style="margin-top:28px">${shot({
+     src: "/photos/cstl-pre-deployment-checklist_hero_photo.jpg",
+     alt: "Three workers in hi-vis and hard hats talking over a clipboard in a warehouse aisle",
+     width: 2560,
+     height: 1440,
+     ratio: "2560/800",
+     focus: "center 12%",
+     eager: true,
+     note: `Delivered 19 Oct 2026. Cropped to the specified 2560×800 band in CSS, so the full frame is still in the file. The brief asked for a clipboard and badge on a table at shallow depth; the delivered frame is a three-person handover with the clipboard in it — same beat, different shot. No navy scrim applied.`,
+   })}</div>`,
     spec: `<b>Elementor:</b> Container (bg image + navy overlay) · Breadcrumbs · Heading ×2 · Text Editor · Button ×2. <b>Compact utility band, roughly a third of the standard hero height</b> — checklist iconography over the scrim rather than a narrative photo. This page is a tool and the hero should say so. <b>The Download button stays hidden until the PDF ships.</b>`,
   },
 
