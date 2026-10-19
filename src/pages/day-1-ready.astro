@@ -13,7 +13,7 @@ import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { B } from "../data/nav";
-import { photo, figure, artPair, downloadCard } from "../lib/wireframe";
+import { photo, shot, figure, artPair, downloadCard } from "../lib/wireframe";
 import { D1R_SEAL, D1R_SEAL_STANDALONE, D1R_TIMELINE, D1R_FORM_ILLUSTRATION } from "../data/graphics";
 import { CLIENT_CHECKLIST, READY_CHECKS, DAY1_FORM_BULLETS } from "../data/day1";
 import type { Block as BlockType } from "../lib/types";
@@ -34,7 +34,14 @@ const blocks: BlockType[] = [
   <p class="sub"><b>Not Just On Site Fast. Productive From the First Shift.</b></p>
   <p class="lead">Anyone can promise a fast crew. Day 1 Ready is AFIMAC’s standard for what that crew looks like when it walks in: screened, credentialed, housed, safety-onboarded, and supervised, so the first shift produces instead of orienting.</p>
   <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Let’s talk</a><a class="btn ghost" href="#ready">See what ready means</a></div>
-  <div style="margin-top:34px">${photo("Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a crew walking onto a floor at shift start, badged and in PPE, supervisor at the front, first light through the bay doors · muted industrial tone under the navy scrim · focal area centre · mobile crop 1080×1350")}</div>`,
+  <div style="margin-top:34px">${shot({
+     src: "/photos/cstl-day-1-ready_hero_photo.jpg",
+     alt: "A badged crew in hi-vis walking onto a floor at shift start, a supervisor at the front, first light through the open bay door",
+     width: 2560,
+     height: 1440,
+     eager: true,
+     note: `Delivered 19 Oct 2026. The brief, frame for frame. <b>Flag before this goes near a client page:</b> it reads as AI-generated — the wall signage spells out “SAFE PEOPLE STRONG TEAMS BUILT TOMORROW” and the badge faces are mush. <b>The mobile crop (1080×1350) was not in the delivery.</b>`,
+   })}</div>`,
     spec: `<b>Elementor:</b> Container (bg image + navy overlay) · Breadcrumbs · Heading ×3 · Text Editor · Button ×2.`,
   },
 

@@ -193,6 +193,16 @@ body.nospec .spec,body.nospec .herospec{display:none}
 .photo{border:1.5px dashed #a9bcc6;background:repeating-linear-gradient(135deg,#fafcfd,#fafcfd 9px,#eef3f6 9px,#eef3f6 18px);display:flex;align-items:center;justify-content:center;text-align:center;color:var(--spec);font-size:12.5px;padding:26px;min-height:210px;line-height:1.55}
 .blue .photo,.dark .photo,.readiness .photo,.sky .photo{border-color:rgba(255,255,255,.45);background:rgba(255,255,255,.09);color:#e0eef7}
 
+/* A delivered photograph. No green rule — that marks delivered diagrams, whose
+   captions are build instructions; this caption is only the brief the slot was
+   shot against, so it goes with the notes. */
+.shot{margin:0}
+.shot img{display:block;width:100%;height:auto;background:#eef3f6}
+.shot figcaption{margin-top:10px;font-size:12.5px;line-height:1.55;color:var(--spec)}
+.blue .shot figcaption,.dark .shot figcaption,
+.sky .shot figcaption,.readiness .shot figcaption{color:#cfe2f0}
+body.nonotes .shot figcaption{display:none}
+
 /* layout */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start;text-align:left}
 .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;text-align:left}

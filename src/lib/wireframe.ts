@@ -32,6 +32,46 @@ export const copyPh = (n = 4): string => `<div class="ph t"></div>${bars(n)}`;
  */
 export const photo = (t: string): string => `<div class="photo"><span class="art">${t}</span></div>`;
 
+/**
+ * A photograph that has been shot, as opposed to `photo()` which describes one
+ * that has not.
+ *
+ * Deliberately not `figure()`: the green rule marks delivered *diagrams*, whose
+ * captions carry build notes a developer has to read. A photograph carries no
+ * such instruction, so it renders as the picture alone, and the brief it was
+ * shot against is kept as a note for whoever is checking the slot was filled
+ * the way it was specified.
+ */
+export const shot = (o: {
+  /** Path under public/, e.g. "/photos/foo.jpg". */
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  /** Above the fold — paint it with the page rather than lazily. */
+  eager?: boolean;
+  /** Cap the rendered width. */
+  maxWidth?: number;
+  /** Crop to a band, e.g. "2560/800". The source is covered, not squashed. */
+  ratio?: string;
+  /** Where the crop holds, as an object-position. Defaults to the centre. */
+  focus?: string;
+  /** The slot's art direction, shown only with notes on. */
+  note?: string;
+}): string =>
+  `<figure class="shot"${o.maxWidth ? ` style="max-width:${o.maxWidth}px"` : ""}>
+    <img src="${u(o.src)}" alt="${o.alt}" width="${o.width}" height="${o.height}"${
+      o.ratio
+        ? ` style="aspect-ratio:${o.ratio};object-fit:cover;object-position:${o.focus ?? "center"}"`
+        : ""
+    }${
+      o.eager
+        ? ` fetchpriority="high" decoding="async"`
+        : ` loading="lazy" decoding="async"`
+    }>
+    ${o.note ? `<figcaption>${o.note}</figcaption>` : ""}
+  </figure>`;
+
 /** A 3-up grid of numbered placeholder cards, with a spec caption. */
 export const cards = (n: number, label: string): string =>
   `<div class="g3">${Array.from(

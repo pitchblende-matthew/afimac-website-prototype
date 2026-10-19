@@ -12,7 +12,7 @@ import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { B } from "../data/nav";
-import { photo, liveImg, figure, artPair } from "../lib/wireframe";
+import { photo, shot, liveImg, figure, artPair } from "../lib/wireframe";
 import { TVT_PLAYBOOK_STRIP, TVT_DECISION_TREE } from "../data/graphics";
 import { postArt } from "../data/live-media";
 import type { Block as BlockType } from "../lib/types";
@@ -30,7 +30,14 @@ const blocks: BlockType[] = [
   <p class="eyebrow">Critical Situation Travel Labor · Perspective</p>
   <h1>Travel vs. Traditional Labor</h1>
   <p class="lead">Every labor gap gets met with the same playbook: post the job, call an agency, lean on overtime. Here’s what each play actually costs in time and risk, and where a travel crew changes the math.</p>
-  <div style="margin-top:28px;max-width:820px">${photo("Lead image, content width · 1280×720 JPG (16:9) · a split scene, one side a hiring desk with paperwork, the other a crew walking onto a floor · muted tone, no navy scrim")}</div>`,
+  <div style="margin-top:28px;max-width:820px">${shot({
+     src: "/photos/cstl-vs-traditional_hero_photo.jpg",
+     alt: "A split scene: on one side a desk stacked with tabbed paperwork, on the other a crew in hi-vis walking onto a site",
+     width: 1280,
+     height: 720,
+     eager: true,
+     note: `Delivered 19 Oct 2026. The split the brief asked for, at content width as specified. The navy frame is baked into the file rather than applied by the page, so it cannot be dropped at build time without a re-cut.`,
+   })}</div>`,
     spec: `<b>Elementor:</b> Container (narrow measure) · Breadcrumbs · Heading ×2 · Text Editor · Image. <b>Article treatment: no full-bleed photo, no scrim.</b> The eyebrow, H1 and dek sit on the page background; the lead image follows at content width. This is the only page in the cluster that runs lighter than the solutions layout — keep it that way.`,
   },
 
@@ -65,12 +72,18 @@ const blocks: BlockType[] = [
     n: "BLOCK 04 · WHAT CHANGES WHEN THE CREW TRAVELS",
     h: `
   <h2>Borrow, managed</h2>
-  <div class="g2" style="margin-top:24px;align-items:start">
+  <div class="g2 g2-stats" style="margin-top:24px">
    <div>
     <p>Travel labor is the borrow play, run as a managed service. AFIMAC sources, screens, travels, houses, and supervises a team, then deploys them to your site for the length of the situation. The crew draws from a national network of 20,000+ workers instead of one local market. Safety onboarding is done before the first shift, and the team works under AFIMAC supervision with a single point of contact. There’s no long-term commitment; when the gap closes, demobilization is part of the plan.</p>
     <p>For most roles, that’s a working crew within days of a signed plan. The difference isn’t just speed. It’s that nothing about the crew lands on your managers while they’re already fighting the gap that caused the problem.</p>
    </div>
-   ${photo("1200×1500 JPG (4:5) beside the body · a supervisor and crew lead reviewing the day’s plan on the floor · a working shot with nothing posed")}
+   ${shot({
+     src: "/photos/cstl-vs-traditional_borrow-managed_photo.jpg",
+     alt: "A supervisor and a crew lead in hi-vis reading a drawing together on the floor",
+     width: 1200,
+     height: 1500,
+     note: `Delivered 19 Oct 2026. The brief, frame for frame — two people over the day’s plan, nothing posed.`,
+   })}
   </div>
   <div class="note"><b>“Sources, screens, travels, houses, and supervises”</b> is the same five-verb construction as the <a href="${u("/how-it-works")}">mobilization map</a>, which runs recruits · screens · travels · houses · manages · deploys. Two wordings of one list. Pick one and use it everywhere.</div>`,
     spec: `<b>Elementor:</b> Container (2-col) · Heading · Text Editor · Image. The 20,000+ figure is the approved one — see the <a href="${u("/brand-check")}">network-size flag</a> before changing it.`,
