@@ -56,6 +56,7 @@ const blocks: BlockType[] = [
 
   {
     cls: "dark",
+    bg: { src: INDUSTRIES["logistics-warehousing"].heroPhoto!.src, focus: "center 38%" },
     n: "BLOCK 02 · HERO",
     h: `
   <p class="eyebrow">Critical Situation Travel Labor · Logistics &amp; Warehousing</p>
@@ -63,8 +64,8 @@ const blocks: BlockType[] = [
   <p class="sub"><b>When a peak surge, a new DC launch, or a backlog outpaces local hiring, a working crew on your floor in days.</b></p>
   <p class="lead">AFIMAC delivers skilled warehouse staffing (pickers, packers, forklift operators, and dock crews) on demand, so your throughput, SLAs, and ship dates hold when local hiring can’t keep up.</p>
   <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Let’s talk</a><a class="btn ghost" href="#deploy">See how we deploy</a></div>
-  <div style="margin-top:30px">${figure(INDUSTRIES["logistics-warehousing"].heroPhoto!)}</div>
-  <div class="note"><b>The hero photograph is in, the overlay chip still is not.</b> <code>afimac-log-hero-chip.svg</code> sits <i>on</i> the photograph over the navy scrim, which is how the Elementor build will layer them as a background image plus overlay. Placing it here would mean rebuilding that layering in the wireframe, so it stays in <code>public/graphics/</code> for the build. Since the 5 Oct 2026 re-cut it reads <b>as little as 72 hours for teams to mobilize</b>, the same figure as the deploy block.</div>`,
+  <div class="note"><b>The hero photograph is the band’s background</b>, under the navy scrim, which is how the Elementor build layers it. <code>afimac-log-hero.jpg</code>, placed 19 Oct 2026.</div>
+  <div class="note"><b>The delivered hero overlay chip is still not placed.</b> <code>afimac-log-hero-chip.svg</code> is built to sit <i>on</i> the photograph over the scrim, so the layering is now there for it — but the chip itself was pulled from these pages on review, so it stays in <code>public/graphics/</code> for whoever builds the hero in Elementor. Since the 5 Oct 2026 re-cut it reads <b>as little as 72 hours for teams to mobilize</b>, the same figure as the deploy block.</div>`,
     spec: `<b>Elementor:</b> Container (bg image + navy overlay) · Heading ×3 · Text Editor · Button ×2.`,
   },
 

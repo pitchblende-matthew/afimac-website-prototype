@@ -340,6 +340,10 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
       // after it rather than in front of it.
       {
         cls: "dark",
+        /* The photograph goes behind the band under the navy scrim — what the
+           hero spec has asked for all along, and what the delivery note on
+           each file says it is for. */
+        bg: o.heroPhoto ? { src: o.heroPhoto.src, focus: "center 38%" } : undefined,
         n: "BLOCK 02 · HERO",
         h: `
     <p class="eyebrow">${c ? c.eyebrow : "Critical Situation Travel Labor · Industries"}</p>
@@ -353,11 +357,13 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
            : `<div class="ph t" style="background:rgba(255,255,255,.17)"></div>${bars(4)}`
      }
       <div class="btns"><a class="btn" href="${u("/get-in-touch")}">${c ? c.ctas[0] : "Get the Numbers"}</a><a class="btn ghost" href="${c ? "#deploy" : u("/how-it-works")}">${c ? c.ctas[1] : "See how it works"}</a></div></div>
-     <div>${o.heroPhoto ? figure(o.heroPhoto) : photo(o.heroImg)}${
+     <div>${
+       o.heroPhoto
+         ? `<div class="note"><b>The hero photograph is the band’s background</b>, under the navy scrim, which is how the Elementor build layers it. <code>${o.heroPhoto.src.split("/").pop()}</code>, placed 19 Oct 2026. The copy holds the left column; the right is left to the photograph.</div>`
+         : photo(o.heroImg)
+     }${
        o.heroChip
-         ? o.heroPhoto
-           ? `<div class="note"><b>The hero photograph is in, the overlay chip still is not.</b> <code>${o.heroChip.src.split("/").pop()}</code> sits <i>on</i> the photograph over the navy scrim, which is how the Elementor build will layer them as a background image plus overlay. Placing it here would mean rebuilding that layering in the wireframe, so it stays in <code>public/graphics/</code> for the build.</div>`
-           : `<div class="note"><b>The delivered hero overlay chip is not placed.</b> <code>${o.heroChip.src.split("/").pop()}</code> is built to sit <i>on</i> the photograph, over the navy scrim. With no photograph yet it can only float in an empty box, which reads as a stray graphic rather than a design. It stays in <code>public/graphics/</code> for whoever builds the hero in Elementor. <b>Decided 9 Sep 2026.</b></div>`
+         ? `<div class="note"><b>The delivered hero overlay chip is still not placed.</b> <code>${o.heroChip.src.split("/").pop()}</code> is built to sit <i>on</i> the photograph over the scrim, so the layering is now there for it — but the chip itself was pulled from these pages on review, so it stays in <code>public/graphics/</code> for whoever builds the hero in Elementor.</div>`
          : ""
      }</div>
     </div>`,

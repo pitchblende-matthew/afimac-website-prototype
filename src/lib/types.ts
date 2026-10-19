@@ -32,6 +32,21 @@ export interface Block {
   spec?: string;
   /** Full-bleed block: render without the `.wrap` / blocknum / spec scaffolding. */
   raw?: boolean;
+  /**
+   * A photograph behind the whole band, with the navy scrim over it and the
+   * copy on top — the hero treatment every hero spec in the cluster asks for
+   * ("Container, bg image + navy overlay"). The band keeps its own navy as the
+   * fallback, so a missing file degrades to the plain dark band rather than to
+   * unreadable text.
+   */
+  bg?: {
+    /** Path under public/. */
+    src: string;
+    /** Where the crop holds, as a background-position. */
+    focus?: string;
+    /** Override the scrim, e.g. to weight it towards the copy column. */
+    scrim?: string;
+  };
 }
 
 /** Everything the Prototype layout needs to frame a page. */
