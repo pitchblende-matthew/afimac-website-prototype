@@ -174,14 +174,25 @@ body.nolabels .blocklabel{display:none}
    sub-nav in a new stacking context. */
 .block.hasbg{position:relative;background-image:var(--hero-bg);background-size:cover;
   background-position:var(--hero-focus,center);background-repeat:no-repeat}
+/* The scrim holds its weight across the copy column and then lets go, so the
+   open half of the frame is close to the photograph as shot. Tuned by
+   measurement, not by eye: at these stops the worst highlight behind any hero
+   text composites to 4.8:1 against white across all six heroes, clear of the
+   4.5:1 body-text floor. Darkening it further is what made the photographs
+   hard to see; lightening it past here drops the brightest frame under 4.5. */
 .block.hasbg::before{content:"";position:absolute;inset:0;
-  background:var(--hero-scrim,linear-gradient(90deg,rgba(9,54,90,.94) 0%,rgba(9,54,90,.86) 42%,rgba(9,54,90,.66) 100%))}
+  background:var(--hero-scrim,linear-gradient(90deg,rgba(9,54,90,.82) 0%,rgba(9,54,90,.80) 46%,rgba(9,54,90,.40) 76%,rgba(9,54,90,.16) 100%))}
 .block.hasbg>*{position:relative}
 /* The photograph is the point of the band; give it room to read. */
 .block.hasbg{padding-top:84px;padding-bottom:84px}
+/* Hold the copy to a column so it never runs across the open half of the
+   frame. Without this the scrim has to be heavy enough to cover the whole
+   band's worst highlight, which is what buried the photograph. */
+.block.hasbg .wrap>h1,.block.hasbg .wrap>p,.block.hasbg .wrap>.btns{max-width:var(--hero-copy,640px)}
 @media(max-width:940px){
-  /* Half the frame is behind the copy on a phone, so flatten the gradient. */
-  .block.hasbg::before{background:var(--hero-scrim-narrow,rgba(9,54,90,.9))}
+  /* The copy covers most of the frame on a phone, so the gradient flattens to
+     an even wash. 0.68 measures 4.8:1 at worst; 0.64 drops to 4.2. */
+  .block.hasbg::before{background:var(--hero-scrim-narrow,rgba(9,54,90,.68))}
 }
 
 /* hero — full-bleed photo, centred, as live */
