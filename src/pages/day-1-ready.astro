@@ -49,9 +49,9 @@ const blocks: BlockType[] = [
     <p>Before any AFIMAC crew reaches your floor, five things are already done. Every worker has cleared background, credential, and role checks. Travel is booked and housing is set. Site-specific safety and role onboarding is complete. And an on-site AFIMAC supervisor arrives with them, so there’s a single point of contact from the first hour.</p>
     <ul class="tick" style="margin-top:20px">${READY_CHECKS.map((c) => `<li>${c}</li>`).join("")}</ul>
    </div>
-   <div class="figcenter" style="--figw:420px">${figure({ ...D1R_SEAL, maxWidth: 420 })}</div>
+   <div class="figcenter" style="--figw:420px">${figure(D1R_SEAL)}</div>
   </div>
-  <div class="note"><b>Built once, cropped from the same art.</b> The standalone crop the deck wants for LinkedIn and the package pieces shipped with it: same geometry, spokes and outer labels removed, so the two cannot drift apart. <a href="${u(D1R_SEAL_STANDALONE.src)}" target="_blank" rel="noopener">Open the standalone crop →</a> <b>The strip form</b> the <a href="${u("/pre-deployment")}">Pre-Deployment Checklist</a> reuses was not part of this delivery.</div>`,
+  <div class="note"><b>The two marks have drifted apart.</b> The standalone crop the deck wants for LinkedIn and the package pieces was cut from the earlier seal — same geometry, spokes and outer labels removed. The seal above has since been redrawn, so the crop is now of a different mark and needs re-running from it. <a href="${u(D1R_SEAL_STANDALONE.src)}" target="_blank" rel="noopener">Open the standalone crop →</a> <b>The strip form</b> the <a href="${u("/pre-deployment")}">Pre-Deployment Checklist</a> reuses was not part of either delivery.</div>`,
     spec: `<b>Elementor:</b> Container (2-col) · Heading · Text Editor · EK Icon List · Image (SVG) — <code>/graphics/afimac-d1r-seal.svg</code>.`,
   },
 
