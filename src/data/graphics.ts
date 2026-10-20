@@ -101,12 +101,12 @@ export const INCLUDED_ICONS_SHEET: Art = {
 
 export const D1R_SEAL: Art = {
   src: "/graphics/afimac-d1r-seal.svg",
-  alt: "The AFIMAC Day 1 Ready seal, with five checks around it: Screened, Credentialed, Housed, Safety-onboarded, Supervised",
-  width: 960,
-  height: 960,
+  alt: "The AFIMAC Day 1 Ready seal: a navy stamp reading Day 1 Ready, ringed by five checks — Screened, Credentialed, Housed, Safety-onboarded, Supervised",
+  width: 1000,
+  height: 1000,
   caption:
-    `${DELIVERED} Day 1 Ready seal, 960×960 SVG, the five checks around the stamp in the same order as the list beside it. Holds up down to 640px. The package’s mark, so it is drawn once and the standalone crop shares its geometry.`,
-  maxWidth: 520,
+    `<b>Redrawn seal, supplied 19 Oct 2026.</b> 1000×1000 SVG. Solid navy, the five labels set on a curve inside the ring with the check marks on the ring itself, replacing the earlier version’s outer labels and spokes. <b>No orange</b>, where the earlier seal carried it. <b>The standalone crop no longer shares its geometry</b> — <code>afimac-d1r-seal-standalone.svg</code> is still cut from the old drawing, so the two marks have diverged and the crop needs re-running from this one.`,
+  maxWidth: 420,
 };
 
 /** Same art, centre only — for LinkedIn and the package pieces. Not rendered on the page. */
@@ -115,7 +115,7 @@ export const D1R_SEAL_STANDALONE: Art = {
   alt: "The Day 1 Ready standard",
   width: 600,
   height: 600,
-  caption: `${DELIVERED} Standalone crop of the seal, 600×600, spokes and outer labels removed.`,
+  caption: `${DELIVERED} Standalone crop of the seal, 600×600, spokes and outer labels removed. <b>Cut from the superseded drawing</b> — re-run it from the redrawn seal before it goes anywhere.`,
   maxWidth: 260,
 };
 

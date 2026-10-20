@@ -25,20 +25,15 @@ const RAIL: [string, string, string | null][] = [
 
 const blocks: BlockType[] = [
   {
+    cls: "dark",
+    bg: { src: "/photos/cstl-vs-traditional_hero_photo.jpg" },
     n: "BLOCK 01 · EDITORIAL HERO",
     h: `
   <p class="eyebrow">Critical Situation Travel Labor · Perspective</p>
   <h1>Travel vs. Traditional Labor</h1>
   <p class="lead">Every labor gap gets met with the same playbook: post the job, call an agency, lean on overtime. Here’s what each play actually costs in time and risk, and where a travel crew changes the math.</p>
-  <div style="margin-top:28px;max-width:820px">${shot({
-     src: "/photos/cstl-vs-traditional_hero_photo.jpg",
-     alt: "A split scene: on one side a desk stacked with tabbed paperwork, on the other a crew in hi-vis walking onto a site",
-     width: 1280,
-     height: 720,
-     eager: true,
-     note: `Delivered 19 Oct 2026. The split the brief asked for, at content width as specified. The navy frame is baked into the file rather than applied by the page, so it cannot be dropped at build time without a re-cut.`,
-   })}</div>`,
-    spec: `<b>Elementor:</b> Container (narrow measure) · Breadcrumbs · Heading ×2 · Text Editor · Image. <b>Article treatment: no full-bleed photo, no scrim.</b> The eyebrow, H1 and dek sit on the page background; the lead image follows at content width. This is the only page in the cluster that runs lighter than the solutions layout — keep it that way.`,
+  <div class="note"><b>The lead image is the band’s background</b>, under the navy scrim. <code>cstl-vs-traditional_hero_photo.jpg</code>, delivered 19 Oct 2026 — the split the brief asked for. It is a 1280×720 file where the other heroes are 2560×1440, so it is scaled up here; it holds at this size but it is the one hero that would benefit from a larger re-cut. The navy frame is baked into the file rather than applied by the page, so its left and right edges read as thin bars.</div>`,
+    spec: `<b>Elementor:</b> Container (bg image + navy overlay) · Breadcrumbs · Heading ×2 · Text Editor. <b>This page used to run the article treatment</b> — no full-bleed photo, no scrim, the lead image at content width under the dek — as the only page in the cluster lighter than the solutions layout. <b>Overruled 20 Oct 2026:</b> the hero photographs run as backgrounds everywhere, this page included.`,
   },
 
   {
