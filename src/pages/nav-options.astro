@@ -11,7 +11,7 @@
 import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
-import { BY_FUNCTION, BY_INDUSTRY, LABEL_CANDIDATES, OPTIONS, ROLE_PAGES, type RoleGroup, type RoleLink } from "../data/nav-options";
+import { BY_FUNCTION, BY_INDUSTRY, LABEL_CANDIDATES, MEGA_CSTL, OPTIONS, OTHER_SOLUTIONS, ROLE_PAGES, type RoleGroup, type RoleLink } from "../data/nav-options";
 import type { Block as BlockType } from "../lib/types";
 
 /** The four slots that are not under discussion, shown so the bar reads true. */
@@ -75,6 +75,60 @@ const bar = (slot: string): string =>
 const slot = (label: string, dd: string, extra = ""): string =>
   `<div class="no-item no-has${extra ? " " + extra : ""}"><span class="no-live">${label}</span><span class="no-caret">▾</span>${dd}</div>`;
 
+/** Compact link for the mega panel — muted when unwritten, but no trailing note. */
+const mlink = (r: RoleLink): string =>
+  `<a href="${u(r.route)}"${r.written ? "" : ' class="no-todo"'}>${r.label}</a>`;
+
+/** A plain column of links in the mega panel. */
+const megaCol = (label: string, links: RoleLink[]): string =>
+  `<div class="no-mcol"><div class="no-colhead">${label}</div>${links.map(mlink).join("")}</div>`;
+
+/**
+ * The roles column. Capability heading, one line of explanation, then the
+ * roles themselves on a wrapped line rather than stacked — the argument of
+ * this option is that a sentence of capabilities does not read as vacancies.
+ */
+const megaRoles = (groups: RoleGroup[]): string =>
+  `<div class="no-mcol"><div class="no-colhead">Who We Deploy</div>${groups
+    .map(
+      (g) =>
+        `<div class="no-rolegrp"><div class="no-grpname">${g.label}</div><p class="no-grpgist">${g.gist}</p><div class="no-rolerow">${g.roles
+          .map(mlink)
+          .join('<span class="no-sep">·</span>')}</div></div>`,
+    )
+    .join("")}</div>`;
+
+/** The primary-nav mock, with the full-width Solutions panel inside it. */
+const megabar = (): string =>
+  `<div class="no-top">
+    <span class="no-logo">AFIMAC</span>
+    <div class="no-titem">Home</div>
+    <div class="no-titem no-hasmega is-mega"><span class="no-live">Solutions</span><span class="no-caret">▾</span>
+      <div class="no-mega">
+        <div class="no-megahead">Critical Situation Travel Labor<span>Travel-ready crews on your floor in days</span></div>
+        <div class="no-megagrid">
+          ${megaCol(MEGA_CSTL[0].label, MEGA_CSTL[0].links)}
+          ${megaCol(MEGA_CSTL[1].label, MEGA_CSTL[1].links)}
+          ${megaRoles(BY_FUNCTION)}
+          <div>
+            ${megaCol(MEGA_CSTL[2].label, MEGA_CSTL[2].links)}
+            <div class="no-promo" style="margin-top:16px">
+              <b>Critical labor situation?</b>
+              <p>Crews on your floor in days, not weeks.</p>
+              <a class="no-pcta" href="${u("/get-in-touch")}">Get in Touch</a>
+            </div>
+          </div>
+        </div>
+        <div class="no-solrow"><b>Other solutions — same panel, same shape</b><div class="no-sols">${OTHER_SOLUTIONS.map(
+          (so) => `<div class="no-sol">${so.label}<span>${so.gist}</span></div>`,
+        ).join("")}</div></div>
+      </div>
+    </div>
+    <div class="no-titem">Insights</div>
+    <div class="no-titem">About<span class="no-caret">▾</span></div>
+    <div class="no-titem">Contact</div>
+  </div>`;
+
 const opt = (id: string) => OPTIONS.find((o) => o.id === id)!;
 
 const tradeoffs = (id: string): string => {
@@ -99,8 +153,9 @@ const blocks: BlockType[] = [
     cls: "dark",
     n: "NAV OPTIONS · THE ROLES SLOT",
     h: `
-  <h1>Six ways to handle the Roles slot</h1>
+  <h1>Seven ways to handle the Roles slot</h1>
   <p class="lead">The client does not want a sub-nav entry that reads as a list of job titles. Two directions were asked for — rename the slot, or give it a second level that categorises the roles — and both are below, with the versions either side of them for comparison.</p>
+  <p class="lead"><b>A to F all change the CSTL sub-nav. G does not.</b> It moves the whole question up to the primary nav as a full-width mega menu — a site-wide change rather than a section one. It is last on the page because it is the largest, not because it is the least likely.</p>
   <p class="sub"><b>Every bar on this page is live.</b> Hover or tab into the highlighted slot to open it. Nothing here changes the real sub-nav at the top of the window.</p>`,
     spec: `Internal working page. Not in the IA, not in the sub-nav, and nothing on it ships as-is.`,
   },
@@ -193,11 +248,28 @@ const blocks: BlockType[] = [
 
   {
     cls: "wash",
+    n: "OPTION G · PRIMARY-NAV MEGA MENU",
+    h: `
+  <h2>G · One large panel on the primary nav, carrying the whole section</h2>
+  <p class="lead">Not a change to the sub-nav slot at all. Hovering <b>Solutions</b> in the global header opens a full-width panel holding the whole CSTL section — the service, the plants, the crews and the papers side by side — so the roles are one column among four rather than a dropdown of their own.</p>
+  ${megabar()}
+  <h3 style="margin-top:34px">Why this answers the objection differently</h3>
+  <p>A to E all try to make a list of eight job titles read as something other than a list of job titles — by renaming it, grouping it, or nesting it. <b>This one changes what surrounds it instead.</b> In the panel above the crews sit beside the industries they work in and the resources that explain them, under three capability headings, set on a wrapped line rather than stacked in a column. The same eight pages are behind the same eight links; what changes is that nothing in the layout invites you to read them as openings.</p>
+  ${tradeoffs("mega")}
+  <div class="note"><b>The panel is one shape used five times.</b> CSTL is the only solution area with content written, so it is the one shown filled in — the other four along the foot of the panel would each get the same treatment. That is what makes this a site-wide decision rather than a CSTL one: the header is shared by every page, so this cannot ship for this section alone.</div>
+  <div class="note stop"><b>Check it at phone width before it goes any further.</b> A full-bleed panel has no mobile equivalent — below 900px it has to become an accordion inside a burger menu, which is a second pattern to design, build and test. <b>Narrow this window and the panel above falls into that stacked state</b>, so the thing that needs designing is visible rather than described.</div>
+  <div class="note"><b>It also puts the Roles argument on hold rather than settling it.</b> If the header carries the section, the sub-nav either shrinks to a handful of in-section links or goes away — and the slot A to F are arguing over goes with it. Worth knowing that before picking between them.</div>`,
+    spec: `<b>Elementor:</b> replaces the Solutions dropdown in the header template with a full-width mega panel. <b>Touches every page on the site</b>, so it needs its own test pass rather than riding on the CSTL phases. The four other solution areas need content before it can ship.`,
+  },
+
+  {
     n: "SIDE BY SIDE",
     h: `
   <h2>The six, in one table</h2>
   <div class="tscroll" style="margin-top:20px"><table class="cmp"><thead><tr><th>Option</th><th>Slot reads</th><th>Second level</th><th class="hl">The main cost</th></tr></thead><tbody>${summaryRows}</tbody></table></div>
   <div class="note"><b>Our recommendation is B, with the label decided separately.</b> It fixes what was actually objected to — a column of job titles — without adding an interaction the bar does not already use, and it is the only option here that needs no mobile testing beyond what the existing dropdowns already get. <b>If the client wants the categories to be industries rather than functions, E is the way to do it</b>; C and D are the same idea with a hover-chain attached.</div>
+  <div class="note"><b>G is not really an alternative to B — it is a different question asked first.</b> B is the cheapest way to fix the slot in the sub-nav we already have. G asks whether the section should be reached from a sub-nav at all. If the mega menu goes ahead, most of this page stops mattering, because there is no longer a roles dropdown for the roles to look wrong in. <b>Decide in that order: first whether the global header changes, then — if it does not — which of A to F fixes the slot.</b></div>
+  <div class="note"><b>Two columns in the table do not apply to G.</b> It has no slot in the sub-nav and no second level in the sense C and D mean; its roles column sits inside one panel on the primary nav. The row is there so the costs can be compared, not because it is the same kind of change.</div>
   <div class="note"><b>The label is a separate decision from the structure.</b> Any of the four candidates in option A works with any of the structures in B, C, D and E. Worth settling the shape first and the word second, rather than debating both at once.</div>`,
     spec: `Read from <code>OPTIONS</code> in <code>src/data/nav-options.ts</code>, so this table cannot fall out of step with the mockups above it.`,
   },

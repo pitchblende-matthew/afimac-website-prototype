@@ -695,6 +695,75 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
     margin-left:18px;min-width:0}
 }
 
+/* G — the primary-nav mega menu.
+   A different surface from A–F: this is the global header, not the CSTL
+   sub-nav, so it gets its own bar mock. The panel is full-bleed against that
+   bar — .no-hasmega goes static so a panel pinned left:0/right:0 resolves
+   against .no-top rather than against the item it hangs from. */
+.no-top{display:flex;align-items:stretch;background:#fff;border:1px solid var(--line);
+  border-radius:3px;padding:0 18px;min-height:62px;margin-top:26px;position:relative}
+.no-logo{display:flex;align-items:center;font-family:var(--museo);font-weight:700;
+  font-size:19px;letter-spacing:.02em;color:var(--cstl-blue);padding-right:26px}
+.no-titem{display:flex;align-items:center;gap:5px;padding:0 16px;font-size:14.5px;
+  font-weight:700;color:#5d6b78;position:relative;white-space:nowrap}
+.no-hasmega{position:static;cursor:default}
+.no-hasmega .no-live{position:relative;color:var(--cstl-blue);box-shadow:inset 0 -2px 0 var(--cta)}
+.no-hasmega.is-mega .no-live::after{content:"hover to open";position:absolute;top:-25px;left:0;
+  font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;
+  color:#7a2f4a;background:#fdeef3;border:1px solid #efc9d6;border-radius:2px;padding:1px 6px}
+
+.no-mega{display:none;position:absolute;top:100%;left:0;right:0;z-index:40;background:#fff;
+  border:1px solid var(--line);border-top:3px solid var(--cstl-blue);
+  box-shadow:0 18px 44px rgba(10,40,70,.18);padding:22px 24px 0}
+.no-hasmega:hover>.no-mega,.no-hasmega:focus-within>.no-mega{display:block}
+.no-megahead{font-family:var(--museo);font-weight:700;font-size:15px;color:var(--cstl-blue);
+  padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--line)}
+.no-megahead span{margin-left:12px;font-family:inherit;font-weight:400;font-size:12.5px;color:var(--spec)}
+/* Roles get the widest column: they are the only one carrying descriptions. */
+.no-megagrid{display:grid;grid-template-columns:1fr 1fr 1.55fr 1fr;gap:26px}
+.no-mcol a{display:block;padding:5px 0;font-size:13px;font-weight:600;color:#44525f;text-decoration:none}
+.no-mcol a:hover,.no-mcol a:focus{color:var(--cstl-blue);text-decoration:underline}
+.no-mcol a.no-todo{color:#9aa7b2}
+
+/* The roles column. Grouped under capability headings, and the roles sit on
+   one wrapped line rather than stacked — which is the whole argument of this
+   option: a paragraph of capabilities does not read as a column of vacancies. */
+.no-rolegrp{margin-bottom:14px}
+.no-rolegrp .no-grpname{font-size:12.5px;font-weight:700;color:var(--cstl-blue);margin-bottom:2px}
+.no-rolegrp .no-grpgist{font-size:11.5px;line-height:1.45;color:var(--spec);margin:0 0 5px}
+.no-rolerow{font-size:12.5px;line-height:1.7}
+.no-rolerow a{display:inline;padding:0;font-size:12.5px;font-weight:600;color:#44525f;text-decoration:none}
+.no-rolerow a:hover,.no-rolerow a:focus{color:var(--cstl-blue);text-decoration:underline}
+.no-rolerow a.no-todo{color:#9aa7b2}
+.no-sep{color:var(--line);padding:0 5px}
+
+.no-promo{background:#f2f6f9;border-left:3px solid var(--cta);padding:14px 16px;align-self:start}
+.no-promo b{display:block;font-family:var(--museo);font-size:13.5px;color:var(--cstl-blue);margin-bottom:5px}
+.no-promo p{margin:0 0 10px;font-size:12px;line-height:1.5;color:var(--spec)}
+.no-promo .no-pcta{display:inline-block;background:var(--cta);color:#fff;font-weight:700;
+  font-size:12px;padding:7px 13px;border-radius:2px;text-decoration:none}
+
+/* The other four solution areas, along the foot of the panel — the part that
+   makes this a site-wide pattern rather than a CSTL one. */
+.no-solrow{margin:20px -24px 0;padding:13px 24px;background:#f7fafc;
+  border-top:1px solid var(--line)}
+.no-solrow>b{display:block;margin-bottom:9px;font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--spec)}
+.no-sols{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 20px}
+.no-sol{font-size:12.5px;font-weight:700;color:#44525f}
+.no-sol span{display:block;font-weight:400;font-size:11px;color:var(--spec)}
+
+@media(max-width:1100px){.no-megagrid{grid-template-columns:1fr 1fr;gap:20px}}
+@media(max-width:900px){
+  .no-top{flex-wrap:wrap;min-height:0;padding:10px 12px}
+  /* Full-bleed has no meaning once the bar wraps: the panel becomes a block
+     in flow, which is the accordion this option would need on a phone. */
+  .no-mega{position:static;box-shadow:none;padding:16px 0 0;margin-top:10px;border-left:0;border-right:0}
+  .no-megagrid{grid-template-columns:1fr;gap:16px}
+  .no-solrow{margin:16px 0 0;padding:13px 0}
+  .no-sols{grid-template-columns:1fr}
+}
+
 /* ---- crew module (stationFlow) ------------------------------------------
    Replaces the interactive line map. Every station and crew is on the page at
    once: no JavaScript, no state, nothing behind a click. The grid auto-fits,

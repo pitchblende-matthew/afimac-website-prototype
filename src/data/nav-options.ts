@@ -157,4 +157,79 @@ export const OPTIONS: NavOption[] = [
     buys: "Removes the argument entirely and shortens the bar to four items. The role content still exists; each industry page's station map already lists its crews.",
     costs: "Eight written pages with no nav entry, reachable only from inside an industry page. It is the option that loses the most work, and the role pages are the section's deepest SEO surface.",
   },
+  {
+    id: "mega",
+    n: "G",
+    title: "Primary-nav mega menu — the whole section at once",
+    label: "Who We Deploy — a column inside Solutions",
+    buys: "Moves the question off the sub-nav entirely. The roles sit as one grouped column beside the service, the industries and the resources, so the panel reads as a capability map rather than a list of openings — and the same panel shape serves all five solution areas, so the header stops being CSTL-specific.",
+    costs: "The largest build on the page and the only one that changes the global header, so it affects every page on the site rather than the CSTL section alone. Needs a considered mobile pattern — a full-width panel has to become an accordion under about 900px — and the other four solution areas need their own content written before it can ship.",
+  },
+];
+
+/* ------------------------------------------------------------------ *
+ * Option G — the primary-nav mega menu
+ *
+ * A different surface from A–F. Those all change the Roles slot inside the
+ * CSTL sub-nav; this one moves the question up to the global header, where
+ * the whole section opens at once and the roles are one column among several.
+ * The claim being tested: surrounded by the service, the industries and the
+ * resources, a grouped roles column reads as a capability map rather than a
+ * list of vacancies — which is the objection A–F are all working around.
+ * ------------------------------------------------------------------ */
+
+export interface MegaCol {
+  label: string;
+  links: RoleLink[];
+}
+
+/** The CSTL pages, as the mega panel would group them. Routes are the real ones. */
+export const MEGA_CSTL: MegaCol[] = [
+  {
+    label: "The Service",
+    links: [
+      { label: "Overview", route: "/overview", written: true },
+      { label: "What Is Travel Labor", route: "/what-is-travel-labor", written: true },
+      { label: "How It Works", route: "/how-it-works", written: true },
+      { label: "Travel vs. Traditional", route: "/vs-traditional", written: true },
+      { label: "Travel vs. Local Staffing", route: "/vs-local-staffing", written: true },
+      { label: "Day 1 Ready", route: "/day-1-ready", written: true },
+      { label: "Pre-Deployment Checklist", route: "/pre-deployment", written: true },
+      { label: "FAQ", route: "/faq", written: true },
+    ],
+  },
+  {
+    label: "Industries",
+    links: [
+      { label: "Aerospace, Aviation &amp; Defense", route: "/industries/aerospace-aviation-defense", written: true },
+      { label: "Automotive", route: "/industries/automotive", written: true },
+      { label: "Chemicals &amp; Plastics", route: "/industries/chemicals-plastics", written: true },
+      { label: "Consumer Goods", route: "/industries/consumer-goods", written: true },
+      { label: "Food &amp; Beverage", route: "/industries/food-beverage", written: true },
+      { label: "Industrial Equipment", route: "/industries/industrial-equipment", written: true },
+      { label: "Oil &amp; Energy", route: "/industries/oil-energy", written: true },
+      { label: "Logistics &amp; Warehousing", route: "/industries/logistics-warehousing", written: true },
+    ],
+  },
+  {
+    label: "Resources",
+    links: [
+      { label: "White Papers", route: "/resources/white-papers", written: true },
+      { label: "Named Case Studies", route: "/resources/case-studies", written: true },
+      { label: "Salesheets &amp; One-Pagers", route: "/resources/sales-sheets", written: true },
+      { label: "Pricing &amp; ROI", route: "/pricing-roi" },
+    ],
+  },
+];
+
+/**
+ * The other four solution areas. No prototype routes exist for them — this
+ * build is the CSTL section only — so they render as labels rather than
+ * links, which is also the honest state of the work.
+ */
+export const OTHER_SOLUTIONS: { label: string; gist: string }[] = [
+  { label: "Labor Dispute Security + Support", gist: "Strike security, continuity planning, logistics" },
+  { label: "Global Protective Services", gist: "Executive protection, travel security, business security" },
+  { label: "Disaster Relief + Emergency Aid", gist: "Rapid response teams, mobile assets, base camps" },
+  { label: "Corporate Investigations", gist: "Surveillance, workplace investigations, OSINT" },
 ];
