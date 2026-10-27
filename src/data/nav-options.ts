@@ -160,10 +160,18 @@ export const OPTIONS: NavOption[] = [
   {
     id: "mega",
     n: "G",
-    title: "Primary-nav mega menu — the whole section at once",
+    title: "Primary-nav mega menu — tiers running across",
     label: "Who We Deploy — a column inside Solutions",
     buys: "Three levels in one panel — solution, section, pages — so the whole site fits behind one nav item without a single list growing long. The roles become a section you step into rather than a dropdown you are confronted with, and CSTL gets room for all 28 of its pages while the other four areas keep the same shape.",
     costs: "The largest build on the page and the only one that changes the global header, so it touches every page on the site. Three tiers is also three chances to lose the pointer: it only works if the tiers answer to click and keyboard as well as hover, which is the thing to insist on rather than assume. Below about 900px it has to become a stacked accordion.",
+  },
+  {
+    id: "mega-down",
+    n: "H",
+    title: "Primary-nav mega menu — tiers running down",
+    label: "Who We Deploy — a band inside Solutions",
+    buys: "The same three tiers as G, stacked into full-width bands instead of side-by-side rails. Every tier gets the whole width of the panel, so long names sit on one line and the pages below can run four or five columns wide — the most room of any option here. It also reads in the order people scan, top to bottom.",
+    costs: "The panel grows downward as you go, so by the third tier it covers most of the viewport — and the choices you made in tiers one and two scroll out of sight on a short screen. Deeper pointer travel than G, and the same hover-chain risk if the bands are not built to answer click and keyboard too.",
   },
 ];
 

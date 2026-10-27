@@ -767,6 +767,27 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
 .no-promo .no-pcta{display:inline-block;background:var(--cta);color:#fff;font-weight:700;
   font-size:12px;padding:7px 13px;border-radius:2px;text-decoration:none}
 
+/* H — the same three tiers, stacked into bands that work downward. Each band
+   gets the whole width of the panel, so the third can run four columns wide
+   where G's third rail runs two. */
+.no-mega.no-tierdown{padding:0}
+.no-band{display:flex;align-items:flex-start;gap:16px;padding:11px 22px;
+  border-bottom:1px solid var(--line)}
+.no-band2{background:#fafcfd}
+.no-bandhead{flex:0 0 72px;padding-top:7px;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;font-weight:700;color:var(--spec)}
+.no-bandbody{flex:1;min-width:0}
+.no-tabs{display:flex;flex-wrap:wrap;gap:6px}
+.no-tab{background:none;border:0;font:inherit;font-size:13px;font-weight:700;color:#44525f;
+  padding:6px 12px;border-radius:2px;cursor:pointer}
+.no-tab:hover{background:#eef4f8;color:var(--cstl-blue)}
+.no-tab.on{background:var(--cstl-blue);color:#fff}
+.no-bandpages{display:block;padding:18px 22px 20px;border-bottom:0}
+.no-downgrid{display:grid;grid-template-columns:minmax(0,1fr) 238px;gap:26px}
+.no-tierdown .no-tierbody{display:grid;grid-template-columns:repeat(3,1fr);gap:0 26px;margin-top:10px}
+.no-tierdown .no-pagelist{grid-column:1/-1;grid-template-columns:repeat(4,1fr);margin-top:0}
+.no-tierdown .no-empty{grid-column:1/-1;margin-top:0}
+
 @media(max-width:1100px){.no-tiergrid{grid-template-columns:214px 206px minmax(0,1fr)}
   .no-tierpromo{display:none}}
 @media(max-width:900px){
@@ -782,6 +803,10 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
   .no-tierpages{padding:14px 0}
   .no-pagelist{grid-template-columns:1fr}
   .no-tierpromo{display:none}
+  /* The bands stack the same way — head above its tabs, one column below. */
+  .no-band{flex-direction:column;gap:7px;padding:11px 0}
+  .no-bandhead{flex:none;padding-top:0}
+  .no-downgrid,.no-tierdown .no-tierbody,.no-tierdown .no-pagelist{grid-template-columns:1fr}
 }
 
 /* ---- crew module (stationFlow) ------------------------------------------
