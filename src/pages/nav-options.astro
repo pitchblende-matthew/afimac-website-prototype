@@ -11,7 +11,7 @@
 import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
-import { BY_FUNCTION, BY_INDUSTRY, LABEL_CANDIDATES, OPTIONS, ROLE_PAGES, SOLUTION_TIERS, type RoleGroup, type RoleLink, type TierSection } from "../data/nav-options";
+import { BY_FUNCTION, BY_INDUSTRY, FAMILY_STATS, LABEL_CANDIDATES, OPTIONS, ROLE_FAMILIES, ROLE_PAGES, SOLUTION_TIERS, type RoleGroup, type RoleLink, type TierSection, type TierSolution } from "../data/nav-options";
 import type { Block as BlockType } from "../lib/types";
 
 /** The four slots that are not under discussion, shown so the bar reads true. */
@@ -88,6 +88,15 @@ const mlink = (r: RoleLink): string =>
  * fake list.
  */
 const tierPages = (sec: TierSection): string => {
+  if (sec.families)
+    return `<div class="no-tierbody">${sec.families
+      .map(
+        (f) =>
+          `<div class="no-fam"><a class="no-famname" href="${u(f.pages[0].route)}">${f.label}</a><p class="no-famroles">${f.roles.join(
+            " · ",
+          )}</p></div>`,
+      )
+      .join("")}</div>`;
   if (sec.groups)
     return `<div class="no-tierbody">${sec.groups
       .map(
@@ -165,7 +174,7 @@ const megabar = (): string =>
  * Shares the data, the button semantics and the cascade script with megabar —
  * only the arrangement differs, which is the point of showing both.
  */
-const megabarDown = (): string =>
+const megabarDown = (tiers: TierSolution[] = SOLUTION_TIERS): string =>
   `<div class="no-top">
     <span class="no-logo">AFIMAC</span>
     <div class="no-titem">Home</div>
@@ -173,14 +182,14 @@ const megabarDown = (): string =>
       <div class="no-mega no-tier no-tierdown">
         <div class="no-band">
           <div class="no-bandhead">Solution</div>
-          <div class="no-bandbody"><div class="no-tabs">${SOLUTION_TIERS.map(
+          <div class="no-bandbody"><div class="no-tabs">${tiers.map(
             (so, i) =>
               `<button type="button" class="no-tab${i === 0 ? " on" : ""}" data-sol="${i}" data-first="${i}-0">${so.label}</button>`,
           ).join("")}</div></div>
         </div>
         <div class="no-band no-band2">
           <div class="no-bandhead">Section</div>
-          <div class="no-bandbody">${SOLUTION_TIERS.map(
+          <div class="no-bandbody">${tiers.map(
             (so, i) =>
               `<div class="no-secs${i === 0 ? " on" : ""}" data-sol="${i}"><div class="no-tabs">${so.sections
                 .map(
@@ -192,7 +201,7 @@ const megabarDown = (): string =>
         </div>
         <div class="no-band no-bandpages">
           <div class="no-downgrid">
-            <div class="no-downmain">${SOLUTION_TIERS.map((so, i) =>
+            <div class="no-downmain">${tiers.map((so, i) =>
               so.sections
                 .map(
                   (sec, j) =>
@@ -213,6 +222,30 @@ const megabarDown = (): string =>
     <div class="no-titem">About<span class="no-caret">▾</span></div>
     <div class="no-titem">Contact</div>
   </div>`;
+
+/** The same menu with the roles tier rebuilt around families. */
+const FAMILY_TIERS: TierSolution[] = SOLUTION_TIERS.map((so, i) =>
+  i === 0
+    ? {
+        ...so,
+        sections: so.sections.map((sec) =>
+          sec.label === "Who We Deploy"
+            ? { ...sec, gist: "Six families, with the job titles as illustration", groups: undefined, families: ROLE_FAMILIES }
+            : sec,
+        ),
+      }
+    : so,
+);
+
+const familyRows = ROLE_FAMILIES.map(
+  (f) =>
+    `<tr><th>${f.label}</th><td>${f.roles.join(", ")}</td><td class="hl">${f.pages
+      .map(
+        (pg) =>
+          `<a href="${u(pg.route)}">${pg.label}</a>${pg.written ? "" : ' <span style="color:var(--spec)">· no copy yet</span>'}`,
+      )
+      .join("<br>")}</td></tr>`,
+).join("");
 
 const opt = (id: string) => OPTIONS.find((o) => o.id === id)!;
 
@@ -365,6 +398,23 @@ const blocks: BlockType[] = [
   ${tradeoffs("mega-down")}
   <div class="note"><b>Nothing else differs.</b> Same pages, same grouping, same two steps to any page, and the same requirement that the tiers answer to click and keyboard as well as hover. If the mega-menu direction is agreed, <b>across-or-down is a layout decision rather than a structural one</b> — and it can be settled late, because the content behind both is identical.</div>`,
     spec: `<b>Elementor:</b> the same widget as G in a different arrangement. <b>Worth testing at 1366×768</b> — the laptop most buyers are on — since that is the height at which the third band starts pushing the first two off the top.`,
+  },
+
+  {
+    cls: "wash",
+    n: "ROLE FAMILIES · A DIFFERENT UNIT",
+    h: `
+  <h2>Families as the entry, job titles as illustration</h2>
+  <p class="lead">The newer thinking: name the <b>family</b> in the nav and let the specific job titles sit underneath as illustration rather than as things you click. This is a change to <b>what the roles tier contains</b>, not to which option carries it — the same six families drop into B, E, G or H without altering any of them.</p>
+  <div class="tscroll" style="margin-top:22px"><table class="cmp"><thead><tr><th>Potential role family</th><th>Illustrative roles</th><th class="hl">What exists behind it today</th></tr></thead><tbody>${familyRows}</tbody></table></div>
+  <div class="note"><b>${FAMILY_STATS.families} families, ${FAMILY_STATS.titles} job titles, ${FAMILY_STATS.pages} pages.</b> The families and the pages line up almost exactly. The job titles do not — <b>most of them have no page behind them</b> and never had: there is no CNC Programmers page, no Reach Truck Operators page, no CIP Operators page.</div>
+  <div class="note stop"><b>That is the decision this forces, and it is worth settling before anything is built.</b> If the job titles are <b>copy</b> — words sitting under a family name — then nothing new has to be written, the nav gets six entries instead of eight, and the objection is answered outright: a family with examples underneath cannot be mistaken for a list of openings. <b>If the job titles are links</b>, this is not a nav change at all; it is a request for roughly eighteen new pages.</div>
+  <div class="note"><b>It also suggests the section is one page-merge away from tidy.</b> ${FAMILY_STATS.oneToOne} of the ${FAMILY_STATS.families} families are a single existing page wearing a better name. The other ${FAMILY_STATS.merging} each cover two: <b>Machining &amp; Precision Manufacturing</b> sits over CNC Operators <i>and</i> Machinists, and <b>Material Handling &amp; Warehouse Operations</b> sits over Forklift Operators <i>and</i> the unwritten Warehouse &amp; Logistics. If families become the nav entries, those are the two pairs to merge — which takes the section from eight role pages to six, and quietly removes the one page that still has no copy.</div>
+  <h3 style="margin-top:34px">The families in the menu</h3>
+  <p>Below is option H carrying families instead of capability groups. <b>Step into Who We Deploy to see it.</b> The family name is the link; the job titles under it are text. Everything else about the panel is unchanged — which is the point, since this swap works the same way in G, and in the smaller panels of B and E.</p>
+  ${megabarDown(FAMILY_TIERS)}
+  <div class="note"><b>Compare it with the same tier in option H above.</b> Three capability groups with a line of explanation each, against six families with their job titles spelled out. The families say more about what AFIMAC can staff; the capability groups read faster. <b>Both are a long way from the column of eight job titles that started this conversation.</b></div>`,
+    spec: `The taxonomy is held in <code>ROLE_FAMILIES</code> in <code>src/data/nav-options.ts</code>, and the counts in the notes above are computed from it — so the table, the mock and the prose cannot fall out of step. <b>The links-or-copy decision is the one to take to the client;</b> everything else here follows from it.`,
   },
 
   {

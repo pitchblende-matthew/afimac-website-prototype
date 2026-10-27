@@ -255,9 +255,10 @@ export const OTHER_SOLUTIONS: { label: string; gist: string }[] = [
 export interface TierSection {
   label: string;
   gist: string;
-  /** A flat list of pages, or capability groups where the roles live. */
+  /** A flat list of pages, capability groups, or the role families. */
   pages?: RoleLink[];
   groups?: RoleGroup[];
+  families?: RoleFamily[];
 }
 
 export interface TierSolution {
@@ -312,3 +313,68 @@ export const SOLUTION_TIERS: TierSolution[] = [
     ],
   },
 ];
+
+/* ------------------------------------------------------------------ *
+ * Role families.
+ *
+ * The client's newer thinking: name the family, and let the job titles sit
+ * underneath as illustration rather than as things you click. It is a change
+ * to what the roles tier contains, not to which option carries it — the same
+ * six families drop into B, E, G or H unchanged.
+ *
+ * `roles` is the client's list verbatim. `pages` is what already exists
+ * behind each family, which is the part worth looking at: six families over
+ * eight pages, and twenty-six job titles that are mostly not pages at all.
+ * ------------------------------------------------------------------ */
+
+export interface RoleFamily {
+  label: string;
+  /** Illustrative job titles, as supplied. Not necessarily pages. */
+  roles: string[];
+  /** The existing role pages that would sit behind this family. */
+  pages: RoleLink[];
+}
+
+export const ROLE_FAMILIES: RoleFamily[] = [
+  {
+    label: "Machining &amp; Precision Manufacturing",
+    roles: ["CNC Operators", "CNC Machinists", "CNC Programmers", "Manual Machinists", "Setup Technicians", "Toolroom Machinists"],
+    pages: ["CNC Operators", "Machinists"].map(byLabel),
+  },
+  {
+    label: "Welding &amp; Fabrication",
+    roles: ["Welders", "Fabricators", "Robotic Welding Technicians"],
+    pages: ["Welders &amp; Fabricators"].map(byLabel),
+  },
+  {
+    label: "Production &amp; Assembly",
+    roles: ["Assemblers", "Machine Operators", "Production Workers", "General Laborers"],
+    pages: ["Assemblers &amp; Production"].map(byLabel),
+  },
+  {
+    label: "Material Handling &amp; Warehouse Operations",
+    roles: ["Forklift Operators", "Reach Truck Operators", "Order Selectors", "Material Handlers"],
+    pages: ["Forklift Operators", "Warehouse &amp; Logistics"].map(byLabel),
+  },
+  {
+    label: "Packaging Operations",
+    roles: ["Packaging Operators", "Packaging Machine Operators", "Case Packers", "Palletizers", "Kitting Workers"],
+    pages: ["Packaging Operations"].map(byLabel),
+  },
+  {
+    label: "Sanitation &amp; Facility Support",
+    roles: ["Sanitation Workers", "Industrial Cleaners", "CIP Operators", "Sanitation Technicians"],
+    pages: ["Sanitation Crews"].map(byLabel),
+  },
+];
+
+/** Counted rather than written down, so the prose cannot drift from the data. */
+export const FAMILY_STATS = {
+  families: ROLE_FAMILIES.length,
+  titles: ROLE_FAMILIES.reduce((n, f) => n + f.roles.length, 0),
+  pages: new Set(ROLE_FAMILIES.flatMap((f) => f.pages.map((pg) => pg.route))).size,
+  /** Families whose whole content is one existing page. */
+  oneToOne: ROLE_FAMILIES.filter((f) => f.pages.length === 1).length,
+  /** Families that would merge two existing pages into one entry. */
+  merging: ROLE_FAMILIES.filter((f) => f.pages.length > 1).length,
+};
