@@ -771,15 +771,17 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
    gets the whole width of the panel, so the third can run four columns wide
    where G's third rail runs two. */
 .no-mega.no-tierdown{padding:0}
-.no-band{display:flex;align-items:flex-start;gap:16px;padding:11px 22px;
-  border-bottom:1px solid var(--line)}
+/* The head sits above its tabs rather than beside them. Inline, it took 88px
+   off the row and pushed the fifth service name onto a line of its own —
+   the five names need the full width of the panel at a readable size. */
+.no-band{padding:10px 22px 11px;border-bottom:1px solid var(--line)}
 .no-band2{background:#fafcfd}
-.no-bandhead{flex:0 0 72px;padding-top:7px;font-size:10px;letter-spacing:.11em;
+.no-bandhead{margin-bottom:7px;font-size:10px;letter-spacing:.11em;
   text-transform:uppercase;font-weight:700;color:var(--spec)}
-.no-bandbody{flex:1;min-width:0}
-.no-tabs{display:flex;flex-wrap:wrap;gap:6px}
+.no-bandbody{min-width:0}
+.no-tabs{display:flex;flex-wrap:wrap;gap:5px}
 .no-tab{background:none;border:0;font:inherit;font-size:13px;font-weight:700;color:#44525f;
-  padding:6px 12px;border-radius:2px;cursor:pointer}
+  padding:6px 11px;border-radius:2px;cursor:pointer}
 .no-tab:hover{background:#eef4f8;color:var(--cstl-blue)}
 .no-tab.on{background:var(--cstl-blue);color:#fff}
 .no-bandpages{display:block;padding:18px 22px 20px;border-bottom:0}
@@ -796,6 +798,13 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
 .no-famname:hover,.no-famname:focus{text-decoration:underline}
 .no-famroles{margin:0;font-size:11.5px;line-height:1.55;color:var(--spec)}
 
+/* One step down keeps the five service names on a single row as the panel
+   narrows, rather than dropping the last one onto a line by itself. */
+@media(max-width:1200px){
+  .no-tab{font-size:12.5px;padding:6px 8px}
+  .no-tabs{gap:4px}
+}
+
 @media(max-width:1100px){.no-tiergrid{grid-template-columns:214px 206px minmax(0,1fr)}
   .no-tierpromo{display:none}}
 @media(max-width:900px){
@@ -811,9 +820,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
   .no-tierpages{padding:14px 0}
   .no-pagelist{grid-template-columns:1fr}
   .no-tierpromo{display:none}
-  /* The bands stack the same way — head above its tabs, one column below. */
-  .no-band{flex-direction:column;gap:7px;padding:11px 0}
-  .no-bandhead{flex:none;padding-top:0}
+  .no-band{padding:10px 0 11px}
   .no-downgrid,.no-tierdown .no-tierbody,.no-tierdown .no-pagelist{grid-template-columns:1fr}
 }
 
