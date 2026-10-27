@@ -1,8 +1,8 @@
 /**
- * Alternatives to the "Roles" sub-nav slot, for the IA conversation.
+ * Alternatives to the "Roles" sub-nav entry, for the site-structure conversation.
  *
  * The client does not want a nav entry that reads as a list of job titles.
- * Two directions were asked for: rename the slot, or give it a second level
+ * Two directions were asked for: rename the entry, or give it a second level
  * that categorises the roles. This file holds the groupings each option needs,
  * kept separate from nav.ts so none of it can leak into the real sub-nav.
  *
@@ -93,7 +93,7 @@ export const BY_INDUSTRY: RoleGroup[] = [
 /** Label candidates for the rename-only option. */
 export const LABEL_CANDIDATES: { label: string; note: string }[] = [
   { label: "Skilled Trades", note: "Names the category the buyer already uses internally. Narrow, though — it undersells sanitation, packaging and warehouse crews, which are not trades." },
-  { label: "Who We Deploy", note: "Verb-led and on-brand with the rest of the section. Says people rather than vacancies, and covers every page without strain." },
+  { label: "Who We Deploy", note: "Starts with a verb, like the rest of the section. Says people rather than vacancies, and covers every page without strain." },
   { label: "Our Workforce", note: "Broadest of the three, and the closest to the live site's own language. Risks sounding like a careers page rather than a service." },
   { label: "Crews &amp; Trades", note: "Covers both halves of the list explicitly. Two nouns is more to read in a nav, and it is the only candidate here with an ampersand." },
 ];
@@ -103,10 +103,10 @@ export interface NavOption {
   id: string;
   n: string;
   title: string;
-  /** How the slot reads in the bar. */
+  /** How the entry reads in the bar. */
   label: string;
-  buys: string;
-  costs: string;
+  works: string;
+  limits: string;
   /** True where a second level is introduced. */
   nested?: boolean;
 }
@@ -115,18 +115,18 @@ export const OPTIONS: NavOption[] = [
   {
     id: "rename",
     n: "A",
-    title: "Rename the slot, keep the flat list",
+    title: "Rename the entry, keep the flat list",
     label: "Who We Deploy",
-    buys: "Smallest possible change — one word in the header template, no new pages, no new URLs, nothing to re-test. Ships inside the existing phase 4.",
-    costs: "The dropdown is still eight job titles in a column. If what the client dislikes is the list itself rather than the word above it, this does not fix it.",
+    works: "Smallest possible change — one word in the header template, no new pages, no new URLs, nothing to re-test. Ships inside the existing phase 4.",
+    limits: "The dropdown is still eight job titles in a column. If what the client dislikes is the list itself rather than the word above it, this does not fix it.",
   },
   {
     id: "grouped",
     n: "B",
     title: "One panel, roles grouped under headings",
     label: "Who We Deploy",
-    buys: "Reads as three capabilities rather than eight vacancies, and the headings do the explaining. Still one level, so it works on touch and needs no new interaction.",
-    costs: "A wider panel than the other dropdowns in the bar, so the header template needs a second dropdown style.",
+    works: "Reads as three capabilities rather than eight vacancies, and the headings do the explaining. Still one level, so it works on touch and needs no new interaction.",
+    limits: "A wider panel than the other dropdowns in the bar, so the header template needs a second dropdown style.",
   },
   {
     id: "flyout-function",
@@ -134,8 +134,8 @@ export const OPTIONS: NavOption[] = [
     title: "Second level, categorised by what the crew does",
     label: "Who We Deploy",
     nested: true,
-    buys: "The literal brief: a further dropdown. Each page sits in exactly one category, so nothing repeats and the structure maps cleanly to URLs if the categories ever become pages.",
-    costs: "A hover-chain. On touch there is no hover, so the first tap opens the category and the second has to reach a flyout that may be off-screen — this is the option most likely to fail on a phone.",
+    works: "The literal brief: a further dropdown. Each page sits in exactly one category, so nothing repeats and the structure maps cleanly to URLs if the categories ever become pages.",
+    limits: "A chain of hovers. On touch there is no hover, so the first tap opens the category and the second has to reach a second panel that may be off-screen — this is the option most likely to fail on a phone.",
   },
   {
     id: "flyout-industry",
@@ -143,52 +143,44 @@ export const OPTIONS: NavOption[] = [
     title: "Second level, categorised by industry",
     label: "Who We Deploy",
     nested: true,
-    buys: "Matches how a buyer arrives — they have a plant, not a job title — and mirrors the Industries slot directly above it.",
-    costs: "The same page appears under several industries. Forklift Operators is under all three, which makes the nav look larger than the site is and gives three routes to one URL.",
+    works: "Matches how a buyer arrives — they have a plant, not a job title — and mirrors the Industries entry directly above it.",
+    limits: "The same page appears under several industries. Forklift Operators is under all three, which makes the nav look larger than the site is and gives three routes to one URL.",
   },
   {
     id: "twopane",
     n: "E",
     title: "Two-pane panel — categories left, roles right",
     label: "Who We Deploy",
-    buys: "Everything option C offers, without the hover-chain: one panel, categories on the left, roles swapping on the right. Works on touch because nothing is nested.",
-    costs: "The most Elementor work of the five, and the widest panel. Needs its own HTML widget rather than a stock dropdown.",
-  },
-  {
-    id: "fold",
-    n: "F",
-    title: "No slot — roles live under Industries",
-    label: "— removed —",
-    buys: "Removes the argument entirely and shortens the bar to four items. The role content still exists; each industry page's station map already lists its crews.",
-    costs: "Eight written pages with no nav entry, reachable only from inside an industry page. It is the option that loses the most work, and the role pages are the section's deepest SEO surface.",
+    works: "Everything option C offers, without the chain of hovers: one panel, categories on the left, roles swapping on the right. Works on touch because nothing is nested.",
+    limits: "The most Elementor work of the five, and the widest panel. Needs its own HTML widget rather than a stock dropdown.",
   },
   {
     id: "mega",
     n: "G",
     title: "Primary-nav mega menu — tiers running across",
     label: "Who We Deploy — a column inside Solutions",
-    buys: "Three levels in one panel — solution, section, pages — so the whole site fits behind one nav item without a single list growing long. The roles become a section you step into rather than a dropdown you are confronted with, and CSTL gets room for all 28 of its pages while the other four areas keep the same shape.",
-    costs: "The largest build on the page and the only one that changes the global header, so it touches every page on the site. Three tiers is also three chances to lose the pointer: it only works if the tiers answer to click and keyboard as well as hover, which is the thing to insist on rather than assume. Below about 900px it has to become a stacked accordion.",
+    works: "Three levels in one panel — solution, section, pages — so the whole site fits behind one nav item without a single list growing long. The roles become a section you step into rather than a dropdown you are confronted with, and CSTL gets room for all 28 of its pages while the other four areas keep the same shape.",
+    limits: "The largest build on the page and the only one that changes the global header, so it touches every page on the site. Three tiers is also three chances to lose the pointer: it only works if the tiers answer to click and keyboard as well as hover, which is the thing to insist on rather than assume. Below about 900px it has to become a stacked accordion.",
   },
   {
     id: "mega-down",
     n: "H",
     title: "Primary-nav mega menu — tiers running down",
     label: "Who We Deploy — a band inside Solutions",
-    buys: "The same three tiers as G, stacked into full-width bands instead of side-by-side rails. Every tier gets the whole width of the panel, so long names sit on one line and the pages below can run four or five columns wide — the most room of any option here. It also reads in the order people scan, top to bottom.",
-    costs: "The panel grows downward as you go, so by the third tier it covers most of the viewport — and the choices you made in tiers one and two scroll out of sight on a short screen. Deeper pointer travel than G, and the same hover-chain risk if the bands are not built to answer click and keyboard too.",
+    works: "The same three tiers as G, stacked into full-width bands instead of side-by-side rails. Every tier gets the whole width of the panel, so long names sit on one line and the pages below can run four or five columns wide — the most room of any option here. It also reads in the order people scan, top to bottom.",
+    limits: "The panel grows downward as you go, so by the third tier it covers most of the viewport — and the choices you made in tiers one and two scroll out of sight on a short screen. Deeper pointer travel than G, and the same risk of losing the pointer if the bands are not built to answer click and keyboard too.",
   },
 ];
 
 /* ------------------------------------------------------------------ *
  * Option G — the primary-nav mega menu
  *
- * A different surface from A–F. Those all change the Roles slot inside the
+ * A different kind of change from A–E. Those all change the Roles entry inside the
  * CSTL sub-nav; this one moves the question up to the global header, where
  * the whole section opens at once and the roles are one column among several.
  * The claim being tested: surrounded by the service, the industries and the
  * resources, a grouped roles column reads as a capability map rather than a
- * list of vacancies — which is the objection A–F are all working around.
+ * list of vacancies — which is the objection A–E are all working around.
  * ------------------------------------------------------------------ */
 
 export interface MegaCol {
@@ -259,6 +251,8 @@ export const OTHER_SOLUTIONS: { label: string; gist: string }[] = [
 
 export interface TierSection {
   label: string;
+  /** Icon key in src/lib/nav-icons.ts. */
+  icon: string;
   gist: string;
   /** A flat list of pages, capability groups, or the role families. */
   pages?: RoleLink[];
@@ -270,6 +264,12 @@ export interface TierSolution {
   label: string;
   /** Icon key in src/lib/nav-icons.ts. */
   icon: string;
+  /**
+   * What the band layout shows when the five full names no longer fit on one
+   * line. Shortening them is the honest fix below about 1090px — the
+   * alternative is type small enough that the icons stop helping.
+   */
+  short: string;
   gist: string;
   /** True only for CSTL — the one area this prototype has pages for. */
   built?: boolean;
@@ -279,49 +279,54 @@ export interface TierSolution {
 export const SOLUTION_TIERS: TierSolution[] = [
   {
     label: "Critical Situation Travel Labor",
+    short: "Travel Labor",
     icon: "hardhat",
     gist: "Travel-ready crews on your floor in days",
     built: true,
     sections: [
-      { label: "The Service", gist: "What it is, how it runs, and what arrives", pages: MEGA_CSTL[0].links },
-      { label: "Industries", gist: "Eight sectors where a labor gap stops the line", pages: MEGA_CSTL[1].links },
-      { label: "Who We Deploy", gist: "The crews, grouped by what they do", groups: BY_FUNCTION },
-      { label: "Resources", gist: "Papers, named results and the numbers", pages: MEGA_CSTL[2].links },
+      { label: "The Service", icon: "chain", gist: "What it is, how it runs, and what arrives", pages: MEGA_CSTL[0].links },
+      { label: "Industries", icon: "factory", gist: "Eight sectors where a labor gap stops the line", pages: MEGA_CSTL[1].links },
+      { label: "Who We Deploy", icon: "people", gist: "The crews, grouped by what they do", groups: BY_FUNCTION },
+      { label: "Resources", icon: "doc", gist: "Papers, named results and the numbers", pages: MEGA_CSTL[2].links },
     ],
   },
   {
     label: "Labor Dispute Security + Support",
+    short: "Labor Dispute",
     icon: "picket",
     gist: "Strike security, continuity planning, logistics",
     sections: [
-      { label: "Labor Dispute Security", gist: "Securing facilities, people and supply through a dispute" },
-      { label: "Labor Dispute Logistical Support", gist: "Transport, equipment, temporary facilities" },
+      { label: "Labor Dispute Security", icon: "picket", gist: "Securing facilities, people and supply through a dispute" },
+      { label: "Labor Dispute Logistical Support", icon: "truck", gist: "Transport, equipment, temporary facilities" },
     ],
   },
   {
     label: "Global Protective Services",
+    short: "Protective Services",
     icon: "shield",
     gist: "Protecting executives, personnel and premises",
     sections: [
-      { label: "Executive Protection", gist: "Close protection for leadership and their families" },
-      { label: "Corporate Travel Security", gist: "Vetted local agents wherever the business goes" },
-      { label: "Business Security", gist: "Incident response and standing site security" },
+      { label: "Executive Protection", icon: "shield", gist: "Close protection for leadership and their families" },
+      { label: "Corporate Travel Security", icon: "globe", gist: "Vetted local agents wherever the business goes" },
+      { label: "Business Security", icon: "building", gist: "Incident response and standing site security" },
     ],
   },
   {
     label: "Disaster Relief + Emergency Aid",
+    short: "Disaster Relief",
     icon: "alert",
     gist: "Rapid response teams and mobile assets",
     sections: [
-      { label: "Disaster Relief &amp; Emergency Aid", gist: "Base camps, mobile kitchens, medical, power" },
+      { label: "Disaster Relief &amp; Emergency Aid", icon: "alert", gist: "Base camps, mobile kitchens, medical, power" },
     ],
   },
   {
     label: "Corporate Investigations",
+    short: "Investigations",
     icon: "search",
     gist: "Surveillance, workplace cases, open-source research",
     sections: [
-      { label: "Workplace &amp; Business Investigations", gist: "Misconduct, fraud, due diligence, OSINT" },
+      { label: "Workplace &amp; Business Investigations", icon: "search", gist: "Misconduct, fraud, due diligence, open-source research" },
     ],
   },
 ];

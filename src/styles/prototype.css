@@ -649,6 +649,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
 .no-col{padding:0 12px}
 .no-colhead{font-family:var(--museo);font-weight:700;color:var(--cstl-blue);font-size:14px;
   padding:0 6px 2px;border-bottom:2px solid var(--cta);display:inline-block;margin-bottom:4px}
+.no-pagepane .no-colhead{display:inline-flex;align-items:center;gap:7px}
+.no-pagepane .no-colhead .no-ico{flex:none;opacity:.8}
 .no-gist{margin:4px 6px 10px;font-size:12px;line-height:1.5;color:var(--spec)}
 .no-wide a,.no-pane a{padding:6px 6px}
 /* The wide panels span the bar rather than hanging off the item: the slot sits
@@ -715,6 +717,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
   font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;
   color:#7a2f4a;background:#fdeef3;border:1px solid #efc9d6;border-radius:2px;padding:1px 6px}
 
+.no-mega.no-tier{left:50%;right:auto;transform:translateX(-50%);
+  width:min(1360px, calc(100vw - 32px))}
 .no-mega{display:none;position:absolute;top:100%;left:0;right:0;z-index:40;background:#fff;
   border:1px solid var(--line);border-top:3px solid var(--cstl-blue);
   box-shadow:0 18px 44px rgba(10,40,70,.18);padding:22px 24px 0;
@@ -739,7 +743,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
 .no-tierpages{padding:16px 22px}
 .no-pagepane{display:none}
 .no-pagepane.on{display:block}
-.no-pagelist{display:grid;grid-template-columns:repeat(2,1fr);gap:0 20px;margin-top:9px}
+.no-pagelist{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:0 20px;margin-top:9px}
 .no-pagelist a{display:block;padding:5px 0;font-size:13px;font-weight:600;color:#44525f;text-decoration:none}
 .no-pagelist a:hover,.no-pagelist a:focus{color:var(--cstl-blue);text-decoration:underline}
 .no-pagelist a.no-todo{color:#9aa7b2}
@@ -788,8 +792,11 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
   text-transform:uppercase;font-weight:700;color:var(--spec)}
 .no-bandbody{min-width:0}
 .no-tabs{display:flex;flex-wrap:wrap;gap:5px}
-.no-tab{background:none;border:0;font:inherit;font-size:13px;font-weight:700;color:#44525f;
-  padding:6px 11px;border-radius:2px;cursor:pointer}
+.no-tab{display:inline-flex;align-items:center;gap:7px;background:none;border:0;font:inherit;
+  font-size:13px;font-weight:700;color:#44525f;padding:6px 11px;border-radius:2px;cursor:pointer}
+.no-tab .no-ico{flex:none;opacity:.65}
+.no-tab:hover .no-ico{opacity:1}
+.no-tab.on .no-ico{opacity:1}
 .no-tab:hover{background:#eef4f8;color:var(--cstl-blue)}
 .no-tab.on{background:var(--cstl-blue);color:#fff}
 .no-bandpages{display:block;padding:18px 22px 20px;border-bottom:0}
@@ -800,7 +807,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
 /* Role families: the family is the link, the job titles are text under it.
    The whole argument of the family idea is in that distinction. */
 /* Two across in G's third rail, three in H's wider band. */
-.no-tierbody{display:grid;grid-template-columns:repeat(2,1fr);gap:0 22px}
+.no-tierbody{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0 22px}
 .no-famreach{grid-column:1/-1}
 .no-ico{display:block;width:18px;height:18px}
 .no-ico-sm{width:15px;height:15px}
@@ -821,8 +828,24 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
 
 /* One step down keeps the five service names on a single row as the panel
    narrows, rather than dropping the last one onto a line by itself. */
-@media(max-width:1200px){
-  .no-tab{font-size:12.5px;padding:6px 8px}
+/* The five service names plus their icons are the widest row in the panel.
+   They step down together rather than being allowed to break onto a second
+   line, which is what the band layout exists to avoid. */
+@media(max-width:1240px){
+  .no-tab{font-size:12.5px;padding:6px 8px;gap:6px}
+  .no-tabs{gap:4px}
+}
+@media(max-width:1140px){
+  .no-tab{font-size:12px;padding:6px 6px;gap:5px}
+  .no-tab .no-ico{width:13px;height:13px}
+  .no-tabs{gap:3px}
+}
+.no-tshort{display:none}
+@media(max-width:1090px){
+  .no-tlong{display:none}
+  .no-tshort{display:inline}
+  .no-tab{font-size:12.5px;padding:6px 9px;gap:6px}
+  .no-tab .no-ico{width:15px;height:15px}
   .no-tabs{gap:4px}
 }
 
@@ -832,6 +855,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
   /* Full-bleed has no meaning once the bar wraps: the panel becomes a block
      in flow, which is the accordion this option would need on a phone. */
   .no-mega{position:static;box-shadow:none;padding:16px 0 0;margin-top:10px;border-left:0;border-right:0}
+  .no-mega.no-tier{left:auto;right:auto;transform:none;width:auto}
   /* Three rails cannot sit side by side on a phone. Everything opens at once,
      in flow — the accordion this option would have to become. */
   .no-tiergrid{grid-template-columns:1fr}
@@ -840,7 +864,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
   .no-tierpages{padding:14px 0}
   .no-pagelist{grid-template-columns:1fr}
   .no-band{padding:10px 0 11px}
-  .no-tierbody,.no-tierdown .no-tierbody,.no-tierdown .no-pagelist{grid-template-columns:1fr}
+  .no-tierbody,.no-tierdown .no-tierbody,.no-pagelist,.no-tierdown .no-pagelist{grid-template-columns:1fr}
   .no-bandrow{flex-direction:column;align-items:flex-start;gap:11px}
 }
 
