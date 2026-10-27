@@ -35,6 +35,20 @@ const PATHS: Record<string, string> = {
     '<path d="M12 3.4 20 7.6v8.8L12 20.6 4 16.4V7.6l8-4.2z"/><path d="M4 7.6 12 11.8l8-4.2"/><path d="M12 11.8v8.8"/>',
   droplet: '<path d="M12 3.6S17.4 9.5 17.4 12.9a5.4 5.4 0 0 1-10.8 0C6.6 9.5 12 3.6 12 3.6z"/>',
 
+  /* Sections */
+  chain:
+    '<circle cx="4.8" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19.2" cy="12" r="2"/><path d="M6.8 12h3.2M14 12h3.2"/>',
+  factory: '<path d="M3.4 20.3V11l5.4 3.1V11l5.4 3.1V5.6h6.4v14.7z"/><path d="M8.2 20.3v-3.6M12.6 20.3v-3.6M17 20.3v-3.6"/>',
+  people:
+    '<circle cx="9.2" cy="8.4" r="2.9"/><path d="M3.7 19.6a5.5 5.5 0 0 1 11 0"/><path d="M16 6.1a2.9 2.9 0 0 1 0 4.6"/><path d="M17.3 14.8a5.5 5.5 0 0 1 3 4.8"/>',
+  doc: '<path d="M6.4 3.4h7.4l4 4v13.2H6.4z"/><path d="M13.8 3.4v4h4"/><path d="M9.2 12.6h5.6M9.2 16.2h4"/>',
+  truck:
+    '<path d="M2.8 6.8h10.6v9.4H2.8z"/><path d="M13.4 10.4h3.8l2.8 3v2.8h-6.6z"/><circle cx="7" cy="18" r="1.8"/><circle cx="16.6" cy="18" r="1.8"/>',
+  globe:
+    '<circle cx="12" cy="12" r="8.4"/><path d="M3.6 12h16.8"/><path d="M12 3.6c2.2 2.3 3.4 5.3 3.4 8.4S14.2 18.1 12 20.4C9.8 18.1 8.6 15.1 8.6 12S9.8 5.9 12 3.6z"/>',
+  building:
+    '<path d="M4.6 20.4V5.2h9.6v15.2"/><path d="M14.2 10.6h5.2v9.8"/><path d="M7.6 9h3.4M7.6 12.8h3.4M7.6 16.6h3.4M16.4 14h.01M16.4 17.4h.01"/>',
+
   /* Utility */
   plus: '<circle cx="12" cy="12" r="8.4"/><path d="M12 8.4v7.2"/><path d="M8.4 12h7.2"/>',
   bolt: '<path d="M13.2 2.8 5.6 13.4h5.2L10 21.2l7.6-10.6h-5.2l.8-7.8z"/>',
