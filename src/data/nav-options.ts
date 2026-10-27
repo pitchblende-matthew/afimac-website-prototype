@@ -162,8 +162,8 @@ export const OPTIONS: NavOption[] = [
     n: "G",
     title: "Primary-nav mega menu — the whole section at once",
     label: "Who We Deploy — a column inside Solutions",
-    buys: "Moves the question off the sub-nav entirely. The roles sit as one grouped column beside the service, the industries and the resources, so the panel reads as a capability map rather than a list of openings — and the same panel shape serves all five solution areas, so the header stops being CSTL-specific.",
-    costs: "The largest build on the page and the only one that changes the global header, so it affects every page on the site rather than the CSTL section alone. Needs a considered mobile pattern — a full-width panel has to become an accordion under about 900px — and the other four solution areas need their own content written before it can ship.",
+    buys: "Three levels in one panel — solution, section, pages — so the whole site fits behind one nav item without a single list growing long. The roles become a section you step into rather than a dropdown you are confronted with, and CSTL gets room for all 28 of its pages while the other four areas keep the same shape.",
+    costs: "The largest build on the page and the only one that changes the global header, so it touches every page on the site. Three tiers is also three chances to lose the pointer: it only works if the tiers answer to click and keyboard as well as hover, which is the thing to insist on rather than assume. Below about 900px it has to become a stacked accordion.",
   },
 ];
 
@@ -232,4 +232,75 @@ export const OTHER_SOLUTIONS: { label: string; gist: string }[] = [
   { label: "Global Protective Services", gist: "Executive protection, travel security, business security" },
   { label: "Disaster Relief + Emergency Aid", gist: "Rapid response teams, mobile assets, base camps" },
   { label: "Corporate Investigations", gist: "Surveillance, workplace investigations, OSINT" },
+];
+
+/* ------------------------------------------------------------------ *
+ * The tiers behind option G.
+ *
+ * Three levels inside one panel: the five solution areas, the sections
+ * inside the one you are on, and the pages inside that section. CSTL is the
+ * only area this build covers, so it is the only one with pages behind its
+ * sections — the other four carry their real sub-pages from the live site as
+ * labels, which is what makes the depth of the CSTL section visible.
+ * ------------------------------------------------------------------ */
+
+export interface TierSection {
+  label: string;
+  gist: string;
+  /** A flat list of pages, or capability groups where the roles live. */
+  pages?: RoleLink[];
+  groups?: RoleGroup[];
+}
+
+export interface TierSolution {
+  label: string;
+  gist: string;
+  /** True only for CSTL — the one area this prototype has pages for. */
+  built?: boolean;
+  sections: TierSection[];
+}
+
+export const SOLUTION_TIERS: TierSolution[] = [
+  {
+    label: "Critical Situation Travel Labor",
+    gist: "Travel-ready crews on your floor in days",
+    built: true,
+    sections: [
+      { label: "The Service", gist: "What it is, how it runs, and what arrives", pages: MEGA_CSTL[0].links },
+      { label: "Industries", gist: "Eight sectors where a labor gap stops the line", pages: MEGA_CSTL[1].links },
+      { label: "Who We Deploy", gist: "The crews, grouped by what they do", groups: BY_FUNCTION },
+      { label: "Resources", gist: "Papers, named results and the numbers", pages: MEGA_CSTL[2].links },
+    ],
+  },
+  {
+    label: "Labor Dispute Security + Support",
+    gist: "Strike security, continuity planning, logistics",
+    sections: [
+      { label: "Labor Dispute Security", gist: "Securing facilities, people and supply through a dispute" },
+      { label: "Labor Dispute Logistical Support", gist: "Transport, equipment, temporary facilities" },
+    ],
+  },
+  {
+    label: "Global Protective Services",
+    gist: "Protecting executives, personnel and premises",
+    sections: [
+      { label: "Executive Protection", gist: "Close protection for leadership and their families" },
+      { label: "Corporate Travel Security", gist: "Vetted local agents wherever the business goes" },
+      { label: "Business Security", gist: "Incident response and standing site security" },
+    ],
+  },
+  {
+    label: "Disaster Relief + Emergency Aid",
+    gist: "Rapid response teams and mobile assets",
+    sections: [
+      { label: "Disaster Relief &amp; Emergency Aid", gist: "Base camps, mobile kitchens, medical, power" },
+    ],
+  },
+  {
+    label: "Corporate Investigations",
+    gist: "Surveillance, workplace cases, open-source research",
+    sections: [
+      { label: "Workplace &amp; Business Investigations", gist: "Misconduct, fraud, due diligence, OSINT" },
+    ],
+  },
 ];

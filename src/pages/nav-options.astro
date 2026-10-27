@@ -11,7 +11,7 @@
 import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
-import { BY_FUNCTION, BY_INDUSTRY, LABEL_CANDIDATES, MEGA_CSTL, OPTIONS, OTHER_SOLUTIONS, ROLE_PAGES, type RoleGroup, type RoleLink } from "../data/nav-options";
+import { BY_FUNCTION, BY_INDUSTRY, LABEL_CANDIDATES, OPTIONS, ROLE_PAGES, SOLUTION_TIERS, type RoleGroup, type RoleLink, type TierSection } from "../data/nav-options";
 import type { Block as BlockType } from "../lib/types";
 
 /** The four slots that are not under discussion, shown so the bar reads true. */
@@ -79,49 +79,79 @@ const slot = (label: string, dd: string, extra = ""): string =>
 const mlink = (r: RoleLink): string =>
   `<a href="${u(r.route)}"${r.written ? "" : ' class="no-todo"'}>${r.label}</a>`;
 
-/** A plain column of links in the mega panel. */
-const megaCol = (label: string, links: RoleLink[]): string =>
-  `<div class="no-mcol"><div class="no-colhead">${label}</div>${links.map(mlink).join("")}</div>`;
+/**
+ * Tier 3 — what is inside one section.
+ *
+ * Three shapes, because the sections are not alike: a two-column list of
+ * pages, the crews under their capability headings, or — for the four
+ * solution areas this build does not cover — a line saying so rather than a
+ * fake list.
+ */
+const tierPages = (sec: TierSection): string => {
+  if (sec.groups)
+    return sec.groups
+      .map(
+        (g) =>
+          `<div class="no-rolegrp"><div class="no-grpname">${g.label}</div><p class="no-grpgist">${g.gist}</p><div class="no-rolerow">${g.roles
+            .map(mlink)
+            .join('<span class="no-sep">·</span>')}</div></div>`,
+      )
+      .join("");
+  if (sec.pages) return `<div class="no-pagelist">${sec.pages.map(mlink).join("")}</div>`;
+  return `<p class="no-empty">This prototype is the CSTL section only. On the live site this tier opens the pages under <b>${sec.label}</b> — the panel shape is the same, the content is not written here.</p>`;
+};
 
 /**
- * The roles column. Capability heading, one line of explanation, then the
- * roles themselves on a wrapped line rather than stacked — the argument of
- * this option is that a sentence of capabilities does not read as vacancies.
+ * The primary-nav mock and its tiered panel.
+ *
+ * Three rails left to right: solution, section, pages. Every rail is a
+ * button, so the cascade answers to click and keyboard as well as hover —
+ * the difference between this and the hover-chain in option C.
  */
-const megaRoles = (groups: RoleGroup[]): string =>
-  `<div class="no-mcol"><div class="no-colhead">Who We Deploy</div>${groups
-    .map(
-      (g) =>
-        `<div class="no-rolegrp"><div class="no-grpname">${g.label}</div><p class="no-grpgist">${g.gist}</p><div class="no-rolerow">${g.roles
-          .map(mlink)
-          .join('<span class="no-sep">·</span>')}</div></div>`,
-    )
-    .join("")}</div>`;
-
-/** The primary-nav mock, with the full-width Solutions panel inside it. */
 const megabar = (): string =>
   `<div class="no-top">
     <span class="no-logo">AFIMAC</span>
     <div class="no-titem">Home</div>
     <div class="no-titem no-hasmega is-mega"><span class="no-live">Solutions</span><span class="no-caret">▾</span>
-      <div class="no-mega">
-        <div class="no-megahead">Critical Situation Travel Labor<span>Travel-ready crews on your floor in days</span></div>
-        <div class="no-megagrid">
-          ${megaCol(MEGA_CSTL[0].label, MEGA_CSTL[0].links)}
-          ${megaCol(MEGA_CSTL[1].label, MEGA_CSTL[1].links)}
-          ${megaRoles(BY_FUNCTION)}
-          <div>
-            ${megaCol(MEGA_CSTL[2].label, MEGA_CSTL[2].links)}
-            <div class="no-promo" style="margin-top:16px">
+      <div class="no-mega no-tier">
+        <div class="no-tiergrid">
+          <div class="no-rail">
+            <div class="no-railhead">Solution</div>
+            ${SOLUTION_TIERS.map(
+              (so, i) =>
+                `<button type="button" class="no-railbtn${i === 0 ? " on" : ""}" data-sol="${i}" data-first="${i}-0">${so.label}<span class="no-caret">›</span></button>`,
+            ).join("")}
+          </div>
+          <div class="no-rail no-rail2">
+            <div class="no-railhead">Section</div>
+            ${SOLUTION_TIERS.map(
+              (so, i) =>
+                `<div class="no-secs${i === 0 ? " on" : ""}" data-sol="${i}">${so.sections
+                  .map(
+                    (sec, j) =>
+                      `<button type="button" class="no-railbtn${j === 0 ? " on" : ""}" data-sec="${i}-${j}">${sec.label}<span class="no-caret">›</span></button>`,
+                  )
+                  .join("")}</div>`,
+            ).join("")}
+          </div>
+          <div class="no-tierpages">
+            ${SOLUTION_TIERS.map((so, i) =>
+              so.sections
+                .map(
+                  (sec, j) =>
+                    `<div class="no-pagepane${i === 0 && j === 0 ? " on" : ""}" data-pane="${i}-${j}"><div class="no-colhead">${sec.label}</div><p class="no-grpgist">${sec.gist}</p>${tierPages(sec)}</div>`,
+                )
+                .join(""),
+            ).join("")}
+          </div>
+          <div class="no-tierpromo">
+            <div class="no-promo">
               <b>Critical labor situation?</b>
               <p>Crews on your floor in days, not weeks.</p>
               <a class="no-pcta" href="${u("/get-in-touch")}">Get in Touch</a>
             </div>
           </div>
         </div>
-        <div class="no-solrow"><b>Other solutions — same panel, same shape</b><div class="no-sols">${OTHER_SOLUTIONS.map(
-          (so) => `<div class="no-sol">${so.label}<span>${so.gist}</span></div>`,
-        ).join("")}</div></div>
       </div>
     </div>
     <div class="no-titem">Insights</div>
@@ -250,16 +280,20 @@ const blocks: BlockType[] = [
     cls: "wash",
     n: "OPTION G · PRIMARY-NAV MEGA MENU",
     h: `
-  <h2>G · One large panel on the primary nav, carrying the whole section</h2>
-  <p class="lead">Not a change to the sub-nav slot at all. Hovering <b>Solutions</b> in the global header opens a full-width panel holding the whole CSTL section — the service, the plants, the crews and the papers side by side — so the roles are one column among four rather than a dropdown of their own.</p>
+  <h2>G · A tiered mega menu on the primary nav</h2>
+  <p class="lead">Three levels inside one wide panel. Hover <b>Solutions</b> and the five service areas appear; step right into <b>Critical Situation Travel Labor</b> and its sections appear beside them; step right again and that section&rsquo;s pages fill the rest of the panel. Nothing opens on top of anything else — the panel is one surface and the tiers move across it.</p>
+  <p class="sub"><b>All three rails are live.</b> Move across them, or tab through — every rail is a button, not a hover target.</p>
   ${megabar()}
-  <h3 style="margin-top:34px">Why this answers the objection differently</h3>
-  <p>A to E all try to make a list of eight job titles read as something other than a list of job titles — by renaming it, grouping it, or nesting it. <b>This one changes what surrounds it instead.</b> In the panel above the crews sit beside the industries they work in and the resources that explain them, under three capability headings, set on a wrapped line rather than stacked in a column. The same eight pages are behind the same eight links; what changes is that nothing in the layout invites you to read them as openings.</p>
+  <h3 style="margin-top:34px">What the tiers buy</h3>
+  <p>The CSTL section is <b>28 pages</b>. A single panel that showed all of them at once would be a wall; a dropdown that showed them one list at a time would be eight items deep. Tiering means <b>any page in the section is two steps from the header</b>, and the panel never shows more than one section&rsquo;s worth of links at a time — so there is room for the other four solution areas to grow the same way without the menu changing shape.</p>
+  <h3 style="margin-top:26px">Why this answers the roles objection</h3>
+  <p>A to E all try to make a list of eight job titles read as something other than a list of job titles — by renaming it, grouping it, or nesting it. <b>Here the roles stop being a dropdown at all.</b> <i>Who We Deploy</i> is a section you step into, alongside The Service, Industries and Resources, and inside it the crews sit under three capability headings on a wrapped line rather than stacked in a column. Same eight pages, same eight links — but nothing in the layout presents them as a list of openings.</p>
   ${tradeoffs("mega")}
-  <div class="note"><b>The panel is one shape used five times.</b> CSTL is the only solution area with content written, so it is the one shown filled in — the other four along the foot of the panel would each get the same treatment. That is what makes this a site-wide decision rather than a CSTL one: the header is shared by every page, so this cannot ship for this section alone.</div>
-  <div class="note stop"><b>Check it at phone width before it goes any further.</b> A full-bleed panel has no mobile equivalent — below 900px it has to become an accordion inside a burger menu, which is a second pattern to design, build and test. <b>Narrow this window and the panel above falls into that stacked state</b>, so the thing that needs designing is visible rather than described.</div>
-  <div class="note"><b>It also puts the Roles argument on hold rather than settling it.</b> If the header carries the section, the sub-nav either shrinks to a handful of in-section links or goes away — and the slot A to F are arguing over goes with it. Worth knowing that before picking between them.</div>`,
-    spec: `<b>Elementor:</b> replaces the Solutions dropdown in the header template with a full-width mega panel. <b>Touches every page on the site</b>, so it needs its own test pass rather than riding on the CSTL phases. The four other solution areas need content before it can ship.`,
+  <div class="note"><b>The thing to insist on is that the tiers are buttons.</b> This is the same cascade option C has, and option C fails on touch because each level only opens on hover. The panel above opens its tiers on hover <b>and</b> on click <b>and</b> on keyboard focus — which costs nothing to build this way at the start and cannot be retrofitted cheaply once the header is built around hover.</div>
+  <div class="note"><b>CSTL is the only area with pages behind it.</b> The other four carry their real sub-sections from the live site in the second rail, so the depth of the section is visible, but their third tier says so rather than inventing a list. <b>They need content written before this ships</b> — the header is shared by every page, so this cannot go live for one section alone.</div>
+  <div class="note stop"><b>Check it at phone width before it goes further.</b> Three rails side by side have no touch equivalent: below 900px the whole thing has to become a stacked accordion inside a burger menu, which is a second pattern to design, build and test. <b>Narrow this window and the panel falls into that stacked state</b> so the thing that needs designing is visible rather than described.</div>
+  <div class="note"><b>It puts the Roles argument on hold rather than settling it.</b> If the header carries the section this way, the CSTL sub-nav either shrinks to a few in-section links or goes away — and the slot A to F are arguing over goes with it.</div>`,
+    spec: `<b>Elementor:</b> replaces the Solutions dropdown in the header template with a full-width tiered panel — one HTML widget plus a small amount of state, not a stock mega-menu. <b>Touches every page on the site</b>, so it needs its own test pass rather than riding on the CSTL phases. <b>Specify the tiers as click-and-keyboard from the outset</b>; a hover-only build is the version that fails review.`,
   },
 
   {
@@ -289,6 +323,24 @@ const blocks: BlockType[] = [
   /* The two-pane panel. Click or keyboard only — the rail is buttons, so it
      behaves the same on touch as on a desktop, which is the whole point of
      the option. */
+  /* G — the tiered panel. Hover, click and focus all select, so the cascade
+     behaves the same with a mouse, a finger and a keyboard. Picking a
+     solution also picks its first section, so the third rail is never blank. */
+  document.querySelectorAll(".no-tier").forEach((tier) => {
+    const pick = (sol, sec) => {
+      tier.querySelectorAll("[data-sol]").forEach((e) => e.classList.toggle("on", e.dataset.sol === sol));
+      tier.querySelectorAll("[data-sec]").forEach((e) => e.classList.toggle("on", e.dataset.sec === sec));
+      tier.querySelectorAll("[data-pane]").forEach((e) => e.classList.toggle("on", e.dataset.pane === sec));
+    };
+    const on = (el, fn) => ["mouseenter", "focus", "click"].forEach((ev) => el.addEventListener(ev, fn));
+    tier.querySelectorAll("[data-first]").forEach((btn) =>
+      on(btn, () => pick(btn.dataset.sol, btn.dataset.first)),
+    );
+    tier.querySelectorAll("[data-sec]").forEach((btn) =>
+      on(btn, () => pick(btn.dataset.sec.split("-")[0], btn.dataset.sec)),
+    );
+  });
+
   document.querySelectorAll(".no-pane").forEach((pane) => {
     pane.querySelectorAll(".no-railbtn").forEach((btn) => {
       const show = () => {
