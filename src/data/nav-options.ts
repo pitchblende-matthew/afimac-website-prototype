@@ -34,6 +34,8 @@ const byLabel = (l: string): RoleLink =>
 
 export interface RoleGroup {
   label: string;
+  /** Icon key in src/lib/nav-icons.ts. Rendered by the tier panels only. */
+  icon?: string;
   /** One line explaining what the group covers, for the wider panels. */
   gist: string;
   roles: RoleLink[];
@@ -46,16 +48,19 @@ export interface RoleGroup {
 export const BY_FUNCTION: RoleGroup[] = [
   {
     label: "Machining &amp; Fabrication",
+    icon: "torch",
     gist: "The hardest seats on the floor to fill",
     roles: ["CNC Operators", "Machinists", "Welders &amp; Fabricators"].map(byLabel),
   },
   {
     label: "Production &amp; Line",
+    icon: "conveyor",
     gist: "Crews that keep a line running a shift at a time",
     roles: ["Assemblers &amp; Production", "Packaging Operations", "Sanitation Crews"].map(byLabel),
   },
   {
     label: "Warehouse &amp; Material Handling",
+    icon: "pallet",
     gist: "Everything that moves goods through the building",
     roles: ["Forklift Operators", "Warehouse &amp; Logistics"].map(byLabel),
   },
@@ -157,4 +162,239 @@ export const OPTIONS: NavOption[] = [
     buys: "Removes the argument entirely and shortens the bar to four items. The role content still exists; each industry page's station map already lists its crews.",
     costs: "Eight written pages with no nav entry, reachable only from inside an industry page. It is the option that loses the most work, and the role pages are the section's deepest SEO surface.",
   },
+  {
+    id: "mega",
+    n: "G",
+    title: "Primary-nav mega menu — tiers running across",
+    label: "Who We Deploy — a column inside Solutions",
+    buys: "Three levels in one panel — solution, section, pages — so the whole site fits behind one nav item without a single list growing long. The roles become a section you step into rather than a dropdown you are confronted with, and CSTL gets room for all 28 of its pages while the other four areas keep the same shape.",
+    costs: "The largest build on the page and the only one that changes the global header, so it touches every page on the site. Three tiers is also three chances to lose the pointer: it only works if the tiers answer to click and keyboard as well as hover, which is the thing to insist on rather than assume. Below about 900px it has to become a stacked accordion.",
+  },
+  {
+    id: "mega-down",
+    n: "H",
+    title: "Primary-nav mega menu — tiers running down",
+    label: "Who We Deploy — a band inside Solutions",
+    buys: "The same three tiers as G, stacked into full-width bands instead of side-by-side rails. Every tier gets the whole width of the panel, so long names sit on one line and the pages below can run four or five columns wide — the most room of any option here. It also reads in the order people scan, top to bottom.",
+    costs: "The panel grows downward as you go, so by the third tier it covers most of the viewport — and the choices you made in tiers one and two scroll out of sight on a short screen. Deeper pointer travel than G, and the same hover-chain risk if the bands are not built to answer click and keyboard too.",
+  },
 ];
+
+/* ------------------------------------------------------------------ *
+ * Option G — the primary-nav mega menu
+ *
+ * A different surface from A–F. Those all change the Roles slot inside the
+ * CSTL sub-nav; this one moves the question up to the global header, where
+ * the whole section opens at once and the roles are one column among several.
+ * The claim being tested: surrounded by the service, the industries and the
+ * resources, a grouped roles column reads as a capability map rather than a
+ * list of vacancies — which is the objection A–F are all working around.
+ * ------------------------------------------------------------------ */
+
+export interface MegaCol {
+  label: string;
+  links: RoleLink[];
+}
+
+/** The CSTL pages, as the mega panel would group them. Routes are the real ones. */
+export const MEGA_CSTL: MegaCol[] = [
+  {
+    label: "The Service",
+    links: [
+      { label: "Overview", route: "/overview", written: true },
+      { label: "What Is Travel Labor", route: "/what-is-travel-labor", written: true },
+      { label: "How It Works", route: "/how-it-works", written: true },
+      { label: "Travel vs. Traditional", route: "/vs-traditional", written: true },
+      { label: "Travel vs. Local Staffing", route: "/vs-local-staffing", written: true },
+      { label: "Day 1 Ready", route: "/day-1-ready", written: true },
+      { label: "Pre-Deployment Checklist", route: "/pre-deployment", written: true },
+      { label: "FAQ", route: "/faq", written: true },
+    ],
+  },
+  {
+    label: "Industries",
+    links: [
+      { label: "Aerospace, Aviation &amp; Defense", route: "/industries/aerospace-aviation-defense", written: true },
+      { label: "Automotive", route: "/industries/automotive", written: true },
+      { label: "Chemicals &amp; Plastics", route: "/industries/chemicals-plastics", written: true },
+      { label: "Consumer Goods", route: "/industries/consumer-goods", written: true },
+      { label: "Food &amp; Beverage", route: "/industries/food-beverage", written: true },
+      { label: "Industrial Equipment", route: "/industries/industrial-equipment", written: true },
+      { label: "Oil &amp; Energy", route: "/industries/oil-energy", written: true },
+      { label: "Logistics &amp; Warehousing", route: "/industries/logistics-warehousing", written: true },
+    ],
+  },
+  {
+    label: "Resources",
+    links: [
+      { label: "White Papers", route: "/resources/white-papers", written: true },
+      { label: "Named Case Studies", route: "/resources/case-studies", written: true },
+      { label: "Salesheets &amp; One-Pagers", route: "/resources/sales-sheets", written: true },
+      { label: "Pricing &amp; ROI", route: "/pricing-roi" },
+    ],
+  },
+];
+
+/**
+ * The other four solution areas. No prototype routes exist for them — this
+ * build is the CSTL section only — so they render as labels rather than
+ * links, which is also the honest state of the work.
+ */
+export const OTHER_SOLUTIONS: { label: string; gist: string }[] = [
+  { label: "Labor Dispute Security + Support", gist: "Strike security, continuity planning, logistics" },
+  { label: "Global Protective Services", gist: "Executive protection, travel security, business security" },
+  { label: "Disaster Relief + Emergency Aid", gist: "Rapid response teams, mobile assets, base camps" },
+  { label: "Corporate Investigations", gist: "Surveillance, workplace investigations, OSINT" },
+];
+
+/* ------------------------------------------------------------------ *
+ * The tiers behind option G.
+ *
+ * Three levels inside one panel: the five solution areas, the sections
+ * inside the one you are on, and the pages inside that section. CSTL is the
+ * only area this build covers, so it is the only one with pages behind its
+ * sections — the other four carry their real sub-pages from the live site as
+ * labels, which is what makes the depth of the CSTL section visible.
+ * ------------------------------------------------------------------ */
+
+export interface TierSection {
+  label: string;
+  gist: string;
+  /** A flat list of pages, capability groups, or the role families. */
+  pages?: RoleLink[];
+  groups?: RoleGroup[];
+  families?: RoleFamily[];
+}
+
+export interface TierSolution {
+  label: string;
+  /** Icon key in src/lib/nav-icons.ts. */
+  icon: string;
+  gist: string;
+  /** True only for CSTL — the one area this prototype has pages for. */
+  built?: boolean;
+  sections: TierSection[];
+}
+
+export const SOLUTION_TIERS: TierSolution[] = [
+  {
+    label: "Critical Situation Travel Labor",
+    icon: "hardhat",
+    gist: "Travel-ready crews on your floor in days",
+    built: true,
+    sections: [
+      { label: "The Service", gist: "What it is, how it runs, and what arrives", pages: MEGA_CSTL[0].links },
+      { label: "Industries", gist: "Eight sectors where a labor gap stops the line", pages: MEGA_CSTL[1].links },
+      { label: "Who We Deploy", gist: "The crews, grouped by what they do", groups: BY_FUNCTION },
+      { label: "Resources", gist: "Papers, named results and the numbers", pages: MEGA_CSTL[2].links },
+    ],
+  },
+  {
+    label: "Labor Dispute Security + Support",
+    icon: "picket",
+    gist: "Strike security, continuity planning, logistics",
+    sections: [
+      { label: "Labor Dispute Security", gist: "Securing facilities, people and supply through a dispute" },
+      { label: "Labor Dispute Logistical Support", gist: "Transport, equipment, temporary facilities" },
+    ],
+  },
+  {
+    label: "Global Protective Services",
+    icon: "shield",
+    gist: "Protecting executives, personnel and premises",
+    sections: [
+      { label: "Executive Protection", gist: "Close protection for leadership and their families" },
+      { label: "Corporate Travel Security", gist: "Vetted local agents wherever the business goes" },
+      { label: "Business Security", gist: "Incident response and standing site security" },
+    ],
+  },
+  {
+    label: "Disaster Relief + Emergency Aid",
+    icon: "alert",
+    gist: "Rapid response teams and mobile assets",
+    sections: [
+      { label: "Disaster Relief &amp; Emergency Aid", gist: "Base camps, mobile kitchens, medical, power" },
+    ],
+  },
+  {
+    label: "Corporate Investigations",
+    icon: "search",
+    gist: "Surveillance, workplace cases, open-source research",
+    sections: [
+      { label: "Workplace &amp; Business Investigations", gist: "Misconduct, fraud, due diligence, OSINT" },
+    ],
+  },
+];
+
+/* ------------------------------------------------------------------ *
+ * Role families.
+ *
+ * The client's newer thinking: name the family, and let the job titles sit
+ * underneath as illustration rather than as things you click. It is a change
+ * to what the roles tier contains, not to which option carries it — the same
+ * six families drop into B, E, G or H unchanged.
+ *
+ * `roles` is the client's list verbatim. `pages` is what already exists
+ * behind each family, which is the part worth looking at: six families over
+ * eight pages, and twenty-six job titles that are mostly not pages at all.
+ * ------------------------------------------------------------------ */
+
+export interface RoleFamily {
+  label: string;
+  /** Icon key in src/lib/nav-icons.ts. */
+  icon: string;
+  /** Illustrative job titles, as supplied. Not necessarily pages. */
+  roles: string[];
+  /** The existing role pages that would sit behind this family. */
+  pages: RoleLink[];
+}
+
+export const ROLE_FAMILIES: RoleFamily[] = [
+  {
+    label: "Machining &amp; Precision Manufacturing",
+    icon: "gear",
+    roles: ["CNC Operators", "CNC Machinists", "CNC Programmers", "Manual Machinists", "Setup Technicians", "Toolroom Machinists"],
+    pages: ["CNC Operators", "Machinists"].map(byLabel),
+  },
+  {
+    label: "Welding &amp; Fabrication",
+    icon: "torch",
+    roles: ["Welders", "Fabricators", "Robotic Welding Technicians"],
+    pages: ["Welders &amp; Fabricators"].map(byLabel),
+  },
+  {
+    label: "Production &amp; Assembly",
+    icon: "conveyor",
+    roles: ["Assemblers", "Machine Operators", "Production Workers", "General Laborers"],
+    pages: ["Assemblers &amp; Production"].map(byLabel),
+  },
+  {
+    label: "Material Handling &amp; Warehouse Operations",
+    icon: "pallet",
+    roles: ["Forklift Operators", "Reach Truck Operators", "Order Selectors", "Material Handlers"],
+    pages: ["Forklift Operators", "Warehouse &amp; Logistics"].map(byLabel),
+  },
+  {
+    label: "Packaging Operations",
+    icon: "carton",
+    roles: ["Packaging Operators", "Packaging Machine Operators", "Case Packers", "Palletizers", "Kitting Workers"],
+    pages: ["Packaging Operations"].map(byLabel),
+  },
+  {
+    label: "Sanitation &amp; Facility Support",
+    icon: "droplet",
+    roles: ["Sanitation Workers", "Industrial Cleaners", "CIP Operators", "Sanitation Technicians"],
+    pages: ["Sanitation Crews"].map(byLabel),
+  },
+];
+
+/** Counted rather than written down, so the prose cannot drift from the data. */
+export const FAMILY_STATS = {
+  families: ROLE_FAMILIES.length,
+  titles: ROLE_FAMILIES.reduce((n, f) => n + f.roles.length, 0),
+  pages: new Set(ROLE_FAMILIES.flatMap((f) => f.pages.map((pg) => pg.route))).size,
+  /** Families whose whole content is one existing page. */
+  oneToOne: ROLE_FAMILIES.filter((f) => f.pages.length === 1).length,
+  /** Families that would merge two existing pages into one entry. */
+  merging: ROLE_FAMILIES.filter((f) => f.pages.length > 1).length,
+};
