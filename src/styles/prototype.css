@@ -676,6 +676,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
 .no-pane{min-width:620px;padding:0}
 .no-has:hover>.no-pane,.no-has:focus-within>.no-pane{display:flex}
 .no-rail{flex:0 0 232px;background:#f5f8fa;border-right:1px solid var(--line);padding:12px 0}
+.no-railbtn .no-ico{flex:none;opacity:.7}
+.no-railbtn.on .no-ico{opacity:1}
+.no-rlabel{flex:1 1 auto;text-align:left}
 .no-railbtn{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;
   text-align:left;background:none;border:0;font:inherit;font-size:13.5px;font-weight:700;
   color:#44525f;padding:10px 18px;cursor:pointer}
@@ -721,10 +724,10 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
 .no-megahead{font-family:var(--museo);font-weight:700;font-size:15px;color:var(--cstl-blue);
   padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--line)}
 .no-megahead span{margin-left:12px;font-family:inherit;font-weight:400;font-size:12.5px;color:var(--spec)}
-/* The tiered panel: solution | section | pages | promo, all on one surface.
+/* The tiered panel: solution | section | pages, all on one surface.
    No padding on the panel itself — the rails run to its edges. */
 .no-mega.no-tier{padding:0}
-.no-tiergrid{display:grid;grid-template-columns:248px 232px minmax(0,1fr) 238px;min-height:316px}
+.no-tiergrid{display:grid;grid-template-columns:286px 232px minmax(0,1fr);min-height:316px}
 .no-tier .no-rail{flex:none;background:#f5f8fa;border-right:1px solid var(--line);padding:12px 0}
 .no-tier .no-rail2{background:#fafcfd}
 .no-railhead{padding:0 18px 8px;font-size:10px;letter-spacing:.11em;text-transform:uppercase;
@@ -745,13 +748,13 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
    list that does not exist. */
 .no-empty{margin:10px 0 0;font-size:12.5px;line-height:1.6;color:var(--spec);
   background:#f7fafc;border-left:2px solid var(--line);padding:10px 12px}
-.no-tierpromo{padding:16px;border-left:1px solid var(--line)}
-
 /* The roles tier — capability heading, a line of explanation, then the crews
    on a wrapped line rather than stacked. This is the argument of option G in
    one rule: a sentence of capabilities does not read as a column of vacancies. */
 .no-rolegrp{margin-bottom:14px}
-.no-grpname{font-size:12.5px;font-weight:700;color:var(--cstl-blue);margin-bottom:2px}
+.no-grpname{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;
+  color:var(--cstl-blue);margin-bottom:2px}
+.no-grpname .no-ico{flex:none;opacity:.75}
 .no-grpgist{font-size:11.5px;line-height:1.45;color:var(--spec);margin:0 0 5px}
 .no-rolerow{font-size:12.5px;line-height:1.7}
 .no-rolerow a{display:inline;padding:0;font-size:12.5px;font-weight:600;color:#44525f;
@@ -760,12 +763,17 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
 .no-rolerow a.no-todo{color:#9aa7b2}
 .no-sep{color:var(--line);padding:0 5px}
 
-.no-promo{background:#f2f6f9;border-left:3px solid var(--cta);padding:14px 16px}
-.no-promo b{display:block;font-family:var(--museo);font-size:13.5px;color:var(--cstl-blue);
-  margin-bottom:5px}
-.no-promo p{margin:0 0 10px;font-size:12px;line-height:1.5;color:var(--spec)}
-.no-promo .no-pcta{display:inline-block;background:var(--cta);color:#fff;font-weight:700;
-  font-size:12px;padding:7px 13px;border-radius:2px;text-decoration:none}
+/* The call to action rides in tier 2 beside the section tabs, so tier 3 keeps
+   the whole width of the panel for the crews. */
+.no-bandrow{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.no-bandcta{display:inline-flex;align-items:center;gap:9px;flex:none;text-decoration:none;
+  font-size:12.5px;font-weight:700;color:var(--spec)}
+.no-bandcta .no-ico{color:var(--cta)}
+.no-bandcta b{background:var(--cta);color:#fff;font-size:12px;padding:7px 13px;border-radius:2px}
+/* In G the same CTA sits at the foot of a 232px rail, so it stacks. */
+.no-rail2 .no-bandcta{display:flex;flex-wrap:wrap;align-items:center;gap:9px 8px;
+  margin:16px 18px 0;padding-top:14px;border-top:1px solid var(--line)}
+.no-rail2 .no-bandcta span{flex:1 1 120px}
 
 /* H — the same three tiers, stacked into bands that work downward. Each band
    gets the whole width of the panel, so the third can run four columns wide
@@ -785,18 +793,31 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
 .no-tab:hover{background:#eef4f8;color:var(--cstl-blue)}
 .no-tab.on{background:var(--cstl-blue);color:#fff}
 .no-bandpages{display:block;padding:18px 22px 20px;border-bottom:0}
-.no-downgrid{display:grid;grid-template-columns:minmax(0,1fr) 238px;gap:26px}
-.no-tierdown .no-tierbody{display:grid;grid-template-columns:repeat(3,1fr);gap:0 26px;margin-top:10px}
+.no-tierdown .no-tierbody{grid-template-columns:repeat(3,1fr);gap:0 26px;margin-top:10px}
 .no-tierdown .no-pagelist{grid-column:1/-1;grid-template-columns:repeat(4,1fr);margin-top:0}
 .no-tierdown .no-empty{grid-column:1/-1;margin-top:0}
 
 /* Role families: the family is the link, the job titles are text under it.
    The whole argument of the family idea is in that distinction. */
-.no-fam{margin-bottom:13px}
-.no-famname{display:block;font-size:13px;font-weight:700;color:var(--cstl-blue);
-  text-decoration:none;margin-bottom:3px}
-.no-famname:hover,.no-famname:focus{text-decoration:underline}
-.no-famroles{margin:0;font-size:11.5px;line-height:1.55;color:var(--spec)}
+/* Two across in G's third rail, three in H's wider band. */
+.no-tierbody{display:grid;grid-template-columns:repeat(2,1fr);gap:0 22px}
+.no-famreach{grid-column:1/-1}
+.no-ico{display:block;width:18px;height:18px}
+.no-ico-sm{width:15px;height:15px}
+.no-fam{display:flex;align-items:flex-start;gap:11px;margin-bottom:15px;text-decoration:none}
+.no-fambadge{flex:none;display:flex;align-items:center;justify-content:center;width:34px;height:34px;
+  border-radius:3px;background:#eef4f8;color:var(--cstl-blue)}
+.no-fam:hover .no-fambadge,.no-fam:focus .no-fambadge{background:var(--cstl-blue);color:#fff}
+.no-famtext{min-width:0}
+.no-famname{display:block;font-size:13px;font-weight:700;color:var(--cstl-blue);margin-bottom:3px}
+.no-fam:hover .no-famname,.no-fam:focus .no-famname{text-decoration:underline}
+.no-famroles{display:block;font-size:11.5px;line-height:1.55;color:var(--spec)}
+/* The families are the common asks, not the whole list — said in the menu
+   rather than left for someone to assume. */
+.no-famreach{display:flex;align-items:flex-start;gap:9px;margin:4px 0 0;padding:12px 14px;
+  background:#f7fafc;border-left:2px solid var(--cta);font-size:12px;line-height:1.6;color:var(--spec)}
+.no-famreach .no-ico{flex:none;margin-top:2px;color:var(--cta)}
+.no-famreach a{color:var(--cstl-blue);font-weight:700}
 
 /* One step down keeps the five service names on a single row as the panel
    narrows, rather than dropping the last one onto a line by itself. */
@@ -805,8 +826,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
   .no-tabs{gap:4px}
 }
 
-@media(max-width:1100px){.no-tiergrid{grid-template-columns:214px 206px minmax(0,1fr)}
-  .no-tierpromo{display:none}}
+@media(max-width:1100px){.no-tiergrid{grid-template-columns:252px 206px minmax(0,1fr)}}
 @media(max-width:900px){
   .no-top{flex-wrap:wrap;min-height:0;padding:10px 12px}
   /* Full-bleed has no meaning once the bar wraps: the panel becomes a block
@@ -819,9 +839,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
   .no-secs,.no-pagepane{display:block}
   .no-tierpages{padding:14px 0}
   .no-pagelist{grid-template-columns:1fr}
-  .no-tierpromo{display:none}
   .no-band{padding:10px 0 11px}
-  .no-downgrid,.no-tierdown .no-tierbody,.no-tierdown .no-pagelist{grid-template-columns:1fr}
+  .no-tierbody,.no-tierdown .no-tierbody,.no-tierdown .no-pagelist{grid-template-columns:1fr}
+  .no-bandrow{flex-direction:column;align-items:flex-start;gap:11px}
 }
 
 /* ---- crew module (stationFlow) ------------------------------------------

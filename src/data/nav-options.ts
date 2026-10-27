@@ -34,6 +34,8 @@ const byLabel = (l: string): RoleLink =>
 
 export interface RoleGroup {
   label: string;
+  /** Icon key in src/lib/nav-icons.ts. Rendered by the tier panels only. */
+  icon?: string;
   /** One line explaining what the group covers, for the wider panels. */
   gist: string;
   roles: RoleLink[];
@@ -46,16 +48,19 @@ export interface RoleGroup {
 export const BY_FUNCTION: RoleGroup[] = [
   {
     label: "Machining &amp; Fabrication",
+    icon: "torch",
     gist: "The hardest seats on the floor to fill",
     roles: ["CNC Operators", "Machinists", "Welders &amp; Fabricators"].map(byLabel),
   },
   {
     label: "Production &amp; Line",
+    icon: "conveyor",
     gist: "Crews that keep a line running a shift at a time",
     roles: ["Assemblers &amp; Production", "Packaging Operations", "Sanitation Crews"].map(byLabel),
   },
   {
     label: "Warehouse &amp; Material Handling",
+    icon: "pallet",
     gist: "Everything that moves goods through the building",
     roles: ["Forklift Operators", "Warehouse &amp; Logistics"].map(byLabel),
   },
@@ -263,6 +268,8 @@ export interface TierSection {
 
 export interface TierSolution {
   label: string;
+  /** Icon key in src/lib/nav-icons.ts. */
+  icon: string;
   gist: string;
   /** True only for CSTL — the one area this prototype has pages for. */
   built?: boolean;
@@ -272,6 +279,7 @@ export interface TierSolution {
 export const SOLUTION_TIERS: TierSolution[] = [
   {
     label: "Critical Situation Travel Labor",
+    icon: "hardhat",
     gist: "Travel-ready crews on your floor in days",
     built: true,
     sections: [
@@ -283,6 +291,7 @@ export const SOLUTION_TIERS: TierSolution[] = [
   },
   {
     label: "Labor Dispute Security + Support",
+    icon: "picket",
     gist: "Strike security, continuity planning, logistics",
     sections: [
       { label: "Labor Dispute Security", gist: "Securing facilities, people and supply through a dispute" },
@@ -291,6 +300,7 @@ export const SOLUTION_TIERS: TierSolution[] = [
   },
   {
     label: "Global Protective Services",
+    icon: "shield",
     gist: "Protecting executives, personnel and premises",
     sections: [
       { label: "Executive Protection", gist: "Close protection for leadership and their families" },
@@ -300,6 +310,7 @@ export const SOLUTION_TIERS: TierSolution[] = [
   },
   {
     label: "Disaster Relief + Emergency Aid",
+    icon: "alert",
     gist: "Rapid response teams and mobile assets",
     sections: [
       { label: "Disaster Relief &amp; Emergency Aid", gist: "Base camps, mobile kitchens, medical, power" },
@@ -307,6 +318,7 @@ export const SOLUTION_TIERS: TierSolution[] = [
   },
   {
     label: "Corporate Investigations",
+    icon: "search",
     gist: "Surveillance, workplace cases, open-source research",
     sections: [
       { label: "Workplace &amp; Business Investigations", gist: "Misconduct, fraud, due diligence, OSINT" },
@@ -329,6 +341,8 @@ export const SOLUTION_TIERS: TierSolution[] = [
 
 export interface RoleFamily {
   label: string;
+  /** Icon key in src/lib/nav-icons.ts. */
+  icon: string;
   /** Illustrative job titles, as supplied. Not necessarily pages. */
   roles: string[];
   /** The existing role pages that would sit behind this family. */
@@ -338,31 +352,37 @@ export interface RoleFamily {
 export const ROLE_FAMILIES: RoleFamily[] = [
   {
     label: "Machining &amp; Precision Manufacturing",
+    icon: "gear",
     roles: ["CNC Operators", "CNC Machinists", "CNC Programmers", "Manual Machinists", "Setup Technicians", "Toolroom Machinists"],
     pages: ["CNC Operators", "Machinists"].map(byLabel),
   },
   {
     label: "Welding &amp; Fabrication",
+    icon: "torch",
     roles: ["Welders", "Fabricators", "Robotic Welding Technicians"],
     pages: ["Welders &amp; Fabricators"].map(byLabel),
   },
   {
     label: "Production &amp; Assembly",
+    icon: "conveyor",
     roles: ["Assemblers", "Machine Operators", "Production Workers", "General Laborers"],
     pages: ["Assemblers &amp; Production"].map(byLabel),
   },
   {
     label: "Material Handling &amp; Warehouse Operations",
+    icon: "pallet",
     roles: ["Forklift Operators", "Reach Truck Operators", "Order Selectors", "Material Handlers"],
     pages: ["Forklift Operators", "Warehouse &amp; Logistics"].map(byLabel),
   },
   {
     label: "Packaging Operations",
+    icon: "carton",
     roles: ["Packaging Operators", "Packaging Machine Operators", "Case Packers", "Palletizers", "Kitting Workers"],
     pages: ["Packaging Operations"].map(byLabel),
   },
   {
     label: "Sanitation &amp; Facility Support",
+    icon: "droplet",
     roles: ["Sanitation Workers", "Industrial Cleaners", "CIP Operators", "Sanitation Technicians"],
     pages: ["Sanitation Crews"].map(byLabel),
   },

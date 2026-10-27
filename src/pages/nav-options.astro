@@ -11,6 +11,7 @@
 import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
+import { navIcon } from "../lib/nav-icons";
 import { BY_FUNCTION, BY_INDUSTRY, FAMILY_STATS, LABEL_CANDIDATES, OPTIONS, ROLE_FAMILIES, ROLE_PAGES, SOLUTION_TIERS, type RoleGroup, type RoleLink, type TierSection, type TierSolution } from "../data/nav-options";
 import type { Block as BlockType } from "../lib/types";
 
@@ -92,16 +93,21 @@ const tierPages = (sec: TierSection): string => {
     return `<div class="no-tierbody">${sec.families
       .map(
         (f) =>
-          `<div class="no-fam"><a class="no-famname" href="${u(f.pages[0].route)}">${f.label}</a><p class="no-famroles">${f.roles.join(
+          `<a class="no-fam" href="${u(f.pages[0].route)}"><span class="no-fambadge">${navIcon(
+            f.icon,
+          )}</span><span class="no-famtext"><span class="no-famname">${f.label}</span><span class="no-famroles">${f.roles.join(
             " · ",
-          )}</p></div>`,
+          )}</span></span></a>`,
       )
-      .join("")}</div>`;
+      .join("")}</div>
+      <p class="no-famreach">${navIcon("plus", "no-ico no-ico-sm")}<span><b>These are the families we are asked for most, not the limit of what we staff.</b> AFIMAC deploys across many more seats than the titles above — if the one you need is not listed, it is still one we fill. <a href="${u(
+        "/get-in-touch",
+      )}">Tell us what you need</a></span></p>`;
   if (sec.groups)
     return `<div class="no-tierbody">${sec.groups
       .map(
         (g) =>
-          `<div class="no-rolegrp"><div class="no-grpname">${g.label}</div><p class="no-grpgist">${g.gist}</p><div class="no-rolerow">${g.roles
+          `<div class="no-rolegrp"><div class="no-grpname">${g.icon ? navIcon(g.icon, "no-ico no-ico-sm") : ""}${g.label}</div><p class="no-grpgist">${g.gist}</p><div class="no-rolerow">${g.roles
             .map(mlink)
             .join('<span class="no-sep">·</span>')}</div></div>`,
       )
@@ -129,7 +135,7 @@ const megabar = (): string =>
             <div class="no-railhead">Solution</div>
             ${SOLUTION_TIERS.map(
               (so, i) =>
-                `<button type="button" class="no-railbtn${i === 0 ? " on" : ""}" data-sol="${i}" data-first="${i}-0">${so.label}<span class="no-caret">›</span></button>`,
+                `<button type="button" class="no-railbtn${i === 0 ? " on" : ""}" data-sol="${i}" data-first="${i}-0">${navIcon(so.icon)}<span class="no-rlabel">${so.label}</span><span class="no-caret">›</span></button>`,
             ).join("")}
           </div>
           <div class="no-rail no-rail2">
@@ -143,23 +149,17 @@ const megabar = (): string =>
                   )
                   .join("")}</div>`,
             ).join("")}
+            <a class="no-bandcta" href="${u("/get-in-touch")}">${navIcon("bolt", "no-ico no-ico-sm")}<span>Critical labor situation?</span><b>Get in Touch</b></a>
           </div>
           <div class="no-tierpages">
             ${SOLUTION_TIERS.map((so, i) =>
               so.sections
                 .map(
                   (sec, j) =>
-                    `<div class="no-pagepane${i === 0 && j === 0 ? " on" : ""}" data-pane="${i}-${j}"><div class="no-colhead">${sec.label}</div><p class="no-grpgist">${sec.gist}</p>${tierPages(sec)}</div>`,
+                    `<div class="no-pagepane${i === 0 && j === 0 ? " on" : ""}" data-pane="${i}-${j}"><div class="no-colhead">${sec.label}</div>${sec.gist ? `<p class="no-grpgist">${sec.gist}</p>` : ""}${tierPages(sec)}</div>`,
                 )
                 .join(""),
             ).join("")}
-          </div>
-          <div class="no-tierpromo">
-            <div class="no-promo">
-              <b>Critical labor situation?</b>
-              <p>Crews on your floor in days, not weeks.</p>
-              <a class="no-pcta" href="${u("/get-in-touch")}">Get in Touch</a>
-            </div>
           </div>
         </div>
       </div>
@@ -189,6 +189,7 @@ const megabarDown = (tiers: TierSolution[] = SOLUTION_TIERS): string =>
         </div>
         <div class="no-band no-band2">
           <div class="no-bandhead">Section</div>
+          <div class="no-bandrow">
           <div class="no-bandbody">${tiers.map(
             (so, i) =>
               `<div class="no-secs${i === 0 ? " on" : ""}" data-sol="${i}"><div class="no-tabs">${so.sections
@@ -198,23 +199,18 @@ const megabarDown = (tiers: TierSolution[] = SOLUTION_TIERS): string =>
                 )
                 .join("")}</div></div>`,
           ).join("")}</div>
+          <a class="no-bandcta" href="${u("/get-in-touch")}">${navIcon("bolt", "no-ico no-ico-sm")}<span>Critical labor situation?</span><b>Get in Touch</b></a>
+          </div>
         </div>
         <div class="no-band no-bandpages">
-          <div class="no-downgrid">
-            <div class="no-downmain">${tiers.map((so, i) =>
+          <div class="no-downmain">${tiers.map((so, i) =>
               so.sections
                 .map(
                   (sec, j) =>
-                    `<div class="no-pagepane${i === 0 && j === 0 ? " on" : ""}" data-pane="${i}-${j}"><div class="no-colhead">${sec.label}</div><p class="no-grpgist">${sec.gist}</p>${tierPages(sec)}</div>`,
+                    `<div class="no-pagepane${i === 0 && j === 0 ? " on" : ""}" data-pane="${i}-${j}"><div class="no-colhead">${sec.label}</div>${sec.gist ? `<p class="no-grpgist">${sec.gist}</p>` : ""}${tierPages(sec)}</div>`,
                 )
                 .join(""),
             ).join("")}</div>
-            <div class="no-promo">
-              <b>Critical labor situation?</b>
-              <p>Crews on your floor in days, not weeks.</p>
-              <a class="no-pcta" href="${u("/get-in-touch")}">Get in Touch</a>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -230,7 +226,7 @@ const FAMILY_TIERS: TierSolution[] = SOLUTION_TIERS.map((so, i) =>
         ...so,
         sections: so.sections.map((sec) =>
           sec.label === "Who We Deploy"
-            ? { ...sec, gist: "Six families, with the job titles as illustration", groups: undefined, families: ROLE_FAMILIES }
+            ? { ...sec, gist: "", groups: undefined, families: ROLE_FAMILIES }
             : sec,
         ),
       }
