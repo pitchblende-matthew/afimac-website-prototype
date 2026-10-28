@@ -726,7 +726,12 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
   box-shadow:0 18px 44px rgba(10,40,70,.18);padding:22px 24px 0;
   /* The bar items are nowrap; panel copy has to wrap or it runs off the edge. */
   white-space:normal}
-.no-hasmega:hover>.no-mega,.no-hasmega:focus-within>.no-mega{display:block}
+.no-hasmega:hover>.no-mega,.no-hasmega:focus-within>.no-mega,
+.no-hasmega.is-open>.no-mega{display:block}
+/* The item and the panel do not touch — in the real header the header's own
+   padding sits between them — so the panel reaches back up over that gap and
+   the pointer never leaves the menu on the way down. */
+.no-mega.no-tier::before{content:"";position:absolute;left:0;right:0;top:-22px;height:22px}
 .no-megahead{font-family:var(--museo);font-weight:700;font-size:15px;color:var(--cstl-blue);
   padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--line)}
 .no-megahead span{margin-left:12px;font-family:inherit;font-weight:400;font-size:12.5px;color:var(--spec)}

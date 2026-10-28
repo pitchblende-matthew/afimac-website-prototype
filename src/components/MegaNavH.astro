@@ -10,7 +10,7 @@
  * The prototype's own SubNav still runs underneath, so a reviewer can get back
  * out of the page.
  */
-import { megaNavDown } from "../lib/mega-nav";
+import { CASCADE_JS, megaNavDown } from "../lib/mega-nav";
 
 interface Props {
   /** The line above the bar saying what a reviewer is looking at. */
@@ -34,22 +34,4 @@ const { note, scriptOnly } = Astro.props;
   )
 }
 
-<script is:inline>
-  /* Hover, click and keyboard focus — the same three events the options page
-     binds. A hover-only cascade has no touch equivalent. */
-  (() => {
-    const bind = (tier) => {
-      if (tier.dataset.cascade) return;
-      tier.dataset.cascade = "1";
-      const pick = (sol, sec) => {
-        tier.querySelectorAll("[data-sol]").forEach((e) => e.classList.toggle("on", e.dataset.sol === sol));
-        tier.querySelectorAll("[data-sec]").forEach((e) => e.classList.toggle("on", e.dataset.sec === sec));
-        tier.querySelectorAll("[data-pane]").forEach((e) => e.classList.toggle("on", e.dataset.pane === sec));
-      };
-      const on = (el, fn) => ["mouseenter", "focus", "click"].forEach((ev) => el.addEventListener(ev, fn));
-      tier.querySelectorAll("[data-first]").forEach((b) => on(b, () => pick(b.dataset.sol, b.dataset.first)));
-      tier.querySelectorAll("[data-sec]").forEach((b) => on(b, () => pick(b.dataset.sec.split("-")[0], b.dataset.sec)));
-    };
-    document.querySelectorAll(".megah .no-tier, .site-header .no-tier").forEach(bind);
-  })();
-</script>
+<script is:inline set:html={CASCADE_JS} />
