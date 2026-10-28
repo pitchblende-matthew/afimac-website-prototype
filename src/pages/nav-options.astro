@@ -13,7 +13,7 @@ import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { navIcon } from "../lib/nav-icons";
 import { megaNavDown, tierPages } from "../lib/mega-nav";
-import { BY_FUNCTION, BY_INDUSTRY, FAMILY_STATS, LABEL_CANDIDATES, OPTIONS, ROLE_FAMILIES, ROLE_PAGES, SOLUTION_TIERS, type RoleGroup, type RoleLink, type TierSolution } from "../data/nav-options";
+import { BY_FUNCTION, BY_INDUSTRY, FAMILY_STATS, FAMILY_TIERS, LABEL_CANDIDATES, OPTIONS, ROLE_FAMILIES, ROLE_PAGES, SOLUTION_TIERS, type RoleGroup, type RoleLink } from "../data/nav-options";
 import type { Block as BlockType } from "../lib/types";
 
 /** The four slots that are not under discussion, shown so the bar reads true. */
@@ -137,20 +137,6 @@ const megabar = (): string =>
     <div class="no-titem">About<span class="no-caret">▾</span></div>
     <div class="no-titem">Contact</div>
   </div>`;
-
-/** The same menu with the roles tier rebuilt around families. */
-const FAMILY_TIERS: TierSolution[] = SOLUTION_TIERS.map((so, i) =>
-  i === 0
-    ? {
-        ...so,
-        sections: so.sections.map((sec) =>
-          sec.label === "Who We Deploy"
-            ? { ...sec, gist: "", groups: undefined, families: ROLE_FAMILIES }
-            : sec,
-        ),
-      }
-    : so,
-);
 
 const familyRows = ROLE_FAMILIES.map(
   (f) =>
@@ -298,7 +284,7 @@ const blocks: BlockType[] = [
   <h2>H · The same three tiers, stacked into bands</h2>
   <p class="lead">Identical content and identical steps to G — solution, section, pages — but the tiers are full-width bands that open downward rather than rails that run across. Pick along the top band and the one beneath it changes; pick there and the pages fill the band below that.</p>
   <p class="sub"><b>Both bands are live.</b> The panel grows as you move through it, which is the behaviour to judge.</p>
-  ${megaNavDown()}
+  ${megaNavDown(SOLUTION_TIERS)}
   <h3 style="margin-top:34px">What running the tiers down changes</h3>
   <p>Every tier gets the whole width of the panel instead of a 230px rail. <b>Long names sit on one line</b> — &ldquo;Labor Dispute Security + Support&rdquo; wraps to two lines in G&rsquo;s first rail and does not here — and the third tier has room for four columns of pages rather than two, so the industry pages and the three crew groups each land on a single screen. It also reads in the order people scan: down the page, then across each band.</p>
   <h3 style="margin-top:26px">And where it falls short</h3>

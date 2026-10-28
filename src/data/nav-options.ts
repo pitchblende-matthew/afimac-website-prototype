@@ -405,6 +405,26 @@ export const ROLE_FAMILIES: RoleFamily[] = [
   },
 ];
 
+/**
+ * SOLUTION_TIERS with the roles tier rebuilt around the six role families.
+ *
+ * This is the version the client has moved to, so it is what the header
+ * renders. SOLUTION_TIERS keeps the capability groups, because /nav-options
+ * shows the two side by side.
+ */
+export const FAMILY_TIERS: TierSolution[] = SOLUTION_TIERS.map((so, i) =>
+  i === 0
+    ? {
+        ...so,
+        sections: so.sections.map((sec) =>
+          sec.label === "Who We Deploy"
+            ? { ...sec, gist: "", groups: undefined, families: ROLE_FAMILIES }
+            : sec,
+        ),
+      }
+    : so,
+);
+
 /** Counted rather than written down, so the prose cannot drift from the data. */
 export const FAMILY_STATS = {
   families: ROLE_FAMILIES.length,

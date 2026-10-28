@@ -168,7 +168,12 @@ const TOGGLES = [
       </div>
     </header>
 
-    <SubNav active={active} />
+    {
+      /* The mega menu carries the whole section, so the CSTL sub-nav would be
+         a second copy of most of it directly underneath. A page testing the
+         header runs without it — which is also the proposition being tested. */
+      !megaNav && <SubNav active={active} />
+    }
 
     <div class="crumb">
       <div class="wrap" id="crumb">

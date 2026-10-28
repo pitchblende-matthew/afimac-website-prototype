@@ -14,7 +14,7 @@
  */
 import { u } from "./base";
 import { navIcon } from "./nav-icons";
-import { SOLUTION_TIERS, type RoleLink, type TierSection, type TierSolution } from "../data/nav-options";
+import { FAMILY_TIERS, type RoleLink, type TierSection, type TierSolution } from "../data/nav-options";
 
 const mlink = (r: RoleLink): string =>
   `<a href="${u(r.route)}"${r.written ? "" : ' class="no-todo"'}>${r.label}</a>`;
@@ -74,7 +74,7 @@ export const tierPages = (sec: TierSection): string => {
  * treatment without a second copy of the markup.
  */
 export const megaNavDown = (
-  tiers: TierSolution[] = SOLUTION_TIERS,
+  tiers: TierSolution[] = FAMILY_TIERS,
   /**
    * `bare` drops the mock logo and the bar's own chrome, so the items can
    * replace the real header's nav list and sit beside the real logo and social
