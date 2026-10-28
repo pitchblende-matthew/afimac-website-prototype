@@ -12,8 +12,8 @@ import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { navIcon } from "../lib/nav-icons";
-import { megaNavDown, tierPages } from "../lib/mega-nav";
-import { BY_FUNCTION, BY_INDUSTRY, FAMILY_STATS, FAMILY_TIERS, LABEL_CANDIDATES, OPTIONS, ROLE_FAMILIES, ROLE_PAGES, SOLUTION_TIERS, type RoleGroup, type RoleLink } from "../data/nav-options";
+import { CASCADE_JS, megaNavDown, tierPages } from "../lib/mega-nav";
+import { FAMILY_BY_INDUSTRY, FAMILY_GROUPS, FAMILY_LINKS, FAMILY_STATS, FAMILY_TIERS, LABEL_CANDIDATES, OPTIONS, ROLE_FAMILIES, type RoleGroup, type RoleLink } from "../data/nav-options";
 import type { Block as BlockType } from "../lib/types";
 
 /** The four slots that are not under discussion, shown so the bar reads true. */
@@ -23,7 +23,7 @@ const link = (r: RoleLink): string =>
   `<a href="${u(r.route)}"${r.written ? "" : ' class="no-todo"'}>${r.label}${r.written ? "" : " <span>no copy yet</span>"}</a>`;
 
 /** A plain dropdown: one column of links. */
-const flat = (): string => `<div class="no-dd">${ROLE_PAGES.map(link).join("")}</div>`;
+const flat = (): string => `<div class="no-dd">${FAMILY_LINKS.map(link).join("")}</div>`;
 
 /** One panel, links under group headings — no second level. */
 const grouped = (groups: RoleGroup[]): string =>
@@ -102,14 +102,14 @@ const megabar = (): string =>
         <div class="no-tiergrid">
           <div class="no-rail">
             <div class="no-railhead">Solution</div>
-            ${SOLUTION_TIERS.map(
+            ${FAMILY_TIERS.map(
               (so, i) =>
                 `<button type="button" class="no-railbtn${i === 0 ? " on" : ""}" data-sol="${i}" data-first="${i}-0">${navIcon(so.icon)}<span class="no-rlabel">${so.label}</span><span class="no-caret">›</span></button>`,
             ).join("")}
           </div>
           <div class="no-rail no-rail2">
             <div class="no-railhead">Section</div>
-            ${SOLUTION_TIERS.map(
+            ${FAMILY_TIERS.map(
               (so, i) =>
                 `<div class="no-secs${i === 0 ? " on" : ""}" data-sol="${i}">${so.sections
                   .map(
@@ -121,7 +121,7 @@ const megabar = (): string =>
             <a class="no-bandcta" href="${u("/get-in-touch")}">${navIcon("bolt", "no-ico no-ico-sm")}<span>Critical labor situation?</span><b>Get in Touch</b></a>
           </div>
           <div class="no-tierpages">
-            ${SOLUTION_TIERS.map((so, i) =>
+            ${FAMILY_TIERS.map((so, i) =>
               so.sections
                 .map(
                   (sec, j) =>
@@ -186,16 +186,12 @@ const blocks: BlockType[] = [
   {
     n: "WHAT IS ACTUALLY IN THERE",
     h: `
-  <h2>Eight pages, and only the way in is in question</h2>
-  <p class="lead">Seven role pages are written and one — Warehouse &amp; Logistics — is on the build list with nothing written for it yet. None of the options below adds or removes a page. They change the label above the list, the shape of the list, or both.</p>
-  <div class="g3" style="margin-top:24px">${BY_FUNCTION.map(
-    (g) =>
-      `<div><div class="catbar mfg">${g.label}</div><ul class="check">${g.roles
-        .map((r) => `<li>${r.label}${r.written ? "" : " <span style=\"color:var(--spec)\">· no copy yet</span>"}</li>`)
-        .join("")}</ul></div>`,
-  ).join("")}</div>
-  <div class="note"><b>This grouping is the one that divides cleanly.</b> Each page sits in exactly one category. The industry grouping used in option D does not have that property, which is the main thing separating the two.</div>`,
-    spec: `Drawn from the eight routes in the roles hub, grouped in src/data/nav-options.ts.`,
+  <h2>${FAMILY_STATS.families} families over ${FAMILY_STATS.pages} pages</h2>
+  <p class="lead">The nav entries are the <b>families</b>. The job titles under each are illustration, not links — and the pages behind them are the ${FAMILY_STATS.pages} that already exist. ${FAMILY_STATS.pages - 1} are written; one, Warehouse &amp; Logistics, is on the build list with nothing written for it yet.</p>
+  <p class="lead"><b>None of the options below adds or removes a page.</b> They change the label above the list, the shape of the list, or both.</p>
+  <div class="tscroll" style="margin-top:22px"><table class="cmp"><thead><tr><th>Role family</th><th>Illustrative roles</th><th class="hl">What exists behind it today</th></tr></thead><tbody>${familyRows}</tbody></table></div>
+  <div class="note"><b>${FAMILY_STATS.families} families, ${FAMILY_STATS.titles} job titles, ${FAMILY_STATS.pages} pages.</b> The families and the pages line up almost exactly. The job titles do not — <b>most of them have no page behind them</b> and never had: there is no CNC Programmers page, no Reach Truck Operators page, no CIP Operators page.</div>`,
+    spec: `<code>ROLE_FAMILIES</code> in <code>src/data/nav-options.ts</code>. Every count on this page is computed from it, so the table, the mocks and the prose stay in step.`,
   },
 
   {
@@ -215,8 +211,8 @@ const blocks: BlockType[] = [
     n: "OPTION B · ONE PANEL, GROUPED",
     h: `
   <h2>B · One panel, roles grouped under headings</h2>
-  <p class="lead">Still one level — the panel just gets wider and the eight links sit under three headings. The headings carry the argument the bare list could not.</p>
-  ${bar(slot(opt("grouped").label, grouped(BY_FUNCTION), "is-focus no-wideslot"))}
+  <p class="lead">Still one level — the panel just gets wider and the ${FAMILY_STATS.families} families sit under three headings. The headings carry the argument the bare list could not.</p>
+  ${bar(slot(opt("grouped").label, grouped(FAMILY_GROUPS), "is-focus no-wideslot"))}
   ${tradeoffs("grouped")}
   <div class="note"><b>This is the one that solves the stated problem with the least new machinery.</b> It stops reading as vacancies without introducing an interaction the bar does not already have.</div>`,
     spec: `<b>Elementor:</b> a mega-menu dropdown on one item. Most themes support this natively; otherwise one HTML widget in the header template.`,
@@ -228,7 +224,7 @@ const blocks: BlockType[] = [
     h: `
   <h2>C · A further dropdown, categorised by what the crew does</h2>
   <p class="lead">The brief as asked: three categories, each opening a panel of its own. Hover a category below to see it.</p>
-  ${bar(slot(opt("flyout-function").label, flyout(BY_FUNCTION), "is-focus"))}
+  ${bar(slot(opt("flyout-function").label, flyout(FAMILY_GROUPS), "is-focus"))}
   ${tradeoffs("flyout-function")}
   <div class="note stop"><b>Try this one on a phone before signing it off.</b> A panel that only opens on hover has no equivalent on touch: the first tap opens the category, and the second has to find a panel that may have opened off the side of the screen. <b>Option E is the same structure without that problem.</b></div>`,
     spec: `<b>Elementor:</b> a third-level menu. Supported, but the mobile behaviour needs testing on a real device, not the editor preview.`,
@@ -239,9 +235,9 @@ const blocks: BlockType[] = [
     h: `
   <h2>D · A further dropdown, categorised by industry</h2>
   <p class="lead">Same mechanic as C, categorised the way a buyer arrives — by the plant they run rather than the job title they need.</p>
-  ${bar(slot(opt("flyout-industry").label, flyout(BY_INDUSTRY), "is-focus"))}
+  ${bar(slot(opt("flyout-industry").label, flyout(FAMILY_BY_INDUSTRY), "is-focus"))}
   ${tradeoffs("flyout-industry")}
-  <div class="note stop"><b>Count the repeats.</b> Forklift Operators appears under all three industries, Packaging Operations under two, Assemblers under two. <b>Twelve entries for eight pages.</b> The nav looks bigger than the site, and three routes lead to one URL — which is a canonical-tag question as well as a navigation one.</div>
+  <div class="note stop"><b>Count the repeats.</b> Material Handling &amp; Warehouse Operations appears under all three industries, Packaging Operations and Production &amp; Assembly under two each. <b>Nine entries for ${FAMILY_STATS.families} families.</b> The nav looks bigger than the site, and three routes lead to one URL — which is a canonical-tag question as well as a navigation one. <b>Families reduce the repetition but do not remove it</b>, because the overlap is real: a warehouse crew works in all three industries.</div>
   <div class="note"><b>It also duplicates the entry above it.</b> Industries is already in the bar, and each industry page already maps its own crews. This option puts the same three industries in the nav twice.</div>`,
     spec: `<b>Elementor:</b> as option C. <b>Decide the canonical URL for each role page first</b> — the duplication is in the nav, not the content, but search engines see the links.`,
   },
@@ -252,7 +248,7 @@ const blocks: BlockType[] = [
     h: `
   <h2>E · Categories on the left, roles on the right</h2>
   <p class="lead">What option C is trying to be, in one panel instead of two. Click or tab a category on the left and the roles swap on the right — no nesting, so nothing has to be hovered twice.</p>
-  ${bar(slot(opt("twopane").label, twopane(BY_FUNCTION), "is-focus no-wideslot"))}
+  ${bar(slot(opt("twopane").label, twopane(FAMILY_GROUPS), "is-focus no-wideslot"))}
   ${tradeoffs("twopane")}
   <div class="note"><b>The same panel works by industry.</b> The rail is just a list — swapping the three categories for Automotive, Food &amp; Beverage and Logistics takes the content from option D without its hover problem. <b>The duplication would come with it, though.</b></div>`,
     spec: `<b>Elementor:</b> one HTML widget in the header template, scoped like the line-map widgets already in the build.`,
@@ -267,9 +263,9 @@ const blocks: BlockType[] = [
   <p class="sub"><b>All three rails are live.</b> Move across them, or tab through — every rail is a button, not a hover target.</p>
   ${megabar()}
   <h3 style="margin-top:34px">What the tiers are for</h3>
-  <p>The CSTL section is <b>28 pages</b>. A single panel that showed all of them at once would be a wall; a dropdown that showed them one list at a time would be eight items deep. Tiering means <b>any page in the section is two steps from the header</b>, and the panel never shows more than one section&rsquo;s worth of links at a time — so there is room for the other four solution areas to grow the same way without the menu changing shape.</p>
+  <p>The CSTL section is <b>28 pages</b>. A single panel that showed all of them at once would be a wall; a dropdown that showed them one list at a time would be several items deep. Tiering means <b>any page in the section is two steps from the header</b>, and the panel never shows more than one section&rsquo;s worth of links at a time — so there is room for the other four solution areas to grow the same way without the menu changing shape.</p>
   <h3 style="margin-top:26px">Why this answers the roles objection</h3>
-  <p>A to E all try to make a list of eight job titles read as something other than a list of job titles — by renaming it, grouping it, or nesting it. <b>Here the roles stop being a dropdown at all.</b> <i>Who We Deploy</i> is a section you step into, alongside The Service, Industries and Resources, and inside it the crews sit under three capability headings on a wrapped line rather than stacked in a column. Same eight pages, same eight links — but nothing in the layout presents them as a list of openings.</p>
+  <p>A to E all try to make a list of job titles read as something other than a list of job titles — by renaming it, grouping it, or nesting it. <b>Here the roles stop being a dropdown at all.</b> <i>Who We Deploy</i> is a section you step into, alongside The Service, Industries and Resources, and inside it the ${FAMILY_STATS.families} families sit as cards with their job titles underneath. Same ${FAMILY_STATS.pages} pages behind them — but nothing in the layout presents them as a list of openings.</p>
   ${tradeoffs("mega")}
   <div class="note"><b>The thing to insist on is that the tiers are buttons.</b> This is the same cascade option C has, and option C fails on touch because each level only opens on hover. The panel above opens its tiers on hover <b>and</b> on click <b>and</b> on keyboard focus — which costs nothing to build this way at the start and cannot be retrofitted cheaply once the header is built around hover.</div>
   <div class="note"><b>CSTL is the only area with pages behind it.</b> The other four carry their real sub-sections from the live site in the second rail, so the depth of the section is visible, but their third tier says so rather than inventing a list. <b>They need content written before this ships</b> — the header is shared by every page, so this cannot go live for one section alone.</div>
@@ -284,7 +280,7 @@ const blocks: BlockType[] = [
   <h2>H · The same three tiers, stacked into bands</h2>
   <p class="lead">Identical content and identical steps to G — solution, section, pages — but the tiers are full-width bands that open downward rather than rails that run across. Pick along the top band and the one beneath it changes; pick there and the pages fill the band below that.</p>
   <p class="sub"><b>Both bands are live.</b> The panel grows as you move through it, which is the behaviour to judge.</p>
-  ${megaNavDown(SOLUTION_TIERS)}
+  ${megaNavDown()}
   <h3 style="margin-top:34px">What running the tiers down changes</h3>
   <p>Every tier gets the whole width of the panel instead of a 230px rail. <b>Long names sit on one line</b> — &ldquo;Labor Dispute Security + Support&rdquo; wraps to two lines in G&rsquo;s first rail and does not here — and the third tier has room for four columns of pages rather than two, so the industry pages and the three crew groups each land on a single screen. It also reads in the order people scan: down the page, then across each band.</p>
   <h3 style="margin-top:26px">And where it falls short</h3>
@@ -297,19 +293,19 @@ const blocks: BlockType[] = [
 
   {
     cls: "wash",
-    n: "ROLE FAMILIES · A DIFFERENT WAY TO GROUP THEM",
+    n: "ROLE FAMILIES · THE DECISION UNDERNEATH",
     h: `
-  <h2>Families as the entry, job titles as illustration</h2>
-  <p class="lead">The newer thinking: name the <b>family</b> in the nav and let the specific job titles sit underneath as illustration rather than as things you click. This is a change to <b>what the roles tier contains</b>, not to which option carries it — the same six families drop into B, E, G or H without altering any of them.</p>
-  <div class="tscroll" style="margin-top:22px"><table class="cmp"><thead><tr><th>Potential role family</th><th>Illustrative roles</th><th class="hl">What exists behind it today</th></tr></thead><tbody>${familyRows}</tbody></table></div>
-  <div class="note"><b>${FAMILY_STATS.families} families, ${FAMILY_STATS.titles} job titles, ${FAMILY_STATS.pages} pages.</b> The families and the pages line up almost exactly. The job titles do not — <b>most of them have no page behind them</b> and never had: there is no CNC Programmers page, no Reach Truck Operators page, no CIP Operators page.</div>
-  <div class="note stop"><b>That is the decision this forces, and it is worth settling before anything is built.</b> If the job titles are <b>copy</b> — words sitting under a family name — then nothing new has to be written, the nav gets six entries instead of eight, and the objection is answered outright: a family with examples underneath cannot be mistaken for a list of openings. <b>If the job titles are links</b>, this is not a nav change at all; it is a request for roughly eighteen new pages.</div>
-  <div class="note"><b>It also suggests the section is one page-merge away from tidy.</b> ${FAMILY_STATS.oneToOne} of the ${FAMILY_STATS.families} families are a single existing page wearing a better name. The other ${FAMILY_STATS.merging} each cover two: <b>Machining &amp; Precision Manufacturing</b> sits over CNC Operators <i>and</i> Machinists, and <b>Material Handling &amp; Warehouse Operations</b> sits over Forklift Operators <i>and</i> the unwritten Warehouse &amp; Logistics. If families become the nav entries, those are the two pairs to merge — which takes the section from eight role pages to six, and quietly removes the one page that still has no copy.</div>
-  <h3 style="margin-top:34px">The families in the menu</h3>
-  <p>Below is option H carrying families instead of capability groups. <b>Step into Who We Deploy to see it.</b> The family name is the link; the job titles under it are text. Everything else about the panel is unchanged — which is the point, since this swap works the same way in G, and in the smaller panels of B and E.</p>
-  ${megaNavDown(FAMILY_TIERS)}
-  <div class="note"><b>Compare it with the same tier in option H above.</b> Three capability groups with a line of explanation each, against six families with their job titles spelled out. The families say more about what AFIMAC can staff; the capability groups read faster. <b>Both are a long way from the column of eight job titles that started this conversation.</b></div>`,
-    spec: `The family list is held in <code>ROLE_FAMILIES</code> in <code>src/data/nav-options.ts</code>, and the counts in the notes above are computed from it — so the table, the mock and the prose cannot fall out of step. <b>The links-or-copy decision is the one to take to the client;</b> everything else here follows from it.`,
+  <h2>Are the job titles copy, or links?</h2>
+  <p class="lead">Every option above now carries the families. That settles the shape of the nav. It does not settle what the job titles under each family are, and <b>that is the question to take to the client</b>, because the two answers cost completely different amounts.</p>
+  <div class="g2" style="margin-top:24px">
+    <div class="duo"><div class="duohead">If they are copy</div>
+      <div class="duobody"><ul class="check"><li>Nothing new has to be written</li><li>The nav gets ${FAMILY_STATS.families} entries instead of ${FAMILY_STATS.pages}</li><li>A family with examples under it does not read as a list of openings</li><li>Ships with the phase the roles slot was already in</li></ul></div></div>
+    <div class="duo risk"><div class="duohead">If they are links</div>
+      <div class="duobody"><ul class="warn"><li>Roughly eighteen new pages</li><li>${FAMILY_STATS.titles} job titles, most with nothing behind them</li><li>Not a nav change at all</li><li>No phase in the plan covers it</li></ul></div></div>
+  </div>
+  <div class="note"><b>It also suggests the section is one page-merge away from tidy.</b> ${FAMILY_STATS.oneToOne} of the ${FAMILY_STATS.families} families are a single existing page wearing a better name. The other ${FAMILY_STATS.merging} each cover two: <b>Machining &amp; Precision Manufacturing</b> sits over CNC Operators <i>and</i> Machinists, and <b>Material Handling &amp; Warehouse Operations</b> sits over Forklift Operators <i>and</i> the unwritten Warehouse &amp; Logistics. If families become the nav entries, those are the two pairs to merge — which takes the section from ${FAMILY_STATS.pages} role pages to ${FAMILY_STATS.families}, and removes the one page that still has no copy.</div>
+  <div class="note stop"><b>One thing to watch with families.</b> A family reads as written even when a page behind it is not. <b>Material Handling &amp; Warehouse Operations</b> covers Forklift Operators, which is written, and Warehouse &amp; Logistics, which is not — and the nav entry gives no sign of that. The merge above fixes it; shipping families without the merge hides it.</div>`,
+    spec: `<b>The links-or-copy decision is the one to take to the client.</b> Everything else on this page follows from it.`,
   },
 
   {
@@ -336,28 +332,12 @@ const blocks: BlockType[] = [
   {blocks.map((b) => <Block {...b} />)}
 </Prototype>
 
+<script is:inline set:html={CASCADE_JS} />
+
 <script is:inline>
   /* The two-pane panel. Click or keyboard only — the rail is buttons, so it
-     behaves the same on touch as on a desktop, which is the whole point of
-     the option. */
-  /* G — the tiered panel. Hover, click and focus all select, so the cascade
-     behaves the same with a mouse, a finger and a keyboard. Picking a
-     solution also picks its first section, so the third rail is never blank. */
-  document.querySelectorAll(".no-tier").forEach((tier) => {
-    const pick = (sol, sec) => {
-      tier.querySelectorAll("[data-sol]").forEach((e) => e.classList.toggle("on", e.dataset.sol === sol));
-      tier.querySelectorAll("[data-sec]").forEach((e) => e.classList.toggle("on", e.dataset.sec === sec));
-      tier.querySelectorAll("[data-pane]").forEach((e) => e.classList.toggle("on", e.dataset.pane === sec));
-    };
-    const on = (el, fn) => ["mouseenter", "focus", "click"].forEach((ev) => el.addEventListener(ev, fn));
-    tier.querySelectorAll("[data-first]").forEach((btn) =>
-      on(btn, () => pick(btn.dataset.sol, btn.dataset.first)),
-    );
-    tier.querySelectorAll("[data-sec]").forEach((btn) =>
-      on(btn, () => pick(btn.dataset.sec.split("-")[0], btn.dataset.sec)),
-    );
-  });
-
+     behaves the same on touch as on a desktop, which is the point of the
+     option. */
   document.querySelectorAll(".no-pane").forEach((pane) => {
     pane.querySelectorAll(".no-railbtn").forEach((btn) => {
       const show = () => {

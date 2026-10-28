@@ -6,8 +6,8 @@
  * that categorises the roles. This file holds the groupings each option needs,
  * kept separate from nav.ts so none of it can leak into the real sub-nav.
  *
- * The eight pages are fixed — seven written, one still to write. Only the way
- * into them changes.
+ * The nav entries are the six role families; the pages behind them are fixed —
+ * seven written, one still to write. Only the way into them changes.
  */
 
 export interface RoleLink {
@@ -122,14 +122,14 @@ export const OPTIONS: NavOption[] = [
     title: "Rename the entry, keep the flat list",
     label: "Who We Deploy",
     works: "Smallest possible change — one word in the header template, no new pages, no new URLs, nothing to re-test. Ships inside the existing phase 4.",
-    limits: "The dropdown is still eight job titles in a column. If what the client dislikes is the list itself rather than the word above it, this does not fix it.",
+    limits: "The dropdown is still a column of entries. Fewer of them than before, but if what the client dislikes is the list itself rather than the word above it, this does not fix it.",
   },
   {
     id: "grouped",
     n: "B",
     title: "One panel, roles grouped under headings",
     label: "Who We Deploy",
-    works: "Reads as three capabilities rather than eight vacancies, and the headings do the explaining. Still one level, so it works on touch and needs no new interaction.",
+    works: "Reads as three capabilities rather than a column of vacancies, and the headings do the explaining. Still one level, so it works on touch and needs no new interaction.",
     limits: "A wider panel than the other dropdowns in the bar, so the header template needs a second dropdown style.",
   },
   {
@@ -412,6 +412,50 @@ export const ROLE_FAMILIES: RoleFamily[] = [
  * renders. SOLUTION_TIERS keeps the capability groups, because /nav-options
  * shows the two side by side.
  */
+/**
+ * The six families as nav entries.
+ *
+ * A family links to the first page behind it. Where a family covers two pages
+ * and one of them has no copy, the family still reads as written, because the
+ * entry is the family rather than the page — which is one of the things
+ * families buy, and one of the things to be careful about.
+ */
+export const FAMILY_LINKS: RoleLink[] = ROLE_FAMILIES.map((f) => ({
+  label: f.label,
+  route: f.pages[0].route,
+  written: f.pages.some((pg) => pg.written),
+}));
+
+/** Which capability group a family sits in, worked out from its pages. */
+const groupOf = (f: RoleFamily): string =>
+  BY_FUNCTION.find((g) => g.roles.some((r) => f.pages.some((pg) => pg.route === r.route)))?.label ??
+  BY_FUNCTION[0].label;
+
+/**
+ * The families under the three capability headings, and under the three
+ * industries. Both are derived from the role-level groupings rather than
+ * re-decided here, so a family cannot end up in one place as a role and
+ * somewhere else as a family.
+ */
+export const FAMILY_GROUPS: RoleGroup[] = BY_FUNCTION.map((g) => ({
+  ...g,
+  roles: ROLE_FAMILIES.filter((f) => groupOf(f) === g.label).map(
+    (f) => FAMILY_LINKS[ROLE_FAMILIES.indexOf(f)],
+  ),
+}));
+
+export const FAMILY_BY_INDUSTRY: RoleGroup[] = BY_INDUSTRY.map((g) => {
+  const seen = new Set<string>();
+  const roles: RoleLink[] = [];
+  for (const r of g.roles) {
+    const i = ROLE_FAMILIES.findIndex((f) => f.pages.some((pg) => pg.route === r.route));
+    if (i < 0 || seen.has(String(i))) continue;
+    seen.add(String(i));
+    roles.push(FAMILY_LINKS[i]);
+  }
+  return { ...g, roles };
+});
+
 export const FAMILY_TIERS: TierSolution[] = SOLUTION_TIERS.map((so, i) =>
   i === 0
     ? {

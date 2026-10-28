@@ -125,3 +125,57 @@ export const megaNavDown = (
     <div class="no-titem">About<span class="no-caret">▾</span></div>
     <div class="no-titem">Contact</div>
   </div>`;
+
+/**
+ * The cascade, and the open/close behaviour, as one script both call sites
+ * render.
+ *
+ * Pure CSS :hover was closing the panel too readily. The menu item and the
+ * panel do not touch — in the real header there is the header's own padding
+ * between them — so crossing that gap left the item's box and shut the panel
+ * before the pointer arrived. And any overshoot while moving diagonally
+ * towards a far column did the same.
+ *
+ * So opening is a class with a close delay on it: leave the menu and it stays
+ * up for CLOSE_MS, which is long enough to cross a gap or clip a corner and
+ * short enough not to feel stuck. The CSS :hover rule stays as a fallback for
+ * anyone with JavaScript off.
+ */
+export const CASCADE_JS = `
+(() => {
+  const CLOSE_MS = 450;
+
+  /* Open and close, with the delay. */
+  document.querySelectorAll(".no-hasmega").forEach((item) => {
+    if (!item.querySelector(".no-tier") || item.dataset.open) return;
+    item.dataset.open = "1";
+    let timer;
+    const open = () => { clearTimeout(timer); item.classList.add("is-open"); };
+    const close = () => { clearTimeout(timer); timer = setTimeout(() => item.classList.remove("is-open"), CLOSE_MS); };
+    item.addEventListener("mouseenter", open);
+    item.addEventListener("mouseleave", close);
+    item.addEventListener("focusin", open);
+    item.addEventListener("focusout", (e) => { if (!item.contains(e.relatedTarget)) close(); });
+    item.addEventListener("click", open);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") { clearTimeout(timer); item.classList.remove("is-open"); }
+    });
+  });
+
+  /* The tiers. Hover, click and focus all select, so the cascade behaves the
+     same with a mouse, a finger and a keyboard. Picking a solution also picks
+     its first section, so the third tier is never blank. */
+  document.querySelectorAll(".no-tier").forEach((tier) => {
+    if (tier.dataset.cascade) return;
+    tier.dataset.cascade = "1";
+    const pick = (sol, sec) => {
+      tier.querySelectorAll("[data-sol]").forEach((e) => e.classList.toggle("on", e.dataset.sol === sol));
+      tier.querySelectorAll("[data-sec]").forEach((e) => e.classList.toggle("on", e.dataset.sec === sec));
+      tier.querySelectorAll("[data-pane]").forEach((e) => e.classList.toggle("on", e.dataset.pane === sec));
+    };
+    const on = (el, fn) => ["mouseenter", "focus", "click"].forEach((ev) => el.addEventListener(ev, fn));
+    tier.querySelectorAll("[data-first]").forEach((b) => on(b, () => pick(b.dataset.sol, b.dataset.first)));
+    tier.querySelectorAll("[data-sec]").forEach((b) => on(b, () => pick(b.dataset.sec.split("-")[0], b.dataset.sec)));
+  });
+})();
+`;
