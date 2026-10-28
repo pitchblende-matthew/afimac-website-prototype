@@ -27,8 +27,9 @@ const blocks: BlockType[] = [
     h: `
   <h1>Option H as the site header</h1>
   <p class="lead">The menu is in the header at the top of this page, not mocked in the body. It has replaced the five nav items — <i>Home, Solutions, Insights, About, Contact</i> — and keeps the AFIMAC logo and social icons either side, as on every other page.</p>
+  <p class="lead"><b>The CSTL sub-nav is switched off here.</b> The menu already carries the section, so the sub-nav would be a second copy of most of it directly underneath — and it got in the way of testing the header. Use the breadcrumb to get back out.</p>
   <p class="lead">Everything below is the <a href="${u("/industries/automotive")}">Automotive</a> page's own copy, unchanged.</p>
-  <p class="sub"><b>The menu is live, at full size.</b> Move through <i>Solutions</i> &rarr; a service area &rarr; a section. It works on hover, click and keyboard.</p>`,
+  <p class="sub"><b>The menu is live, at full size.</b> Move through <i>Solutions</i> &rarr; a service area &rarr; a section. It works on hover, click and keyboard. <i>Who We Deploy</i> carries the six role families.</p>`,
     spec: `The layout's <code>megaNav</code> prop swaps the header's nav list for <code>megaNavDown()</code> from <code>src/lib/mega-nav.ts</code> — the same function <a href="${u("/nav-options")}">/nav-options</a> renders, not a copy, so the two stay in step.`,
   },
 ];
@@ -39,11 +40,11 @@ const after: BlockType[] = [
     h: `
   <h2>What to look at</h2>
   <div class="g3" style="margin-top:22px">
-    <div><div class="catbar mfg">How far it reaches</div><p>Open the menu from the real header. <b>The panel covers the sub-nav, the breadcrumb and most of the hero.</b> On a 1366&times;768 laptop it reaches further still. That is the trade for the width H needs.</p></div>
+    <div><div class="catbar mfg">How far it reaches</div><p>Open the menu from the real header. <b>The panel covers the breadcrumb and most of the hero.</b> On a 1366&times;768 laptop it reaches further still. That is the trade for the width H needs.</p></div>
     <div><div class="catbar mfg">Whether you lose your place</div><p>Step to the third tier and look at what is still visible of the two above it. This is the main difference between G and H, and it only shows on a real page.</p></div>
     <div><div class="catbar mfg">What it does to the page below</div><p>The header is a band on every page on the site. <b>Note how much vertical space it takes before content starts</b> — on mobile that is the whole first screen.</p></div>
   </div>
-  <div class="note"><b>The CSTL sub-nav is still underneath it.</b> That is the prototype's own, and how you get back out of this page. It also raises the question option H has to answer: <b>if the header carries the whole section, most of that sub-nav is already in the panel above it.</b> Both probably cannot stay.</div>
+  <div class="note"><b>Running without the sub-nav is the real proposal, not a convenience.</b> If the header carries the section, most of what the CSTL sub-nav holds is already in the panel above it. <b>That is one of the things option H decides</b> — and it is why the Roles entry, which A to E are all arguing over, may not exist at all under this option.</div>
   <div class="note stop"><b>This page does not prove the mobile case.</b> Narrow the window: below 900px the panel falls into a stacked list that would live inside a burger menu. <b>That burger menu is not designed</b>, and it is a second pattern to build and test on every page of the site.</div>`,
     spec: `<b>Elementor:</b> one HTML widget in the header template, plus state. It touches every page on the site, so it needs its own test pass rather than riding on the CSTL phases.`,
   },
