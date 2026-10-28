@@ -66,4 +66,10 @@ export interface PageProps {
   metaPre?: PageMetaData;
   /** Sub-nav route this page should highlight. */
   active?: string;
+  /**
+   * Replace the header's five nav items with the option-H mega menu, keeping
+   * the real logo and social icons either side of it. For trying the proposed
+   * header on at full size rather than mocking it in the page body.
+   */
+  megaNav?: boolean;
 }

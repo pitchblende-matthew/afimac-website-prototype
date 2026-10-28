@@ -17,7 +17,15 @@ import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { INDUSTRIES, EXISTING, INDUSTRY_ORDER } from "../data/industries";
-import { INDUSTRY_COPY, LOG_STATIONS, type Station } from "../data/industry-copy";
+import {
+  GENERAL_RISKS,
+  GENERAL_SITUATIONS,
+  INDUSTRY_COPY,
+  LOG_RISKS,
+  LOG_SITUATIONS,
+  LOG_STATIONS,
+  type Station,
+} from "../data/industry-copy";
 import { LIVE_INDUSTRIES, LIVE_SITUATIONS, LIVE_ROLE_GROUPS } from "../data/live-industries";
 import type { Block as BlockType } from "../lib/types";
 
@@ -33,10 +41,26 @@ const crews = (st: Station[]): number => st.reduce((n, s) => n + s.roles.length,
 /** The live risk list five of the seven share, used to spot the boilerplate. */
 const GENERIC_FIRST = "Operational inefficiency";
 
+/**
+ * The written situations-and-risks pair, wherever it lives. Two come from the
+ * deck copy; Logistics has its own, written for its page.
+ */
+const pairFor = (slug: string): { h3: [string, string]; situations: string[]; risks: string[] } | undefined => {
+  const c = INDUSTRY_COPY[slug];
+  if (c) return { h3: [c.situationsH3, c.risksH3], situations: c.situations, risks: c.risks };
+  if (slug === "logistics-warehousing")
+    return {
+      h3: ["Critical situations we handle", "Risks we help you mitigate"],
+      situations: LOG_SITUATIONS,
+      risks: LOG_RISKS,
+    };
+  return undefined;
+};
+
 interface Row {
   slug: string;
   name: string;
-  copy?: (typeof INDUSTRY_COPY)[string];
+  pair?: ReturnType<typeof pairFor>;
   live?: (typeof LIVE_INDUSTRIES)[string];
   stations?: Station[];
 }
@@ -44,17 +68,17 @@ interface Row {
 const ROWS: Row[] = INDUSTRY_ORDER.map((slug) => ({
   slug,
   name: label(slug),
-  copy: INDUSTRY_COPY[slug],
+  pair: pairFor(slug),
   live: LIVE_INDUSTRIES[slug],
   stations: stationsFor(slug),
 }));
 
 const T = {
   total: ROWS.length,
-  situations: ROWS.filter((r) => r.copy).length,
+  situations: ROWS.filter((r) => r.pair).length,
   stations: ROWS.filter((r) => r.stations).length,
-  liveOnly: ROWS.filter((r) => !r.copy && r.live).length,
-  nothing: ROWS.filter((r) => !r.copy && !r.live).length,
+  liveOnly: ROWS.filter((r) => !r.pair && r.live).length,
+  nothing: ROWS.filter((r) => !r.pair && !r.live).length,
   bespokeRisks: ROWS.filter((r) => r.live && r.live.risks[0] !== GENERIC_FIRST).length,
   liveTotal: ROWS.filter((r) => r.live).length,
   liveRoles: LIVE_ROLE_GROUPS.reduce((n, [, a]) => n + a.length, 0),
@@ -65,14 +89,14 @@ const ul = (cls: string, a: string[]): string =>
 
 /** Module 1 — situations and risks, per industry. */
 const situationsFor = (r: Row): string => {
-  if (r.copy)
+  if (r.pair)
     return `<div class="g2" style="margin-top:16px">
-    <div class="duo"><div class="duohead">${r.copy.situationsH3}</div>
-      <div class="duobody">${ul("check", r.copy.situations)}</div></div>
-    <div class="duo risk"><div class="duohead">${r.copy.risksH3}</div>
-      <div class="duobody">${ul("warn", r.copy.risks)}</div></div>
+    <div class="duo"><div class="duohead">${r.pair.h3[0]}</div>
+      <div class="duobody">${ul("check", r.pair.situations)}</div></div>
+    <div class="duo risk"><div class="duohead">${r.pair.h3[1]}</div>
+      <div class="duobody">${ul("warn", r.pair.risks)}</div></div>
   </div>
-  <p class="modnote ok"><b>Written and approved.</b> ${r.copy.situations.length} situations and ${r.copy.risks.length} risks, all of them specific to ${r.name}.</p>`;
+  <p class="modnote ok"><b>Written.</b> ${r.pair.situations.length} situations and ${r.pair.risks.length} risks, all of them specific to ${r.name}.</p>`;
 
   if (r.live) {
     const generic = r.live.risks[0] === GENERIC_FIRST;
@@ -116,8 +140,8 @@ const rolesFor = (r: Row): string => {
 };
 
 const summaryRows = ROWS.map((r) => {
-  const sit = r.copy
-    ? `<span class="pip ok">${r.copy.situations.length} + ${r.copy.risks.length} written</span>`
+  const sit = r.pair
+    ? `<span class="pip ok">${r.pair.situations.length} + ${r.pair.risks.length} written</span>`
     : r.live
       ? `<span class="pip gap">shared list</span>`
       : `<span class="pip none">nothing</span>`;
@@ -127,7 +151,7 @@ const summaryRows = ROWS.map((r) => {
       ? `<span class="pip gap">shared ${T.liveRoles}</span>`
       : `<span class="pip none">nothing</span>`;
   return `<tr><th><a href="#${r.slug}">${r.name}</a></th><td>${sit}</td><td>${rol}</td><td class="hl">${
-    r.copy && r.stations
+    r.pair && r.stations
       ? "Ready to build"
       : r.stations
         ? "Crews ready · situations to write"
@@ -158,13 +182,41 @@ const blocks: BlockType[] = [
   },
 ];
 
+/**
+ * The general pair, before any industry narrows it. It belongs at the top of
+ * this page because it is the thing the six unwritten industries are actually
+ * running — the live industry pages carry the same five situations.
+ */
+const general: BlockType = {
+  cls: "wash",
+  id: "general",
+  n: "00 · THE GENERAL LIST",
+  h: `
+  <h2>The general version, on the overview today</h2>
+  <p class="sub"><b>Section-level copy.</b> Not an industry &mdash; this is the pair the <a href="${u(
+    "/overview",
+  )}">overview</a> runs, and the default everything below is measured against.</p>
+  <div class="g2" style="margin-top:16px">
+    <div class="duo"><div class="duohead">Critical Situations We Handle:</div>
+      <div class="duobody">${ul("check", GENERAL_SITUATIONS)}</div></div>
+    <div class="duo risk"><div class="duohead">Risks We Help You Mitigate:</div>
+      <div class="duobody">${ul("warn", GENERAL_RISKS)}</div></div>
+  </div>
+  <div class="note"><b>Five and five, and deliberately broad.</b> At section level that is right: the overview has to cover every industry at once, so it names the shape of the problem rather than anyone's plant.</div>
+  <div class="note stop"><b>The trouble is that it does not stay at section level.</b> The ${
+    LIVE_SITUATIONS.length
+  } situations on every live industry page are this same list, near enough word for word &mdash; <i>initial line start-up, production shortfalls, plant relocation</i>. <b>So an industry page with nothing written says what the overview says</b>, one level down, where the reader has already chosen their industry and is expecting it to be about them.</div>
+  <div class="note"><b>Which is what the written three show by contrast.</b> Automotive names EV line start-up and PPAP delays; Food &amp; Beverage names ship windows and HACCP findings; Logistics names 3PL onboarding and carrier penalties. None of the three could be mistaken for this list, or for each other.</div>`,
+  spec: `Renders from <code>GENERAL_SITUATIONS</code> / <code>GENERAL_RISKS</code> in <code>industry-copy.ts</code> &mdash; the same constants the overview page now renders, so the two cannot diverge.`,
+};
+
 const perIndustry: BlockType[] = ROWS.map((r, i) => {
   // Built outside the template: a backtick nested two deep inside an
   // interpolation is valid TypeScript but trips Astro's frontmatter scanner.
   const pageHref = INDUSTRIES[r.slug] ? u("/industries/" + r.slug) : "";
   const seeThePage = pageHref ? ' &middot; <a href="' + pageHref + '">See the page</a>' : "";
-  const standing = r.copy
-    ? "<b>Approved deck copy.</b> Shown verbatim."
+  const standing = r.pair
+    ? "<b>Written for this industry.</b> Shown verbatim."
     : r.live
       ? "<b>No deck copy.</b> Below is what the live page shows today."
       : "<b>No live page and no deck copy.</b>";
@@ -204,5 +256,5 @@ const tail: BlockType[] = [
   url="Internal — not a site page"
   status="build"
 >
-  {[...blocks, ...perIndustry, ...tail].map((b) => <Block {...b} />)}
+  {[...blocks, general, ...perIndustry, ...tail].map((b) => <Block {...b} />)}
 </Prototype>

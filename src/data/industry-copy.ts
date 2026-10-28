@@ -145,7 +145,7 @@ export const INDUSTRY_COPY: Record<string, IndustryCopy> = {
     numbersH2: "The premier resource for automotive labor under pressure",
     numbersBody:
       "For four decades, Fortune 500 manufacturers have called AFIMAC when a labor gap threatens production and the clock is running.",
-    stats: [["40+", "Years of Experience"], ["20,000+", "Skilled Laborers"], ["18+", "Industries Served"]],
+    stats: [["40+", "Years of Experience"], ["20,000+", "Skilled Laborers"], ["26+", "Industries Served"]],
     successTitle: "Automotive Client Success",
     successNote:
       "Run this section on real automotive engagements pulled from AFIMAC’s records. Lead with one featured case, then add two or three shorter supporting cases. Keep the client anonymous where the work is confidential. Good spread: an EV plant start-up, a model changeover or retooling gap, and a backlog recovery.",
@@ -235,7 +235,7 @@ export const INDUSTRY_COPY: Record<string, IndustryCopy> = {
     numbersH2: "The premier resource for food &amp; beverage labor under pressure",
     numbersBody:
       "For four decades, Fortune 500 manufacturers have called AFIMAC when a labor gap threatens production and the clock is running.",
-    stats: [["40+", "Years of Experience"], ["20,000+", "Skilled Laborers"], ["18+", "Industries Served"]],
+    stats: [["40+", "Years of Experience"], ["20,000+", "Skilled Laborers"], ["26+", "Industries Served"]],
     successTitle: "Food &amp; Beverage Client Success",
     successNote:
       "Run this section on real food &amp; beverage engagements pulled from AFIMAC’s records. Lead with one featured case, then add two or three shorter supporting cases. Keep the client anonymous where the work is confidential. Good spread: a seasonal peak-season surge, a sanitation / deep-clean staffing gap, and a backlog or ship-window recovery.",
@@ -274,6 +274,55 @@ export const INDUSTRY_COPY: Record<string, IndustryCopy> = {
  * was retired, so the content survived the module change unchanged — seven
  * stations, twenty-nine crews, in deck order.
  */
+/**
+ * The section-level pair, as published on the overview page today.
+ *
+ * This is the default both modules fall back to: the general version of the
+ * argument, before any industry narrows it. Every live industry page carries
+ * the same five situations, so this list is also what six of the eight
+ * industries are effectively running.
+ */
+export const GENERAL_SITUATIONS = [
+  "Initial line start-up",
+  "Production shortfalls",
+  "Plant relocation",
+  "Health emergencies",
+  "Disaster response",
+];
+
+export const GENERAL_RISKS = [
+  "Loss of revenue",
+  "Key client defection",
+  "Missed growth opportunity",
+  "Reputational damage",
+  "Closure",
+];
+
+/**
+ * Logistics & Warehousing's own pair, from its copy deck.
+ *
+ * Written for that page rather than inherited, which makes it the third
+ * industry with a bespoke module — it just lived in the page file rather than
+ * here, so nothing else could see it.
+ */
+export const LOG_SITUATIONS = [
+  "Peak &amp; holiday season demand surges",
+  "New DC &amp; fulfillment center launch",
+  "E-commerce &amp; order-volume spikes",
+  "Shipment backlog &amp; order recovery",
+  "Facility relocation, consolidation &amp; ramp-up",
+  "3PL client onboarding &amp; contract surge",
+];
+
+export const LOG_RISKS = [
+  "Missed SLAs &amp; retailer ship windows",
+  "Chargebacks &amp; carrier penalties",
+  "Order backlog &amp; aging inventory",
+  "Safety &amp; OSHA incidents",
+  "Retail / customer defection",
+  "Lost shelf space &amp; market share",
+];
+
 export const LOG_STATIONS: Station[] = [
   { n: "01", title: "Inbound &amp; Receiving", roles: ["Dock &amp; unload crew", "Receiving associates", "Freight handlers", "Returns processors", "Cross-dock crew"] },
   { n: "02", title: "Put-away &amp; Storage", roles: ["Stockers &amp; put-away crew", "Reach-truck operators", "Slotting &amp; replenishment", "Bulk &amp; rack handlers"] },

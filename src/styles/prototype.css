@@ -587,7 +587,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
   .ledger .col+.col{border-left:0;border-top:1px solid var(--line)}
   .stepper{grid-template-columns:1fr}
   .stepper .st::after{display:none}
-  .site-header ul,.hicons{display:none}
+  /* .no-top-bare stands in for the nav list, so it hides with it — below this
+     width the panel is the undesigned stacked state anyway. */
+  .site-header ul,.site-header .no-top-bare,.hicons{display:none}
   .form{grid-template-columns:1fr}
   footer.site .wrap{grid-template-columns:1fr}
 }
@@ -922,6 +924,21 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
  * because this is a proposal being tried on: without a line saying so, a
  * reviewer two scrolls down cannot tell which navigation is which.
  * ------------------------------------------------------------------ */
+/* In the real header the bar brings no chrome of its own: it stands in for the
+   <ul> it replaced, between the logo and the social icons. */
+.no-top-bare{border:0;background:none;padding:0;margin:0 auto 0 0;flex:0 1 auto}
+.site-header .no-top-bare .no-titem{font-size:16px}
+/* The panel centres on the viewport, not on the Solutions item. In the mock
+   bar those are nearly the same point; in the real header Solutions sits well
+   left of centre, and centring on it hangs 200px of panel off the page. So the
+   item stops being the positioning context and the header becomes it. */
+/* The CSTL sub-nav is sticky at z-index 60, so the header has to sit above it
+   or the panel opens behind the sub-nav's white band. */
+.site-header{position:relative;z-index:70}
+/* .no-top is the mock bar's own positioning context and only spans the five
+   items here, so it goes static too or the panel centres on the items. */
+.site-header .no-top-bare,.site-header .no-hasmega{position:static}
+.site-header .no-mega.no-tier{top:100%;left:50%;transform:translateX(-50%)}
 .megah{background:#fff;border-top:3px solid var(--cstl-blue);
   border-bottom:1px solid var(--line);padding:0 0 2px}
 .megah-note{max-width:var(--max);margin:0 auto;padding:9px 26px 0;font-size:11.5px;

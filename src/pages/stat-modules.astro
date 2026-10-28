@@ -35,7 +35,7 @@ const band = (stats: [string, string][], stacked = false): string =>
 const JUNE05: [string, string][] = [
   ["40+", "Years of experience"],
   ["20,000+", "Skilled laborers"],
-  ["72 hrs", "Or less, on site"],
+  ["72 hrs", "Within 72 hours"],
   ["1–500+", "Scalable crew size"],
 ];
 
@@ -64,7 +64,7 @@ const CANDIDATES: { group: string; gist: string; items: Candidate[] }[] = [
     group: "Already approved — just not in this band",
     gist: "Two figures the June-05 package signed off and this band drops. Nothing to source and nothing to decide; they are the speed and scale arguments, and without them the band makes neither.",
     items: [
-      { fig: "72 hrs", label: "Or less, on site", argues: "Speed — the entire reason a buyer calls instead of recruiting.", from: "June-05 package; also the third bar of the speed comparison on every industry page.", source: "have" },
+      { fig: "72 hrs", label: "Within 72 hours", argues: "Speed — the entire reason a buyer calls instead of recruiting.", from: "June-05 package; also the third bar of the speed comparison on every industry page.", source: "have" },
       { fig: "1–500+", label: "Scalable crew size", argues: "That one plant line and a whole shift are both normal. Answers “are we too small / too big for you”.", from: "June-05 package.", source: "have" },
     ],
   },
@@ -144,8 +144,9 @@ const blocks: BlockType[] = [
       (c) => `<li>${c}</li>`,
     ).join("")}</ul><p class="modnote gap" style="margin-top:12px">No figures — they animate up from zero, so the numbers are not in the page text.</p></div>
   </div>
-  <div class="note stop"><b>Only “40+ years” appears in all three.</b> The deck version drops the two figures carrying the speed and scale arguments, and adds <b>18+ industries served</b>, which appears nowhere else in the section and has no source attached. <b>One set has to win before any of this ships</b> — adding more figures to a band that cannot agree with itself makes the problem larger, not smaller. <a href="${u("/brand-check")}">All conflicts &rarr;</a></div>
-  <div class="note"><b>One upside of “18+ industries served”, if it can be sourced.</b> The nav shows eight industries and the panel now says explicitly that those are not the limit. <b>A sourced “18+” is the evidence for that sentence</b> — it turns a reassurance into a fact.</div>`,
+  <div class="note stop"><b>Only “40+ years” appears in all three.</b> The deck version drops the two figures carrying the speed and scale arguments. <b>One set has to win before any of this ships</b> — adding more figures to a band that cannot agree with itself makes the problem larger, not smaller. <a href="${u("/brand-check")}">All conflicts &rarr;</a></div>
+  <div class="note"><b>The industries figure is settled: 26+.</b> It read 18+ until October, against a live counter saying 26. The client has called it for the counter. <b>That also makes it the evidence for a sentence the nav panel now carries</b> — the menu shows eight industries and says outright that those are not the limit, and 26+ is what turns that reassurance into a fact.</div>
+  <div class="note stop"><b>But the overview still lists eighteen industries.</b> Claiming 26+ directly above a list of 18 is the same contradiction the section had before, with the numbers swapped. <b>Eight industries need adding to that list</b> before either figure goes out. <a href="${u("/overview")}">The list &rarr;</a></div>`,
   },
   {
     cls: "wash",
@@ -171,8 +172,9 @@ const blocks: BlockType[] = [
     <li><b>Every figure argues one thing, and no two argue the same thing.</b> 20,000+ skilled laborers and “laborers provided” sound like a pair but are different claims — network size against work done. Run both and a reader assumes one of them is padding.</li>
     <li><b>Three or four, never more.</b> A six-across band of numbers reads as a brochure. The figures that do not make the band still earn their place on role pages, one-pagers and in the form follow-up.</li>
     <li><b>Put the number in the page text, not only in the counter.</b> The live counters animate from zero, so today the figures are invisible to search engines and to screen readers. Whatever wins, it should be written in the markup and animated on top — not produced by the animation.</li>
-    <li><b>No figure ships without a source behind it.</b> Not on the page — in the brief. “18+” is the cautionary example: it is on pages now and nobody can say where it came from.</li>
+    <li><b>No figure ships without a source behind it.</b> Not on the page — in the brief. The industries count is the cautionary example: three numbers were live at once for months, and settling it took a decision rather than a lookup, because nobody could say where any of them came from.</li>
   </ol>
+  <div class="note stop"><b>One phrasing to settle while this is open.</b> This band now says <b>within 72 hours</b>. The deck copy says <b>“as little as 72 hours”</b> in six other places — both speed comparisons, both deployment headings and the shared timing data. <b>Those are different claims:</b> “within” is a commitment, “as little as” is a best case. Only the band has been changed here, deliberately — <b>say the word and the other six follow</b>, but it is a claim decision rather than a copy tidy.</div>
   <div class="note"><b>Where the rest of them go.</b> The ones that do not make the band are not wasted: fill rate and on-time arrival belong beside the form, where a buyer is deciding whether to send the enquiry; safety belongs on role pages; states and provinces belongs on the overview, next to the map.</div>`,
   },
   {
@@ -180,7 +182,7 @@ const blocks: BlockType[] = [
     n: "RECOMMENDATION",
     h: `
   <h2>What we would run, if it were ours to choose</h2>
-  <p class="lead"><b>40+ years · 20,000+ skilled laborers · 72 hrs or less on site · __% roles filled as requested.</b></p>
+  <p class="lead"><b>40+ years · 20,000+ skilled laborers · within 72 hours · __% roles filled as requested.</b></p>
   <p>The first three are already approved, so three quarters of this needs no decision at all. The fourth is the only one that needs work, and it is the one a plant manager actually weighs — <b>“we sent who you asked for” is the promise the whole service rests on</b>, and it is the only figure here that proves it.</p>
   <div class="note"><b>If the fill rate cannot be produced, run 1–500+ scalable crew size instead</b> and the band is entirely pre-approved figures. That version could ship this week.</div>
   <div class="note stop"><b>What we cannot do is decide this.</b> Every number on this page belongs to AFIMAC — <b>the grading says what it would cost to find each one, not what any of them are.</b></div>`,

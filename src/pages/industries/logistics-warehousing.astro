@@ -18,26 +18,8 @@ import { photo, figure, artPair, stationFlow } from "../../lib/wireframe";
 import { INDUSTRIES } from "../../data/industries";
 import { LOG_DEPLOY } from "../../data/graphics";
 import { SOFT_PHASES } from "../../data/timing";
-import { LOG_STATIONS } from "../../data/industry-copy";
+import { LOG_SITUATIONS, LOG_RISKS, LOG_STATIONS } from "../../data/industry-copy";
 import type { Block as BlockType } from "../../lib/types";
-
-const SITUATIONS = [
-  "Peak &amp; holiday season demand surges",
-  "New DC &amp; fulfillment center launch",
-  "E-commerce &amp; order-volume spikes",
-  "Shipment backlog &amp; order recovery",
-  "Facility relocation, consolidation &amp; ramp-up",
-  "3PL client onboarding &amp; contract surge",
-];
-
-const RISKS = [
-  "Missed SLAs &amp; retailer ship windows",
-  "Chargebacks &amp; carrier penalties",
-  "Order backlog &amp; aging inventory",
-  "Safety &amp; OSHA incidents",
-  "Retail / customer defection",
-  "Lost shelf space &amp; market share",
-];
 
 const PHASES: [string, string, string[]][] = [
   ["01 · Consultation", SOFT_PHASES[0].timing, ["Assess warehouse labor needs", "Align on roles, shifts &amp; site requirements", "Finalize deployment plan"]],
@@ -77,8 +59,8 @@ const blocks: BlockType[] = [
   <h2>When the dock can’t wait for local hiring</h2>
   <p class="lead">You manage warehouse labor every day: turnover, absenteeism, seasonal peaks. But when volume spikes, a new distribution center has to go live, or a backlog starts stacking up on the dock, local recruiting can’t move fast enough. AFIMAC rapidly delivers a turnkey warehouse workforce when labor puts your throughput (and your retail and carrier commitments) on the line.</p>
   <div class="g2" style="margin-top:28px">
-   <div class="duo"><div class="duohead">Critical situations we handle</div><div class="duobody"><ul class="check">${SITUATIONS.map((s) => `<li>${s}</li>`).join("")}</ul></div></div>
-   <div class="duo risk"><div class="duohead">Risks we help you mitigate</div><div class="duobody"><ul class="warn">${RISKS.map((r) => `<li>${r}</li>`).join("")}</ul></div></div>
+   <div class="duo"><div class="duohead">Critical situations we handle</div><div class="duobody"><ul class="check">${LOG_SITUATIONS.map((s) => `<li>${s}</li>`).join("")}</ul></div></div>
+   <div class="duo risk"><div class="duohead">Risks we help you mitigate</div><div class="duobody"><ul class="warn">${LOG_RISKS.map((r) => `<li>${r}</li>`).join("")}</ul></div></div>
   </div>
   <div class="note stop"><b>No speed comparison on this page, confirmed 9 Sep 2026 — so the bars specified here are not being built.</b> The placeholder is removed rather than left standing, because a slot with nothing coming reads as a missing asset. <b>The copy doc still carries the label “Time to a working crew on your floor” with its bar figures under this section; take it out there too.</b></div>
   <div class="note"><b>Which quietly retired a conflict, and the directional timing retires the rest of it.</b> Those bars would have run 45–90 / <b>14–30</b> / 5–7 against Automotive’s 45–90 / 21–35 / 6–7 — two of three differing between two pages using one device. The AFIMAC figure is gone from both now. <b>The agency figure is not</b>: 14–30 is still in this page’s copy doc against the ruled 21–35, and that is a market claim the directional timing does not cover. It still needs reconciling.</div>`,
@@ -125,13 +107,13 @@ const blocks: BlockType[] = [
     h: `
   <h2>The premier resource for warehouse labor under pressure</h2>
   <p class="lead">For four decades, Fortune 500 shippers and 3PLs have called AFIMAC when a labor gap threatens throughput and the clock is running.</p>
-  <div class="note stop"><b>“18+ Industries Served” is a third answer to a conflict the prototype has been tracking.</b> The live overview counter says <b>26 Industries</b>; the list on that same page has <b>18</b>. This deck says <b>18+</b>, which agrees with the list and not the counter. <b>Two of three now point at 18</b> — that is close to settled, and someone should settle it. <a href="${u("/brand-check")}">All conflicts →</a></div>
+  <div class="note"><b>Settled at 26+, Oct 2026.</b> This band read <b>18+ Industries Served</b>, against a live overview counter saying <b>26 Industries</b> and a list on that same page with <b>18</b> entries. The client has called it: the figure is <b>26+</b>, and the counter was right. <b>The list is now the thing that disagrees</b> — it is eight industries short of the claim sitting above it, so it needs extending before either goes out. <a href="${u("/brand-check")}">All conflicts →</a></div>
   <div class="note"><b>Three stats here, four on every other industry page.</b> The others run 40+ / 20,000+ / 72 hrs / 1–500+. This drops the speed and crew-size figures and adds industries served — which conveniently avoids restating the contested 72-hour claim.</div>`,
     embed: {
       name: "log-stat-band",
       caption: `<b>Live embed, delivered.</b> The counters run once when the band scrolls into view and then hold; they respect <code>prefers-reduced-motion</code> and fall back to the static figures where <code>IntersectionObserver</code> is missing.`,
     },
-    spec: `<b>Elementor:</b> HTML widget — paste <code>/embeds/afimac-log-stat-band.html</code> whole. Self-contained and paints its own band, so the section needs no background colour. If you would rather use EK Funfact, the figures are 40+ / 20,000+ / 18+.`,
+    spec: `<b>Elementor:</b> HTML widget — paste <code>/embeds/afimac-log-stat-band.html</code> whole. Self-contained and paints its own band, so the section needs no background colour. If you would rather use EK Funfact, the figures are 40+ / 20,000+ / 26+.`,
   },
 
   {
