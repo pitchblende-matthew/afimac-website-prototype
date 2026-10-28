@@ -88,32 +88,52 @@ const mlink = (r: RoleLink): string =>
  * solution areas this build does not cover — a line saying so rather than a
  * fake list.
  */
+/** One card: icon badge, link, and a line saying what is behind it. */
+const card = (
+  href: string,
+  icon: string,
+  name: string,
+  under: string,
+  todo = false,
+): string =>
+  `<a class="no-fam${todo ? " no-todo" : ""}" href="${href}"><span class="no-fambadge">${navIcon(
+    icon,
+  )}</span><span class="no-famtext"><span class="no-famname">${name}</span><span class="no-famroles">${under}</span></span></a>`;
+
+/**
+ * The line under a tier saying the list above it is not the limit of what
+ * AFIMAC does. Industries and the crews both need one: a panel of eight
+ * sectors or a handful of families reads as the whole offer unless it says so.
+ */
+const reachNote = (sec: TierSection): string =>
+  sec.reach
+    ? `<p class="no-famreach">${navIcon("plus", "no-ico no-ico-sm")}<span>${sec.reach} <a href="${u(
+        "/get-in-touch",
+      )}">Tell us what you need</a></span></p>`
+    : "";
+
 const tierPages = (sec: TierSection): string => {
   if (sec.families)
     return `<div class="no-tierbody">${sec.families
-      .map(
-        (f) =>
-          `<a class="no-fam" href="${u(f.pages[0].route)}"><span class="no-fambadge">${navIcon(
-            f.icon,
-          )}</span><span class="no-famtext"><span class="no-famname">${f.label}</span><span class="no-famroles">${f.roles.join(
-            " · ",
-          )}</span></span></a>`,
-      )
-      .join("")}</div>
-      <p class="no-famreach">${navIcon("plus", "no-ico no-ico-sm")}<span><b>These are the families we are asked for most, not the limit of what we staff.</b> AFIMAC deploys across many more seats than the titles above — if the one you need is not listed, it is still one we fill. <a href="${u(
-        "/get-in-touch",
-      )}">Tell us what you need</a></span></p>`;
+      .map((f) => card(u(f.pages[0].route), f.icon, f.label, f.roles.join(" · ")))
+      .join("")}</div>${reachNote(sec)}`;
   if (sec.groups)
     return `<div class="no-tierbody">${sec.groups
       .map(
         (g) =>
           `<div class="no-rolegrp"><div class="no-grpname">${g.icon ? navIcon(g.icon, "no-ico no-ico-sm") : ""}${g.label}</div><p class="no-grpgist">${g.gist}</p><div class="no-rolerow">${g.roles
             .map(mlink)
-            .join('<span class="no-sep">·</span>')}</div></div>`,
+            .join('<span class="no-sep">\u00b7</span>')}</div></div>`,
       )
-      .join("")}</div>`;
+      .join("")}</div>${reachNote(sec)}`;
+  // Pages carrying an icon and a line get the card treatment; the rest stay a
+  // plain list, which is all the other solution areas would need.
+  if (sec.pages?.some((pg) => pg.icon))
+    return `<div class="no-tierbody">${sec.pages
+      .map((pg) => card(u(pg.route), pg.icon ?? "doc", pg.label, pg.blurb ?? "", !pg.written))
+      .join("")}</div>${reachNote(sec)}`;
   if (sec.pages)
-    return `<div class="no-tierbody"><div class="no-pagelist">${sec.pages.map(mlink).join("")}</div></div>`;
+    return `<div class="no-tierbody"><div class="no-pagelist">${sec.pages.map(mlink).join("")}</div></div>${reachNote(sec)}`;
   return `<div class="no-tierbody"><p class="no-empty">This prototype is the CSTL section only. On the live site this tier opens the pages under <b>${sec.label}</b> — the panel shape is the same, the content is not written here.</p></div>`;
 };
 
@@ -381,7 +401,7 @@ const blocks: BlockType[] = [
   <p class="sub"><b>Both bands are live.</b> The panel grows as you move through it, which is the behaviour to judge.</p>
   ${megabarDown()}
   <h3 style="margin-top:34px">What running the tiers down changes</h3>
-  <p>Every tier gets the whole width of the panel instead of a 230px rail. <b>Long names sit on one line</b> — &ldquo;Labor Dispute Security + Support&rdquo; wraps to two lines in G&rsquo;s first rail and does not here — and the third tier has room for four columns of pages rather than two, so the eight industries and the three crew groups each land on a single screen. It also reads in the order people scan: down the page, then across each band.</p>
+  <p>Every tier gets the whole width of the panel instead of a 230px rail. <b>Long names sit on one line</b> — &ldquo;Labor Dispute Security + Support&rdquo; wraps to two lines in G&rsquo;s first rail and does not here — and the third tier has room for four columns of pages rather than two, so the industry pages and the three crew groups each land on a single screen. It also reads in the order people scan: down the page, then across each band.</p>
   <h3 style="margin-top:26px">And where it falls short</h3>
   <p>The panel grows downward as you go, so by the third tier it covers most of the window — and on a laptop screen <b>the choices you made in the first two bands can scroll out of sight</b> while you are reading the third. <b>G keeps all three tiers in view at a fixed height; H trades that for width.</b> That is the whole choice between them.</p>
   ${tradeoffs("mega-down")}

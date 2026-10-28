@@ -815,6 +815,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
 .no-fambadge{flex:none;display:flex;align-items:center;justify-content:center;width:34px;height:34px;
   border-radius:3px;background:#eef4f8;color:var(--cstl-blue)}
 .no-fam:hover .no-fambadge,.no-fam:focus .no-fambadge{background:var(--cstl-blue);color:#fff}
+.no-fam.no-todo .no-famname{color:#8c99a4}
+.no-fam.no-todo .no-fambadge{color:#9aa7b2}
 .no-famtext{min-width:0}
 .no-famname{display:block;font-size:13px;font-weight:700;color:var(--cstl-blue);margin-bottom:3px}
 .no-fam:hover .no-famname,.no-fam:focus .no-famname{text-decoration:underline}
