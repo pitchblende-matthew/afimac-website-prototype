@@ -10,6 +10,7 @@ import { liveImg } from "../lib/wireframe";
 import { GAP_ART, PROCESS_ART, EBOOK_ART, CASE_ART, postArt } from "../data/live-media";
 import { B } from "../data/nav";
 import type { Block as BlockType } from "../lib/types";
+import { GENERAL_SITUATIONS, GENERAL_RISKS } from "../data/industry-copy";
 
 const IND = [
   "Aerospace &amp; Defense", "Automotive", "Aviation Defense", "Chemicals &amp; Plastics",
@@ -50,9 +51,9 @@ const blocks: BlockType[] = [
   <p class="lead">You manage labor challenges every day – turnover, scarcity, underperformance, but what do you do when the labor challenge becomes unmanageable? AFIMAC rapidly delivers a turnkey production workforce when labor resources pose a significant risk to the business and timing is critical.</p>
   <div class="g2" style="margin-top:46px">
    <div class="duo"><div class="duohead">Critical Situations We Handle:</div>
-    <div class="duobody"><ul class="check"><li>Initial line start-up</li><li>Production shortfalls</li><li>Plant relocation</li><li>Health emergencies</li><li>Disaster response</li></ul></div></div>
+    <div class="duobody"><ul class="check">${GENERAL_SITUATIONS.map((x) => `<li>${x}</li>`).join("")}</ul></div></div>
    <div class="duo risk"><div class="duohead">Risks We Help You Mitigate:</div>
-    <div class="duobody"><ul class="warn"><li>Loss of revenue</li><li>Key client defection</li><li>Missed growth opportunity</li><li>Reputational damage</li><li>Closure</li></ul></div></div>
+    <div class="duobody"><ul class="warn">${GENERAL_RISKS.map((x) => `<li>${x}</li>`).join("")}</ul></div></div>
   </div>`,
     spec: `<b>Elementor:</b> Container (2-col) · Heading ×2 · EK Icon List ×2. Two colours here aren’t in the brand guide: the Risks card body is <code>#1a66c0</code>, brighter than CSTL Blue. Header bars are CSTL Blue at 20% darker, which the guide does allow.`,
   },

@@ -76,9 +76,18 @@ export const tierPages = (sec: TierSection): string => {
  * The menu itself. `tiers` lets the roles tier be swapped for the family
  * treatment without a second copy of the markup.
  */
-export const megaNavDown = (tiers: TierSolution[] = SOLUTION_TIERS): string =>
-  `<div class="no-top">
-    <span class="no-logo">AFIMAC</span>
+export const megaNavDown = (
+  tiers: TierSolution[] = SOLUTION_TIERS,
+  /**
+   * `bare` drops the mock logo and the mock bar's own chrome, so the items can
+   * replace the real header's nav list and sit beside the real logo and the
+   * real social icons. That is the only way to see the menu at the size and in
+   * the place it would actually run.
+   */
+  opts: { bare?: boolean } = {},
+): string =>
+  `<div class="no-top${opts.bare ? " no-top-bare" : ""}">
+    ${opts.bare ? "" : '<span class="no-logo">AFIMAC</span>'}
     <div class="no-titem">Home</div>
     <div class="no-titem no-hasmega is-mega"><span class="no-live">Solutions</span><span class="no-caret">▾</span>
       <div class="no-mega no-tier no-tierdown">

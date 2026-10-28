@@ -17,14 +17,24 @@ import { megaNavDown } from "../lib/mega-nav";
 interface Props {
   /** The line above the bar saying what a reviewer is looking at. */
   note?: string;
+  /**
+   * Render nothing but the cascade script. Used when the menu is already in
+   * the page — in the site header, via the layout's `megaNav` prop — and all
+   * that is wanted is the behaviour.
+   */
+  scriptOnly?: boolean;
 }
-const { note } = Astro.props;
+const { note, scriptOnly } = Astro.props;
 ---
 
-<div class="megah">
-  {note && <p class="megah-note" set:html={note} />}
-  <div class="megah-bar" set:html={megaNavDown()} />
-</div>
+{
+  !scriptOnly && (
+    <div class="megah">
+      {note && <p class="megah-note" set:html={note} />}
+      <div class="megah-bar" set:html={megaNavDown()} />
+    </div>
+  )
+}
 
 <script is:inline>
   /* Hover, click AND keyboard focus — the same three events the options page
@@ -42,6 +52,6 @@ const { note } = Astro.props;
       tier.querySelectorAll("[data-first]").forEach((b) => on(b, () => pick(b.dataset.sol, b.dataset.first)));
       tier.querySelectorAll("[data-sec]").forEach((b) => on(b, () => pick(b.dataset.sec.split("-")[0], b.dataset.sec)));
     };
-    document.querySelectorAll(".megah .no-tier").forEach(bind);
+    document.querySelectorAll(".megah .no-tier, .site-header .no-tier").forEach(bind);
   })();
 </script>

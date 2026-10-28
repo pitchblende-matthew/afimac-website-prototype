@@ -5,12 +5,13 @@ import PageMeta from "../components/PageMeta.astro";
 import AssetBand from "../components/AssetBand.astro";
 import Logo from "../components/Logo.astro";
 import { u } from "../lib/base";
+import { megaNavDown } from "../lib/mega-nav";
 import { WORK_LABEL, sectionTotals, PHASES, type Work } from "../data/nav";
 import type { PageProps } from "../lib/types";
 
 type Props = PageProps;
 
-const { title, crumb, url, status, meta, metaPre, active } = Astro.props;
+const { title, crumb, url, status, meta, metaPre, active, megaNav } = Astro.props;
 
 const plainTitle = title.replace(/&amp;/g, "&");
 
@@ -150,13 +151,19 @@ const TOGGLES = [
     <header class="site-header">
       <div class="wrap">
         <a href={u("/overview")} aria-label="AFIMAC home"><Logo width={150} /></a>
-        <ul>
-          <li><a href={u("/overview")}>Home</a></li>
-          <li><a href={u("/overview")}>Solutions &#9662;</a></li>
-          <li><a href={u("/overview")}>Insights</a></li>
-          <li><a href={u("/overview")}>About &#9662;</a></li>
-          <li><a href={u("/get-in-touch")}>Contact</a></li>
-        </ul>
+        {
+          megaNav ? (
+            <Fragment set:html={megaNavDown(undefined, { bare: true })} />
+          ) : (
+            <ul>
+              <li><a href={u("/overview")}>Home</a></li>
+              <li><a href={u("/overview")}>Solutions &#9662;</a></li>
+              <li><a href={u("/overview")}>Insights</a></li>
+              <li><a href={u("/overview")}>About &#9662;</a></li>
+              <li><a href={u("/get-in-touch")}>Contact</a></li>
+            </ul>
+          )
+        }
         <span class="hicons">&#9906; &nbsp; in &nbsp; f</span>
       </div>
     </header>
