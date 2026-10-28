@@ -1,16 +1,14 @@
 ---
 /**
- * Option H's mega menu, rendered as a page header rather than as a mock on
- * the options page.
+ * Option H's mega menu as a page header, rather than as a mock on the options
+ * page.
  *
- * This is the same markup from src/lib/mega-nav.ts that /nav-options shows —
- * not a copy of it — so the two cannot drift. What this component adds is the
- * framing a real header needs: a band to sit in, a line saying what it is, and
- * the cascade behaviour.
+ * Same markup from src/lib/mega-nav.ts that /nav-options renders, not a copy.
+ * This component adds the framing a header needs: a band to sit in, a line
+ * saying what it is, and the cascade behaviour.
  *
- * The prototype's own SubNav still runs underneath. That is deliberate: this
- * is a proposal being tried on, not a replacement, and a reviewer needs to get
- * back out of the page.
+ * The prototype's own SubNav still runs underneath, so a reviewer can get back
+ * out of the page.
  */
 import { megaNavDown } from "../lib/mega-nav";
 
@@ -37,7 +35,7 @@ const { note, scriptOnly } = Astro.props;
 }
 
 <script is:inline>
-  /* Hover, click AND keyboard focus — the same three events the options page
+  /* Hover, click and keyboard focus — the same three events the options page
      binds. A hover-only cascade has no touch equivalent. */
   (() => {
     const bind = (tier) => {

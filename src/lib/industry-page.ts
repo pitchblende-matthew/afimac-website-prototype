@@ -149,7 +149,7 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
         n: numsN,
         h: `${c ? `<h2>${c.numbersH2}</h2><p class="lead">${c.numbersBody}</p>` : ""}
   <div class="g4">
-   ${["40+ / Years", "20,000+ / Skilled laborers", "72 hrs / Within 72 hours", "1–500+ / Scalable crew size"]
+   ${["40+ / Years", "20,000+ / Skilled laborers", "Within 72 hrs / To a crew on site", "1–500+ / Scalable crew size"]
      .map((x) => {
        const [a, b] = x.split(" / ");
        return `<div><div class="stat">${a}</div><p>${b}</p></div>`;
