@@ -914,3 +914,54 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
   .g2.g2-art{grid-template-columns:1fr}
   .statcol{gap:22px}
 }
+
+/* ------------------------------------------------------------------ *
+ * Option H's mega menu, used as a page header rather than as a mock.
+ *
+ * The band is what a real header would sit in. The note above it exists
+ * because this is a proposal being tried on: without a line saying so, a
+ * reviewer two scrolls down cannot tell which navigation is which.
+ * ------------------------------------------------------------------ */
+.megah{background:#fff;border-top:3px solid var(--cstl-blue);
+  border-bottom:1px solid var(--line);padding:0 0 2px}
+.megah-note{max-width:var(--max);margin:0 auto;padding:9px 26px 0;font-size:11.5px;
+  letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--spec)}
+.megah-bar{max-width:var(--max);margin:0 auto;padding:0 26px 10px}
+/* The mock bar draws its own border on the options page, where it floats on a
+   wash. Inside a header band it has one already. */
+.megah .no-top{border:0;padding-left:0;padding-right:0}
+
+/* ------------------------------------------------------------------ *
+ * Working pages: modules-by-industry and stat-modules.
+ *
+ * Both pages say the same kind of thing over and over — "this exists",
+ * "this is shared boilerplate", "this does not exist" — so the three
+ * states get one treatment and are used identically on both.
+ * ------------------------------------------------------------------ */
+.pip{display:inline-block;padding:3px 9px;border-radius:2px;font-size:11.5px;
+  font-weight:700;letter-spacing:.02em;white-space:nowrap}
+.pip.ok{background:#e6f3ea;color:#1d6b3a}
+.pip.gap{background:#fbf0dd;color:#8a5a10}
+.pip.none{background:#f1f3f5;color:#6b7680}
+.modnote{margin:14px 0 0;padding:11px 15px;font-size:13px;line-height:1.6;
+  border-left:3px solid var(--line);background:#f7fafc;color:var(--spec)}
+.modnote.ok{border-left-color:#2e8b57;background:#f2f9f4;color:#2c5c40}
+.modnote.gap{border-left-color:var(--premium-gold);background:#fbf5ea;color:#6f4b16}
+.modnote.none{border-left-color:#aab4bd;background:#f3f5f7}
+/* A third card colour: the live-page lists are neither the good case nor the
+   risk case, they are just what is there today. */
+.duo.flat .duohead{background:#4a5a67;font-size:18px;padding:16px 18px}
+.duo.flat .duobody{background:#5d6d7a}
+.steps{margin:20px 0 0;padding-left:22px;text-align:left}
+.steps li{margin-bottom:14px;line-height:1.65}
+.blue .steps li,.dark .steps li{color:#fff}
+/* The candidate table leads with the figure, so it reads as the band would. */
+/* The three-way comparison: each version gets a third of the width, so its
+   figures run down rather than across. */
+.statstack{display:grid;grid-template-columns:1fr;gap:13px}
+.statstack .stat{font-size:30px}
+.statstack p{margin:2px 0 0;font-size:13px}
+.statmini{display:block;font-family:var(--museo);font-size:21px;font-weight:700;
+  color:var(--cstl-blue);line-height:1.1}
+.statminilab{display:block;margin-top:3px;font-size:12px;font-weight:400;color:var(--spec)}
+@media(max-width:880px){.g2{grid-template-columns:1fr}.g3{grid-template-columns:1fr}}

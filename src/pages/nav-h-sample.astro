@@ -1,0 +1,94 @@
+---
+/**
+ * OPTION H, ON A PAGE — internal working page, not part of the site IA.
+ *
+ * /nav-options shows the mega menu against a row of placeholder bar items.
+ * That answers "does the panel work"; it does not answer "does this header
+ * belong on top of a real page", which is the question that decides whether a
+ * site-wide header change is worth making.
+ *
+ * So this is the Automotive industry page — real approved deck copy, not
+ * lorem — with the proposed header above it and nothing else changed.
+ */
+import Prototype from "../layouts/Prototype.astro";
+import Block from "../components/Block.astro";
+import MegaNavH from "../components/MegaNavH.astro";
+import { u } from "../lib/base";
+import { INDUSTRY_COPY } from "../data/industry-copy";
+import { stationFlow } from "../lib/wireframe";
+import type { Block as BlockType } from "../lib/types";
+
+const p = INDUSTRY_COPY.automotive;
+
+const blocks: BlockType[] = [
+  {
+    cls: "dark",
+    n: "OPTION H · ON A REAL PAGE",
+    h: `
+  <h1>The proposed header, on a page that exists</h1>
+  <p class="lead">Below is the <a href="${u("/industries/automotive")}">Automotive</a> page — its own approved copy, unchanged — with option H's mega menu sitting where the site header would sit. Nothing else about the page is different.</p>
+  <p class="sub"><b>The menu is live.</b> Move through <i>Solutions</i> &rarr; a service area &rarr; a section. It answers to hover, click and keyboard.</p>`,
+    spec: `Renders <code>megaNavDown()</code> from <code>src/lib/mega-nav.ts</code> — the same function <a href="${u("/nav-options")}">/nav-options</a> renders, not a copy, so the two cannot drift apart.`,
+  },
+];
+
+const after: BlockType[] = [
+  {
+    n: "WHAT TO LOOK AT",
+    h: `
+  <h2>The three things a page can tell you that a mock cannot</h2>
+  <div class="g3" style="margin-top:22px">
+    <div><div class="catbar mfg">How far it reaches</div><p>Open the menu over the hero. <b>The panel covers the headline and most of the first band.</b> On a 1366&times;768 laptop it reaches further still. That is the cost of the width that makes H readable.</p></div>
+    <div><div class="catbar mfg">Whether you lose your place</div><p>Step to the third tier and look at what is still visible of the two above it. This is the one real difference between G and H, and it only shows against a page.</p></div>
+    <div><div class="catbar mfg">What it does to the page below</div><p>The header is a band on every page on the site. <b>Note how much vertical room it takes before any content starts</b> — on mobile, that is the whole first screen.</p></div>
+  </div>
+  <div class="note"><b>The prototype's own navigation is still underneath.</b> This is a header being tried on, not a replacement — the grey bar below the menu is the prototype's, and it is how you get back out of this page.</div>
+  <div class="note stop"><b>This page does not prove the mobile case.</b> Narrow the window: below 900px the panel falls into a stacked list that would live inside a burger menu. <b>That burger menu is not designed</b>, and it is a second pattern to build and test on every page of the site.</div>`,
+    spec: `<b>Elementor:</b> one HTML widget in the header template, plus state. It touches every page on the site, so it needs its own test pass rather than riding on the CSTL phases.`,
+  },
+  {
+    cls: "wash",
+    n: "BLOCK 02 · THE LABOR GAP — AS WRITTEN",
+    h: `
+  <h2>${p.gapH2}</h2>
+  <p class="lead">${p.gapBody}</p>
+  <div class="g2" style="margin-top:22px">
+    <div class="duo"><div class="duohead">${p.situationsH3}</div>
+      <div class="duobody"><ul class="check">${p.situations.map((x) => `<li>${x}</li>`).join("")}</ul></div></div>
+    <div class="duo risk"><div class="duohead">${p.risksH3}</div>
+      <div class="duobody"><ul class="warn">${p.risks.map((x) => `<li>${x}</li>`).join("")}</ul></div></div>
+  </div>`,
+    spec: `Approved Automotive deck copy, rendered from <code>INDUSTRY_COPY</code> — the same source the real page uses.`,
+  },
+  {
+    n: "BLOCK 05 · THE CREWS — AS WRITTEN",
+    h: `
+  <h2>${p.rolesH2}</h2>
+  <p class="lead">${p.rolesBody}</p>
+  ${stationFlow({ eyebrow: "Body shop to shipping", stations: p.stations })}`,
+    spec: `Seven stations, ${p.stations.reduce((n, s) => n + s.roles.length, 0)} roles. See <a href="${u("/modules-by-industry")}">modules by industry</a> for how far this module has been written across the other seven.`,
+  },
+  {
+    cls: "blue",
+    n: "BLOCK 07 · THE NUMBERS — AS WRITTEN",
+    h: `
+  <h2>${p.numbersH2}</h2>
+  <p class="lead">${p.numbersBody}</p>
+  <div class="g3" style="margin-top:22px">${p.stats
+    .map(([fig, lab]) => `<div><div class="stat">${fig}</div><p>${lab}</p></div>`)
+    .join("")}</div>`,
+    spec: `See <a href="${u("/stat-modules")}">the stat module</a> for what else could sit in this band.`,
+  },
+];
+---
+
+<Prototype
+  title="Option H on a real page"
+  crumb="Option H, on a page"
+  url="Internal — not a site page"
+  status="build"
+>
+  <MegaNavH note="Proposed primary navigation — option H. Hover or tab into <b>Solutions</b>." />
+  {blocks.map((b) => <Block {...b} />)}
+  {after.map((b) => <Block {...b} />)}
+</Prototype>

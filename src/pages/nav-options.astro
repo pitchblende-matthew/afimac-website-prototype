@@ -12,7 +12,8 @@ import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { navIcon } from "../lib/nav-icons";
-import { BY_FUNCTION, BY_INDUSTRY, FAMILY_STATS, LABEL_CANDIDATES, OPTIONS, ROLE_FAMILIES, ROLE_PAGES, SOLUTION_TIERS, type RoleGroup, type RoleLink, type TierSection, type TierSolution } from "../data/nav-options";
+import { megaNavDown, tierPages } from "../lib/mega-nav";
+import { BY_FUNCTION, BY_INDUSTRY, FAMILY_STATS, LABEL_CANDIDATES, OPTIONS, ROLE_FAMILIES, ROLE_PAGES, SOLUTION_TIERS, type RoleGroup, type RoleLink, type TierSolution } from "../data/nav-options";
 import type { Block as BlockType } from "../lib/types";
 
 /** The four slots that are not under discussion, shown so the bar reads true. */
@@ -77,9 +78,6 @@ const slot = (label: string, dd: string, extra = ""): string =>
   `<div class="no-item no-has${extra ? " " + extra : ""}"><span class="no-live">${label}</span><span class="no-caret">▾</span>${dd}</div>`;
 
 /** Compact link for the mega panel — muted when unwritten, but no trailing note. */
-const mlink = (r: RoleLink): string =>
-  `<a href="${u(r.route)}"${r.written ? "" : ' class="no-todo"'}>${r.label}</a>`;
-
 /**
  * Tier 3 — what is inside one section.
  *
@@ -88,55 +86,6 @@ const mlink = (r: RoleLink): string =>
  * solution areas this build does not cover — a line saying so rather than a
  * fake list.
  */
-/** One card: icon badge, link, and a line saying what is behind it. */
-const card = (
-  href: string,
-  icon: string,
-  name: string,
-  under: string,
-  todo = false,
-): string =>
-  `<a class="no-fam${todo ? " no-todo" : ""}" href="${href}"><span class="no-fambadge">${navIcon(
-    icon,
-  )}</span><span class="no-famtext"><span class="no-famname">${name}</span><span class="no-famroles">${under}</span></span></a>`;
-
-/**
- * The line under a tier saying the list above it is not the limit of what
- * AFIMAC does. Industries and the crews both need one: a panel of eight
- * sectors or a handful of families reads as the whole offer unless it says so.
- */
-const reachNote = (sec: TierSection): string =>
-  sec.reach
-    ? `<p class="no-famreach">${navIcon("plus", "no-ico no-ico-sm")}<span>${sec.reach} <a href="${u(
-        "/get-in-touch",
-      )}">Tell us what you need</a></span></p>`
-    : "";
-
-const tierPages = (sec: TierSection): string => {
-  if (sec.families)
-    return `<div class="no-tierbody">${sec.families
-      .map((f) => card(u(f.pages[0].route), f.icon, f.label, f.roles.join(" · ")))
-      .join("")}</div>${reachNote(sec)}`;
-  if (sec.groups)
-    return `<div class="no-tierbody">${sec.groups
-      .map(
-        (g) =>
-          `<div class="no-rolegrp"><div class="no-grpname">${g.icon ? navIcon(g.icon, "no-ico no-ico-sm") : ""}${g.label}</div><p class="no-grpgist">${g.gist}</p><div class="no-rolerow">${g.roles
-            .map(mlink)
-            .join('<span class="no-sep">\u00b7</span>')}</div></div>`,
-      )
-      .join("")}</div>${reachNote(sec)}`;
-  // Pages carrying an icon and a line get the card treatment; the rest stay a
-  // plain list, which is all the other solution areas would need.
-  if (sec.pages?.some((pg) => pg.icon))
-    return `<div class="no-tierbody">${sec.pages
-      .map((pg) => card(u(pg.route), pg.icon ?? "doc", pg.label, pg.blurb ?? "", !pg.written))
-      .join("")}</div>${reachNote(sec)}`;
-  if (sec.pages)
-    return `<div class="no-tierbody"><div class="no-pagelist">${sec.pages.map(mlink).join("")}</div></div>${reachNote(sec)}`;
-  return `<div class="no-tierbody"><p class="no-empty">This prototype is the CSTL section only. On the live site this tier opens the pages under <b>${sec.label}</b> — the panel shape is the same, the content is not written here.</p></div>`;
-};
-
 /**
  * The primary-nav mock and its tiered panel.
  *
@@ -181,56 +130,6 @@ const megabar = (): string =>
                 .join(""),
             ).join("")}
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="no-titem">Insights</div>
-    <div class="no-titem">About<span class="no-caret">▾</span></div>
-    <div class="no-titem">Contact</div>
-  </div>`;
-
-/**
- * The same three tiers, stacked into full-width bands that open downward.
- * Shares the data, the button semantics and the cascade script with megabar —
- * only the arrangement differs, which is the point of showing both.
- */
-const megabarDown = (tiers: TierSolution[] = SOLUTION_TIERS): string =>
-  `<div class="no-top">
-    <span class="no-logo">AFIMAC</span>
-    <div class="no-titem">Home</div>
-    <div class="no-titem no-hasmega is-mega"><span class="no-live">Solutions</span><span class="no-caret">▾</span>
-      <div class="no-mega no-tier no-tierdown">
-        <div class="no-band">
-          <div class="no-bandhead">Solution</div>
-          <div class="no-bandbody"><div class="no-tabs">${tiers.map(
-            (so, i) =>
-              `<button type="button" class="no-tab${i === 0 ? " on" : ""}" data-sol="${i}" data-first="${i}-0">${navIcon(so.icon, "no-ico no-ico-sm")}<span class="no-tlong">${so.label}</span><span class="no-tshort">${so.short}</span></button>`,
-          ).join("")}</div></div>
-        </div>
-        <div class="no-band no-band2">
-          <div class="no-bandhead">Section</div>
-          <div class="no-bandrow">
-          <div class="no-bandbody">${tiers.map(
-            (so, i) =>
-              `<div class="no-secs${i === 0 ? " on" : ""}" data-sol="${i}"><div class="no-tabs">${so.sections
-                .map(
-                  (sec, j) =>
-                    `<button type="button" class="no-tab${j === 0 ? " on" : ""}" data-sec="${i}-${j}">${navIcon(sec.icon, "no-ico no-ico-sm")}<span>${sec.label}</span></button>`,
-                )
-                .join("")}</div></div>`,
-          ).join("")}</div>
-          <a class="no-bandcta" href="${u("/get-in-touch")}">${navIcon("bolt", "no-ico no-ico-sm")}<span>Critical labor situation?</span><b>Get in Touch</b></a>
-          </div>
-        </div>
-        <div class="no-band no-bandpages">
-          <div class="no-downmain">${tiers.map((so, i) =>
-              so.sections
-                .map(
-                  (sec, j) =>
-                    `<div class="no-pagepane${i === 0 && j === 0 ? " on" : ""}" data-pane="${i}-${j}"><div class="no-colhead">${navIcon(sec.icon, "no-ico no-ico-sm")}<span>${sec.label}</span></div>${sec.gist ? `<p class="no-grpgist">${sec.gist}</p>` : ""}${tierPages(sec)}</div>`,
-                )
-                .join(""),
-            ).join("")}</div>
         </div>
       </div>
     </div>
@@ -399,12 +298,13 @@ const blocks: BlockType[] = [
   <h2>H · The same three tiers, stacked into bands</h2>
   <p class="lead">Identical content and identical steps to G — solution, section, pages — but the tiers are full-width bands that open downward rather than rails that run across. Pick along the top band and the one beneath it changes; pick there and the pages fill the band below that.</p>
   <p class="sub"><b>Both bands are live.</b> The panel grows as you move through it, which is the behaviour to judge.</p>
-  ${megabarDown()}
+  ${megaNavDown()}
   <h3 style="margin-top:34px">What running the tiers down changes</h3>
   <p>Every tier gets the whole width of the panel instead of a 230px rail. <b>Long names sit on one line</b> — &ldquo;Labor Dispute Security + Support&rdquo; wraps to two lines in G&rsquo;s first rail and does not here — and the third tier has room for four columns of pages rather than two, so the industry pages and the three crew groups each land on a single screen. It also reads in the order people scan: down the page, then across each band.</p>
   <h3 style="margin-top:26px">And where it falls short</h3>
   <p>The panel grows downward as you go, so by the third tier it covers most of the window — and on a laptop screen <b>the choices you made in the first two bands can scroll out of sight</b> while you are reading the third. <b>G keeps all three tiers in view at a fixed height; H trades that for width.</b> That is the whole choice between them.</p>
   ${tradeoffs("mega-down")}
+  <div class="note"><b>Judge it on a page, not here.</b> <a href="${u("/nav-h-sample")}">This same menu is on the Automotive page</a> — real copy under it, nothing else changed. A mock against placeholder bar items cannot show how far the panel reaches or what it costs the content below.</div>
   <div class="note"><b>Nothing else differs.</b> Same pages, same grouping, same two steps to any page, and the same requirement that the tiers answer to click and keyboard as well as hover. If the mega-menu direction is agreed, <b>across-or-down is a layout decision rather than a structural one</b> — and it can be settled late, because the content behind both is identical.</div>`,
     spec: `<b>Elementor:</b> the same widget as G in a different arrangement. <b>Worth testing at 1366×768</b> — the laptop most buyers are on — since that is the height at which the third band starts pushing the first two off the top.`,
   },
@@ -421,7 +321,7 @@ const blocks: BlockType[] = [
   <div class="note"><b>It also suggests the section is one page-merge away from tidy.</b> ${FAMILY_STATS.oneToOne} of the ${FAMILY_STATS.families} families are a single existing page wearing a better name. The other ${FAMILY_STATS.merging} each cover two: <b>Machining &amp; Precision Manufacturing</b> sits over CNC Operators <i>and</i> Machinists, and <b>Material Handling &amp; Warehouse Operations</b> sits over Forklift Operators <i>and</i> the unwritten Warehouse &amp; Logistics. If families become the nav entries, those are the two pairs to merge — which takes the section from eight role pages to six, and quietly removes the one page that still has no copy.</div>
   <h3 style="margin-top:34px">The families in the menu</h3>
   <p>Below is option H carrying families instead of capability groups. <b>Step into Who We Deploy to see it.</b> The family name is the link; the job titles under it are text. Everything else about the panel is unchanged — which is the point, since this swap works the same way in G, and in the smaller panels of B and E.</p>
-  ${megabarDown(FAMILY_TIERS)}
+  ${megaNavDown(FAMILY_TIERS)}
   <div class="note"><b>Compare it with the same tier in option H above.</b> Three capability groups with a line of explanation each, against six families with their job titles spelled out. The families say more about what AFIMAC can staff; the capability groups read faster. <b>Both are a long way from the column of eight job titles that started this conversation.</b></div>`,
     spec: `The family list is held in <code>ROLE_FAMILIES</code> in <code>src/data/nav-options.ts</code>, and the counts in the notes above are computed from it — so the table, the mock and the prose cannot fall out of step. <b>The links-or-copy decision is the one to take to the client;</b> everything else here follows from it.`,
   },
