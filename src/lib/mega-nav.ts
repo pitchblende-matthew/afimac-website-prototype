@@ -1,19 +1,16 @@
 /**
  * The option-H mega menu — the tiered panel with its tiers running down.
  *
- * Lifted out of nav-options.astro so the same menu can sit on a real page as
- * a page header rather than only inside the options mock. Both render from
- * this one file: if the menu changes, it changes in both places, which is the
- * whole reason it is not copied.
+ * Lifted out of nav-options.astro so the same menu can also run as a page
+ * header. Both render from this file, so a change to the menu reaches both.
  *
- * The markup keeps its `no-` class prefix. That prefix means "mock chrome" in
- * this prototype and nothing here touches the real SubNav, so dropping this
- * onto a page shows the proposed header without replacing the prototype's own
- * navigation underneath it.
+ * The markup keeps its `no-` class prefix, which means "mock chrome" in this
+ * prototype. Nothing here touches the real SubNav, so the proposed header can
+ * be shown without replacing the prototype's own navigation underneath it.
  *
- * The tiers answer to hover, click AND keyboard focus. That is not decoration:
- * a hover-only cascade has no touch equivalent, and it cannot be retrofitted
- * cheaply once a header is built around hover. See CASCADE in MegaNavH.astro.
+ * The tiers respond to hover, click and keyboard focus. A hover-only cascade
+ * has no touch equivalent and cannot be retrofitted cheaply once a header is
+ * built around hover. See the script in MegaNavH.astro.
  */
 import { u } from "./base";
 import { navIcon } from "./nav-icons";
@@ -79,10 +76,9 @@ export const tierPages = (sec: TierSection): string => {
 export const megaNavDown = (
   tiers: TierSolution[] = SOLUTION_TIERS,
   /**
-   * `bare` drops the mock logo and the mock bar's own chrome, so the items can
-   * replace the real header's nav list and sit beside the real logo and the
-   * real social icons. That is the only way to see the menu at the size and in
-   * the place it would actually run.
+   * `bare` drops the mock logo and the bar's own chrome, so the items can
+   * replace the real header's nav list and sit beside the real logo and social
+   * icons — the menu at the size and in the place it would run.
    */
   opts: { bare?: boolean } = {},
 ): string =>
