@@ -1,0 +1,208 @@
+---
+/**
+ * MODULES BY INDUSTRY — internal working page, not part of the site IA.
+ *
+ * Two of the modules on the new industry template are the ones that have to be
+ * written eight times over: "critical situations we handle / risks we help you
+ * mitigate", and the station-and-crew grid. This page puts both side by side
+ * for every industry in the cluster so the gap is countable rather than
+ * discovered one page at a time during the build.
+ *
+ * Nothing here is drafted. Where an industry has approved deck copy it is shown
+ * verbatim; where it has only a live page, the live page's own words are shown;
+ * where it has neither, the page says so. Every count is computed from the data
+ * rather than typed, so none of it can go stale.
+ */
+import Prototype from "../layouts/Prototype.astro";
+import Block from "../components/Block.astro";
+import { u } from "../lib/base";
+import { INDUSTRIES, EXISTING, INDUSTRY_ORDER } from "../data/industries";
+import { INDUSTRY_COPY, LOG_STATIONS, type Station } from "../data/industry-copy";
+import { LIVE_INDUSTRIES, LIVE_SITUATIONS, LIVE_ROLE_GROUPS } from "../data/live-industries";
+import type { Block as BlockType } from "../lib/types";
+
+const label = (slug: string): string =>
+  INDUSTRIES[slug]?.short ?? EXISTING[slug]?.label ?? LIVE_INDUSTRIES[slug]?.h1 ?? slug;
+
+/** Stations exist in the deck copy for two industries and standalone for one. */
+const stationsFor = (slug: string): Station[] | undefined =>
+  INDUSTRY_COPY[slug]?.stations ?? (slug === "logistics-warehousing" ? LOG_STATIONS : undefined);
+
+const crews = (st: Station[]): number => st.reduce((n, s) => n + s.roles.length, 0);
+
+/** The live risk list five of the seven share, used to spot the boilerplate. */
+const GENERIC_FIRST = "Operational inefficiency";
+
+interface Row {
+  slug: string;
+  name: string;
+  copy?: (typeof INDUSTRY_COPY)[string];
+  live?: (typeof LIVE_INDUSTRIES)[string];
+  stations?: Station[];
+}
+
+const ROWS: Row[] = INDUSTRY_ORDER.map((slug) => ({
+  slug,
+  name: label(slug),
+  copy: INDUSTRY_COPY[slug],
+  live: LIVE_INDUSTRIES[slug],
+  stations: stationsFor(slug),
+}));
+
+const T = {
+  total: ROWS.length,
+  situations: ROWS.filter((r) => r.copy).length,
+  stations: ROWS.filter((r) => r.stations).length,
+  liveOnly: ROWS.filter((r) => !r.copy && r.live).length,
+  nothing: ROWS.filter((r) => !r.copy && !r.live).length,
+  bespokeRisks: ROWS.filter((r) => r.live && r.live.risks[0] !== GENERIC_FIRST).length,
+  liveTotal: ROWS.filter((r) => r.live).length,
+  liveRoles: LIVE_ROLE_GROUPS.reduce((n, [, a]) => n + a.length, 0),
+};
+
+const ul = (cls: string, a: string[]): string =>
+  `<ul class="${cls}">${a.map((x) => `<li>${x}</li>`).join("")}</ul>`;
+
+/** Module 1 — situations and risks, per industry. */
+const situationsFor = (r: Row): string => {
+  if (r.copy)
+    return `<div class="g2" style="margin-top:16px">
+    <div class="duo"><div class="duohead">${r.copy.situationsH3}</div>
+      <div class="duobody">${ul("check", r.copy.situations)}</div></div>
+    <div class="duo risk"><div class="duohead">${r.copy.risksH3}</div>
+      <div class="duobody">${ul("warn", r.copy.risks)}</div></div>
+  </div>
+  <p class="modnote ok"><b>Written and approved.</b> ${r.copy.situations.length} situations and ${r.copy.risks.length} risks, all of them specific to ${r.name}.</p>`;
+
+  if (r.live) {
+    const generic = r.live.risks[0] === GENERIC_FIRST;
+    return `<div class="g2" style="margin-top:16px">
+    <div class="duo flat"><div class="duohead">On the live page &mdash; situations</div>
+      <div class="duobody">${ul("check", LIVE_SITUATIONS)}</div></div>
+    <div class="duo flat"><div class="duohead">On the live page &mdash; risks</div>
+      <div class="duobody">${ul("warn", r.live.risks)}</div></div>
+  </div>
+  <p class="modnote gap"><b>Nothing written for the new module.</b> The left list is the one every live industry page carries, word for word. The right list is ${
+    generic
+      ? "the generic five that five of the seven live pages share &mdash; so neither column on this page is about " + r.name + "."
+      : "genuinely specific to " + r.name + ", which makes it the one part of this block worth keeping."
+  }</p>`;
+  }
+  return `<p class="modnote none"><b>Nothing to show.</b> ${r.name} has no live page and no deck copy, so both lists would be written from scratch.</p>`;
+};
+
+/** Module 2 — the crews, per industry. */
+const rolesFor = (r: Row): string => {
+  if (r.stations)
+    return `<div class="stn-grid" style="margin-top:16px">${r.stations
+      .map(
+        (st) =>
+          `<div class="stn"><div class="stn-n">${st.n}</div><h3 class="stn-t">${st.title}</h3>${ul(
+            "stn-l",
+            st.roles,
+          )}</div>`,
+      )
+      .join("")}</div>
+  <p class="modnote ok"><b>Written.</b> ${r.stations.length} stations, ${crews(r.stations)} crews, in the order the floor runs.</p>`;
+
+  if (r.live)
+    return `<div class="g3" style="margin-top:16px">${LIVE_ROLE_GROUPS.map(
+      ([head, roles]) => `<div><div class="catbar mfg">${head}</div>${ul("tick", roles)}</div>`,
+    ).join("")}
+  </div>
+  <p class="modnote gap"><b>Nothing written for the new module.</b> These ${T.liveRoles} roles in ${LIVE_ROLE_GROUPS.length} groups are what the live page shows &mdash; and they are identical on all ${T.liveTotal} live industry pages. <b>Not one of them is specific to ${r.name}.</b></p>`;
+
+  return `<p class="modnote none"><b>Nothing to show.</b> No live page and no station list.</p>`;
+};
+
+const summaryRows = ROWS.map((r) => {
+  const sit = r.copy
+    ? `<span class="pip ok">${r.copy.situations.length} + ${r.copy.risks.length} written</span>`
+    : r.live
+      ? `<span class="pip gap">shared list</span>`
+      : `<span class="pip none">nothing</span>`;
+  const rol = r.stations
+    ? `<span class="pip ok">${r.stations.length} stations · ${crews(r.stations)} crews</span>`
+    : r.live
+      ? `<span class="pip gap">shared ${T.liveRoles}</span>`
+      : `<span class="pip none">nothing</span>`;
+  return `<tr><th><a href="#${r.slug}">${r.name}</a></th><td>${sit}</td><td>${rol}</td><td class="hl">${
+    r.copy && r.stations
+      ? "Ready to build"
+      : r.stations
+        ? "Crews ready · situations to write"
+        : "Both modules to write"
+  }</td></tr>`;
+}).join("");
+
+const blocks: BlockType[] = [
+  {
+    cls: "dark",
+    n: "MODULES BY INDUSTRY · THE TWO THAT REPEAT",
+    h: `
+  <h1>Two modules, ${T.total} industries, written ${T.situations} and ${T.stations} times</h1>
+  <p class="lead">Most of the industry template is shared. These two are not: <b>critical situations and risks</b>, and <b>the stations and crews</b>. Both have to be written separately for every industry in the cluster, and both are what a buyer actually reads to decide whether AFIMAC has done their kind of work.</p>
+  <p class="lead"><b>This page is every version of both, for every industry.</b> Approved deck copy where it exists, the live page's own words where it does not, and a plain statement where there is neither. Nothing on this page is drafted or invented.</p>
+  <p class="sub">Counts are computed from the data, so they cannot fall out of step with what is actually written.</p>`,
+    spec: `Reads <code>INDUSTRY_COPY</code>, <code>LOG_STATIONS</code> and <code>LIVE_INDUSTRIES</code>. Adding an industry's copy to the data makes it appear here with no edit to this page.`,
+  },
+  {
+    n: "WHERE IT STANDS",
+    h: `
+  <h2>The gap, counted</h2>
+  <div class="tscroll" style="margin-top:20px"><table class="cmp"><thead><tr><th>Industry</th><th>Situations &amp; risks</th><th>Stations &amp; crews</th><th class="hl">What it needs</th></tr></thead><tbody>${summaryRows}</tbody></table></div>
+  <div class="note"><b>${T.situations} of ${T.total} industries have the situations module written; ${T.stations} of ${T.total} have the crews.</b> The rest fall back to what is on the live page today — and what is on the live page today is the same on every one of them.</div>
+  <div class="note stop"><b>This is the finding that matters for the build.</b> All ${T.liveTotal} live industry pages carry an identical list of ${LIVE_SITUATIONS.length} situations and an identical set of ${T.liveRoles} roles. Only the risk list varies, and <b>only on ${T.bespokeRisks} of ${T.liveTotal}</b>. So the industry pages are, in the part a buyer reads most closely, one page repeated ${T.liveTotal} times.</div>
+  <div class="note"><b>The two written industries show what the difference buys.</b> Automotive names EV line start-up, model changeover and PPAP delays; Food &amp; Beverage names ship windows, HACCP findings and spoilage. Neither reads as though it could be about the other — which is the whole argument for writing the remaining ${T.total - T.situations}.</div>`,
+    spec: `The "what it needs" column is derived, not typed: an industry moves out of "both modules to write" the moment its copy lands in the data.`,
+  },
+];
+
+const perIndustry: BlockType[] = ROWS.map((r, i) => {
+  // Built outside the template: a backtick nested two deep inside an
+  // interpolation is valid TypeScript but trips Astro's frontmatter scanner.
+  const pageHref = INDUSTRIES[r.slug] ? u("/industries/" + r.slug) : "";
+  const seeThePage = pageHref ? ' &middot; <a href="' + pageHref + '">See the page</a>' : "";
+  const standing = r.copy
+    ? "<b>Approved deck copy.</b> Shown verbatim."
+    : r.live
+      ? "<b>No deck copy.</b> Below is what the live page shows today."
+      : "<b>No live page and no deck copy.</b>";
+  return {
+  cls: i % 2 ? "wash" : "",
+  id: r.slug,
+  n: `${String(i + 1).padStart(2, "0")} · ${r.name.toUpperCase()}`,
+  h: `
+  <h2>${r.name}</h2>
+  <p class="sub">${standing}${seeThePage}</p>
+  <h3 style="margin-top:26px">1 &middot; Critical situations &amp; risks</h3>
+  ${situationsFor(r)}
+  <h3 style="margin-top:30px">2 &middot; Stations &amp; crews</h3>
+  ${rolesFor(r)}`,
+  };
+});
+
+const tail: BlockType[] = [
+  {
+    cls: "blue",
+    n: "WHAT TO DECIDE",
+    h: `
+  <h2>Three decisions, in order</h2>
+  <ol class="steps">
+    <li><b>Are the remaining ${T.total - T.situations} industries getting written copy, or shipping with the shared list?</b> Shipping them shared is a legitimate choice — it is what happens today — but it should be a choice rather than a thing that is discovered at build time.</li>
+    <li><b>If they are being written, the two that exist set the shape:</b> six situations, six risks, and stations in the order the floor runs. That is a brief a writer can work to without another round of definition.</li>
+    <li><b>The crews module is the bigger job.</b> Automotive carries ${crews(INDUSTRY_COPY.automotive.stations)} crews across ${INDUSTRY_COPY.automotive.stations.length} stations. Multiply that by the ${T.total - T.stations} industries without one and it is the largest single piece of writing left in the cluster.</li>
+  </ol>
+  <div class="note"><b>Nothing here needs new research.</b> The stations are the plant, and the plant is already known — this is a writing job, not a discovery one.</div>`,
+  },
+];
+---
+
+<Prototype
+  title="Modules by industry"
+  crumb="Modules by industry"
+  url="Internal — not a site page"
+  status="build"
+>
+  {[...blocks, ...perIndustry, ...tail].map((b) => <Block {...b} />)}
+</Prototype>

@@ -1,0 +1,198 @@
+---
+/**
+ * THE STAT MODULE — internal working page, not part of the site IA.
+ *
+ * The band of big figures runs on every industry page and on the overview, and
+ * it is the one module that makes a claim rather than a description. Three
+ * different versions of it are in play across the section, which the industry
+ * template already flags.
+ *
+ * This page builds the module out, puts the three versions beside each other,
+ * and then answers the question that keeps coming up: what else should be in
+ * it. Candidates are graded by whether AFIMAC can source the number today —
+ * that is the part that decides which of them can actually ship.
+ */
+import Prototype from "../layouts/Prototype.astro";
+import Block from "../components/Block.astro";
+import { u } from "../lib/base";
+import { INDUSTRY_COPY } from "../data/industry-copy";
+import { LIVE_COUNTERS } from "../data/live-industries";
+import type { Block as BlockType } from "../lib/types";
+
+const auto = INDUSTRY_COPY.automotive;
+
+/**
+ * The band itself, as the deck writes it. `stacked` is for the three-way
+ * comparison, where each version sits in a third of the width and a 3-across
+ * grid inside that gives ragged two-line figures.
+ */
+const band = (stats: [string, string][], stacked = false): string =>
+  `<div class="${stacked ? "statstack" : "g3"}" style="margin-top:${stacked ? 18 : 22}px">${stats
+    .map(([fig, lab]) => `<div><div class="stat">${fig}</div><p>${lab}</p></div>`)
+    .join("")}</div>`;
+
+/** The four figures the June-05 package approved. */
+const JUNE05: [string, string][] = [
+  ["40+", "Years of experience"],
+  ["20,000+", "Skilled laborers"],
+  ["72 hrs", "Or less, on site"],
+  ["1–500+", "Scalable crew size"],
+];
+
+type Source = "have" | "pull" | "new";
+const SOURCE_LABEL: Record<Source, string> = {
+  have: "Already published",
+  pull: "In a system — needs pulling",
+  new: "Needs measuring first",
+};
+
+interface Candidate {
+  fig: string;
+  label: string;
+  argues: string;
+  from: string;
+  source: Source;
+}
+
+/**
+ * Candidate figures. The `fig` column is the shape the number would take, not
+ * a number anyone has signed off — every one of them needs AFIMAC to supply or
+ * confirm the value before it goes near a page.
+ */
+const CANDIDATES: { group: string; gist: string; items: Candidate[] }[] = [
+  {
+    group: "Already approved — just not in this band",
+    gist: "Two figures the June-05 package signed off and this band drops. Nothing to source and nothing to decide; they are the speed and scale arguments, and without them the band makes neither.",
+    items: [
+      { fig: "72 hrs", label: "Or less, on site", argues: "Speed — the entire reason a buyer calls instead of recruiting.", from: "June-05 package; also the third bar of the speed comparison on every industry page.", source: "have" },
+      { fig: "1–500+", label: "Scalable crew size", argues: "That one plant line and a whole shift are both normal. Answers “are we too small / too big for you”.", from: "June-05 package.", source: "have" },
+    ],
+  },
+  {
+    group: "Counted today, but the numbers never reach the page",
+    gist: `The live credibility block runs four counters — ${LIVE_COUNTERS.join(" · ")} — that animate up from zero. <b>The figures are produced by script, so they are not in the page text at all:</b> not for search engines, not for a screen reader, not for anyone who opens the page before the script runs. The numbers exist. They are just not published.`,
+    items: [
+      { fig: "###", label: "Industry deployments", argues: "Depth of practice. A buyer wants to know this is routine, not a first.", from: "Live counter. The number is already approved — it just has to be written into the markup.", source: "pull" },
+      { fig: "###", label: "Companies served", argues: "Breadth. Pairs naturally with industries served.", from: "Live counter.", source: "pull" },
+      { fig: "###", label: "Laborers provided", argues: "Work actually done — distinct from the 20,000+, which is the size of the network, not the number deployed.", from: "Live counter. <b>Worth separating from 20,000+ explicitly</b>, or the two read as the same claim twice.", source: "pull" },
+    ],
+  },
+  {
+    group: "Strong candidates that need a number attached",
+    gist: "These are the figures a plant manager actually weighs. Each needs AFIMAC to pull or start measuring it — which is the work, not the design.",
+    items: [
+      { fig: "__%", label: "Roles filled as requested", argues: "The single most useful number on the page. “We sent who you asked for” is the whole promise.", from: "Deployment records — requested roles against roles supplied.", source: "pull" },
+      { fig: "__%", label: "Crews on site by the agreed date", argues: "Makes the 72-hour claim verifiable instead of aspirational.", from: "Deployment records — committed date against arrival date.", source: "pull" },
+      { fig: "__%", label: "Deployments completed without replacement", argues: "Retention. Answers the unspoken fear that travel crews walk.", from: "Assignment records.", source: "pull" },
+      { fig: "__%", label: "Clients who call again", argues: "Strongest trust signal available, and it needs no explanation.", from: "Client records — repeat engagements over distinct clients.", source: "pull" },
+      { fig: "0.00", label: "TRIR / recordable incident rate", argues: "Safety is a gate in manufacturing procurement. A number here can be the reason a buyer proceeds.", from: "Safety records. <b>Publish only if it beats the industry average</b> — a mediocre TRIR on the page argues against you.", source: "pull" },
+    ],
+  },
+  {
+    group: "Useful, but secondary",
+    gist: "Worth having in the bank for role pages and one-pagers. None of them earns a slot in a three-across band on the main pages.",
+    items: [
+      { fig: "##", label: "States &amp; provinces deployed into", argues: "Reach across North America, concretely rather than as a phrase.", from: "Deployment records.", source: "pull" },
+      { fig: "###,###", label: "Shift hours worked", argues: "Scale, in the unit a plant actually schedules in.", from: "Timesheets. Big number, but abstract — it does not answer a question anyone asked.", source: "pull" },
+      { fig: "##", label: "Fortune 500 clients", argues: "Already claimed in prose on every page. A figure would make it checkable.", from: "Client records. <b>Confirm the claim is still true before putting a number on it.</b>", source: "pull" },
+      { fig: "###", label: "Largest single deployment", argues: "Ceiling, for the buyer whose problem is unusually large.", from: "Deployment records. Overlaps 1–500+, so run one or the other.", source: "pull" },
+      { fig: "__ hrs", label: "Average first call to crew on floor", argues: "Honest version of the 72-hour claim. Often more persuasive than the best case.", from: "<b>Needs measuring.</b> Only publish if the average is good; otherwise it undercuts the headline.", source: "new" },
+    ],
+  },
+];
+
+const rows = (items: Candidate[]): string =>
+  items
+    .map(
+      (c) =>
+        `<tr><th><span class="statmini">${c.fig}</span><span class="statminilab">${c.label}</span></th><td>${c.argues}</td><td>${c.from}</td><td class="hl"><span class="pip ${
+          c.source === "have" ? "ok" : c.source === "pull" ? "gap" : "none"
+        }">${SOURCE_LABEL[c.source]}</span></td></tr>`,
+    )
+    .join("");
+
+const TOTAL = CANDIDATES.reduce((n, g) => n + g.items.length, 0);
+const READY = CANDIDATES.reduce((n, g) => n + g.items.filter((c) => c.source === "have").length, 0);
+
+const blocks: BlockType[] = [
+  {
+    cls: "dark",
+    n: "THE STAT MODULE · WHAT ELSE BELONGS IN IT",
+    h: `
+  <h1>The band of big figures, and what else could be in it</h1>
+  <p class="lead">It is the one module on the page that makes a claim rather than describing something. Everything else says what AFIMAC does; this says how much, how fast, how long. <b>So it is worth more than three figures chosen because three fit.</b></p>
+  <p class="lead">Below: the module as written, the three different versions of it currently in play, and ${TOTAL} candidate figures graded by whether AFIMAC can source the number today.</p>`,
+    spec: `Figures render from <code>INDUSTRY_COPY</code> and <code>LIVE_COUNTERS</code>, so the first two versions below are what the section actually says, not a transcription.`,
+  },
+  {
+    cls: "blue",
+    n: "AS WRITTEN · THE DECK VERSION",
+    h: `
+  <h2>${auto.numbersH2}</h2>
+  <p class="lead">${auto.numbersBody}</p>
+  ${band(auto.stats)}`,
+    spec: `<b>Elementor:</b> Container · EK Funfact / Counter ×3, blue band. This is the module as the Automotive and Food &amp; Beverage decks write it.`,
+  },
+  {
+    n: "THE PROBLEM BEFORE THE QUESTION",
+    h: `
+  <h2>Three versions are in play, and they disagree</h2>
+  <div class="g3" style="margin-top:20px">
+    <div><div class="catbar mfg">The deck · 3 figures</div>${band(auto.stats, true)}</div>
+    <div><div class="catbar mfg">June-05 package · 4 figures</div>${band(JUNE05, true)}</div>
+    <div><div class="catbar mfg">Live site · 4 counters</div><ul class="tick" style="margin-top:18px">${LIVE_COUNTERS.map(
+      (c) => `<li>${c}</li>`,
+    ).join("")}</ul><p class="modnote gap" style="margin-top:12px">No figures — they animate up from zero, so the numbers are not in the page text.</p></div>
+  </div>
+  <div class="note stop"><b>Only “40+ years” appears in all three.</b> The deck version drops the two figures carrying the speed and scale arguments, and adds <b>18+ industries served</b>, which appears nowhere else in the section and has no source attached. <b>One set has to win before any of this ships</b> — adding more figures to a band that cannot agree with itself makes the problem larger, not smaller. <a href="${u("/brand-check")}">All conflicts &rarr;</a></div>
+  <div class="note"><b>One upside of “18+ industries served”, if it can be sourced.</b> The nav shows eight industries and the panel now says explicitly that those are not the limit. <b>A sourced “18+” is the evidence for that sentence</b> — it turns a reassurance into a fact.</div>`,
+  },
+  {
+    cls: "wash",
+    n: "THE CANDIDATES",
+    h: `
+  <h2>${TOTAL} figures worth considering</h2>
+  <p class="lead">Graded by what it would take to put a number on them. <b>The figure shown is the shape, not a value anyone has approved</b> — every one needs AFIMAC to supply or confirm it.</p>
+  ${CANDIDATES.map(
+    (g) => `
+  <h3 style="margin-top:30px">${g.group}</h3>
+  <p>${g.gist}</p>
+  <div class="tscroll" style="margin-top:14px"><table class="cmp"><thead><tr><th>Figure</th><th>What it argues</th><th>Where the number comes from</th><th class="hl">Can we source it?</th></tr></thead><tbody>${rows(
+    g.items,
+  )}</tbody></table></div>`,
+  ).join("")}`,
+    spec: `The grading is the useful column. <b>${READY} need nothing</b> — they are already approved figures sitting in another document.`,
+  },
+  {
+    n: "HOW TO USE THEM",
+    h: `
+  <h2>Four rules, so the band keeps working</h2>
+  <ol class="steps">
+    <li><b>Every figure argues one thing, and no two argue the same thing.</b> 20,000+ skilled laborers and “laborers provided” sound like a pair but are different claims — network size against work done. Run both and a reader assumes one of them is padding.</li>
+    <li><b>Three or four, never more.</b> A six-across band of numbers reads as a brochure. The figures that do not make the band still earn their place on role pages, one-pagers and in the form follow-up.</li>
+    <li><b>Put the number in the page text, not only in the counter.</b> The live counters animate from zero, so today the figures are invisible to search engines and to screen readers. Whatever wins, it should be written in the markup and animated on top — not produced by the animation.</li>
+    <li><b>No figure ships without a source behind it.</b> Not on the page — in the brief. “18+” is the cautionary example: it is on pages now and nobody can say where it came from.</li>
+  </ol>
+  <div class="note"><b>Where the rest of them go.</b> The ones that do not make the band are not wasted: fill rate and on-time arrival belong beside the form, where a buyer is deciding whether to send the enquiry; safety belongs on role pages; states and provinces belongs on the overview, next to the map.</div>`,
+  },
+  {
+    cls: "blue",
+    n: "RECOMMENDATION",
+    h: `
+  <h2>What we would run, if it were ours to choose</h2>
+  <p class="lead"><b>40+ years · 20,000+ skilled laborers · 72 hrs or less on site · __% roles filled as requested.</b></p>
+  <p>The first three are already approved, so three quarters of this needs no decision at all. The fourth is the only one that needs work, and it is the one a plant manager actually weighs — <b>“we sent who you asked for” is the promise the whole service rests on</b>, and it is the only figure here that proves it.</p>
+  <div class="note"><b>If the fill rate cannot be produced, run 1–500+ scalable crew size instead</b> and the band is entirely pre-approved figures. That version could ship this week.</div>
+  <div class="note stop"><b>What we cannot do is decide this.</b> Every number on this page belongs to AFIMAC — <b>the grading says what it would cost to find each one, not what any of them are.</b></div>`,
+  },
+];
+---
+
+<Prototype
+  title="The stat module"
+  crumb="The stat module"
+  url="Internal — not a site page"
+  status="build"
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>
