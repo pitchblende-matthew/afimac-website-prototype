@@ -13,8 +13,12 @@
 export interface RoleLink {
   label: string;
   route: string;
-  /** False for Warehouse & Logistics, which has no copy deck yet. */
+  /** False for Warehouse & Logistics, which has nothing written yet. */
   written?: boolean;
+  /** Icon key in src/lib/nav-icons.ts. Set where the tier shows cards. */
+  icon?: string;
+  /** One line on what the page covers. Set where the tier shows cards. */
+  blurb?: string;
 }
 
 /** The eight role pages, in the order the hub lists them. */
@@ -193,36 +197,36 @@ export const MEGA_CSTL: MegaCol[] = [
   {
     label: "The Service",
     links: [
-      { label: "Overview", route: "/overview", written: true },
-      { label: "What Is Travel Labor", route: "/what-is-travel-labor", written: true },
-      { label: "How It Works", route: "/how-it-works", written: true },
-      { label: "Travel vs. Traditional", route: "/vs-traditional", written: true },
-      { label: "Travel vs. Local Staffing", route: "/vs-local-staffing", written: true },
-      { label: "Day 1 Ready", route: "/day-1-ready", written: true },
-      { label: "Pre-Deployment Checklist", route: "/pre-deployment", written: true },
-      { label: "FAQ", route: "/faq", written: true },
+      { icon: "compass", blurb: "What the service covers, in one page", label: "Overview", route: "/overview", written: true },
+      { icon: "book", blurb: "The model, explained from scratch", label: "What Is Travel Labor", route: "/what-is-travel-labor", written: true },
+      { icon: "chain", blurb: "Assessment to demobilization, step by step", label: "How It Works", route: "/how-it-works", written: true },
+      { icon: "scales", blurb: "Where travel crews beat a local hire", label: "Travel vs. Traditional", route: "/vs-traditional", written: true },
+      { icon: "pin", blurb: "Why an agency cannot fill these seats", label: "Travel vs. Local Staffing", route: "/vs-local-staffing", written: true },
+      { icon: "flag", blurb: "Badged, trained and on the floor", label: "Day 1 Ready", route: "/day-1-ready", written: true },
+      { icon: "checklist", blurb: "What we need before we mobilize", label: "Pre-Deployment Checklist", route: "/pre-deployment", written: true },
+      { icon: "question", blurb: "The questions buyers ask first", label: "FAQ", route: "/faq", written: true },
     ],
   },
   {
     label: "Industries",
     links: [
-      { label: "Aerospace, Aviation &amp; Defense", route: "/industries/aerospace-aviation-defense", written: true },
-      { label: "Automotive", route: "/industries/automotive", written: true },
-      { label: "Chemicals &amp; Plastics", route: "/industries/chemicals-plastics", written: true },
-      { label: "Consumer Goods", route: "/industries/consumer-goods", written: true },
-      { label: "Food &amp; Beverage", route: "/industries/food-beverage", written: true },
-      { label: "Industrial Equipment", route: "/industries/industrial-equipment", written: true },
-      { label: "Oil &amp; Energy", route: "/industries/oil-energy", written: true },
-      { label: "Logistics &amp; Warehousing", route: "/industries/logistics-warehousing", written: true },
+      { icon: "plane", blurb: "Cleared crews for controlled environments", label: "Aerospace, Aviation &amp; Defense", route: "/industries/aerospace-aviation-defense", written: true },
+      { icon: "car", blurb: "Line work and tier-one suppliers", label: "Automotive", route: "/industries/automotive", written: true },
+      { icon: "flask", blurb: "Process plants and continuous runs", label: "Chemicals &amp; Plastics", route: "/industries/chemicals-plastics", written: true },
+      { icon: "cart", blurb: "High-volume packaging and assembly", label: "Consumer Goods", route: "/industries/consumer-goods", written: true },
+      { icon: "cup", blurb: "Sanitation and audited production floors", label: "Food &amp; Beverage", route: "/industries/food-beverage", written: true },
+      { icon: "gear", blurb: "Heavy fabrication and machining", label: "Industrial Equipment", route: "/industries/industrial-equipment", written: true },
+      { icon: "derrick", blurb: "Refinery turnarounds and field work", label: "Oil &amp; Energy", route: "/industries/oil-energy", written: true },
+      { icon: "truck", blurb: "Pick, pack, ship and material handling", label: "Logistics &amp; Warehousing", route: "/industries/logistics-warehousing", written: true },
     ],
   },
   {
     label: "Resources",
     links: [
-      { label: "White Papers", route: "/resources/white-papers", written: true },
-      { label: "Named Case Studies", route: "/resources/case-studies", written: true },
-      { label: "Salesheets &amp; One-Pagers", route: "/resources/sales-sheets", written: true },
-      { label: "Pricing &amp; ROI", route: "/pricing-roi" },
+      { icon: "doc", blurb: "The research behind the model", label: "White Papers", route: "/resources/white-papers", written: true },
+      { icon: "award", blurb: "Named clients, numbers and outcomes", label: "Named Case Studies", route: "/resources/case-studies", written: true },
+      { icon: "layers", blurb: "One page to take into a meeting", label: "Salesheets &amp; One-Pagers", route: "/resources/sales-sheets", written: true },
+      { icon: "chart", blurb: "What it costs against what it saves", label: "Pricing &amp; ROI", route: "/pricing-roi" },
     ],
   },
 ];
@@ -251,6 +255,12 @@ export const OTHER_SOLUTIONS: { label: string; gist: string }[] = [
 
 export interface TierSection {
   label: string;
+  /**
+   * A line under the tier saying the list above it is what we are asked for
+   * most, not the limit of what AFIMAC does. Industries and the crews both
+   * carry one, because both read as a closed list without it.
+   */
+  reach?: string;
   /** Icon key in src/lib/nav-icons.ts. */
   icon: string;
   gist: string;
@@ -285,8 +295,10 @@ export const SOLUTION_TIERS: TierSolution[] = [
     built: true,
     sections: [
       { label: "The Service", icon: "chain", gist: "What it is, how it runs, and what arrives", pages: MEGA_CSTL[0].links },
-      { label: "Industries", icon: "factory", gist: "Eight sectors where a labor gap stops the line", pages: MEGA_CSTL[1].links },
-      { label: "Who We Deploy", icon: "people", gist: "The crews, grouped by what they do", groups: BY_FUNCTION },
+      { label: "Industries", icon: "factory", gist: "Where a labor gap stops the line", pages: MEGA_CSTL[1].links,
+        reach: "AFIMAC staffs well beyond the sectors above — if a labor gap is stopping your line, the industry is rarely the obstacle." },
+      { label: "Who We Deploy", icon: "people", gist: "The crews, grouped by what they do", groups: BY_FUNCTION,
+        reach: "AFIMAC deploys across many more seats than the titles above — if the one you need is not listed, it is still one we fill." },
       { label: "Resources", icon: "doc", gist: "Papers, named results and the numbers", pages: MEGA_CSTL[2].links },
     ],
   },
