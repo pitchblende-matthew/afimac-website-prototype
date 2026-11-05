@@ -12,8 +12,8 @@ import { u } from "../../lib/base";
 import { B } from "../../data/nav";
 import { photo } from "../../lib/wireframe";
 import {
-  roleHero, roleGrid, faqBlock, insightsBlock, leadFormBlock,
-  CONSULTATION_FLAG, COST_ANSWER, SUPERVISION_ANSWER,
+  roleHero, roleGrid, familyRoles, deckRoles, faqBlock, insightsBlock, leadFormBlock,
+  CONSULTATION_FLAG, FAMILY_RETITLE, COST_ANSWER, SUPERVISION_ANSWER,
 } from "../../lib/role-blocks";
 import type { Block as BlockType } from "../../lib/types";
 
@@ -24,14 +24,26 @@ const STEPS: [string, string][] = [
   ["Demobilization", "final performance review and a planned handoff back to your permanent team (in as little as 48 hours)."],
 ];
 
+/** What the approved deck specs for the role grid, kept under the grid
+    that now renders the nav's titles instead. */
+const DECK_ROLES = [
+  "Fill, seal &amp; cap operators",
+  "Labeling &amp; date-code techs",
+  "Case pack &amp; palletizers",
+  "Packaging machine operators",
+  "Kitting &amp; repack crews",
+  "Line leads &amp; quality checks",
+];
+
 const blocks: BlockType[] = [
   roleHero({
-    h1: "Packaging Crews That Make the Ship Window",
+    h1: "Packaging Operations That Make the Ship Window",
     sub: "Ship Window Closing? Co-Packing Surge? A Launch Waiting on the Line?",
     body: "Nothing counts until it’s packed, labeled, and on the pallet. AFIMAC deploys screened, travel-ready packaging crews, fill to pallet, and manages them on your line, housing included, until the orders are moving again.",
     cta2: "See the roles",
     cta2Href: "#roles",
     img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a packaging line in motion, product moving through fill and case pack toward a stretch-wrapped pallet in the foreground — the finished pallet is the story · muted industrial tone under the navy scrim · focal area centre · mobile crop 1080×1350",
+    note: FAMILY_RETITLE,
     spec: `<b>Elementor:</b> Container (centred, bg image + navy overlay) · Breadcrumbs · Heading ×3 · Text Editor · Button ×2.`,
   }),
 
@@ -40,14 +52,8 @@ const blocks: BlockType[] = [
     n: "BLOCK 02 · ROLES WE DEPLOY",
     h: `
   <h2>Fill to pallet, every station</h2>
-  ${roleGrid([
-    "Fill, seal &amp; cap operators",
-    "Labeling &amp; date-code techs",
-    "Case pack &amp; palletizers",
-    "Packaging machine operators",
-    "Kitting &amp; repack crews",
-    "Line leads &amp; quality checks",
-  ])}
+  ${roleGrid(familyRoles("Packaging Operations"))}
+  ${deckRoles(DECK_ROLES)}
   <div class="note">The first three are verbatim from the approved Food &amp; Beverage page copy’s Packaging group; machine operators, kitting &amp; repack, and line leads extend it from the approved logistics doc’s Packing &amp; Kitting family. <b>Confirm the full taxonomy with AFIMAC ops before build.</b></div>`,
     spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×6. <b>Asset gap:</b> six line icons, SVG 96×96, from the shared CSTL set.`,
   },
@@ -139,13 +145,13 @@ const blocks: BlockType[] = [
 ---
 
 <Prototype
-  title="Packaging Crews That Make the Ship Window"
+  title="Packaging Operations"
   crumb="Solutions › CSTL › Who We Deploy › Packaging Operations"
   url={`${B}roles/packaging-operations/`}
   status="build"
   active="/roles/packaging-operations"
   meta={{
-    t: "Packaging Operator &amp; Line Staffing | AFIMAC Global",
+    t: "Packaging Operations Staffing | AFIMAC Global",
     d: "Packaging line short-staffed against a ship window? AFIMAC deploys screened, travel-ready packaging crews in days, fill to pallet, housing handled.",
     k: "packaging operator staffing · packaging line staffing — secondary: fill and seal operator staffing · case packer staffing · co-packing surge labor · labeling line staffing · packaging crew travel labor",
   }}

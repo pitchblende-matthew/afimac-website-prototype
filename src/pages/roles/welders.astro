@@ -11,8 +11,8 @@ import { EBOOK_ART } from "../../data/live-media";
 import { B } from "../../data/nav";
 import { photo, liveImg } from "../../lib/wireframe";
 import {
-  roleHero, roleGrid, faqBlock, insightsBlock, leadFormBlock,
-  CONSULTATION_FLAG, COST_ANSWER, SUPERVISION_ANSWER,
+  roleHero, roleGrid, familyRoles, deckRoles, faqBlock, insightsBlock, leadFormBlock,
+  CONSULTATION_FLAG, FAMILY_RETITLE, COST_ANSWER, SUPERVISION_ANSWER,
 } from "../../lib/role-blocks";
 import type { Block as BlockType } from "../../lib/types";
 
@@ -23,15 +23,24 @@ const CHIPS = [
   "Demobilization (in as little as 48 hours)",
 ];
 
+/** What the approved deck specs for the role grid, kept under the grid
+    that now renders the nav's titles instead. */
+const DECK_ROLES = [
+  "Welders (MIG, TIG, stick &amp; flux-core)",
+  "Robotic welding technicians",
+  "Fabricators",
+  "Weld quality &amp; inspection support",
+];
+
 const blocks: BlockType[] = [
   roleHero({
-    h1: "Welders &amp; Fabricators, On the Floor in Days",
+    h1: "Welding &amp; Fabrication, On the Floor in Days",
     sub: "Weld Booths Empty? Fab Backlog Growing? A Line Start-up Coming?",
     body: "Every empty weld booth is throughput you’re not shipping. AFIMAC staffs empty seats with screened, travel-ready welders and fabricators, then manages the crew and the housing for as long as you need them.",
     cta2: "See the roles",
     cta2Href: "#roles",
     img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a welder mid-bead, sparks against a dark fabrication bay, hood down · muted industrial tone under the navy scrim, let the weld light carry the frame · focal area centre-right · mobile crop 1080×1350",
-    note: "<b>Speed claim, still open.</b> The live CSTL pillar’s meta claims deployment in <b>24 to 72 hours</b>; the approved process doc’s phase math runs longer. This page stays on “in days” until Maria confirms which claim the cluster carries — the same conflict logged on the brand check.",
+    note: `${FAMILY_RETITLE}<br><br><b>Speed claim, still open.</b> The live CSTL pillar’s meta claims deployment in <b>24 to 72 hours</b>; the approved process doc’s phase math runs longer. This page stays on “in days” until Maria confirms which claim the cluster carries — the same conflict logged on the brand check.`,
     spec: `<b>Elementor:</b> Container (centred, bg image + navy overlay) · Breadcrumbs · Heading ×3 · Text Editor · Button ×2.`,
   }),
 
@@ -41,12 +50,8 @@ const blocks: BlockType[] = [
     h: `
   <h2>Matched to the processes you run</h2>
   <div style="margin:26px 0">${photo("Weld process tile grid · SVG square, art 960×960, min render 640×640 · five labelled tiles: MIG · TIG · Stick · Flux-core · Robotic cells · flat isometric, greys with safety-orange and blue")}</div>
-  ${roleGrid([
-    "Welders (MIG, TIG, stick &amp; flux-core)",
-    "Robotic welding technicians",
-    "Fabricators",
-    "Weld quality &amp; inspection support",
-  ])}
+  ${roleGrid(familyRoles("Welding &amp; Fabrication"))}
+  ${deckRoles(DECK_ROLES)}
   <div class="note">Fabricators appear in the pillar’s published Manufacturing role list, and robotic welding techs in the automotive skilled-labor content. <b>Confirm the process breakdown, any code or certification screening specifics, and the inspection role with AFIMAC ops before build</b> — nothing on this page promises a welding code.</div>`,
     spec: `<b>Elementor:</b> Heading · Image (SVG) · Container (3-col) · EK Icon Box ×4. Four roles into a 3-col grid leaves an orphan — run 2×2, or add the fifth role if ops confirms one.`,
   },
@@ -152,13 +157,13 @@ const blocks: BlockType[] = [
 ---
 
 <Prototype
-  title="Welders &amp; Fabricators, On the Floor in Days"
-  crumb="Solutions › CSTL › Who We Deploy › Welders &amp; Fabricators"
+  title="Welding &amp; Fabrication"
+  crumb="Solutions › CSTL › Who We Deploy › Welding &amp; Fabrication"
   url={`${B}roles/welders/`}
   status="build"
   active="/roles/welders"
   meta={{
-    t: "Certified Welder Staffing &amp; Travel Labor | AFIMAC Global",
+    t: "Welding &amp; Fabrication Staffing | AFIMAC Global",
     d: "Welding labor shortage? AFIMAC sends screened, travel-ready welders and fabricators to your plant in days, with housing and supervision handled.",
     k: "welder staffing · welding labor shortage — secondary: travel welders · temporary welders · fabricator staffing · robotic welding technicians · contract welders",
   }}

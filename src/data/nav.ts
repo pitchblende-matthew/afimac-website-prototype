@@ -133,6 +133,9 @@ export const NAV: NavItem[] = [
         // family entry gives no sign of that. Marked part-written so the dot
         // says what the label cannot.
         ...k("Material Handling &amp; Warehouse Operations", "/roles/forklift-operators", "partial"),
+        // The route is notional: the page does not exist, and ROLE_PAGES
+        // still resolves this label to the hub. It is spelled out here so
+        // the count sees a distinct page rather than folding into /roles.
         covers: [k("Warehouse &amp; Logistics — no copy yet", "/roles/warehouse-logistics", "todo")],
       },
       k("Packaging Operations", "/roles/packaging-operations", "ready"),
