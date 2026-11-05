@@ -57,6 +57,13 @@ const REDIRECTS: [string, string][] = [
   ["/roles/machinists/", "/who-we-deploy/machinists/"],
 ];
 
+/** Hoisted out of the FAQ array: a nested backtick inside an array literal
+    inside the frontmatter is valid TypeScript and not valid Astro. */
+const WHICH_ROLES =
+  "The " + numWord(FAMILY_STATS.families) + " crews on this page are the ones AFIMAC is asked for most, " +
+  "and it staffs plenty of roles outside them. " +
+  '<a href="' + u("/who-we-deploy/other-roles") + '">Tell us the role you need</a> and we will tell you how long it takes to get people there.';
+
 const blocks: BlockType[] = [
   roleHero({
     h1: "Who We Deploy",
@@ -89,7 +96,7 @@ const blocks: BlockType[] = [
     n: "BLOCK 03 · THE SIX FAMILIES",
     h: `
   <h2>${NumWord(FAMILY_STATS.families)} families, ${FAMILY_STATS.titles} job titles</h2>
-  <p class="lead">The families are how the crews are organised and how this section is navigated. The job titles under each are what a family actually covers — not every seat AFIMAC fills, but the ones asked for most.</p>
+  <p class="lead">The families are how the crews are organized and how this section is navigated. The job titles under each are what a family actually covers — not every seat AFIMAC fills, but the ones asked for most.</p>
   <div class="g3 famgrid">${cards}</div>
   <div class="note"><b>The cards, the dropdown and the role grids on the six pages all read from one list.</b> A family cannot gain a job title here and keep the old set in the menu.</div>`,
     spec: `<b>Elementor:</b> Container (3-col) · EK Image Box ×6, linked to the six family pages. <b>Asset gap:</b> six family icons or photographs, not yet commissioned — the role-page icon set should cover them.`,
@@ -98,14 +105,14 @@ const blocks: BlockType[] = [
   {
     n: "BLOCK 04 · BEYOND THE SIX",
     h: `
-  <h2>The six are the common asks, not the limit</h2>
-  <p class="lead">AFIMAC's published role list runs wider than the families. ${NumWord(UNCOVERED_ROLE_COUNT)} of the roles named on the live site sit outside the six — instrumentation, heavy equipment, inventory control and the logistics seats among them.</p>
-  <div class="tscroll" style="margin-top:22px"><table class="cmp"><thead><tr><th>Group</th><th class="hl">Roles outside the six families</th></tr></thead><tbody>
+  <h2>The ${numWord(FAMILY_STATS.families)} are the most common asks</h2>
+  <p class="lead">AFIMAC staffs plenty of roles outside them — instrumentation, heavy equipment, inventory control and the logistics seats among them. For a less common role the question is usually how long it takes to recruit for, and that is settled on the first call.</p>
+  <div class="tscroll" style="margin-top:22px"><table class="cmp"><thead><tr><th>Group</th><th class="hl">Examples from our industry work</th></tr></thead><tbody>
    ${UNCOVERED_LIVE_ROLES.map(([g, rs]) => `<tr><th>${g}</th><td class="hl">${rs.join(" · ")}</td></tr>`).join("")}
   </tbody></table></div>
-  <p style="margin-top:22px"><a class="btn" href="${u("/who-we-deploy/other-roles")}">Tell us the seat you need &raquo;</a></p>
-  <div class="note"><b>Every role in that table is already published on afimacglobal.com</b> — this page is not widening the claim, it is pointing at the part of the published list the six families do not reach. <a href="${u("/who-we-deploy/other-roles")}">The page behind the button</a> carries the full list and the form.</div>`,
-    spec: `<b>Elementor:</b> Heading · Text Editor · Table or EK Icon List · Button. <b>Read from the live site's role groups</b>, so if AFIMAC publishes a new role this table picks it up rather than going stale.`,
+  <p style="margin-top:22px"><a class="btn" href="${u("/who-we-deploy/other-roles")}">Tell us the role you need &raquo;</a></p>
+  <div class="note"><b>These are examples, and the copy says so.</b> They are read from AFIMAC's live industry pages with the ${numWord(FAMILY_STATS.families)} families' own job titles removed, so the table cannot name a role the site does not already name. <b>It is not a list of everything AFIMAC fills</b> — printing one would invite a reader to treat anything missing as a no.</div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · Table or EK Icon List · Button. <b>Read from the live site's role groups</b>, so a newly published role appears here rather than the table going stale.`,
   },
 
   {
@@ -149,7 +156,7 @@ const blocks: BlockType[] = [
     n: "BLOCK 07 · FAQ",
     h2: "Questions buyers ask first",
     items: [
-      ["Which roles can you actually deploy?", `The six families on this page cover the seats asked for most. AFIMAC's published role list runs wider — ${numWord(UNCOVERED_ROLE_COUNT)} further roles across manufacturing, warehousing and logistics. If the seat you need is not named, it is still worth asking.`],
+      ["Which roles can you actually deploy?", WHICH_ROLES],
       ["How fast can a crew be on site?", "Within days of a signed plan for most roles. Exact timing depends on the roles, the headcount, the location and the compliance requirements."],
       ["Who supervises the crew?", SUPERVISION_ANSWER],
       ["How long can a crew stay?", "As long as the gap lasts. Engagements are temporary by design and end with a planned demobilization when your permanent workforce recovers."],
@@ -203,7 +210,7 @@ const blocks: BlockType[] = [
   active="/who-we-deploy"
   meta={{
     t: "Who We Deploy: Skilled Travel Labor Crews | AFIMAC Global",
-    d: "AFIMAC deploys machining, welding, production, material handling, packaging and sanitation crews to your plant in days, with travel, housing and supervision handled.",
+    d: "AFIMAC deploys machining, welding, production, material handling, packaging and sanitation crews in days, with travel, housing and supervision handled.",
     k: "travel labor crews · skilled labor staffing — secondary: travel welders · travel machinists · warehouse staffing · production staffing · sanitation staffing",
   }}
 >
