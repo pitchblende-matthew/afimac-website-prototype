@@ -10,8 +10,8 @@ import { u } from "../../lib/base";
 import { B } from "../../data/nav";
 import { photo } from "../../lib/wireframe";
 import {
-  roleHero, roleGrid, faqBlock, insightsBlock, leadFormBlock,
-  CONSULTATION_FLAG, COST_ANSWER, SUPERVISION_ANSWER,
+  roleHero, roleGrid, familyRoles, deckRoles, faqBlock, insightsBlock, leadFormBlock,
+  CONSULTATION_FLAG, FAMILY_RETITLE, COST_ANSWER, SUPERVISION_ANSWER,
 } from "../../lib/role-blocks";
 import type { Block as BlockType } from "../../lib/types";
 
@@ -37,15 +37,25 @@ const PHASES: [string, string, string[]][] = [
     "Release travel crews and close out the engagement"]],
 ];
 
+/** What the approved deck specs for the role grid, kept under the grid
+    that now renders the nav's titles instead. */
+const DECK_ROLES = [
+  "CNC operators (mill &amp; lathe)",
+  "CNC machinists",
+  "CNC programmers",
+  "Machine setup &amp; changeover support",
+  "Quality &amp; inspection support",
+];
+
 const blocks: BlockType[] = [
   roleHero({
-    h1: "CNC Operator Staffing, On Site in Days",
+    h1: "Machining &amp; Precision Manufacturing, On Site in Days",
     sub: "Machines Idle? Backlog Growing? Machinists Retiring Faster Than You Can Hire?",
-    body: "When machining capacity is the bottleneck, AFIMAC is your partner in CNC operator and machinist staffing. Get a crew on your floor in days with travel, housing, and on-site supervision covered.",
+    body: "When machining capacity is the bottleneck, AFIMAC is your partner in machining and precision manufacturing staffing — operators, machinists, programmers and setup. Get a crew on your floor in days with travel, housing, and on-site supervision covered.",
     cta2: "See the process",
     cta2Href: "#process",
     img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a CNC operator at the control of a machining center, shop floor depth behind · muted industrial tone under the navy scrim · focal area centre-left · mobile crop 1080×1350",
-    note: "Copy fix carried into the build: the deck reads “your partner in&nbsp;&nbsp;CNC operator” and “vetted, travel-ready&nbsp;&nbsp;crews” in the meta — double spaces, closed up here. Flag with the rest of the copy queries.",
+    note: `${FAMILY_RETITLE} Also carried into the build: the deck reads “your partner in&nbsp;&nbsp;CNC operator” and “vetted, travel-ready&nbsp;&nbsp;crews” in the meta — double spaces, closed up here.`,
     spec: `<b>Elementor:</b> Container (centred, bg image + navy overlay) · Breadcrumbs · Heading ×3 · Text Editor · Button ×2. Same hero pattern on all seven role pages — build once as a saved section and swap the copy.`,
   }),
 
@@ -67,14 +77,9 @@ const blocks: BlockType[] = [
     cls: "wash",
     n: "BLOCK 03 · ROLES WE DEPLOY",
     h: `
-  <h2>Machining roles, ready to travel</h2>
-  ${roleGrid([
-    "CNC operators (mill &amp; lathe)",
-    "CNC machinists",
-    "CNC programmers",
-    "Machine setup &amp; changeover support",
-    "Quality &amp; inspection support",
-  ])}
+  <h2>The machining seats, ready to travel</h2>
+  ${roleGrid(familyRoles("Machining &amp; Precision Manufacturing"))}
+  ${deckRoles(DECK_ROLES)}
   <div class="note">Role list is built from AFIMAC’s published in-demand roles — CNC machinists and programmers appear in the automotive skilled-labor content. <b>Confirm the exact role taxonomy and any platform or controls screening specifics with AFIMAC ops before build;</b> nothing on the page promises a specific machine brand.</div>`,
     spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×5. <b>Asset gap:</b> five line icons, SVG 96×96, matching the existing CSTL page icon style — not yet drawn. The same gap repeats on every role page; commission the full icon set once.`,
   },
@@ -176,14 +181,14 @@ const blocks: BlockType[] = [
 ---
 
 <Prototype
-  title="CNC Operator Staffing, On Site in Days"
-  crumb="Solutions › CSTL › Who We Deploy › CNC Operators"
+  title="Machining &amp; Precision Manufacturing"
+  crumb="Solutions › CSTL › Who We Deploy › Machining &amp; Precision Manufacturing"
   url={`${B}roles/cnc-operators/`}
   status="build"
   active="/roles/cnc-operators"
   meta={{
-    t: "CNC Operator Staffing &amp; Travel Labor | AFIMAC Global",
-    d: "Need CNC operator staffing? AFIMAC puts vetted, travel-ready crews on your floor in days, with housing and supervision handled.",
+    t: "Machining &amp; Precision Manufacturing Staffing | AFIMAC Global",
+    d: "Need CNC operators, machinists or programmers? AFIMAC puts vetted, travel-ready machining crews on your floor in days, with housing and supervision handled.",
     k: "CNC operator staffing · CNC machinist staffing — secondary: travel CNC machinists · temporary CNC operators · machining labor shortage · contract CNC operators",
   }}
 >

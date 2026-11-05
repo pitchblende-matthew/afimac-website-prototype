@@ -12,8 +12,8 @@ import { u } from "../../lib/base";
 import { B } from "../../data/nav";
 import { photo } from "../../lib/wireframe";
 import {
-  roleHero, roleGrid, faqBlock, insightsBlock, leadFormBlock,
-  CONSULTATION_FLAG, COST_ANSWER, SUPERVISION_ANSWER,
+  roleHero, roleGrid, familyRoles, deckRoles, faqBlock, insightsBlock, leadFormBlock,
+  CONSULTATION_FLAG, FAMILY_RETITLE, COST_ANSWER, SUPERVISION_ANSWER,
 } from "../../lib/role-blocks";
 import type { Block as BlockType } from "../../lib/types";
 
@@ -24,14 +24,26 @@ const PHASES: [string, string][] = [
   ["DEMOBILIZATION · IN AS LITTLE AS 48 HOURS", "Final performance review and a planned handoff back to your permanent team."],
 ];
 
+/** What the approved deck specs for the role grid, kept under the grid
+    that now renders the nav's titles instead. */
+const DECK_ROLES = [
+  "Sanitation (SSOP) crews",
+  "Deep-clean &amp; changeover teams",
+  "Wash-down &amp; CIP operators",
+  "GMP compliance support",
+  "Industrial cleaning &amp; facility crews",
+  "Wastewater treatment technicians",
+];
+
 const blocks: BlockType[] = [
   roleHero({
-    h1: "Sanitation Crews That Keep You Audit-Ready",
+    h1: "Sanitation &amp; Facility Support That Keeps You Audit-Ready",
     sub: "Sanitation Shortfall? Deep Clean Overdue? Third Shift Running Thin?",
     body: "Sanitation is the shift that makes every other shift possible. When the crew that resets your plant runs short, AFIMAC deploys screened, travel-ready sanitation workers in days, and manages the team, housing included, for as long as the gap lasts.",
     cta2: "See the roles",
     cta2Href: "#roles",
     img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a sanitation crew in wash-down gear working a production room under night-shift lighting, wet stainless surfaces carrying the light · muted industrial tone under the navy scrim · focal area centre · mobile crop 1080×1350",
+    note: FAMILY_RETITLE,
     spec: `<b>Elementor:</b> Container (centred, bg image + navy overlay) · Breadcrumbs · Heading ×3 · Text Editor · Button ×2. The only night-lit hero in the cluster — brief the photographer separately.`,
   }),
 
@@ -55,15 +67,9 @@ const blocks: BlockType[] = [
     cls: "wash",
     n: "BLOCK 03 · ROLES WE DEPLOY",
     h: `
-  <h2>The whole sanitation shift, covered</h2>
-  ${roleGrid([
-    "Sanitation (SSOP) crews",
-    "Deep-clean &amp; changeover teams",
-    "Wash-down &amp; CIP operators",
-    "GMP compliance support",
-    "Industrial cleaning &amp; facility crews",
-    "Wastewater treatment technicians",
-  ])}
+  <h2>The sanitation shift and the facility behind it</h2>
+  ${roleGrid(familyRoles("Sanitation &amp; Facility Support"))}
+  ${deckRoles(DECK_ROLES)}
   <div class="note">The first four are verbatim from the approved Food &amp; Beverage page copy’s Sanitation &amp; GMP group, and wastewater treatment technicians appear in the published cluster roles. <b>Industrial cleaning extends the group to non-food plants — confirm that extension and the full taxonomy with AFIMAC ops before build.</b></div>`,
     spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×6. <b>Asset gap:</b> six line icons, SVG 96×96, from the shared CSTL set.`,
   },
@@ -152,13 +158,13 @@ const blocks: BlockType[] = [
 ---
 
 <Prototype
-  title="Sanitation Crews That Keep You Audit-Ready"
-  crumb="Solutions › CSTL › Who We Deploy › Sanitation Crews"
+  title="Sanitation &amp; Facility Support"
+  crumb="Solutions › CSTL › Who We Deploy › Sanitation &amp; Facility Support"
   url={`${B}roles/sanitation-crews/`}
   status="build"
   active="/roles/sanitation-crews"
   meta={{
-    t: "Sanitation Crew Staffing &amp; Travel Labor | AFIMAC Global",
+    t: "Sanitation &amp; Facility Support Staffing | AFIMAC Global",
     d: "Sanitation shift running short? AFIMAC deploys screened, travel-ready sanitation crews to food and industrial plants in days, with housing handled.",
     k: "sanitation crew staffing · sanitation staffing — secondary: food plant sanitation crews · deep-clean staffing · SSOP sanitation workers · CIP operator staffing · third-shift sanitation labor",
   }}

@@ -10,8 +10,8 @@ import { u } from "../../lib/base";
 import { B } from "../../data/nav";
 import { photo } from "../../lib/wireframe";
 import {
-  roleHero, roleGrid, faqBlock, insightsBlock, leadFormBlock,
-  CONSULTATION_FLAG, COST_ANSWER, SUPERVISION_ANSWER,
+  roleHero, roleGrid, familyRoles, deckRoles, faqBlock, insightsBlock, leadFormBlock,
+  CONSULTATION_FLAG, FAMILY_RETITLE, COST_ANSWER, SUPERVISION_ANSWER,
 } from "../../lib/role-blocks";
 import type { Block as BlockType } from "../../lib/types";
 
@@ -22,14 +22,25 @@ const RAIL: [string, string][] = [
   ["DEMOBILIZATION — IN AS LITTLE AS 48 HOURS", "Wind down with a final performance review and a clean handoff back to your permanent workforce."],
 ];
 
+/** What the approved deck specs for the role grid, kept under the grid
+    that now renders the nav's titles instead. */
+const DECK_ROLES = [
+  "Forklift operators (sit-down counterbalance)",
+  "Reach truck &amp; narrow-aisle operators",
+  "Order picker operators",
+  "Electric pallet jack operators",
+  "Material handlers &amp; loaders",
+];
+
 const blocks: BlockType[] = [
   roleHero({
-    h1: "Certified Forklift Operators, On Site in Days",
+    h1: "Material Handling &amp; Warehouse Operations, On Site in Days",
     sub: "Trailers Backing Up? Peak Season Coming? Turnover Thinning Your Dock Crew?",
-    body: "Pallets don’t move themselves. When your warehouse or plant is short on certified operators, rely on AFIMAC for travel-ready forklift operator staffing. Our certified crews arrive with housing and supervision handled.",
+    body: "Pallets don’t move themselves. When your warehouse or plant is short-handed, rely on AFIMAC for travel-ready material handling crews — forklift and reach truck operators, order selectors and material handlers. They arrive with housing and supervision handled.",
     cta2: "See the roles",
     cta2Href: "#roles",
     img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a forklift operator moving a pallet down a high-bay racking aisle, depth down the aisle · muted industrial tone under the navy scrim · focal area centre · mobile crop 1080×1350",
+    note: FAMILY_RETITLE,
     spec: `<b>Elementor:</b> Container (centred, bg image + navy overlay) · Breadcrumbs · Heading ×3 · Text Editor · Button ×2.`,
   }),
 
@@ -37,16 +48,11 @@ const blocks: BlockType[] = [
     id: "roles",
     n: "BLOCK 02 · ROLES &amp; EQUIPMENT",
     h: `
-  <h2>Operators for every truck on your floor</h2>
+  <h2>The dock and the warehouse floor, covered</h2>
   <p class="lead">Every operator clears certification and credential checks before travel, and site-specific safety onboarding before the first shift.</p>
   <div style="margin:26px 0">${photo("Equipment class lineup · SVG 2400×600 (4:1), stacks to two rows under 768px · five silhouetted truck types in a row with a label beneath each: Counterbalance · Reach truck · Order picker · Electric pallet jack · Material handling · flat isometric, greys with safety-orange and blue")}</div>
-  ${roleGrid([
-    "Forklift operators (sit-down counterbalance)",
-    "Reach truck &amp; narrow-aisle operators",
-    "Order picker operators",
-    "Electric pallet jack operators",
-    "Material handlers &amp; loaders",
-  ])}`,
+  ${roleGrid(familyRoles("Material Handling &amp; Warehouse Operations"))}
+  ${deckRoles(DECK_ROLES)}`,
     spec: `<b>Elementor:</b> Heading · Text Editor · Image (SVG) · Container (3-col) · EK Icon Box ×5. <b>Asset gap:</b> the equipment lineup is a new SVG — five truck silhouettes, and the only graphic in the cluster that has to read at a glance on mobile.`,
   },
 
@@ -152,14 +158,14 @@ const blocks: BlockType[] = [
 ---
 
 <Prototype
-  title="Certified Forklift Operators, On Site in Days"
-  crumb="Solutions › CSTL › Who We Deploy › Forklift Operators"
+  title="Material Handling &amp; Warehouse Operations"
+  crumb="Solutions › CSTL › Who We Deploy › Material Handling &amp; Warehouse Operations"
   url={`${B}roles/forklift-operators/`}
   status="build"
   active="/roles/forklift-operators"
   meta={{
-    t: "Forklift Operator Staffing &amp; Travel Labor | AFIMAC Global",
-    d: "Need forklift operator staffing? AFIMAC sends certified, travel-ready crews to your warehouse or plant in days, with housing and supervision handled.",
+    t: "Material Handling &amp; Warehouse Staffing | AFIMAC Global",
+    d: "Need forklift operators, reach truck operators, order selectors or material handlers? AFIMAC sends certified, travel-ready crews to your warehouse or plant in days, with housing and supervision handled.",
     k: "forklift operator staffing · forklift driver staffing — secondary: temporary forklift operators · travel forklift drivers · warehouse labor shortage · material handler staffing",
   }}
 >

@@ -10,6 +10,7 @@
 import { photo, liveImg } from "./wireframe";
 import { postArt, postTitleDrift } from "../data/live-media";
 import { u } from "./base";
+import { ROLE_FAMILIES } from "../data/nav-options";
 import type { Block } from "./types";
 
 /** Hero — same shape on all seven role pages, dark band, full-bleed photo. */
@@ -39,6 +40,32 @@ export function roleHero(o: {
     spec: o.spec,
   };
 }
+
+/**
+ * The job titles the nav lists under a family, read from the same data the
+ * menu renders.
+ *
+ * A dropdown that promises six titles and a page that then shows a different
+ * five is drift nobody notices until a client does. Taking both from
+ * ROLE_FAMILIES makes that impossible rather than merely unlikely.
+ */
+export const familyRoles = (family: string): string[] => {
+  const f = ROLE_FAMILIES.find((x) => x.label === family);
+  if (!f) throw new Error(`No role family named "${family}" in ROLE_FAMILIES`);
+  return f.roles;
+};
+
+/**
+ * The deck's own role lines, kept visible under the grid that replaced them.
+ *
+ * The approved decks carry detail the nav's titles do not — processes, truck
+ * classes, what "support" covers. Dropping it silently would lose approved
+ * copy; printing it here leaves the choice on the page where it can be made.
+ */
+export const deckRoles = (lines: string[]): string =>
+  `<div class="note"><b>The grid above is the nav's list. The deck's is not the same list.</b> The approved deck specs ${lines.length}: ${lines
+    .map((l) => `<i>${l}</i>`)
+    .join(" · ")}. That detail is worth keeping — <b>decide whether the grid shows the family's job titles or the deck's lines</b>, because the dropdown promises the first and the copy was written for the second.</div>`;
 
 /** Role list rendered as an icon grid — the decks all spec 96×96 line icons. */
 export function roleGrid(roles: string[]): string {
@@ -146,6 +173,16 @@ export function leadFormBlock(o: {
     spec: o.spec,
   };
 }
+
+/**
+ * The flag every family page carries in its hero.
+ *
+ * The H1, the title and the meta on these pages are no longer the deck's —
+ * they follow the family the nav puts the page under. That is a real
+ * departure from approved copy and is said on the page rather than left for
+ * someone to discover at build.
+ */
+export const FAMILY_RETITLE = `<b>The H1, the page title and the meta here are not the deck's.</b> The nav entry is <i>Who We Deploy</i> and this page sits under its family rather than under one job title, so the title follows the family. <b>The deck's own wording is unchanged and still approved.</b> If the family titles are right, the decks need re-issuing to match; if the decks are right, the nav is what moves. <b>One or the other has to give.</b>`;
 
 /** The naming flag every role deck carries into its cost answer. */
 export const CONSULTATION_FLAG = `“Consultation” in the cost answer carries the same naming flag as the hub — <a href="${u("/brand-check")}">still open</a>, pending Maria.`;
