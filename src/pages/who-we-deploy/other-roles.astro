@@ -3,7 +3,7 @@
  * OTHER ROLES WE DEPLOY — the page behind the nav's "Looking for something
  * else?" entry.
  *
- * A form page. The six families in the menu are the crews AFIMAC is asked for
+ * A form page. The families in the menu are the crews AFIMAC is asked for
  * most; it staffs plenty of roles outside them. The page exists to say so and
  * take the enquiry.
  *
@@ -18,14 +18,14 @@ import { u } from "../../lib/base";
 import { B } from "../../data/nav";
 import { photo } from "../../lib/wireframe";
 import { roleHero, leadFormBlock, faqBlock, COST_ANSWER, SUPERVISION_ANSWER } from "../../lib/role-blocks";
-import { ROLE_FAMILIES, FAMILY_STATS, NETWORK_STATS, numWord } from "../../data/nav-options";
+import { ROLE_FAMILIES, NETWORK_STATS } from "../../data/nav-options";
 import type { Block as BlockType } from "../../lib/types";
 
 const blocks: BlockType[] = [
   roleHero({
     h1: "Tell Us the Role You Need",
-    sub: "The Six Crews in the Menu Are the Ones We Are Asked for Most",
-    body: `AFIMAC staffs plenty of roles beyond those ${numWord(FAMILY_STATS.families)}. If what you are short of is not in the menu, tell us the role and when you need people on site, and we will tell you how long it would take to get them there.`,
+    sub: "The Crews in the Menu Are the Ones We Are Asked for Most",
+    body: `AFIMAC staffs plenty of roles beyond them. If what you are short of is not in the menu, tell us the role and when you need people on site, and we will tell you how long it would take to get them there.`,
     cta2: "How long it takes",
     cta2Href: "#timing",
     img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a supervisor on a plant floor mid-conversation, clipboard, crew working behind · muted industrial tone under the navy scrim · mobile crop 1080×1350",
@@ -48,7 +48,7 @@ const blocks: BlockType[] = [
     n: "BLOCK 03 · THE NETWORK",
     h: `
   <h2>A network of 20,000+ to recruit from</h2>
-  <p class="lead">AFIMAC draws from a network of 20,000+ skilled and unskilled workers who are vetted, mobile and ready to work. Crews are built for the role you are short of. The ${numWord(FAMILY_STATS.families)} families in the menu are the trades AFIMAC is asked for most, and the network reaches well past them.</p>
+  <p class="lead">AFIMAC draws from a network of 20,000+ skilled and unskilled workers who are vetted, mobile and ready to work. Crews are built for the role you are short of. The families in the menu are the trades AFIMAC is asked for most, and the network reaches well past them.</p>
   <div class="g4" style="margin-top:28px">
    ${NETWORK_STATS.map(([fig, label]) => `<div><div class="stat">${fig}</div><p>${label}</p></div>`).join("")}
   </div>
@@ -65,7 +65,7 @@ const blocks: BlockType[] = [
   <h2>How long a role takes to source</h2>
   <p class="lead">How fast a role reaches your site comes down to how many of those 20,000 hold it, what screening and credentials it needs, and how far they have to travel.</p>
   <div class="g3" style="margin-top:26px">
-   <div class="card"><div class="blocknum">ROLES WE STAFF MOST OFTEN</div><h3>Days from a signed plan</h3><p style="margin:0">The ${numWord(FAMILY_STATS.families)} crews in the menu and the roles around them. We keep a deep bench in these trades, so most of the lead time goes on travel, housing and site onboarding.</p></div>
+   <div class="card"><div class="blocknum">ROLES WE STAFF MOST OFTEN</div><h3>Days from a signed plan</h3><p style="margin:0">The crews in the menu and the roles around them. We keep a deep bench in these trades, so most of the lead time goes on travel, housing and site onboarding.</p></div>
    <div class="card"><div class="blocknum">SPECIALIST AND UNCOMMON ROLES</div><h3>Longer to source</h3><p style="margin:0">There are fewer candidates to start from, so recruiting and screening take more time. You get a date before you commit to anything.</p></div>
    <div class="card"><div class="blocknum">LICENSES AND CLEARANCES</div><h3>Depends on the site</h3><p style="margin:0">Where a role needs a specific license, certification or site clearance, how long that takes to verify usually sets the schedule.</p></div>
   </div>
@@ -114,7 +114,7 @@ const blocks: BlockType[] = [
    </div>
    ${photo("1200×1500 JPG (4:5) beside the copy · two people at a plant-floor table with a site plan between them · muted tone · no staged handshake")}
   </div>
-  <div class="note"><b>Confirm the routing before build.</b> This form is specified as going to the same destination as the rest of the cluster. <b>If AFIMAC wants enquiries for roles outside the six triaged differently, that decision has not been made.</b></div>`,
+  <div class="note"><b>Confirm the routing before build.</b> This form is specified as going to the same destination as the rest of the cluster. <b>If AFIMAC wants enquiries for roles outside the listed crews triaged differently, that decision has not been made.</b></div>`,
     spec: `<b>Elementor:</b> Heading · Text Editor · Image. "Within one business day" matches the form's own consent line — keep the two in step.`,
   },
 ];
@@ -128,7 +128,7 @@ const blocks: BlockType[] = [
   active="/who-we-deploy/other-roles"
   meta={{
     t: "Specialty Labor & Hard-to-Fill Role Staffing | AFIMAC Global",
-    d: "Short of a role outside AFIMAC's six crews? AFIMAC recruits to the role from a network of 20,000+ vetted, mobile workers. Tell us what you need and when.",
+    d: "Short of a role that is not in the menu? AFIMAC recruits to the role from a network of 20,000+ vetted, mobile workers. Tell us what you need and when.",
     k: "specialty labor staffing · hard-to-fill roles — secondary: skilled labor network · contract labor recruiting · travel labor staffing · workforce gap staffing",
   }}
 >
