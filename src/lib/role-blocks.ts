@@ -29,7 +29,7 @@ export function roleHero(o: {
     cls: "dark",
     n: "BLOCK 01 · HERO",
     h: `
-  <p class="eyebrow">Critical Situation Travel Labor · Roles</p>
+  <p class="eyebrow">Critical Situation Travel Labor · Who We Deploy</p>
   <h1>${o.h1}</h1>
   <p class="sub"><b>${o.sub}</b></p>
   <p class="lead">${o.body}</p>

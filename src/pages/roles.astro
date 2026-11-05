@@ -24,10 +24,11 @@ const ROLES: [string, string | null, string, string][] = [
 
 const blocks: BlockType[] = [
   {
-    n: "THE ROLE CLUSTER",
+    n: "WHO WE DEPLOY · THE ROLE CLUSTER",
     h: `
-  <h1>CSTL Roles</h1>
+  <h1>Who We Deploy</h1>
   <p class="lead">Eight role pages, skilled trades plus production. Seven now have approved copy and are wireframed below; the eighth is still to be written.</p>
+  <p class="lead"><b>The sub-nav above lists six families rather than these eight pages.</b> Two families cover two pages each — Machining &amp; Precision Manufacturing sits over CNC Operators and Machinists, Material Handling &amp; Warehouse Operations over Forklift Operators and the unwritten Warehouse &amp; Logistics. Nothing was dropped to make the list shorter.</p>
   <div class="g3" style="margin-top:30px">
    ${ROLES.map(([title, route, slug, angle]) =>
      route
@@ -61,8 +62,8 @@ const blocks: BlockType[] = [
    <tr><th>Welders (travel crews)</th><td>Welders &amp; Fabricators</td><td class="hl">Deck — fabricators are a named role on the page</td></tr>
    <tr><th>Packaging Operators</th><td>Packaging Operations</td><td class="hl">Deck — the page covers the line, not just the operator</td></tr>
   </tbody></table></div>
-  <div class="note">The sub-nav above now uses the deck titles. Both are defensible and neither is a big change, but <b>the nav labels and the page H1s should be decided together</b>, not page by page.</div>`,
-    spec: `Update the Industries/Roles dropdown in the Elementor header template once the labels are fixed.`,
+  <div class="note"><b>The sub-nav no longer carries either name.</b> It lists the six families, so Welders and Packaging are inside a family entry rather than being nav labels — which settles the drift for the nav and leaves it open for the page H1s. <b>Those should still be decided in one pass</b>, not page by page.</div>`,
+    spec: `Update the Who We Deploy dropdown in the Elementor header template once the page H1s are fixed. The family labels themselves are settled.`,
   },
 
   {
@@ -97,8 +98,8 @@ const blocks: BlockType[] = [
 ---
 
 <Prototype
-  title="CSTL Roles"
-  crumb="Solutions › CSTL › Roles"
+  title="Who We Deploy"
+  crumb="Solutions › CSTL › Who We Deploy"
   url={`${B}roles/`}
   status="build"
   active="/roles"
