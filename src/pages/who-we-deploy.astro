@@ -17,7 +17,7 @@ import { B } from "../data/nav";
 import { photo } from "../lib/wireframe";
 import { roleHero, leadFormBlock, insightsBlock, faqBlock, COST_ANSWER, SUPERVISION_ANSWER } from "../lib/role-blocks";
 import { INCLUDED } from "../lib/family-page";
-import { ROLE_FAMILIES, FAMILY_STATS, UNCOVERED_LIVE_ROLES, UNCOVERED_ROLE_COUNT, numWord, NumWord } from "../data/nav-options";
+import { ROLE_FAMILIES, FAMILY_STATS, UNCOVERED_LIVE_ROLES, numWord, NumWord } from "../data/nav-options";
 import type { Block as BlockType } from "../lib/types";
 
 /** One line per family, saying what that crew is for rather than what the page does. */
@@ -60,8 +60,9 @@ const REDIRECTS: [string, string][] = [
 /** Hoisted out of the FAQ array: a nested backtick inside an array literal
     inside the frontmatter is valid TypeScript and not valid Astro. */
 const WHICH_ROLES =
-  "The " + numWord(FAMILY_STATS.families) + " crews on this page are the ones AFIMAC is asked for most, " +
-  "and it staffs plenty of roles outside them. " +
+  "The " + numWord(FAMILY_STATS.families) + " crews on this page are the trades AFIMAC is asked for most, " +
+  "drawn from a network of 20,000+ skilled and unskilled workers. Crews are built to the role, so plenty of " +
+  "what AFIMAC deploys sits outside them. " +
   '<a href="' + u("/who-we-deploy/other-roles") + '">Tell us the role you need</a> and we will tell you how long it takes to get people there.';
 
 const blocks: BlockType[] = [
@@ -103,16 +104,17 @@ const blocks: BlockType[] = [
   },
 
   {
-    n: "BLOCK 04 · BEYOND THE SIX",
+    n: "BLOCK 04 · THE WIDER NETWORK",
     h: `
-  <h2>The ${numWord(FAMILY_STATS.families)} are the most common asks</h2>
-  <p class="lead">AFIMAC staffs plenty of roles outside them — instrumentation, heavy equipment, inventory control and the logistics seats among them. For a less common role the question is usually how long it takes to recruit for, and that is settled on the first call.</p>
-  <div class="tscroll" style="margin-top:22px"><table class="cmp"><thead><tr><th>Group</th><th class="hl">Examples from our industry work</th></tr></thead><tbody>
+  <h2>A network that runs wider than the ${numWord(FAMILY_STATS.families)}</h2>
+  <p class="lead">The families above are the trades AFIMAC is asked for most, drawn from a network of 20,000+ skilled and unskilled workers. Crews are built to the role. Below are some of the other roles that network is commonly asked for.</p>
+  <div class="tscroll" style="margin-top:22px"><table class="cmp"><thead><tr><th>Industry</th><th class="hl">Some roles commonly deployed</th></tr></thead><tbody>
    ${UNCOVERED_LIVE_ROLES.map(([g, rs]) => `<tr><th>${g}</th><td class="hl">${rs.join(" · ")}</td></tr>`).join("")}
   </tbody></table></div>
+  <p style="margin-top:22px">For a role that is not here either, the question is how long it takes to recruit for, and that is settled on the first call.</p>
   <p style="margin-top:22px"><a class="btn" href="${u("/who-we-deploy/other-roles")}">Tell us the role you need &raquo;</a></p>
-  <div class="note"><b>These are examples, and the copy says so.</b> They are read from AFIMAC's live industry pages with the ${numWord(FAMILY_STATS.families)} families' own job titles removed, so the table cannot name a role the site does not already name. <b>It is not a list of everything AFIMAC fills</b> — printing one would invite a reader to treat anything missing as a no.</div>`,
-    spec: `<b>Elementor:</b> Heading · Text Editor · Table or EK Icon List · Button. <b>Read from the live site's role groups</b>, so a newly published role appears here rather than the table going stale.`,
+  <div class="note"><b>A sample of common roles, not a catalog.</b> They are read from AFIMAC's live industry pages with the ${numWord(FAMILY_STATS.families)} families' own job titles removed, so the table cannot name a role the site does not already name. <b>The copy has to keep this a sample</b> — the network is 20,000+ people recruited to the role, and a table a reader takes for the full list invites them to treat anything missing as a no. <b>The Other Roles page names no roles at all</b>, for the same reason.</div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · Table or EK Icon List · Button. <b>Read from the live site's role groups</b>, so a newly published role appears here rather than the table going stale. <b>This is the only page in the section that names roles outside the ${numWord(FAMILY_STATS.families)} families.</b>`,
   },
 
   {

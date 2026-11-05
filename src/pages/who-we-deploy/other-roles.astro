@@ -7,10 +7,10 @@
  * most; it staffs plenty of roles outside them. The page exists to say so and
  * take the enquiry.
  *
- * What it must NOT do is present a role list as a boundary. AFIMAC does not
- * publish a closed list of roles; what varies is how long a given seat takes
- * to source, which is what the timeline block is for. The roles shown here are
- * examples from the live industry pages, labeled as examples.
+ * What it must NOT do is print a list of roles. AFIMAC recruits to the role
+ * from a network of 20,000+, and any list a visitor reads as the catalogue
+ * invites them to treat anything missing as a no. So the page answers with the
+ * network and with sourcing time, and names no roles outside the menu.
  */
 import Prototype from "../../layouts/Prototype.astro";
 import Block from "../../components/Block.astro";
@@ -18,7 +18,7 @@ import { u } from "../../lib/base";
 import { B } from "../../data/nav";
 import { photo } from "../../lib/wireframe";
 import { roleHero, leadFormBlock, faqBlock, COST_ANSWER, SUPERVISION_ANSWER } from "../../lib/role-blocks";
-import { ROLE_FAMILIES, FAMILY_STATS, UNCOVERED_LIVE_ROLES, numWord } from "../../data/nav-options";
+import { ROLE_FAMILIES, FAMILY_STATS, NETWORK_STATS, numWord } from "../../data/nav-options";
 import type { Block as BlockType } from "../../lib/types";
 
 const blocks: BlockType[] = [
@@ -45,12 +45,25 @@ const blocks: BlockType[] = [
   }),
 
   {
+    n: "BLOCK 03 · THE NETWORK",
+    h: `
+  <h2>A network of 20,000+ to recruit from</h2>
+  <p class="lead">AFIMAC draws from a network of 20,000+ skilled and unskilled workers who are vetted, mobile and ready to work. Crews are built for the role you are short of. The ${numWord(FAMILY_STATS.families)} families in the menu are the trades AFIMAC is asked for most, and the network reaches well past them.</p>
+  <div class="g4" style="margin-top:28px">
+   ${NETWORK_STATS.map(([fig, label]) => `<div><div class="stat">${fig}</div><p>${label}</p></div>`).join("")}
+  </div>
+  <p style="margin-top:28px">Whether your role is one we place every week or one we have to go and find, we will tell you on the first call.</p>
+  <div class="note"><b>The four figures are the June-05 approved set</b> — 40+ years, 20,000+ laborers, within 72 hours, 1&ndash;500+ crew size. The live site runs two other sets alongside it. <a href="${u("/brand-check")}">All conflicts &rarr;</a></div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · EK Funfact / Counter ×4. <b>The same four figures as the industry stat band</b>, so whichever set wins there wins here.`,
+  },
+
+  {
     cls: "wash",
     id: "timing",
-    n: "BLOCK 03 · SOURCING TIMELINES",
+    n: "BLOCK 04 · SOURCING TIMELINES",
     h: `
   <h2>How long a role takes to source</h2>
-  <p class="lead">AFIMAC recruits from a national network of more than 20,000 skilled and production workers. How fast a particular role reaches your site comes down to how many of those people hold it, what screening and credentials it needs, and how far they have to travel.</p>
+  <p class="lead">How fast a role reaches your site comes down to how many of those 20,000 hold it, what screening and credentials it needs, and how far they have to travel.</p>
   <div class="g3" style="margin-top:26px">
    <div class="card"><div class="blocknum">ROLES WE STAFF MOST OFTEN</div><h3>Days from a signed plan</h3><p style="margin:0">The ${numWord(FAMILY_STATS.families)} crews in the menu and the roles around them. We keep a deep bench in these trades, so most of the lead time goes on travel, housing and site onboarding.</p></div>
    <div class="card"><div class="blocknum">SPECIALIST AND UNCOMMON ROLES</div><h3>Longer to source</h3><p style="margin:0">There are fewer candidates to start from, so recruiting and screening take more time. You get a date before you commit to anything.</p></div>
@@ -59,24 +72,6 @@ const blocks: BlockType[] = [
   <p style="margin-top:26px">We work out which of those applies on the first call and give you a timeline then. If it is longer than you can wait, we will say so.</p>
   <div class="note stop"><b>This block is the largest claim on the page and it is written for the prototype.</b> The three tiers, and the idea that sourcing time is the variable rather than availability, are inferred from the approved timing answer — <i>"within days of a signed plan; exact timing depends on role, headcount, location, and compliance requirements"</i> — and from the 20,000+ network figure. <b>Nothing here is client-supplied. Take the tiers to AFIMAC ops before build</b>, and get real ranges if they will give them.</div>`,
     spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×3. <b>If ops supplies real ranges, put the numbers in.</b> Three qualitative tiers are weaker than three figures.`,
-  },
-
-  {
-    n: "BLOCK 04 · EXAMPLES",
-    h: `
-  <h2>Roles we have staffed outside the ${numWord(FAMILY_STATS.families)}</h2>
-  <p class="lead">A few examples, taken from the roles named across AFIMAC's industry pages. The list is not everything we fill.</p>
-  <div class="g3" style="margin-top:26px">
-   ${UNCOVERED_LIVE_ROLES.map(
-     ([group, roles]) =>
-       `<div class="card"><div class="blocknum">${group}</div><ul class="tick" style="margin-top:12px">${roles
-         .map((r) => `<li>${r}</li>`)
-         .join("")}</ul></div>`,
-   ).join("")}
-  </div>
-  <p style="margin-top:24px">Not seeing your role? Ask anyway — this list only covers the roles AFIMAC&rsquo;s industry pages happen to name.</p>
-  <div class="note"><b>Shown as examples on purpose.</b> The roles are read from AFIMAC's live industry pages with the ${numWord(FAMILY_STATS.families)} families' own job titles removed, so this page cannot name a role the site does not already name. <b>AFIMAC does not publish a closed list of roles, so neither does this block</b> — a page that prints one invites the reader to treat anything missing as a no.</div>`,
-    spec: `<b>Elementor:</b> Container (3-col) · EK Icon List ×3. <b>Confirm the published list is still current</b> — it is transcribed from industry pages that predate this project. Shipping and Receiving Clerks is published under two groups and appears twice.`,
   },
 
   {
@@ -98,7 +93,7 @@ const blocks: BlockType[] = [
     cls: "wash",
     h2: "Before you ask",
     items: [
-      ["Is there a list of roles you will not fill?", "No. Some roles take longer to source than others, and the first call is where we work out which yours is."],
+      ["Is there a list of roles you will not fill?", "No. AFIMAC recruits to the role from a network of 20,000+ workers. Some roles take longer to source than others, and the first call is where we work out which yours is."],
       ["Can you staff a whole shift rather than a few seats?", "Yes. Published AFIMAC deployments run from a 12-person specialist team to a 99-person production deployment."],
       ["Who supervises the crew?", SUPERVISION_ANSWER],
       ["How fast can a crew be on site?", "Within days of a signed plan for the roles we staff most often. Less common roles take longer to recruit for, and you get that timeline before you commit to anything."],
@@ -133,8 +128,8 @@ const blocks: BlockType[] = [
   active="/who-we-deploy/other-roles"
   meta={{
     t: "Specialty Labor & Hard-to-Fill Role Staffing | AFIMAC Global",
-    d: "Short of a role outside AFIMAC's six crews? Tell us what you need and when you need people on site, and we will tell you how long it takes to get them there.",
-    k: "specialty labor staffing · hard-to-fill roles — secondary: instrumentation technicians · heavy equipment operators · inventory control staffing · logistics staffing",
+    d: "Short of a role outside AFIMAC's six crews? AFIMAC recruits to the role from a network of 20,000+ vetted, mobile workers. Tell us what you need and when.",
+    k: "specialty labor staffing · hard-to-fill roles — secondary: skilled labor network · contract labor recruiting · travel labor staffing · workforce gap staffing",
   }}
 >
   {blocks.map((b) => <Block {...b} />)}
