@@ -10,7 +10,7 @@ import { u } from "../../lib/base";
 import { B } from "../../data/nav";
 import { photo } from "../../lib/wireframe";
 import {
-  roleHero, roleGrid, familyRoles, deckRoles, faqBlock, insightsBlock, leadFormBlock,
+  roleHero, roleSection, deckRoles, faqBlock, insightsBlock, leadFormBlock,
   CONSULTATION_FLAG, FAMILY_RETITLE, COST_ANSWER, SUPERVISION_ANSWER,
 } from "../../lib/role-blocks";
 import type { Block as BlockType } from "../../lib/types";
@@ -51,7 +51,7 @@ const blocks: BlockType[] = [
   roleHero({
     h1: "Machining &amp; Precision Manufacturing, On Site in Days",
     sub: "Machines Idle? Backlog Growing? Machinists Retiring Faster Than You Can Hire?",
-    body: "When machining capacity is the bottleneck, AFIMAC is your partner in machining and precision manufacturing staffing — operators, machinists, programmers and setup. Get a crew on your floor in days with travel, housing, and on-site supervision covered.",
+    body: "When machining capacity is the bottleneck, AFIMAC sends operators, machinists, programmers and setup techs. Get a crew on your floor in days with travel, housing, and on-site supervision covered.",
     cta2: "See the process",
     cta2Href: "#process",
     img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a CNC operator at the control of a machining center, shop floor depth behind · muted industrial tone under the navy scrim · focal area centre-left · mobile crop 1080×1350",
@@ -65,7 +65,7 @@ const blocks: BlockType[] = [
   <h2>The hardest seats on the floor to fill</h2>
   <div class="g2" style="margin-top:24px">
    <div>
-    <p>A CNC operator takes months to source and years to develop, and every open seat is a machine that isn’t cutting. Retirements outpace the arrival of new machinists, and in most markets the local pool is simply tapped out.</p>
+    <p>A CNC operator takes months to source and years to develop. An idle machining center is a shift of parts off the schedule. Retirements outpace the arrival of new machinists, and in most markets the local pool is simply tapped out.</p>
     <p>Critical Situation Travel Labor closes that gap. Instead of waiting on a local hiring cycle, AFIMAC recruits, screens, travels, houses, and manages machining crews from a national network, then deploys them to your site until the situation is resolved.</p>
    </div>
    ${photo("1200×1500 JPG (4:5) beside the intro · an unmanned machining center, work light on · muted tone · no staged distress")}
@@ -77,8 +77,7 @@ const blocks: BlockType[] = [
     cls: "wash",
     n: "BLOCK 03 · ROLES WE DEPLOY",
     h: `
-  <h2>The machining seats, ready to travel</h2>
-  ${roleGrid(familyRoles("Machining &amp; Precision Manufacturing"))}
+  ${roleSection("Machining &amp; Precision Manufacturing", "The machining seats, ready to travel")}
   ${deckRoles(DECK_ROLES)}
   <div class="note">Role list is built from AFIMAC’s published in-demand roles — CNC machinists and programmers appear in the automotive skilled-labor content. <b>Confirm the exact role taxonomy and any platform or controls screening specifics with AFIMAC ops before build;</b> nothing on the page promises a specific machine brand.</div>`,
     spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×5. <b>Asset gap:</b> five line icons, SVG 96×96, matching the existing CSTL page icon style — not yet drawn. The same gap repeats on every role page; commission the full icon set once.`,
@@ -89,7 +88,7 @@ const blocks: BlockType[] = [
     n: "BLOCK 04 · HOW IT WORKS",
     h: `
   <h2>From first call to chips flying</h2>
-  <p class="lead">Every engagement follows the same proven path. For CNC roles, here’s what each phase covers.</p>
+  <p class="lead">Every engagement runs through the same four phases. For machining roles, here is what each one covers.</p>
   <div class="g4" style="margin-top:28px">
    ${PHASES.map(([label, name, items]) =>
      `<div class="card"><div class="blocknum">${label}</div><h3>${name}</h3><ul class="tick">${items.map((i) => `<li>${i}</li>`).join("")}</ul></div>`,

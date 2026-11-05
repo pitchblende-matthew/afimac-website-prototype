@@ -1202,3 +1202,9 @@ body.nv-hold .no-hasmega.is-mega .no-live::after{display:none}
   body.nv-hold .no-hasmega:focus-within>.no-mega,
   body.nv-hold .no-hasmega.is-open>.no-mega{display:block}
 }
+
+/* The line under each job title in a role grid. The card was a title in a box
+   before it; the line is what turns six boxes into a crew. */
+.rolegrid .card{padding-top:18px;padding-bottom:18px}
+.rolegrid .card h3{font-size:19px;line-height:1.2}
+.rolenote{margin:0;font-size:13.5px;line-height:1.55;color:var(--spec)}

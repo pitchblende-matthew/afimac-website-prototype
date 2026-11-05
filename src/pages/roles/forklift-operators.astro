@@ -10,7 +10,7 @@ import { u } from "../../lib/base";
 import { B } from "../../data/nav";
 import { photo } from "../../lib/wireframe";
 import {
-  roleHero, roleGrid, familyRoles, deckRoles, faqBlock, insightsBlock, leadFormBlock,
+  roleHero, roleSection, deckRoles, faqBlock, insightsBlock, leadFormBlock,
   CONSULTATION_FLAG, FAMILY_RETITLE, COST_ANSWER, SUPERVISION_ANSWER,
 } from "../../lib/role-blocks";
 import type { Block as BlockType } from "../../lib/types";
@@ -48,10 +48,8 @@ const blocks: BlockType[] = [
     id: "roles",
     n: "BLOCK 02 · ROLES &amp; EQUIPMENT",
     h: `
-  <h2>The dock and the warehouse floor, covered</h2>
-  <p class="lead">Every operator clears certification and credential checks before travel, and site-specific safety onboarding before the first shift.</p>
-  <div style="margin:26px 0">${photo("Equipment class lineup · SVG 2400×600 (4:1), stacks to two rows under 768px · five silhouetted truck types in a row with a label beneath each: Counterbalance · Reach truck · Order picker · Electric pallet jack · Material handling · flat isometric, greys with safety-orange and blue")}</div>
-  ${roleGrid(familyRoles("Material Handling &amp; Warehouse Operations"))}
+  ${roleSection("Material Handling &amp; Warehouse Operations", "The dock and the warehouse floor, covered", `<p class="lead">Every operator clears certification and credential checks before travel, and site-specific safety onboarding before the first shift.</p>
+  <div style="margin:26px 0">${photo("Equipment class lineup · SVG 2400×600 (4:1), stacks to two rows under 768px · five silhouetted truck types in a row with a label beneath each: Counterbalance · Reach truck · Order picker · Electric pallet jack · Material handling · flat isometric, greys with safety-orange and blue")}</div>`)}
   ${deckRoles(DECK_ROLES)}`,
     spec: `<b>Elementor:</b> Heading · Text Editor · Image (SVG) · Container (3-col) · EK Icon Box ×5. <b>Asset gap:</b> the equipment lineup is a new SVG — five truck silhouettes, and the only graphic in the cluster that has to read at a glance on mobile.`,
   },
@@ -70,7 +68,7 @@ const blocks: BlockType[] = [
      <li>A new facility, line, or contract spinning up</li>
      <li>The local labor market is tapped out</li>
     </ul>
-    <div class="callout">If trailers are waiting and the math isn’t working, that’s the moment to call.</div>
+    <div class="callout">If the dock is in any of those states, call the urgent line.</div>
    </div>
    ${photo("1200×1500 JPG (4:5) beside the list · a loading dock with staged pallets and an open trailer door · muted tone · no staged distress")}
   </div>`,
@@ -81,7 +79,7 @@ const blocks: BlockType[] = [
     n: "BLOCK 04 · HOW IT WORKS",
     h: `
   <h2>Four phases, one accountable partner</h2>
-  <p class="lead">Every engagement follows the same proven path. Here’s an overview of what that looks like for forklift crews:</p>
+  <p class="lead">The same four phases run on every engagement. For dock and warehouse crews they cover:</p>
   <div class="g2" style="margin-top:8px">
    <ul class="procrail">
     ${RAIL.map(([name, body], i) =>

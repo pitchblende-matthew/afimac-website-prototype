@@ -12,7 +12,7 @@ import { u } from "../../lib/base";
 import { B } from "../../data/nav";
 import { photo } from "../../lib/wireframe";
 import {
-  roleHero, roleGrid, familyRoles, deckRoles, faqBlock, insightsBlock, leadFormBlock,
+  roleHero, roleSection, deckRoles, faqBlock, insightsBlock, leadFormBlock,
   CONSULTATION_FLAG, FAMILY_RETITLE, COST_ANSWER, SUPERVISION_ANSWER,
 } from "../../lib/role-blocks";
 import type { Block as BlockType } from "../../lib/types";
@@ -39,7 +39,7 @@ const blocks: BlockType[] = [
   roleHero({
     h1: "Production &amp; Assembly, On the Line in Days",
     sub: "A Line Down a Shift? A Launch Short a Crew? Turnover Outrunning Hiring?",
-    body: "Production math is unforgiving: every unstaffed station is output you don’t ship. AFIMAC deploys screened, travel-ready assemblers and production crews at whatever scale the line needs, and manages the team, housing included, until your headcount recovers.",
+    body: "A line short of people runs at the rate of the gap. AFIMAC deploys screened, travel-ready assemblers and production crews at whatever scale the line needs, and manages the team, housing included, until your headcount recovers.",
     cta2: "See the roles",
     cta2Href: "#roles",
     img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a staffed production line in motion, multiple workers at stations receding down the frame — the depth of the crew is the story · muted industrial tone under the navy scrim · focal area centre · mobile crop 1080×1350",
@@ -51,8 +51,7 @@ const blocks: BlockType[] = [
     id: "roles",
     n: "BLOCK 02 · ROLES WE DEPLOY",
     h: `
-  <h2>Every station on the line, covered</h2>
-  ${roleGrid(familyRoles("Production &amp; Assembly"))}
+  ${roleSection("Production &amp; Assembly", "Every station on the line, covered")}
   ${deckRoles(DECK_ROLES)}
   <div class="note">Assemblers appear by name in both published manufacturing cases; packaging operators and material handlers appear in the approved cluster roles copy. <b>Confirm the exact role taxonomy with AFIMAC ops before build.</b> Note the packaging overlap — <a href="${u("/roles/packaging-operations")}">Packaging Operations</a> takes the packaging keywords, this page keeps assembler, production and general labor.</div>
   <div class="note stop"><b>The two decks still disagree about that split, and this page follows the newer one.</b> The Packaging Operations script says the packaging terms “move here from the Assemblers &amp; Production page’s secondary set” and that “the Assemblers &amp; Production script has been updated in step”. The Assemblers script as delivered has <b>not</b> been updated: it still lists <code>packaging operator staffing</code> in its secondary keywords and still claims this page “owns assembler, production, and packaging staffing”. The prototype implements the split — <code>packaging operator staffing</code> is off this page’s keyword set above. <b>Re-issue the Assemblers deck to match, or the two pages will be pointed at the same query at build.</b></div>`,
@@ -73,7 +72,7 @@ const blocks: BlockType[] = [
      <li>Absenteeism or turnover thinning a shift</li>
      <li>A local labor market that’s tapped out</li>
     </ul>
-    <div class="callout">If the line is running short and the math isn’t working, that’s the moment to call.</div>
+    <div class="callout">If any of those is your week, call the urgent line.</div>
    </div>
    ${photo("1200×1500 JPG (4:5) beside the list · an idle line section, stations empty, work queued at the head of the line · muted tone · no staged distress")}
   </div>`,
@@ -84,7 +83,7 @@ const blocks: BlockType[] = [
     n: "BLOCK 04 · CREW SCALE",
     h: `
   <h2>From a few seats to a whole line</h2>
-  <p class="lead">Scale is the difference between this page and the skilled-trade pages. Production gaps rarely come one seat at a time: a launch needs a crew, a relocation needs a shift, a backlog needs the whole line moving. AFIMAC sources from a 20,000+ talent network and deploys at the size the situation demands. Published engagements have run from a 12-person specialist team to a 99-person production deployment, and the crew scales up or down as the situation changes.</p>
+  <p class="lead">Production gaps rarely come one seat at a time — a launch or a relocation needs a whole shift. AFIMAC sources from a 20,000+ talent network and deploys at the size the situation demands. Published engagements have run from a 12-person specialist team to a 99-person production deployment, and the crew scales up or down as the situation changes.</p>
   <div style="margin-top:28px">${photo("Crew-scale steps · SVG 2400×600 (4:1), stacks vertically under 768px · four rising steps labelled A few seats · A crew · A shift · A line, with two published anchors marked along the run: 12 (specialist team) and 99 (production deployment) · flat isometric, greys with safety-orange and blue · distinct device from every graphic in the cluster")}</div>
   <div class="note">Both anchor figures are published on the live CSTL pillar — the 12-person wiring technician team and the 99-personnel food facility deployment. <b>Link each marker to it.</b></div>`,
     spec: `<b>Elementor:</b> Heading · Text Editor · Image (SVG with linked regions, or HTML widget). This is the page’s argument — if one graphic in the cluster gets drawn first, make it this one.`,

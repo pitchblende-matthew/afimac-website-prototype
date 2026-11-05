@@ -406,6 +406,73 @@ export const ROLE_FAMILIES: RoleFamily[] = [
 ];
 
 /**
+ * What each job title actually does, one line each.
+ *
+ * The nav lists the titles; the page has room to say what is behind them, and
+ * a grid of bare titles was reading as a word list rather than a capability.
+ *
+ * NOT FROM AN APPROVED DECK. These lines are written for the prototype so the
+ * section can be judged at the right density — every one of them is an
+ * operational claim and needs AFIMAC ops to confirm it before build. The
+ * pages say so under the grid.
+ */
+export const ROLE_NOTES: Record<string, string> = {
+  /* Machining & Precision Manufacturing */
+  "CNC Operators": "Load, run and monitor mills and lathes to a set program, with first-off checks and in-process gauging.",
+  "CNC Machinists": "Set up, offset and edit at the control. Reads the print and holds tolerance without a programmer on the floor.",
+  "CNC Programmers": "Writes and proves out programs, CAM through to the control, including cycle-time work and crash recovery.",
+  "Manual Machinists": "Mills, lathes and grinders with no program behind them — one-off parts, rework, and the jobs the CNC cell cannot take.",
+  "Setup Technicians": "Changeovers, tooling, fixtures and offsets between jobs.",
+  "Toolroom Machinists": "Builds and repairs the tooling, fixtures and gauges the production floor runs on.",
+
+  /* Welding & Fabrication */
+  Welders: "MIG, TIG, stick and flux-core. Structural, pressure and sheet work to the standards your prints call out.",
+  Fabricators: "Layout, cut, form and fit before the weld. Reads the print and builds the assembly, not just the joint.",
+  "Robotic Welding Technicians": "Loads, programs and tends weld cells, including fault recovery and minor cell repairs.",
+
+  /* Production & Assembly */
+  Assemblers: "Mechanical and electro-mechanical build to work instructions, torque specs and line rate.",
+  "Machine Operators": "Runs and tends production equipment, changeovers included, with in-process checks at the station.",
+  "Production Workers": "Line support across stations — feeding, staging, inspection and rework as the schedule calls for it.",
+  "General Laborers": "Material movement, housekeeping and the work that keeps stations fed and aisles clear.",
+
+  /* Material Handling & Warehouse Operations */
+  "Forklift Operators": "Sit-down counterbalance, certified and checked before travel. Trailer loading, staging and put-away.",
+  "Reach Truck Operators": "Narrow-aisle and high-bay work: racking, replenishment and cycle-count support.",
+  "Order Selectors": "Picks to voice, RF or paper at rate and at accuracy, and builds pallets that travel.",
+  "Material Handlers": "Receiving, put-away, line feed and shipping, with RF scanning where you use it.",
+
+  /* Packaging Operations */
+  "Packaging Operators": "Fill, seal, cap, label and code, with the defect caught at the station rather than on the pallet.",
+  "Packaging Machine Operators": "Baggers, cartoners, case erectors and wrappers — changeovers, clears and minor adjustments.",
+  "Case Packers": "Hand and machine case pack, count verification and carton integrity.",
+  Palletizers: "Builds to pattern, wraps and labels for the carrier. Hand-stack or machine-tend.",
+  "Kitting Workers": "Assembles multi-packs, displays and promotional kits to a spec sheet, at volume.",
+
+  /* Sanitation & Facility Support */
+  "Sanitation Workers": "Wet and dry cleans to your SSOPs, chemical handling included, inside the window you set.",
+  "Industrial Cleaners": "Non-food plant cleaning — overhead, drains, pits and post-maintenance clean-up.",
+  "CIP Operators": "Runs clean-in-place cycles, verifies concentration and temperature, and records the result.",
+  "Sanitation Technicians": "Tear-down and rebuild around the clean, plus pre-op checks and verification swabs.",
+};
+
+/** One line above each family's grid, saying what the crew is for. */
+export const FAMILY_INTRO: Record<string, string> = {
+  "Machining &amp; Precision Manufacturing":
+    "Six seats, from the operator at the control to the programmer who proves the job out. They travel as a crew, not as individual placements.",
+  "Welding &amp; Fabrication":
+    "Three seats covering the fit-up, the weld and the robotic cell.",
+  "Production &amp; Assembly":
+    "Four seats that scale with the line — a few stations or a whole shift, to the same work instructions.",
+  "Material Handling &amp; Warehouse Operations":
+    "Four seats across the dock and the racking. Certified on the trucks you run, and checked before they travel.",
+  "Packaging Operations":
+    "Five seats from fill to pallet — the whole line, not one station.",
+  "Sanitation &amp; Facility Support":
+    "Four seats across the clean and the equipment it runs on, working the window your production schedule leaves.",
+};
+
+/**
  * SOLUTION_TIERS with the roles tier rebuilt around the six role families.
  *
  * This is the version the client has moved to, so it is what the header
