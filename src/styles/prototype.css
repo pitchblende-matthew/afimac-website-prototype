@@ -987,3 +987,175 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,t
   color:var(--cstl-blue);line-height:1.1}
 .statminilab{display:block;margin-top:3px;font-size:12px;font-weight:400;color:var(--spec)}
 @media(max-width:880px){.g2{grid-template-columns:1fr}.g3{grid-template-columns:1fr}}
+
+/* ---- mega-menu layer treatments (/nav-layers) ---------------------------
+   The panel's three tiers are currently told apart by one 2% tint and a
+   hairline, which is not enough to see where you are at a glance. Each
+   treatment below is one `nv-` class on the panel: the markup is identical
+   in all of them, so a treatment can be tried, compared and dropped without
+   a second copy of the menu. `data-tier` on each band is what they hang off.
+
+   Every colour is from the brand guide (p.8–9) — CSTL Blue, White Glove,
+   Sky, Premium Gold. Coral is left alone throughout: it is the CTA colour on
+   every page of the live site, and a tier painted coral competes with the
+   Get in Touch button sitting inside tier 2. */
+
+/* 1 · TONAL STEPS — same hue, three weights, heaviest at the top. The tiers
+   read as depth: you are looking down into the panel. */
+.nv-tonal .no-band[data-tier="1"]{background:#ccdbe4}
+.nv-tonal .no-band[data-tier="2"]{background:#eaf1f5}
+.nv-tonal .no-band[data-tier="3"]{background:#fff}
+.nv-tonal .no-band{border-bottom-color:#b9cbd6}
+.nv-tonal .no-bandhead{color:#4d6271}
+.nv-tonal .no-tab:hover{background:#fff}
+.nv-tonal .no-rail[data-tier="1"]{background:#ccdbe4}
+.nv-tonal .no-rail[data-tier="2"]{background:#eaf1f5}
+.nv-tonal .no-tierpages[data-tier="3"]{background:#fff}
+.nv-tonal .no-rail{border-right-color:#c3d2da}
+
+/* 2 · NAVY HEAD — tier 1 carries the header's own navy, so the top band
+   reads as part of the bar it dropped out of and the two tiers under it are
+   plainly inside the panel. The strongest separation available without
+   leaving the palette. */
+.nv-navy .no-band[data-tier="1"]{background:var(--cstl-blue);border-bottom-color:var(--deep)}
+.nv-navy .no-band[data-tier="1"] .no-bandhead{color:#9cc3e1}
+.nv-navy .no-band[data-tier="1"] .no-tab{color:#dbe8f2}
+.nv-navy .no-band[data-tier="1"] .no-tab:hover{background:rgba(255,255,255,.15);color:#fff}
+.nv-navy .no-band[data-tier="1"] .no-tab.on{background:#fff;color:var(--cstl-blue)}
+.nv-navy .no-band[data-tier="2"]{background:var(--white-glove)}
+.nv-navy .no-band[data-tier="2"]{border-bottom-color:#c3d2da}
+.nv-navy .no-band[data-tier="3"]{background:#fff}
+.nv-navy .no-rail[data-tier="1"]{background:var(--cstl-blue);border-right-color:var(--deep)}
+.nv-navy .no-rail[data-tier="1"] .no-railhead{color:#9cc3e1}
+.nv-navy .no-rail[data-tier="1"] .no-railbtn{color:#dbe8f2}
+.nv-navy .no-rail[data-tier="1"] .no-railbtn:hover{background:rgba(255,255,255,.15);color:#fff}
+.nv-navy .no-rail[data-tier="1"] .no-railbtn.on{background:#fff;color:var(--cstl-blue)}
+.nv-navy .no-rail[data-tier="2"]{background:var(--white-glove)}
+.nv-navy .no-tierpages[data-tier="3"]{background:#fff}
+
+/* 3 · A HUE PER TIER — the bands stay white and the tier is named by colour
+   instead: navy, sky, gold, down a spine on the left and through each tier's
+   own label and selected state. Tells the tiers apart without darkening the
+   panel, but it is the one treatment that carries no information in
+   greyscale — worth knowing before it reaches a print or a screenshot. */
+.nv-hue .no-band{background:#fff;border-left:4px solid transparent}
+.nv-hue .no-band[data-tier="1"]{border-left-color:var(--cstl-blue)}
+.nv-hue .no-band[data-tier="2"]{border-left-color:var(--sky)}
+.nv-hue .no-band[data-tier="3"]{border-left-color:var(--premium-gold)}
+.nv-hue .no-band[data-tier="1"] .no-bandhead{color:var(--cstl-blue)}
+.nv-hue .no-band[data-tier="2"] .no-bandhead{color:#13698f}
+.nv-hue .no-band[data-tier="2"] .no-tab:hover{background:#e2f3fb;color:#13698f}
+.nv-hue .no-band[data-tier="2"] .no-tab.on{background:#1b8dbd}
+.nv-hue .no-band[data-tier="3"] .no-colhead{color:#8a5e14}
+.nv-hue .no-band[data-tier="3"] .no-fambadge{background:#faf2e4;color:#8a5e14}
+.nv-hue .no-band[data-tier="3"] .no-fam:hover .no-fambadge,
+.nv-hue .no-band[data-tier="3"] .no-fam:focus .no-fambadge{background:var(--premium-gold);color:#fff}
+.nv-hue .no-rail[data-tier="1"]{background:#fff;box-shadow:inset 4px 0 0 var(--cstl-blue)}
+.nv-hue .no-rail[data-tier="2"]{background:#fff;box-shadow:inset 4px 0 0 var(--sky)}
+.nv-hue .no-tierpages[data-tier="3"]{background:#fff;box-shadow:inset 4px 0 0 var(--premium-gold)}
+.nv-hue .no-rail[data-tier="2"] .no-railbtn.on{box-shadow:inset 3px 0 0 var(--sky)}
+
+/* 4 · INSET CONTENT TIER — the two tiers you pick with stay white and tight;
+   the tier you read drops onto a tinted field with the cards lifted off it.
+   Colours by job rather than by depth: picking is one surface, reading is
+   another. */
+.nv-inset .no-band[data-tier="1"],
+.nv-inset .no-band[data-tier="2"]{background:#fff}
+.nv-inset .no-band[data-tier="3"]{background:#e9f0f4;box-shadow:inset 0 1px 0 #c8d8e1}
+.nv-inset .no-band[data-tier="3"] .no-fam{background:#fff;border:1px solid #d7e2e8;
+  border-radius:3px;padding:12px 13px;margin-bottom:13px}
+.nv-inset .no-band[data-tier="3"] .no-fam:hover,
+.nv-inset .no-band[data-tier="3"] .no-fam:focus{border-color:var(--cstl-blue)}
+.nv-inset .no-band[data-tier="3"] .no-famreach,
+.nv-inset .no-band[data-tier="3"] .no-empty{background:#fff}
+.nv-inset .no-band[data-tier="3"] .no-pagelist a{padding:6px 10px;background:#fff;
+  border:1px solid #d7e2e8;border-radius:3px;margin-bottom:6px}
+.nv-inset .no-band[data-tier="3"] .no-rolegrp{background:#fff;border:1px solid #d7e2e8;
+  border-radius:3px;padding:12px 13px;margin-bottom:13px}
+.nv-inset .no-tierpages[data-tier="3"]{background:#e9f0f4}
+.nv-inset .no-tierpages[data-tier="3"] .no-fam{background:#fff;border:1px solid #d7e2e8;
+  border-radius:3px;padding:12px 13px;margin-bottom:13px}
+.nv-inset .no-tierpages[data-tier="3"] .no-rolegrp,
+.nv-inset .no-tierpages[data-tier="3"] .no-famreach,
+.nv-inset .no-tierpages[data-tier="3"] .no-empty{background:#fff}
+
+/* 5 · ALL THREE AT ONCE — the navy head of 2 over the inset content field of
+   4, which is the combination the two of them point at: each tier differs
+   from the one above it by weight AND by what it is for. Nothing new is
+   introduced; it is 2 and 4 in one panel. */
+.nv-full .no-band[data-tier="1"]{background:var(--cstl-blue);border-bottom-color:var(--deep)}
+.nv-full .no-band[data-tier="1"] .no-bandhead{color:#9cc3e1}
+.nv-full .no-band[data-tier="1"] .no-tab{color:#dbe8f2}
+.nv-full .no-band[data-tier="1"] .no-tab:hover{background:rgba(255,255,255,.15);color:#fff}
+.nv-full .no-band[data-tier="1"] .no-tab.on{background:#fff;color:var(--cstl-blue)}
+.nv-full .no-band[data-tier="2"]{background:var(--white-glove);border-bottom-color:#c3d2da}
+.nv-full .no-band[data-tier="3"]{background:#f4f8fa}
+.nv-full .no-band[data-tier="3"] .no-fam,
+.nv-full .no-band[data-tier="3"] .no-rolegrp{background:#fff;border:1px solid #dae4ea;
+  border-radius:3px;padding:12px 13px;margin-bottom:13px}
+.nv-full .no-band[data-tier="3"] .no-fam:hover,
+.nv-full .no-band[data-tier="3"] .no-fam:focus{border-color:var(--cstl-blue)}
+.nv-full .no-band[data-tier="3"] .no-famreach,
+.nv-full .no-band[data-tier="3"] .no-empty{background:#fff}
+
+/* The tier numbers, on a switch. Not a treatment — a reading aid for this
+   page, so the three bands can be named while they are being compared. */
+.nv-chips .no-band[data-tier],
+.nv-chips .no-rail[data-tier],
+.nv-chips .no-tierpages[data-tier]{position:relative}
+.nv-chips .no-band[data-tier]::after,
+.nv-chips .no-rail[data-tier]::after,
+.nv-chips .no-tierpages[data-tier]::after{content:"TIER " attr(data-tier);position:absolute;
+  top:6px;right:8px;z-index:2;font-size:9px;letter-spacing:.1em;font-weight:700;
+  color:#5d6b78;background:rgba(255,255,255,.92);border:1px solid #c3d2da;
+  border-radius:2px;padding:1px 5px;pointer-events:none}
+.nv-chips .no-rail[data-tier]::after,
+.nv-chips .no-tierpages[data-tier]::after{top:4px;right:5px}
+
+/* The panel runs wider than the prototype's 1180px column — it is full-bleed
+   against the header on a real page. The comparison blocks therefore widen to
+   it, so a treatment is judged at the width it would run at rather than at a
+   width chosen by the page it is being judged on; and the panel is capped at
+   the bar it hangs from, so it can never spill past the card holding it. */
+.block.nvwide .wrap{max-width:1424px}
+.nvcard .no-mega.no-tier{width:min(1360px,100%)}
+
+/* The page's own furniture: one card per treatment, the menu inside it. */
+.nvcard{border:1px solid var(--line);background:#fff;margin-top:24px}
+.nvcard .no-top{margin:0;border:0;border-bottom:1px solid var(--line);border-radius:0}
+.nvhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;
+  padding:15px 20px 14px;border-bottom:1px solid var(--line);background:#f7fafc}
+.nvhead b{font-family:var(--museo);font-size:17px;color:var(--cstl-blue)}
+.nvhead .nvn{font-size:11px;letter-spacing:.11em;font-weight:700;color:var(--spec)}
+.nvhead p{flex:1 1 320px;margin:0;font-size:13.5px;line-height:1.6;color:var(--spec)}
+/* Room under the bar for the panel to open into, so comparing two treatments
+   does not mean one of them overlapping the next card down. The panel is
+   absolutely positioned and its height changes with the section picked — from
+   about 430px to 640px — so the room is measured rather than guessed: the
+   script on /nav-layers writes it here as inline padding and keeps it in step
+   through a resize or a change of section. */
+.nvstage{padding:0}
+.nvbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin:22px 0 0;
+  padding:13px 18px;background:#eef4f8;border:1px solid var(--line)}
+.nvbar label{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;
+  color:var(--cstl-blue);cursor:pointer}
+.nvbar span{font-size:12.5px;color:var(--spec);font-weight:400}
+/* Held open, every panel is on screen at once — which is the only way to
+   compare two treatments rather than remember one. The panel is still
+   absolutely positioned, so it opens into the room .nvstage reserves under
+   the bar; the hover hint comes off, because nothing is waiting on a hover. */
+body.nv-hold .no-hasmega>.no-mega{display:block}
+body.nv-hold .no-hasmega.is-mega .no-live::after{display:none}
+/* Below 900px the panel is in flow — it is the accordion state — so the card
+   grows on its own and the measured room would be room for nothing. */
+@media(max-width:900px){
+  .nvstage{padding-bottom:0 !important}
+  .nv-hue .no-band{border-left-width:3px}
+  /* And hold-open comes off with it. In flow, eight open panels make a page
+     some thirty screens long; tapping one still opens it, which is the
+     behaviour worth testing at this width anyway. */
+  body.nv-hold .no-hasmega>.no-mega{display:none}
+  body.nv-hold .no-hasmega:hover>.no-mega,
+  body.nv-hold .no-hasmega:focus-within>.no-mega,
+  body.nv-hold .no-hasmega.is-open>.no-mega{display:block}
+}

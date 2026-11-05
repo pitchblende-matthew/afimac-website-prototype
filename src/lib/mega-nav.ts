@@ -70,31 +70,46 @@ export const tierPages = (sec: TierSection): string => {
 
 
 /**
+ * Options both arrangements take.
+ *
+ * `bare` drops the mock logo and the bar's own chrome, so the items can
+ * replace the real header's nav list and sit beside the real logo and social
+ * icons — the menu at the size and in the place it would run.
+ *
+ * `variant` is a class added to the panel. It carries no behaviour: the
+ * colour treatments on /nav-layers are all CSS against that one hook, so a
+ * treatment can be tried, compared and dropped without touching the markup
+ * the menu is built from.
+ */
+export interface MegaOpts {
+  bare?: boolean;
+  variant?: string;
+}
+
+/** Each tier says which it is, so a treatment can number or colour them. */
+const tierAttr = (n: 1 | 2 | 3): string => ` data-tier="${n}"`;
+
+/**
  * The menu itself. `tiers` lets the roles tier be swapped for the family
  * treatment without a second copy of the markup.
  */
 export const megaNavDown = (
   tiers: TierSolution[] = FAMILY_TIERS,
-  /**
-   * `bare` drops the mock logo and the bar's own chrome, so the items can
-   * replace the real header's nav list and sit beside the real logo and social
-   * icons — the menu at the size and in the place it would run.
-   */
-  opts: { bare?: boolean } = {},
+  opts: MegaOpts = {},
 ): string =>
   `<div class="no-top${opts.bare ? " no-top-bare" : ""}">
     ${opts.bare ? "" : '<span class="no-logo">AFIMAC</span>'}
     <div class="no-titem">Home</div>
     <div class="no-titem no-hasmega is-mega"><span class="no-live">Solutions</span><span class="no-caret">▾</span>
-      <div class="no-mega no-tier no-tierdown">
-        <div class="no-band">
+      <div class="no-mega no-tier no-tierdown${opts.variant ? " " + opts.variant : ""}">
+        <div class="no-band"${tierAttr(1)}>
           <div class="no-bandhead">Solution</div>
           <div class="no-bandbody"><div class="no-tabs">${tiers.map(
             (so, i) =>
               `<button type="button" class="no-tab${i === 0 ? " on" : ""}" data-sol="${i}" data-first="${i}-0">${navIcon(so.icon, "no-ico no-ico-sm")}<span class="no-tlong">${so.label}</span><span class="no-tshort">${so.short}</span></button>`,
           ).join("")}</div></div>
         </div>
-        <div class="no-band no-band2">
+        <div class="no-band no-band2"${tierAttr(2)}>
           <div class="no-bandhead">Section</div>
           <div class="no-bandrow">
           <div class="no-bandbody">${tiers.map(
@@ -109,7 +124,7 @@ export const megaNavDown = (
           <a class="no-bandcta" href="${u("/get-in-touch")}">${navIcon("bolt", "no-ico no-ico-sm")}<span>Critical labor situation?</span><b>Get in Touch</b></a>
           </div>
         </div>
-        <div class="no-band no-bandpages">
+        <div class="no-band no-bandpages"${tierAttr(3)}>
           <div class="no-downmain">${tiers.map((so, i) =>
               so.sections
                 .map(
@@ -118,6 +133,70 @@ export const megaNavDown = (
                 )
                 .join(""),
             ).join("")}</div>
+        </div>
+      </div>
+    </div>
+    <div class="no-titem">Insights</div>
+    <div class="no-titem">About<span class="no-caret">▾</span></div>
+    <div class="no-titem">Contact</div>
+  </div>`;
+
+/**
+ * The same three tiers running across instead of down — option G.
+ *
+ * Lifted out of nav-options.astro for the same reason the band version was:
+ * /nav-layers shows both arrangements under the same colour treatments, and
+ * two copies of the markup would drift apart within a week.
+ *
+ * Three rails left to right: solution, section, pages. Every rail is a
+ * button, so the cascade answers to click and keyboard as well as hover.
+ */
+export const megaNavAcross = (
+  tiers: TierSolution[] = FAMILY_TIERS,
+  opts: MegaOpts = {},
+): string =>
+  `<div class="no-top${opts.bare ? " no-top-bare" : ""}">
+    ${opts.bare ? "" : '<span class="no-logo">AFIMAC</span>'}
+    <div class="no-titem">Home</div>
+    <div class="no-titem no-hasmega is-mega"><span class="no-live">Solutions</span><span class="no-caret">▾</span>
+      <div class="no-mega no-tier${opts.variant ? " " + opts.variant : ""}">
+        <div class="no-tiergrid">
+          <div class="no-rail"${tierAttr(1)}>
+            <div class="no-railhead">Solution</div>
+            ${tiers
+              .map(
+                (so, i) =>
+                  `<button type="button" class="no-railbtn${i === 0 ? " on" : ""}" data-sol="${i}" data-first="${i}-0">${navIcon(so.icon)}<span class="no-rlabel">${so.label}</span><span class="no-caret">›</span></button>`,
+              )
+              .join("")}
+          </div>
+          <div class="no-rail no-rail2"${tierAttr(2)}>
+            <div class="no-railhead">Section</div>
+            ${tiers
+              .map(
+                (so, i) =>
+                  `<div class="no-secs${i === 0 ? " on" : ""}" data-sol="${i}">${so.sections
+                    .map(
+                      (sec, j) =>
+                        `<button type="button" class="no-railbtn${j === 0 ? " on" : ""}" data-sec="${i}-${j}">${navIcon(sec.icon)}<span class="no-rlabel">${sec.label}</span><span class="no-caret">›</span></button>`,
+                    )
+                    .join("")}</div>`,
+              )
+              .join("")}
+            <a class="no-bandcta" href="${u("/get-in-touch")}">${navIcon("bolt", "no-ico no-ico-sm")}<span>Critical labor situation?</span><b>Get in Touch</b></a>
+          </div>
+          <div class="no-tierpages"${tierAttr(3)}>
+            ${tiers
+              .map((so, i) =>
+                so.sections
+                  .map(
+                    (sec, j) =>
+                      `<div class="no-pagepane${i === 0 && j === 0 ? " on" : ""}" data-pane="${i}-${j}"><div class="no-colhead">${navIcon(sec.icon, "no-ico no-ico-sm")}<span>${sec.label}</span></div>${sec.gist ? `<p class="no-grpgist">${sec.gist}</p>` : ""}${tierPages(sec)}</div>`,
+                  )
+                  .join(""),
+              )
+              .join("")}
+          </div>
         </div>
       </div>
     </div>
