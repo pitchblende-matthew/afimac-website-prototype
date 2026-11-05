@@ -142,7 +142,7 @@ export const NAV: NavItem[] = [
       k("Sanitation &amp; Facility Support", "/who-we-deploy/sanitation-facility-support", "ready"),
     ],
     // Six families are the common asks, not the limit of what AFIMAC fills.
-    more: { label: "Looking for something else?", route: "/get-in-touch" },
+    more: { label: "Looking for something else?", route: "/who-we-deploy/other-roles" },
   },
 
   {

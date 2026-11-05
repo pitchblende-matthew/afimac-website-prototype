@@ -9,6 +9,7 @@
  * The nav entries are the six role families; the pages behind them are fixed —
  * seven written, one still to write. Only the way into them changes.
  */
+import { LIVE_ROLE_GROUPS } from "./live-industries";
 
 export interface RoleLink {
   label: string;
@@ -535,6 +536,43 @@ export const FAMILY_TIERS: TierSolution[] = SOLUTION_TIERS.map((so, i) =>
       }
     : so,
 );
+
+/**
+ * The published roles the six families do NOT reach.
+ *
+ * LIVE_ROLE_GROUPS is the role list AFIMAC already publishes on every live
+ * industry page. Subtracting the families' own job titles leaves the seats a
+ * visitor could be looking for and not find in the menu — which is what the
+ * "Looking for something else?" entry is for.
+ *
+ * Derived rather than typed out, so the day AFIMAC publishes a new role, or a
+ * family takes one over, the page follows without anyone editing a second list.
+ */
+const norm = (s: string) => s.replace(/&amp;/g, "&").toLowerCase().trim();
+
+const FAMILY_TITLES: string[] = ROLE_FAMILIES.flatMap((f) => f.roles.map(norm));
+
+export const UNCOVERED_LIVE_ROLES: [string, string[]][] = LIVE_ROLE_GROUPS.map(
+  ([group, roles]) =>
+    [
+      group,
+      roles.filter((r) => {
+        const n = norm(r);
+        return !FAMILY_TITLES.some((t) => t === n || t.includes(n) || n.includes(t));
+      }),
+    ] as [string, string[]],
+).filter(([, roles]) => roles.length);
+
+/**
+ * How many DISTINCT roles that is.
+ *
+ * Shipping and Receiving Clerks is published under both Warehousing and
+ * Logistics, so the groups add up to one more than there are roles. Counting
+ * the set rather than the rows keeps the page from claiming a role twice.
+ */
+export const UNCOVERED_ROLE_COUNT = new Set(
+  UNCOVERED_LIVE_ROLES.flatMap(([, roles]) => roles.map(norm)),
+).size;
 
 /** Counted rather than written down, so the prose cannot drift from the data. */
 export const FAMILY_STATS = {
