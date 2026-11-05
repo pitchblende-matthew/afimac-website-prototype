@@ -46,6 +46,13 @@ const dot = (n: { work: string; live?: boolean }) =>
                     set:html={dot(kid) + kid.label}
                   />
                 ))}
+                {/* The way out for a need the list does not name. No dot: it
+                    is not a page in the section, it is the contact page. */}
+                {item.more && (
+                  <a class="ddmore" href={u(item.more.route)} data-min={item.phase}>
+                    {item.more.label}
+                  </a>
+                )}
               </div>
             )}
           </div>

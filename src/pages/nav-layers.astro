@@ -19,82 +19,116 @@ import { FAMILY_TIERS } from "../data/nav-options";
 import type { Block as BlockType } from "../lib/types";
 
 interface Treatment {
-  n: string;
   cls: string;
   title: string;
   gist: string;
   /** Tiers down (option H) or tiers across (option G). */
   across?: boolean;
+  /** What tiers 1, 2 and 3 carry — the middle column of the table. */
+  tiers: string;
+  /** What to weigh against it. Omitted for the across repeats, which are
+      the same treatments seen in the other arrangement. */
+  weigh?: string;
 }
 
 const DOWN: Treatment[] = [
   {
-    n: "00",
     cls: "",
     title: "What it does now",
+    tiers: "A hairline and a 2% tint",
     gist:
       "Tier 1 white, tier 2 a 2% tint, tier 3 white. The hairline between the bands is doing all the work, and at a glance there are no bands — there is one white panel with some tabs in it.",
+    weigh:
+      "None of the three tiers is distinguishable in a screenshot, which is how most people will first see this menu.",
   },
   {
-    n: "01",
     cls: "nv-tonal",
     title: "Tonal steps",
+    tiers: "Three weights of one hue",
     gist:
       "One hue, three weights, heaviest at the top. The tiers read as depth: the band you pick from is darkest and the pages you end on are white. Nothing new in the palette and it survives a greyscale print.",
+    weigh:
+      "Safest change on the page. The darkest band is the one you use first, which is the wrong way round for emphasis but the right way round for depth.",
   },
   {
-    n: "02",
     cls: "nv-navy",
     title: "Navy head",
+    tiers: "Navy, White Glove, white",
     gist:
       "Tier 1 takes the header's own navy, so the top band reads as part of the bar it dropped out of. Tier 2 is White Glove, tier 3 white. The strongest separation available without leaving the brand palette.",
+    weigh:
+      "Strongest separation, no new colour. The navy band is a lot of ink at the top of the panel on a short screen.",
   },
   {
-    n: "03",
     cls: "nv-hue",
     title: "A hue per tier",
+    tiers: "Navy, sky, gold spines",
     gist:
       "The bands stay white and the tier is named by colour instead — navy, sky, gold — down a spine on the left and through each tier's label and selected state. Keeps the panel light.",
+    weigh:
+      "Keeps the panel light, but carries nothing in greyscale and brings gold in — which is the warehousing bar's colour elsewhere on the site.",
   },
   {
-    n: "04",
     cls: "nv-inset",
     title: "Inset content tier",
+    tiers: "White, white, tinted field",
     gist:
       "Colour by job rather than by depth. The two tiers you pick with stay white and tight; the tier you read drops onto a tinted field with the cards lifted off it on white.",
+    weigh:
+      "Makes the pages tier unmistakable and leaves tiers 1 and 2 looking alike. Also the only treatment that changes a card's shape rather than its background.",
   },
   {
-    n: "05",
     cls: "nv-full",
     title: "Navy head and inset content",
+    tiers: "Navy, White Glove, tinted field",
     gist:
       "02 and 04 in one panel: each tier differs from the one above it by weight and by what it is for. Nothing new is introduced — it is the two treatments stacked.",
+    weigh:
+      "Every tier differs from its neighbour by weight and by job. More ink than 02, and the panel is busier for it.",
+  },
+  {
+    cls: "nv-all",
+    title: "Navy head, inset content and a hue per tier",
+    tiers: "All three at once, plus hue spines",
+    gist:
+      "05 with the hue spines of 03 added: navy down tier 1, sky down tier 2, gold down tier 3, each tier's label and selected state taking its own colour with it. Every tier is now separated from the one above it three ways over — by weight, by what it is for, and by hue.",
+    weigh:
+      "The most colour the panel can carry, and the test of whether that is more help or more noise. Nothing here is load-bearing on its own, so any one layer of it can be taken off without the others stopping working.",
   },
 ];
 
 /** The across arrangement under the two treatments worth seeing it in. */
 const ACROSS: Treatment[] = [
   {
-    n: "06",
     cls: "nv-tonal",
     title: "Tiers across · tonal steps",
+    tiers: "Three weights of one hue",
     gist:
       "The same tonal steps on option G. Rails rather than bands, so the weight runs left to right instead of top to bottom — and the lightest column is the one with the links in it.",
     across: true,
   },
   {
-    n: "07",
     cls: "nv-navy",
     title: "Tiers across · navy head",
+    tiers: "Navy, White Glove, white",
     gist:
       "The navy treatment on option G. The first rail becomes a navy column down the left of the panel, which is a heavier piece of colour than the same treatment puts in a band.",
     across: true,
   },
 ];
 
-const card = (t: Treatment): string =>
+/** Numbered from position, so adding a treatment cannot renumber the rest by
+    hand and leave the prose pointing at the wrong card. */
+const num = (i: number): string => String(i).padStart(2, "0");
+const CARDS = DOWN.length + ACROSS.length;
+const WORDS = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
+const word = (n: number): string => WORDS[n] ?? String(n);
+/** 00 is the current state, not a treatment. */
+const ways = DOWN.filter((t) => t.cls).length;
+
+const card = (t: Treatment, i: number): string =>
   `<div class="nvcard">
-    <div class="nvhead"><span class="nvn">TREATMENT ${t.n}</span><b>${t.title}</b><p>${t.gist}</p></div>
+    <div class="nvhead"><span class="nvn">TREATMENT ${num(i)}</span><b>${t.title}</b><p>${t.gist}</p></div>
     <div class="nvstage">${
       t.across
         ? megaNavAcross(FAMILY_TIERS, { variant: t.cls })
@@ -104,53 +138,24 @@ const card = (t: Treatment): string =>
 
 /** The switches at the top, which every card answers to. */
 const toolbar = `<div class="nvbar">
-  <label><input type="checkbox" id="nvhold" checked> Hold every menu open <span>— all eight on screen at once. Switch it off to test the hover behaviour instead.</span></label>
+  <label><input type="checkbox" id="nvhold" checked> Hold every menu open <span>— all ${word(CARDS)} on screen at once. Switch it off to test the hover behaviour instead.</span></label>
   <label><input type="checkbox" id="nvchips"> Number the tiers <span>— a TIER 1/2/3 marker on each band</span></label>
 </div>`;
 
-const ROWS: [string, string, string][] = [
-  [
-    "00 · Now",
-    "A hairline and a 2% tint",
-    "None of the three tiers is distinguishable in a screenshot, which is how most people will first see this menu.",
-  ],
-  [
-    "01 · Tonal steps",
-    "Three weights of one hue",
-    "Safest change on the page. The darkest band is the one you use first, which is the wrong way round for emphasis but the right way round for depth.",
-  ],
-  [
-    "02 · Navy head",
-    "Navy, White Glove, white",
-    "Strongest separation, no new colour. The navy band is a lot of ink at the top of the panel on a short screen.",
-  ],
-  [
-    "03 · A hue per tier",
-    "Navy, sky, gold spines",
-    "Keeps the panel light, but carries nothing in greyscale and brings gold in — which is the warehousing bar's colour elsewhere on the site.",
-  ],
-  [
-    "04 · Inset content tier",
-    "White, white, tinted field",
-    "Makes the pages tier unmistakable and leaves tiers 1 and 2 looking alike. Also the only treatment that changes a card's shape rather than its background.",
-  ],
-  [
-    "05 · Navy head + inset",
-    "Navy, White Glove, tinted field",
-    "Every tier differs from its neighbour. The most ink of the six, and the panel is noticeably busier for it.",
-  ],
-];
-
-const rows = ROWS.map(([a, b, c]) => `<tr><th>${a}</th><td>${b}</td><td class="hl">${c}</td></tr>`).join("");
+/** The table is built from the cards, so it cannot fall out of step with them. */
+const rows = DOWN.map(
+  (t, i) =>
+    `<tr><th>${num(i)} · ${t.title}</th><td>${t.tiers}</td><td class="hl">${t.weigh ?? ""}</td></tr>`,
+).join("");
 
 const blocks: BlockType[] = [
   {
     cls: "dark",
     n: "NAV LAYERS · TELLING THE TIERS APART",
     h: `
-  <h1>Seven ways to colour the mega menu</h1>
+  <h1>${word(ways)[0].toUpperCase() + word(ways).slice(1)} ways to colour the mega menu</h1>
   <p class="lead">The menu works. What it does not do is show you which of its three tiers you are in — tier 1 is white, tier 2 is a 2% tint, tier 3 is white again, and a hairline is all that separates them. Open it and you can follow it; look at a screenshot of it and it is one panel with some tabs in it.</p>
-  <p class="lead">Below is the same menu seven times. <b>Same markup, same cascade, same pages</b> — the only difference between the cards is one class on the panel, so any of these is a stylesheet change rather than a rebuild.</p>
+  <p class="lead">Below is the same menu ${word(CARDS)} times. <b>Same markup, same cascade, same pages</b> — the only difference between the cards is one class on the panel, so any of these is a stylesheet change rather than a rebuild.</p>
   <p class="sub"><b>Every menu on this page is live.</b> Hover or tab into <i>Solutions</i> to open one, or use the switch below to hold them all open at once.</p>`,
     spec: `Internal working page. Not in the sub-nav, not part of the site structure. The treatments are the <code>nv-</code> classes at the foot of <code>src/styles/prototype.css</code>.`,
   },
@@ -174,7 +179,7 @@ const blocks: BlockType[] = [
     cls: "wash nvwide",
     n: "TIERS DOWN · SIX TREATMENTS",
     h: `
-  <h2>The band arrangement, six ways</h2>
+  <h2>The band arrangement, ${word(DOWN.length)} ways</h2>
   <p class="lead">Option H — tiers as full-width bands opening downward. Each card below is one treatment. <b>Open two in turn and the difference is obvious; read the descriptions and it is not</b>, which is the reason this page exists rather than a document about it.</p>
   ${DOWN.map(card).join("")}`,
     spec: `One class on <code>.no-mega</code> per treatment, via the <code>variant</code> option on <code>megaNavDown()</code>. No markup differs between the six.`,
@@ -186,7 +191,7 @@ const blocks: BlockType[] = [
     h: `
   <h2>And on the across arrangement</h2>
   <p class="lead">Option G puts the tiers in rails rather than bands, so the same treatment lands as a column of colour instead of a strip of it. <b>Colour-coding the tiers does not settle across-or-down</b> — it works on both — but the two look different enough to be worth seeing side by side before either is picked.</p>
-  ${ACROSS.map(card).join("")}
+  ${ACROSS.map((t, j) => card(t, DOWN.length + j)).join("")}
   <div class="note"><b>The weight sits differently.</b> In a band, navy is a 44px strip across the top of the panel. In a rail it is a 286px column running the full height — about four times the ink for the same treatment. If the navy direction is chosen, it is a stronger argument for the band arrangement than for the rails.</div>`,
     spec: `The across menu now renders from <code>megaNavAcross()</code> in <code>src/lib/mega-nav.ts</code>, moved out of <code>nav-options.astro</code> so both pages show the same markup rather than two copies of it.`,
   },
@@ -195,9 +200,10 @@ const blocks: BlockType[] = [
     cls: "wash",
     n: "SIDE BY SIDE",
     h: `
-  <h2>All six, in one table</h2>
+  <h2>All ${word(DOWN.length)}, in one table</h2>
   <div class="tscroll" style="margin-top:20px"><table class="cmp"><thead><tr><th>Treatment</th><th>Tier 1 / 2 / 3</th><th class="hl">What to weigh</th></tr></thead><tbody>${rows}</tbody></table></div>
   <div class="note"><b>Our recommendation is 02, the navy head.</b> It separates the tiers with a colour already in the header, it needs no new values in the palette, and it reads the same in greyscale and on a projector. <b>If the pages tier still looks like a list of links rather than the destination, 05 adds the inset field</b> — but that is a second decision, and it can be made after the first one is live.</div>
+  <div class="note"><b>06 is the ceiling, not the proposal.</b> It puts all three devices on the same panel so the most-separated version is on the page to be judged against, rather than imagined. Each layer of it can come off on its own — the hue spines without touching the navy, the inset field without touching either — so if 06 is close but loud, say which layer is doing the shouting and it comes off.</div>
   <div class="note"><b>03 is the one to be careful with.</b> Hue is the only thing telling the tiers apart in it, so it loses the distinction entirely in greyscale, and it puts gold in the header — which is the warehousing service bar's colour everywhere else on the site. It is on the page because it is the lightest-looking option, not because we would pick it.</div>
   <div class="note"><b>None of these is a build decision.</b> Every treatment is background colours and borders on the existing markup. Whichever is picked, the menu underneath is the same one, so this can be settled after the structure is agreed rather than before.</div>`,
     spec: `<b>Elementor:</b> the treatment is CSS on the header widget — no change to the menu's structure, state or content. Worth setting the chosen one in the design system rather than on the widget, since the panel appears on every page.`,

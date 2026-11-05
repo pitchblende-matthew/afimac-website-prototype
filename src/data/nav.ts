@@ -51,12 +51,27 @@ export interface NavKid {
   live?: boolean;
   /** Overrides the section's launch phase for this one page. */
   phase?: Phase;
+  /**
+   * Pages this entry stands in front of without giving them a slot of their
+   * own. Who We Deploy lists six families over eight pages, so two pages sit
+   * behind a family rather than in the nav. They are not rendered — they are
+   * here so the counts and the phase audit still see them. Without this a
+   * family would quietly take the only unwritten page in the section out of
+   * the totals, which is the one page the totals exist to surface.
+   */
+  covers?: NavKid[];
 }
 
 export interface NavItem extends NavKid {
   /** The launch phase this section's nav slot appears in. Required at top level. */
   phase: Phase;
   kids?: NavKid[];
+  /**
+   * A closing link in the dropdown that is not a page in the section — the
+   * way out for someone whose need is not on the list. It carries no dot and
+   * no phase, because it is not work: it points at a page that already exists.
+   */
+  more?: { label: string; route: string };
 }
 
 /** A child ships with its section unless it says otherwise. */
@@ -116,20 +131,39 @@ export const NAV: NavItem[] = [
   },
 
   {
-    label: "Roles",
+    /**
+     * The families, not the job titles — the entry the client moved to after
+     * the comparison on /nav-options. Six entries over the same eight pages:
+     * two families cover two pages each, which is why the list is shorter
+     * than it was without anything having been dropped.
+     *
+     * The URLs are unchanged. Renaming the entry does not rename the routes,
+     * and whether /roles/ becomes /who-we-deploy/ is a redirect decision
+     * rather than a nav one.
+     */
+    label: "Who We Deploy",
     route: "/roles",
     work: "ready",
     phase: 4,
     kids: [
-      k("CNC Operators", "/roles/cnc-operators", "ready"),
-      k("Forklift Operators", "/roles/forklift-operators", "ready"),
-      k("Welders &amp; Fabricators", "/roles/welders", "ready"),
-      k("Machinists", "/roles/machinists", "ready"),
-      k("Assemblers &amp; Production", "/roles/assemblers-production", "ready"),
+      {
+        ...k("Machining &amp; Precision Manufacturing", "/roles/cnc-operators", "ready"),
+        covers: [k("Machinists", "/roles/machinists", "ready")],
+      },
+      k("Welding &amp; Fabrication", "/roles/welders", "ready"),
+      k("Production &amp; Assembly", "/roles/assemblers-production", "ready"),
+      {
+        // Forklift Operators is written; Warehouse & Logistics is not, and the
+        // family entry gives no sign of that. Marked part-written so the dot
+        // says what the label cannot.
+        ...k("Material Handling &amp; Warehouse Operations", "/roles/forklift-operators", "partial"),
+        covers: [k("Warehouse &amp; Logistics — no copy yet", "/roles/warehouse-logistics", "todo")],
+      },
       k("Packaging Operations", "/roles/packaging-operations", "ready"),
-      k("Sanitation Crews", "/roles/sanitation-crews", "ready"),
-      k("Warehouse &amp; Logistics — no copy yet", "/roles", "todo"),
+      k("Sanitation &amp; Facility Support", "/roles/sanitation-crews", "ready"),
     ],
+    // Six families are the common asks, not the limit of what AFIMAC fills.
+    more: { label: "Looking for something else?", route: "/get-in-touch" },
   },
 
   {
@@ -172,7 +206,8 @@ export function sectionTotals(): Totals {
   let live = 0;
   const seen = new Set<string>();
   for (const item of NAV) {
-    for (const entry of [item, ...(item.kids ?? [])] as NavKid[]) {
+    const kids = (item.kids ?? []).flatMap((kid) => [kid, ...(kid.covers ?? [])]);
+    for (const entry of [item, ...kids] as NavKid[]) {
       if (seen.has(entry.route)) continue;
       seen.add(entry.route);
       work[entry.work]++;
@@ -198,7 +233,7 @@ export const PHASES: LaunchPhase[] = [
   { n: 1, name: "Section exists", adds: "Overview, Industries and Contact. The first phase in which CSTL reads as a section rather than a set of loose pages." },
   { n: 2, name: "How It Works", adds: "The How It Works dropdown and its seven pages. The Industries slot is already up, and still opens onto the copy that is live today." },
   { n: 3, name: "Industry pages", adds: "The rewritten industry copy, and Logistics &amp; Warehousing — the one page in the cluster that does not exist yet. No new nav slot except that one: this phase changes what the Industries dropdown opens onto." },
-  { n: 4, name: "Roles", adds: "The Roles dropdown and its eight pages." },
+  { n: 4, name: "Who We Deploy", adds: "The Who We Deploy dropdown — six role families over eight pages, two of them covered by a family rather than listed." },
   { n: 5, name: "Resources", adds: "The Resources dropdown and the gated library." },
   { n: 6, name: "Pricing & ROI", adds: "The last nav slot." },
 ];
@@ -208,7 +243,8 @@ export function entriesAtPhase(p: Phase): NavKid[] {
   const out: NavKid[] = [];
   for (const item of NAV) {
     if (item.phase === p) out.push(item);
-    for (const kid of item.kids ?? []) if (kidPhase(item, kid) === p) out.push(kid);
+    for (const kid of item.kids ?? [])
+      if (kidPhase(item, kid) === p) out.push(kid, ...(kid.covers ?? []));
   }
   return out;
 }
