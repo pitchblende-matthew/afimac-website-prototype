@@ -11,7 +11,7 @@ import { EBOOK_ART } from "../../data/live-media";
 import { B } from "../../data/nav";
 import { photo, liveImg } from "../../lib/wireframe";
 import {
-  roleHero, roleGrid, familyRoles, deckRoles, faqBlock, insightsBlock, leadFormBlock,
+  roleHero, roleSection, deckRoles, faqBlock, insightsBlock, leadFormBlock,
   CONSULTATION_FLAG, FAMILY_RETITLE, COST_ANSWER, SUPERVISION_ANSWER,
 } from "../../lib/role-blocks";
 import type { Block as BlockType } from "../../lib/types";
@@ -48,9 +48,7 @@ const blocks: BlockType[] = [
     id: "roles",
     n: "BLOCK 02 · PROCESSES &amp; ROLES",
     h: `
-  <h2>Matched to the processes you run</h2>
-  <div style="margin:26px 0">${photo("Weld process tile grid · SVG square, art 960×960, min render 640×640 · five labelled tiles: MIG · TIG · Stick · Flux-core · Robotic cells · flat isometric, greys with safety-orange and blue")}</div>
-  ${roleGrid(familyRoles("Welding &amp; Fabrication"))}
+  ${roleSection("Welding &amp; Fabrication", "Matched to the processes you run", `<div style="margin:26px 0">${photo("Weld process tile grid · SVG square, art 960×960, min render 640×640 · five labelled tiles: MIG · TIG · Stick · Flux-core · Robotic cells · flat isometric, greys with safety-orange and blue")}</div>`)}
   ${deckRoles(DECK_ROLES)}
   <div class="note">Fabricators appear in the pillar’s published Manufacturing role list, and robotic welding techs in the automotive skilled-labor content. <b>Confirm the process breakdown, any code or certification screening specifics, and the inspection role with AFIMAC ops before build</b> — nothing on this page promises a welding code.</div>`,
     spec: `<b>Elementor:</b> Heading · Image (SVG) · Container (3-col) · EK Icon Box ×4. Four roles into a 3-col grid leaves an orphan — run 2×2, or add the fifth role if ops confirms one.`,
@@ -88,7 +86,7 @@ const blocks: BlockType[] = [
     h: `
   <h2>Four phases, start to handoff</h2>
   <div class="chipstrip">${CHIPS.map((c) => `<span class="chip">${c}</span>`).join("")}</div>
-  <p>Consistency leads to continuity, which is why every Critical Situation Travel Labor engagement follows the same path. Assessment maps your parts, processes, and shift plan, and Mobilization screens the crew and books travel and housing. Once deployed, welders work your booths under AFIMAC supervision and you have a single point of contact. When the welding labor shortage closes, demobilization hands the work back to your permanent team.</p>
+  <p>Every Critical Situation Travel Labor engagement runs through the same four phases. Assessment maps your parts, processes, and shift plan, and Mobilization screens the crew and books travel and housing. Once deployed, welders work your booths under AFIMAC supervision and you have a single point of contact. When the welding labor shortage closes, demobilization hands the work back to your permanent team.</p>
   <div class="note">Phase names and durations follow the approved process doc, carrying its open <b>Assessment vs. Consultation</b> naming flag. <a href="${u("/brand-check")}">All conflicts →</a></div>`,
     spec: `<b>Elementor:</b> Heading · HTML widget or styled Text Editor for the chips · Text Editor. The lightest of the seven process treatments by design — link the H2 to <a href="${u("/how-it-works")}">How It Works</a>, which carries the full detail.`,
   },
@@ -110,6 +108,7 @@ const blocks: BlockType[] = [
     <div>
      <h3>Bridging the Manufacturing Labor Gap</h3>
      <p>Uncover the strategies business leaders are leveraging to overcome workforce shortages and unlock growth potential.</p>
+     <div class="note stop"><b>This blurb is live AFIMAC copy, and it is the weakest sentence on the page.</b> “Leveraging” and “unlock growth potential” in one line, and it says nothing a buyer could act on. <b>It is left exactly as published</b>, because it is the promo for a real eBook and the page should not disagree with the asset. <b>Worth rewriting at source</b> — it runs on the overview and the industries hub too.</div>
      <div class="btns"><a class="btn" href="${u("/resources")}">Get the Paper</a></div>
     </div>
    </div>

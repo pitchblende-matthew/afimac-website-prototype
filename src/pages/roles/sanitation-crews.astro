@@ -12,7 +12,7 @@ import { u } from "../../lib/base";
 import { B } from "../../data/nav";
 import { photo } from "../../lib/wireframe";
 import {
-  roleHero, roleGrid, familyRoles, deckRoles, faqBlock, insightsBlock, leadFormBlock,
+  roleHero, roleSection, deckRoles, faqBlock, insightsBlock, leadFormBlock,
   CONSULTATION_FLAG, FAMILY_RETITLE, COST_ANSWER, SUPERVISION_ANSWER,
 } from "../../lib/role-blocks";
 import type { Block as BlockType } from "../../lib/types";
@@ -39,7 +39,7 @@ const blocks: BlockType[] = [
   roleHero({
     h1: "Sanitation &amp; Facility Support That Keeps You Audit-Ready",
     sub: "Sanitation Shortfall? Deep Clean Overdue? Third Shift Running Thin?",
-    body: "Sanitation is the shift that makes every other shift possible. When the crew that resets your plant runs short, AFIMAC deploys screened, travel-ready sanitation workers in days, and manages the team, housing included, for as long as the gap lasts.",
+    body: "Production cannot restart until sanitation has finished the reset. When the crew that resets your plant runs short, AFIMAC deploys screened, travel-ready sanitation workers in days, and manages the team, housing included, for as long as the gap lasts.",
     cta2: "See the roles",
     cta2Href: "#roles",
     img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a sanitation crew in wash-down gear working a production room under night-shift lighting, wet stainless surfaces carrying the light · muted industrial tone under the navy scrim · focal area centre · mobile crop 1080×1350",
@@ -67,8 +67,7 @@ const blocks: BlockType[] = [
     cls: "wash",
     n: "BLOCK 03 · ROLES WE DEPLOY",
     h: `
-  <h2>The sanitation shift and the facility behind it</h2>
-  ${roleGrid(familyRoles("Sanitation &amp; Facility Support"))}
+  ${roleSection("Sanitation &amp; Facility Support", "The sanitation shift and the facility behind it")}
   ${deckRoles(DECK_ROLES)}
   <div class="note">The first four are verbatim from the approved Food &amp; Beverage page copy’s Sanitation &amp; GMP group, and wastewater treatment technicians appear in the published cluster roles. <b>Industrial cleaning extends the group to non-food plants — confirm that extension and the full taxonomy with AFIMAC ops before build.</b></div>`,
     spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×6. <b>Asset gap:</b> six line icons, SVG 96×96, from the shared CSTL set.`,
@@ -80,7 +79,7 @@ const blocks: BlockType[] = [
   <h2>How a sanitation crew turns the plant around</h2>
   <div class="g2" style="margin-top:24px">
    <div>
-    <p>Every production day ends with the same race: break the line down, clean it, sanitize it, verify it, and hand it back before the first shift arrives. AFIMAC crews run that reset to your documented sanitation program, under AFIMAC supervision, with your standards as the finish line.</p>
+    <p>Every production day ends with the same race: break the line down, clean it, sanitize it, verify it, and hand it back before the first shift arrives. AFIMAC crews run that reset to your documented sanitation program, under AFIMAC supervision.</p>
     <div class="note" style="margin-top:22px">The loop describes the standard sanitation sequence generically — <b>it names no specific chemicals, hold times, or regulatory steps.</b> Crews work to the client’s own program, which is the claim the copy makes.</div>
    </div>
    ${photo("Nightly reset loop · SVG square, art 960×960, min render 640×640 · a circular cycle with five stations around the loop: Production ends · Breakdown &amp; wash-down · Clean &amp; sanitize · Verify &amp; document · Line released · a clock cue at the centre marks the overnight window · flat isometric, greys with safety-orange and blue · first circular device in the cluster")}

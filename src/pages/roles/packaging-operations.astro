@@ -12,7 +12,7 @@ import { u } from "../../lib/base";
 import { B } from "../../data/nav";
 import { photo } from "../../lib/wireframe";
 import {
-  roleHero, roleGrid, familyRoles, deckRoles, faqBlock, insightsBlock, leadFormBlock,
+  roleHero, roleSection, deckRoles, faqBlock, insightsBlock, leadFormBlock,
   CONSULTATION_FLAG, FAMILY_RETITLE, COST_ANSWER, SUPERVISION_ANSWER,
 } from "../../lib/role-blocks";
 import type { Block as BlockType } from "../../lib/types";
@@ -51,8 +51,7 @@ const blocks: BlockType[] = [
     id: "roles",
     n: "BLOCK 02 · ROLES WE DEPLOY",
     h: `
-  <h2>Fill to pallet, every station</h2>
-  ${roleGrid(familyRoles("Packaging Operations"))}
+  ${roleSection("Packaging Operations", "Fill to pallet, every station")}
   ${deckRoles(DECK_ROLES)}
   <div class="note">The first three are verbatim from the approved Food &amp; Beverage page copy’s Packaging group; machine operators, kitting &amp; repack, and line leads extend it from the approved logistics doc’s Packing &amp; Kitting family. <b>Confirm the full taxonomy with AFIMAC ops before build.</b></div>`,
     spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×6. <b>Asset gap:</b> six line icons, SVG 96×96, from the shared CSTL set.`,
@@ -63,7 +62,7 @@ const blocks: BlockType[] = [
     n: "BLOCK 03 · WHAT’S AT STAKE",
     h: `
   <h2>Packaging gaps are retail problems</h2>
-  <p class="lead">A short packaging shift doesn’t stay inside the plant. Finished product backs up, ship windows slip, and the misses land where they cost the most: with your retail customers. That’s why packaging staffing gaps get escalated faster than almost any other role on the floor.</p>
+  <p class="lead">A short packaging shift doesn’t stay inside the plant. Finished product backs up, ship windows slip, and your retail customers take the miss. Packaging shortfalls get escalated first, because the ship date does not move.</p>
   <ul class="tick stakes" style="margin-top:28px">
    <li>Missed ship windows &amp; past-due orders</li>
    <li>Retail customer defection</li>

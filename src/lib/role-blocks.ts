@@ -10,7 +10,7 @@
 import { photo, liveImg } from "./wireframe";
 import { postArt, postTitleDrift } from "../data/live-media";
 import { u } from "./base";
-import { ROLE_FAMILIES } from "../data/nav-options";
+import { FAMILY_INTRO, ROLE_FAMILIES, ROLE_NOTES } from "../data/nav-options";
 import type { Block } from "./types";
 
 /** Hero — same shape on all seven role pages, dark band, full-bleed photo. */
@@ -49,12 +49,6 @@ export function roleHero(o: {
  * five is drift nobody notices until a client does. Taking both from
  * ROLE_FAMILIES makes that impossible rather than merely unlikely.
  */
-export const familyRoles = (family: string): string[] => {
-  const f = ROLE_FAMILIES.find((x) => x.label === family);
-  if (!f) throw new Error(`No role family named "${family}" in ROLE_FAMILIES`);
-  return f.roles;
-};
-
 /**
  * The deck's own role lines, kept visible under the grid that replaced them.
  *
@@ -67,14 +61,40 @@ export const deckRoles = (lines: string[]): string =>
     .map((l) => `<i>${l}</i>`)
     .join(" · ")}. That detail is worth keeping — <b>decide whether the grid shows the family's job titles or the deck's lines</b>, because the dropdown promises the first and the copy was written for the second.</div>`;
 
-/** Role list rendered as an icon grid — the decks all spec 96×96 line icons. */
+export const familyRoles = (family: string): string[] => {
+  const f = ROLE_FAMILIES.find((x) => x.label === family);
+  if (!f) throw new Error(`No role family named "${family}" in ROLE_FAMILIES`);
+  return f.roles;
+};
+
+/**
+ * Role list rendered as an icon grid — the decks all spec 96×96 line icons.
+ *
+ * Each card carries a line saying what the seat actually does, because a grid
+ * of bare job titles reads as a word list rather than a capability.
+ */
 export function roleGrid(roles: string[]): string {
-  return `<div class="g3" style="margin-top:26px">${roles
+  return `<div class="g3 rolegrid" style="margin-top:22px">${roles
     .map(
       (r) =>
-        `<div class="card"><div class="ph" style="width:34px;height:34px;margin-bottom:14px"></div><h3 style="margin-bottom:0">${r}</h3></div>`,
+        `<div class="card"><div class="ph" style="width:34px;height:34px;margin-bottom:12px"></div><h3 style="margin-bottom:${
+          ROLE_NOTES[r] ? "7px" : "0"
+        }">${r}</h3>${ROLE_NOTES[r] ? `<p class="rolenote">${ROLE_NOTES[r]}</p>` : ""}</div>`,
     )
     .join("")}</div>`;
+}
+
+/**
+ * The whole block: a line of context, the grid, and the flag that the lines
+ * under the titles are ours rather than the client's.
+ */
+export function roleSection(family: string, heading: string, extra = ""): string {
+  return `
+  <h2>${heading}</h2>
+  ${FAMILY_INTRO[family] ? `<p class="lead">${FAMILY_INTRO[family]}</p>` : ""}
+  ${extra}
+  ${roleGrid(familyRoles(family))}
+  <div class="note stop"><b>The line under each job title is ours, not the deck's.</b> The titles are the client's and are settled; what each seat does was written here so the section could be judged at the right density. <b>Every line is an operational claim — certifications, equipment classes, what a seat is and is not responsible for — and needs AFIMAC ops to confirm it before build.</b></div>`;
 }
 
 /** FAQ accordion. First item open, matching the hub and the industry pages. */
