@@ -107,30 +107,6 @@ export const NAV: NavItem[] = [
   },
 
   {
-    // Seven of these eight are live pages. The CSTL work updates them.
-    label: "Industries",
-    route: "/industries",
-    work: "settled",
-    live: true,
-    phase: 1,
-    kids: [
-      k("Aerospace, Aviation &amp; Defense", "/industries/aerospace-aviation-defense", "todo", true),
-      k("Automotive", "/industries/automotive", "partial", true),
-      k("Chemicals &amp; Plastics", "/industries/chemicals-plastics", "todo", true),
-      k("Consumer Goods", "/industries/consumer-goods", "todo", true),
-      k("Food &amp; Beverage", "/industries/food-beverage", "partial", true),
-      k("Industrial Equipment", "/industries/industrial-equipment", "todo", true),
-      k("Oil &amp; Energy", "/industries/oil-energy", "todo", true),
-      {
-        ...k("Logistics &amp; Warehousing — needs a slot", "/industries/logistics-warehousing", "ready"),
-        // The only genuinely new page in the cluster, so its slot cannot go up
-        // with the others at phase 1 — there would be nothing behind it.
-        phase: 3,
-      },
-    ],
-  },
-
-  {
     /**
      * The families, not the job titles — the entry the client moved to after
      * the comparison on /nav-options. Six entries over the same eight pages:
@@ -164,6 +140,30 @@ export const NAV: NavItem[] = [
     ],
     // Six families are the common asks, not the limit of what AFIMAC fills.
     more: { label: "Looking for something else?", route: "/get-in-touch" },
+  },
+
+  {
+    // Seven of these eight are live pages. The CSTL work updates them.
+    label: "Industries",
+    route: "/industries",
+    work: "settled",
+    live: true,
+    phase: 1,
+    kids: [
+      k("Aerospace, Aviation &amp; Defense", "/industries/aerospace-aviation-defense", "todo", true),
+      k("Automotive", "/industries/automotive", "partial", true),
+      k("Chemicals &amp; Plastics", "/industries/chemicals-plastics", "todo", true),
+      k("Consumer Goods", "/industries/consumer-goods", "todo", true),
+      k("Food &amp; Beverage", "/industries/food-beverage", "partial", true),
+      k("Industrial Equipment", "/industries/industrial-equipment", "todo", true),
+      k("Oil &amp; Energy", "/industries/oil-energy", "todo", true),
+      {
+        ...k("Logistics &amp; Warehousing — needs a slot", "/industries/logistics-warehousing", "ready"),
+        // The only genuinely new page in the cluster, so its slot cannot go up
+        // with the others at phase 1 — there would be nothing behind it.
+        phase: 3,
+      },
+    ],
   },
 
   {
