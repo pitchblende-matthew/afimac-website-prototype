@@ -113,33 +113,33 @@ export const NAV: NavItem[] = [
      * two families cover two pages each, which is why the list is shorter
      * than it was without anything having been dropped.
      *
-     * The URLs are unchanged. Renaming the entry does not rename the routes,
-     * and whether /roles/ becomes /who-we-deploy/ is a redirect decision
-     * rather than a nav one.
+     * The URLs follow the entry now: every page sits under /who-we-deploy/
+     * with its family as the slug. The old /roles/ paths need 301s, which
+     * the hub page lists.
      */
     label: "Who We Deploy",
-    route: "/roles",
+    route: "/who-we-deploy",
     work: "ready",
     phase: 4,
     kids: [
       {
-        ...k("Machining &amp; Precision Manufacturing", "/roles/cnc-operators", "ready"),
-        covers: [k("Machinists", "/roles/machinists", "ready")],
+        ...k("Machining &amp; Precision Manufacturing", "/who-we-deploy/machining-precision-manufacturing", "ready"),
+        covers: [k("Machinists", "/who-we-deploy/machinists", "ready")],
       },
-      k("Welding &amp; Fabrication", "/roles/welders", "ready"),
-      k("Production &amp; Assembly", "/roles/assemblers-production", "ready"),
+      k("Welding &amp; Fabrication", "/who-we-deploy/welding-fabrication", "ready"),
+      k("Production &amp; Assembly", "/who-we-deploy/production-assembly", "ready"),
       {
         // Forklift Operators is written; Warehouse & Logistics is not, and the
         // family entry gives no sign of that. Marked part-written so the dot
         // says what the label cannot.
-        ...k("Material Handling &amp; Warehouse Operations", "/roles/forklift-operators", "partial"),
+        ...k("Material Handling &amp; Warehouse Operations", "/who-we-deploy/material-handling-warehouse-operations", "partial"),
         // The route is notional: the page does not exist, and ROLE_PAGES
         // still resolves this label to the hub. It is spelled out here so
-        // the count sees a distinct page rather than folding into /roles.
-        covers: [k("Warehouse &amp; Logistics — no copy yet", "/roles/warehouse-logistics", "todo")],
+        // the count sees a distinct page rather than folding into /who-we-deploy.
+        covers: [k("Warehouse &amp; Logistics — no copy yet", "/who-we-deploy/warehouse-logistics", "todo")],
       },
-      k("Packaging Operations", "/roles/packaging-operations", "ready"),
-      k("Sanitation &amp; Facility Support", "/roles/sanitation-crews", "ready"),
+      k("Packaging Operations", "/who-we-deploy/packaging-operations", "ready"),
+      k("Sanitation &amp; Facility Support", "/who-we-deploy/sanitation-facility-support", "ready"),
     ],
     // Six families are the common asks, not the limit of what AFIMAC fills.
     more: { label: "Looking for something else?", route: "/get-in-touch" },

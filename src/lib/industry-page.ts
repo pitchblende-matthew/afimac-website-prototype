@@ -207,7 +207,7 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
         (c
           ? `<div class="card rolecta" style="margin-top:26px">
    <h3 style="margin-top:0">${c.calloutText}</h3>
-   <div class="rolecta-act"><a class="btn" href="${u("/get-in-touch")}">${c.calloutButton}</a><a class="rolecta-alt" href="${u("/roles")}">or browse every CSTL role &rsaquo;</a></div>
+   <div class="rolecta-act"><a class="btn" href="${u("/get-in-touch")}">${c.calloutButton}</a><a class="rolecta-alt" href="${u("/who-we-deploy")}">or browse every CSTL role &rsaquo;</a></div>
   </div>`
           : ""),
       hEnd: `
@@ -222,7 +222,7 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
   ${
     c
       ? `<div class="note"><b>Two CTAs became one.</b> The block ended with a callout card asking “${c.calloutText}” and then a separate <b>See all CSTL roles</b> button — same weight, same place, two different asks. The card now carries both, with the role list as the secondary of the two.</div>`
-      : `<div class="btns"><a class="btn ghost" href="${u("/roles")}">See all CSTL roles</a></div>`
+      : `<div class="btns"><a class="btn ghost" href="${u("/who-we-deploy")}">See all CSTL roles</a></div>`
   }`,
       spec: c
         ? `<b>Elementor:</b> Container set to grid (auto-fit, min 248px) · <b>EK Icon Box ×${c.stations.length}</b>, one per station, each with its own Icon List · one callout card with a primary button and a text link. <b>No HTML widget and no custom script.</b> Station names and crew lists are deck section 04, verbatim.`

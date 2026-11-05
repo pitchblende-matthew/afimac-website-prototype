@@ -1,0 +1,118 @@
+---
+/**
+ * Packaging Operations — Who We Deploy family page.
+ *
+ * Content only. The order, the devices and the shared build notes are in
+ * src/lib/family-page.ts, which all six of these render from.
+ */
+import Prototype from "../../layouts/Prototype.astro";
+import Block from "../../components/Block.astro";
+import { B } from "../../data/nav";
+import { familyPage, familyPageProps, type FamilyPageData } from "../../lib/family-page";
+
+const page: FamilyPageData = {
+  family: "Packaging Operations",
+  slug: "packaging-operations",
+  hero: {
+    h1: "Packaging Operations That Make the Ship Window",
+    sub: "Ship Window Closing? Co-Packing Surge? A Launch Waiting on the Line?",
+    body: "Nothing counts until it’s packed, labeled, and on the pallet. AFIMAC deploys screened, travel-ready packaging crews, fill to pallet, and manages them on your line, housing included, until the orders are moving again.",
+    cta2: "See the roles",
+    img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a packaging line running, cases moving to the palletizer · muted industrial tone under the navy scrim · mobile crop 1080×1350",
+  },
+  gap: {
+    h2: "Packaging gaps are retail problems",
+    paras: [
+      "Packaging is the last operation before the pallet, which means it inherits every delay upstream of it and owns every one it creates.",
+      "A short packaging shift doesn’t stay inside the plant. Finished product backs up, ship windows slip, and your retail customers take the miss. Packaging shortfalls get escalated first, because the ship date does not move.",
+    ],
+    photo: "1200×1500 JPG (4:5) beside the list · a stopped packaging line with product queued at the infeed · muted tone · no staged distress",
+    triggers: {
+      label: "What a short packaging shift costs",
+      items: [
+        "Missed ship windows &amp; past-due orders",
+        "Retail customer defection",
+        "Lost shelf space &amp; market share",
+        "Spoilage &amp; lost perishable inventory",
+        "A co-packing commitment you can’t cover",
+      ],
+    },
+  },
+  rolesHeading: "Fill to pallet, every station",
+  process: {
+    h2: "Four phases, one deadline in mind",
+    lead: "The same four phases run on every engagement, scoped to the date the window closes.",
+    phases: [
+      ["PHASE 1 · ASSESSMENT — TIMING VARIES BY ENGAGEMENT", "Assessment", [
+        "map the line, the window, roles, shift coverage &amp; site requirements (timing varies by engagement).",
+      ]],
+      ["PHASE 2 · MOBILIZATION — CAN BEGIN RAPIDLY ONCE APPROVED", "Mobilization", [
+        "source and screen the crew from a 20,000+ talent network; credential and role checks, travel, housing &amp; site-specific safety onboarding (can begin rapidly once approved).",
+      ]],
+      ["PHASE 3 · DEPLOYMENT (TEAM ON SITE IN DAYS)", "Deployment", [
+        "the crew works your line under AFIMAC supervision, with a single point of contact and daily output tracking (on site in as little as 72 hours).",
+      ]],
+      ["PHASE 4 · DEMOBILIZATION — IN AS LITTLE AS 48 HOURS", "Demobilization", [
+        "final performance review and a planned handoff back to your permanent team (in as little as 48 hours).",
+      ]],
+    ],
+    photo: "Ship-window countdown · SVG 2400×600 (4:1), stacks vertically under 768px · a calendar strip running left to right with the window marked and crew coverage filling toward it",
+  },
+  included: {
+    h2: "Built for deadlines with dates on them",
+    lead: "You bring the line and the window; AFIMAC handles the rest.",
+    context: "Packaging surges come with a date attached: a retail reset, a promotion, a co-packing commitment, a seasonal window. During Assessment, AFIMAC works backward from that date, scoping the roles, headcount, and shift coverage the window demands, and the crew arrives in days, sized to hit it.",
+    photo: "Line-ready checklist card · SVG square, art 960×960, min render 640×640 · five stamped checks in sequence: Vetted · Credentialed · Traveled · Housed · Supervised",
+  },
+  proof: {
+    h2: "Deadlines recovered at Fortune 500 scale",
+    photo: "1600×1000 JPG (8:5) on the case card · a packaging line at full crew, cases moving, a working shot",
+    featured: "AFIMAC crews have kept Fortune 500 operations shipping: a 99-person food facility deployment, a 73.4% cut in past-due sales, and a two-year engagement back to on-time order fulfillment.",
+    note: `All three references are published on the live CSTL pillar; <b>link to it.</b> This page borrows their weight without retelling them — each case leads elsewhere in the cluster.`,
+  },
+  faq: {
+    h2: "Packaging staffing questions, answered",
+    items: [
+      ["How fast can a packaging crew be on site?", "For most packaging roles, within days of a signed plan. Exact timing depends on role, headcount, location, and compliance requirements."],
+      ["Can you staff a co-packing or seasonal surge?", "Yes. Surges with a date attached are the core packaging use case: the crew is scoped to the window during Assessment and scales down when it closes."],
+      ["Do your crews work food-grade lines?", "Yes. Crews complete site-specific safety and role onboarding before the first shift and work to your documented programs and standards on the line."],
+      ["Who supervises the crew?", "AFIMAC provides on-site supervision and a single point of contact, working alongside your team."],
+      ["What does it cost?", "Cost depends on roles, headcount, shift coverage, location, and duration. AFIMAC provides a scoped estimate during the consultation, including the risk-avoided impact."],
+    ],
+  },
+  insights: { titles: [
+      "Bridging the Manufacturing Labor Gap",
+      "Ready on Day One",
+      "For U.S. Automotive Manufacturers, Reshoring Depends on Skilled Labor",
+    ] },
+  form: {
+    h2: "Window closing? Let’s pack it.",
+    bullets: [
+      "The packaging roles and crew size we’d send",
+      "A realistic timeline to a covered window",
+      "A ballpark cost",
+    ],
+    illo: "1200×1200 flat isometric vector beside the form · a case-and-pallet motif · greys with safety-orange and blue",
+  },
+  meta: {
+    t: "Packaging Operations Staffing | AFIMAC Global",
+    d: "Packaging line short-staffed against a ship window? AFIMAC deploys screened, travel-ready packaging crews in days, fill to pallet, housing handled.",
+    k: "packaging operator staffing · packaging line staffing — secondary: travel packaging crews · case packers · palletizers · kitting workers",
+  },
+  deckRoles: [
+      "Fill, seal &amp; cap operators",
+      "Labeling &amp; date-code techs",
+      "Case pack &amp; palletizers",
+      "Packaging machine operators",
+      "Kitting &amp; repack crews",
+      "Line leads &amp; quality checks",
+    ],
+};
+
+const blocks = familyPage(page);
+const props = familyPageProps(page, B);
+---
+
+<Prototype {...props}>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

@@ -1,0 +1,117 @@
+---
+/**
+ * Production & Assembly — Who We Deploy family page.
+ *
+ * Content only. The order, the devices and the shared build notes are in
+ * src/lib/family-page.ts, which all six of these render from.
+ */
+import Prototype from "../../layouts/Prototype.astro";
+import Block from "../../components/Block.astro";
+import { B } from "../../data/nav";
+import { familyPage, familyPageProps, type FamilyPageData } from "../../lib/family-page";
+
+const page: FamilyPageData = {
+  family: "Production &amp; Assembly",
+  slug: "production-assembly",
+  hero: {
+    h1: "Production &amp; Assembly, On the Line in Days",
+    sub: "A Line Down a Shift? A Launch Short a Crew? Turnover Outrunning Hiring?",
+    body: "A line short of people runs at the rate of the gap. AFIMAC deploys screened, travel-ready assemblers and production crews at whatever scale the line needs, and manages the team, housing included, until your headcount recovers.",
+    cta2: "See the roles",
+    img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a production line mid-shift, crew at stations down its length · muted industrial tone under the navy scrim · mobile crop 1080×1350",
+  },
+  gap: {
+    h2: "A line is only as staffed as its thinnest station",
+    paras: [
+      "Production gaps rarely come one seat at a time — a launch or a relocation needs a whole shift. AFIMAC sources from a 20,000+ talent network and deploys at the size the situation demands. Published engagements have run from a 12-person specialist team to a 99-person production deployment, and the crew scales up or down as the situation changes.",
+    ],
+    photo: "1200×1500 JPG (4:5) beside the list · an idle line section, stations empty, work queued at the head of the line · muted tone",
+    triggers: {
+      label: "The situations this page exists for",
+      items: [
+        "An initial line start-up or product launch short on people",
+        "A production shortfall against a deadline or order backlog",
+        "A plant relocation or consolidation that has to keep shipping",
+        "Absenteeism or turnover thinning a shift",
+        "A local labor market that’s tapped out",
+      ],
+    },
+  },
+  rolesHeading: "Every station on the line, covered",
+  process: {
+    h2: "Four phases, whatever the headcount",
+    lead: "The same four phases run on every engagement, at whatever headcount the line needs.",
+    phases: [
+      ["PHASE 1 · ASSESSMENT — TIMING VARIES BY ENGAGEMENT", "Assessment", [
+        "Map the line: roles, headcount, shift coverage &amp; site requirements, then finalize the deployment plan.",
+      ]],
+      ["PHASE 2 · MOBILIZATION — CAN BEGIN RAPIDLY ONCE APPROVED", "Mobilization", [
+        "Source and screen the crew from a 20,000+ talent network; credential and role checks, travel, housing &amp; site-specific safety onboarding.",
+      ]],
+      ["PHASE 3 · DEPLOYMENT (TEAM ON SITE IN DAYS)", "Deployment", [
+        "The crew takes its stations under AFIMAC supervision, with a single point of contact and daily output tracking.",
+      ]],
+      ["PHASE 4 · DEMOBILIZATION — IN AS LITTLE AS 48 HOURS", "Demobilization", [
+        "Final performance review and a planned handoff back to your permanent workforce.",
+      ]],
+    ],
+    photo: "Crew-scale steps · SVG 2400×600 (4:1), stacks vertically under 768px · four rising steps labelled A few seats · A crew · A shift · A whole line",
+  },
+  included: {
+    h2: "Turnkey, whatever the headcount",
+    lead: "You bring the line and the work instructions; AFIMAC handles the rest, at a few seats or a few hundred.",
+    photo: "Line-ready checklist card · SVG square, art 960×960, min render 640×640 · five stamped checks in sequence: Vetted · Credentialed · Traveled · Housed · Supervised",
+  },
+  proof: {
+    h2: "Ninety-nine people, one working facility",
+    photo: "1600×1000 JPG (8:5) on the case card · a full production floor mid-shift, crew at stations down the line, a working shot",
+    featured: "When a Fortune 500 food manufacturer needed its production facility fully staffed on short notice, AFIMAC deployed 99 personnel across production and material handling roles, keeping the facility operational until the client’s workforce recovered.",
+    supporting: "Assemblers also anchored the crew that cut a Fortune 500 manufacturer’s past-due sales from $5.76 million by 73.4%. Read the case on the CSTL page.",
+    note: `Published on the live CSTL pillar; wording lightly adapted. <b>Link to the pillar rather than building a standalone case page.</b>`,
+  },
+  faq: {
+    h2: "Production staffing questions, answered",
+    items: [
+      ["How fast can a production crew be on site?", "For most production roles, within days of a signed plan. Exact timing depends on role, headcount, location, and compliance requirements."],
+      ["How big can the crew be?", "As big as the situation demands. Published engagements have run from a 12-person specialist team to a 99-person production deployment, and the crew scales up or down as the situation changes."],
+      ["How are production workers screened?", "Every worker clears background, credential, and role checks before travel, and site-specific safety onboarding before the first shift."],
+      ["Who supervises the crew?", "AFIMAC provides on-site supervision and a single point of contact, working alongside your team."],
+      ["What does it cost?", "Cost depends on roles, headcount, shift coverage, location, and duration. AFIMAC provides a scoped estimate during the consultation, including the risk-avoided impact."],
+    ],
+  },
+  insights: { titles: [
+      "Ready on Day One",
+      "The Great Manufacturing (Re)Migration",
+      "Debunking the Top Five Travel Labor Myths",
+    ] },
+  form: {
+    h2: "Line running short? Let’s staff it.",
+    bullets: [
+      "The roles and crew size we’d send",
+      "A realistic timeline to a working line",
+      "A ballpark cost",
+    ],
+    illo: "1200×1200 flat isometric vector beside the form · an assembly station motif · greys with safety-orange and blue",
+  },
+  meta: {
+    t: "Production &amp; Assembly Staffing | AFIMAC Global",
+    d: "Short on assemblers or production crew? AFIMAC deploys screened, travel-ready production teams at any scale, from a few seats to a whole line, in days.",
+    k: "assembler staffing · production staffing — secondary: travel assemblers · temporary production workers · general labor staffing · machine operator staffing",
+  },
+  deckRoles: [
+      "Assemblers &amp; line workers",
+      "Machine operators",
+      "Packaging operators",
+      "Palletizers &amp; material handlers",
+      "Production support &amp; general labor",
+      "Quality &amp; inspection support",
+    ],
+};
+
+const blocks = familyPage(page);
+const props = familyPageProps(page, B);
+---
+
+<Prototype {...props}>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

@@ -1,0 +1,106 @@
+---
+/**
+ * Welding & Fabrication — Who We Deploy family page.
+ *
+ * Content only. The order, the devices and the shared build notes are in
+ * src/lib/family-page.ts, which all six of these render from.
+ */
+import Prototype from "../../layouts/Prototype.astro";
+import Block from "../../components/Block.astro";
+import { B } from "../../data/nav";
+import { familyPage, familyPageProps, type FamilyPageData } from "../../lib/family-page";
+
+const page: FamilyPageData = {
+  family: "Welding &amp; Fabrication",
+  slug: "welding-fabrication",
+  hero: {
+    h1: "Welding &amp; Fabrication, On the Floor in Days",
+    sub: "Weld Booths Empty? Fab Backlog Growing? A Line Start-up Coming?",
+    body: "Every empty weld booth is throughput you’re not shipping. AFIMAC staffs empty seats with screened, travel-ready welders and fabricators, then manages the crew and the housing for as long as you need them.",
+    cta2: "See the roles",
+    img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a welder mid-arc in a booth, sparks and shielding, plant depth behind · muted industrial tone under the navy scrim · mobile crop 1080×1350",
+    note: `<b>Speed claim, still open.</b> The live CSTL pillar’s meta claims deployment in <b>24 to 72 hours</b>; the approved process doc’s phase math runs longer. This page stays on “in days” until Maria confirms which claim the cluster carries.`,
+  },
+  gap: {
+    h2: "Certified welders are the seat plants wait longest for",
+    paras: [
+      "A welder who can hold a code-quality bead takes years to qualify, and the pool of them is not growing. Retirements run ahead of apprenticeships, and the certifications a plant actually needs are narrower than the trade as a whole.",
+      "Critical Situation Travel Labor closes that gap. AFIMAC recruits, screens, travels, houses and manages welding crews from a national network, then deploys them to your booths until the backlog clears.",
+    ],
+    photo: "1200×1500 JPG (4:5) beside the intro · an empty weld booth, hood resting on the bench, work queued beside it · muted tone · no staged distress",
+  },
+  rolesHeading: "Matched to the processes you run",
+  process: {
+    h2: "Four phases, start to handoff",
+    lead: "The same four phases run on every engagement. For welding and fabrication they cover:",
+    phases: [
+      ["PHASE 1 · ASSESSMENT — TIMING VARIES BY ENGAGEMENT", "Assessment", [
+        "Assessment maps your parts, processes, standards and shift plan, and settles roles, headcount and site requirements.",
+      ]],
+      ["PHASE 2 · MOBILIZATION — CAN BEGIN RAPIDLY ONCE APPROVED", "Mobilization", [
+        "Mobilization screens welders and fabricators from a 20,000+ talent network, clears credential and role checks, and books travel and housing.",
+      ]],
+      ["PHASE 3 · DEPLOYMENT (TEAM ON SITE IN DAYS)", "Deployment", [
+        "Welders work your booths under AFIMAC supervision, with a single point of contact and a daily feedback loop.",
+      ]],
+      ["PHASE 4 · DEMOBILIZATION — IN AS LITTLE AS 48 HOURS", "Demobilization", [
+        "When the welding labor shortage closes, demobilization hands the work back to your permanent team.",
+      ]],
+    ],
+    photo: "Weld process tile grid · SVG square, art 960×960, min render 640×640 · five labelled tiles: MIG · TIG · Stick · Flux-core · Robotic cells · flat isometric, greys with safety-orange and blue",
+  },
+  included: {
+    h2: "You bring the work. We bring the welders.",
+    lead: "You bring the prints, the specs and the standards your parts are built to, the machines and consumables, and the site and the schedule. AFIMAC brings the rest.",
+    photo: "Weld-ready checklist card · SVG square, art 960×960, min render 640×640 · five stamped checks in sequence: Vetted · Credentialed · Traveled · Housed · Supervised",
+  },
+  proof: {
+    h2: "Welders who cleared a $5.76 million backlog",
+    photo: "1600×1000 JPG (8:5) on the case card · a weld bay in production, a working shot with no staged poses",
+    featured: "A Fortune 500 manufacturer faced mounting production delays, with past-due orders peaking at $5.76 million. AFIMAC deployed skilled labor, including welders, CNC machinists, and assemblers. Past-due sales fell by 73.4% and performance returned to previously high levels.",
+    note: `Published on the live CSTL pillar; wording lightly adapted. <b>Link to the pillar rather than building a standalone case page.</b>`,
+  },
+  faq: {
+    h2: "Welder staffing questions, answered",
+    items: [
+      ["How fast can welders be on site?", "For most welding roles, within days of a signed plan. Exact timing depends on process, headcount, location, and compliance requirements."],
+      ["Are your welders certified?", "Every welder clears background, credential, and role checks before travel. Code and certification requirements are mapped during the Assessment phase so the crew matches the standards your parts are built to."],
+      ["Can you staff robotic welding cells?", "Yes. Robotic welding technicians are among the roles AFIMAC deploys alongside manual welders and fabricators."],
+      ["Who supervises the crew?", "AFIMAC provides on-site supervision and a single point of contact, working alongside your team."],
+      ["What does it cost?", "Cost depends on roles, headcount, shift coverage, location, and duration. AFIMAC provides a scoped estimate during the consultation, including the risk-avoided impact."],
+    ],
+  },
+  insights: { titles: [
+      "Manufacturing’s Persistent Labor Challenge",
+      "Everything You Need to Know About the Growing Skills Gap (video)",
+      "What Does the Push for Reshoring Mean for U.S. Automotive Manufacturers?",
+    ] },
+  form: {
+    h2: "Booths sitting cold? Let’s fix that.",
+    bullets: [
+      "The welding roles and crew size we’d send",
+      "A realistic timeline to welders in your booths",
+      "A ballpark cost",
+    ],
+    illo: "1200×1200 flat isometric vector beside the form · a weld booth motif · greys with safety-orange and blue",
+  },
+  meta: {
+    t: "Welding &amp; Fabrication Staffing | AFIMAC Global",
+    d: "Welding labor shortage? AFIMAC sends screened, travel-ready welders and fabricators to your plant in days, with housing and supervision handled.",
+    k: "welder staffing · welding labor shortage — secondary: travel welders · temporary welders · fabricator staffing · robotic welding technicians · contract welders",
+  },
+  deckRoles: [
+      "Welders (MIG, TIG, stick &amp; flux-core)",
+      "Robotic welding technicians",
+      "Fabricators",
+      "Weld quality &amp; inspection support",
+    ],
+};
+
+const blocks = familyPage(page);
+const props = familyPageProps(page, B);
+---
+
+<Prototype {...props}>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

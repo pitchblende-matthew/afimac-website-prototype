@@ -15,12 +15,12 @@ import type { Block as BlockType } from "../lib/types";
 
 /** What each family's page is for, keyed by the route the nav points at. */
 const ANGLE: Record<string, string> = {
-  "/roles/cnc-operators": "The hardest seats on the floor to fill. Process runs as a card row.",
-  "/roles/welders": "Weld processes and a who-brings-what split. Process runs as a chip strip.",
-  "/roles/assemblers-production": "Scale, not depth — a few seats to a whole line. Process runs as a table.",
-  "/roles/forklift-operators": "Equipment classes and dock throughput. Process runs as a vertical rail.",
-  "/roles/packaging-operations": "Ship windows and retail stakes. Process runs as a dot stepper.",
-  "/roles/sanitation-crews": "The shift that makes every other shift possible. Process runs as a definition list.",
+  "/who-we-deploy/machining-precision-manufacturing": "The hardest seats on the floor to fill. Process runs as a card row.",
+  "/who-we-deploy/welding-fabrication": "Weld processes and a who-brings-what split. Process runs as a chip strip.",
+  "/who-we-deploy/production-assembly": "Scale, not depth — a few seats to a whole line. Process runs as a table.",
+  "/who-we-deploy/material-handling-warehouse-operations": "Equipment classes and dock throughput. Process runs as a vertical rail.",
+  "/who-we-deploy/packaging-operations": "Ship windows and retail stakes. Process runs as a dot stepper.",
+  "/who-we-deploy/sanitation-facility-support": "The shift that makes every other shift possible. Process runs as a definition list.",
 };
 
 /** What is on each page a family covers without the nav pointing at it. */
@@ -28,6 +28,19 @@ const COVERED: Record<string, string> = {
   Machinists: "Manual, toolroom and maintenance work. Written, wireframed, and now unreachable from the menu.",
   "Warehouse &amp; Logistics": "On the build sheet. No copy deck, no page, and no route decided — it still resolves to this hub.",
 };
+
+/** Old path to new, for the redirect table. Built from the families so a
+    slug change cannot leave the table behind. */
+const REDIRECTS: [string, string][] = [
+  ["/roles/", "/who-we-deploy/"],
+  ["/roles/cnc-operators/", "/who-we-deploy/machining-precision-manufacturing/"],
+  ["/roles/welders/", "/who-we-deploy/welding-fabrication/"],
+  ["/roles/assemblers-production/", "/who-we-deploy/production-assembly/"],
+  ["/roles/forklift-operators/", "/who-we-deploy/material-handling-warehouse-operations/"],
+  ["/roles/packaging-operations/", "/who-we-deploy/packaging-operations/"],
+  ["/roles/sanitation-crews/", "/who-we-deploy/sanitation-facility-support/"],
+  ["/roles/machinists/", "/who-we-deploy/machinists/"],
+];
 
 const cards = ROLE_FAMILIES.map((f) => {
   const route = f.pages[0].route;
@@ -71,10 +84,14 @@ const blocks: BlockType[] = [
 
   {
     cls: "wash",
-    n: "OPEN ITEM · THE SLUG PATTERN",
+    n: "SETTLED · THE URLS, AND THE REDIRECTS THEY NEED",
     h: `
-  <div class="note stop" style="margin-top:0"><b>Every one of the seven decks carries the same open item: confirm the <code>/roles/</code> slug pattern against the site IA deck before the cluster builds.</b> The industries cluster uses <code>/industries/</code>, so the convention is consistent as drafted — but it has never actually been signed off, and eight URLs is an expensive thing to change after publication.</div>`,
-    spec: `Decide this at structure sign-off, with the industries slugs, in one pass.`,
+  <div class="note" style="margin-top:0"><b>The URLs now follow the section and the page title.</b> <code>/roles/</code> was the drafted pattern and never matched what the nav says; every page in the cluster sits under <code>/who-we-deploy/</code> with a slug that is its family.</div>
+  <div class="tscroll" style="margin-top:20px"><table class="cmp"><thead><tr><th>Was</th><th>Is</th><th class="hl">Needs</th></tr></thead><tbody>${REDIRECTS.map(
+    ([was, now]) => `<tr><th><code>${was}</code></th><td><code>${now}</code></td><td class="hl">301</td></tr>`,
+  ).join("")}</tbody></table></div>
+  <div class="note stop"><b>${REDIRECTS.length} redirects, and none of these pages is live yet.</b> The old paths exist only in this prototype and in the copy decks, so nothing is 404ing in public today — but <b>the decks, the build sheet and any link already shared carry the old paths</b>, and the redirects have to go in with the build rather than after it. <a href="${u("/industries")}">The industries cluster has the same question outstanding</a> and should be settled in the same pass.</div>`,
+    spec: `<b>Elementor / hosting:</b> eight 301s. The slug pattern is now <code>/who-we-deploy/&lt;family&gt;/</code>, matching the nav entry and each page's H1.`,
   },
 
   {
@@ -123,9 +140,9 @@ const blocks: BlockType[] = [
 <Prototype
   title="Who We Deploy"
   crumb="Solutions › CSTL › Who We Deploy"
-  url={`${B}roles/`}
+  url={`${B}who-we-deploy/`}
   status="build"
-  active="/roles"
+  active="/who-we-deploy"
 >
   {blocks.map((b) => <Block {...b} />)}
 </Prototype>

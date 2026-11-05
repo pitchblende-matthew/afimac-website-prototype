@@ -23,18 +23,18 @@ export interface RoleLink {
 
 /** The eight role pages, in the order the hub lists them. */
 export const ROLE_PAGES: RoleLink[] = [
-  { label: "CNC Operators", route: "/roles/cnc-operators", written: true },
-  { label: "Machinists", route: "/roles/machinists", written: true },
-  { label: "Welders &amp; Fabricators", route: "/roles/welders", written: true },
-  { label: "Assemblers &amp; Production", route: "/roles/assemblers-production", written: true },
-  { label: "Packaging Operations", route: "/roles/packaging-operations", written: true },
-  { label: "Sanitation Crews", route: "/roles/sanitation-crews", written: true },
-  { label: "Forklift Operators", route: "/roles/forklift-operators", written: true },
-  { label: "Warehouse &amp; Logistics", route: "/roles" },
+  { label: "CNC Operators", route: "/who-we-deploy/machining-precision-manufacturing", written: true },
+  { label: "Machinists", route: "/who-we-deploy/machinists", written: true },
+  { label: "Welders &amp; Fabricators", route: "/who-we-deploy/welding-fabrication", written: true },
+  { label: "Assemblers &amp; Production", route: "/who-we-deploy/production-assembly", written: true },
+  { label: "Packaging Operations", route: "/who-we-deploy/packaging-operations", written: true },
+  { label: "Sanitation Crews", route: "/who-we-deploy/sanitation-facility-support", written: true },
+  { label: "Forklift Operators", route: "/who-we-deploy/material-handling-warehouse-operations", written: true },
+  { label: "Warehouse &amp; Logistics", route: "/who-we-deploy" },
 ];
 
 const byLabel = (l: string): RoleLink =>
-  ROLE_PAGES.find((r) => r.label === l) ?? { label: l, route: "/roles" };
+  ROLE_PAGES.find((r) => r.label === l) ?? { label: l, route: "/who-we-deploy" };
 
 export interface RoleGroup {
   label: string;
