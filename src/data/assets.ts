@@ -143,7 +143,7 @@ export const ASSETS: Asset[] = [
     status: "Copy Completed · Design Completed",
     monday: M("12074239617"),
     file: "https://www.dropbox.com/scl/fi/asw3p9jzvufo0c3pkt1ec/Bridging-the-Manufacturing-Labor-Gap-v4.pdf?rlkey=tadfpb0onk3528oeh437ephtm&dl=0",
-    places: ["/overview", "/roles/welders", "/resources", "/industries"],
+    places: ["/overview", "/who-we-deploy/welding-fabrication", "/resources", "/industries"],
     why: "Already live on the site and already used by the prototype. Listed so the library is complete — note the board carries v4, newer than what the live page serves.",
   },
   {
@@ -192,7 +192,7 @@ export const ASSETS: Asset[] = [
     status: "Copy Approved · Design Paused",
     monday: M("11630262776"),
     file: "https://www.dropbox.com/scl/fi/dhfmb2csze8uwv2muelkl/AFIMAC-Workforce-Skills-Profile-1080x1350-v6.png?rlkey=z99xv3ch4iqe462irerql189g&dl=0",
-    places: ["/roles", "/overview", "/what-is-travel-labor"],
+    places: ["/who-we-deploy", "/overview", "/what-is-travel-labor"],
     why: "The roles hub is a list of eight links with no evidence behind it. This is the asset that shows what the 20,000+ network actually consists of. Design is paused at v6, not blocked.",
   },
   {

@@ -1,0 +1,118 @@
+---
+/**
+ * Sanitation & Facility Support — Who We Deploy family page.
+ *
+ * Content only. The order, the devices and the shared build notes are in
+ * src/lib/family-page.ts, which all six of these render from.
+ */
+import Prototype from "../../layouts/Prototype.astro";
+import Block from "../../components/Block.astro";
+import { B } from "../../data/nav";
+import { familyPage, familyPageProps, type FamilyPageData } from "../../lib/family-page";
+
+const page: FamilyPageData = {
+  family: "Sanitation &amp; Facility Support",
+  slug: "sanitation-facility-support",
+  hero: {
+    h1: "Sanitation &amp; Facility Support That Keeps You Audit-Ready",
+    sub: "Sanitation Shortfall? Deep Clean Overdue? Third Shift Running Thin?",
+    body: "Production cannot restart until sanitation has finished the reset. When the crew that resets your plant runs short, AFIMAC deploys screened, travel-ready sanitation workers in days, and manages the team, housing included, for as long as the gap lasts.",
+    cta2: "See the roles",
+    img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a sanitation crew on a wash-down, plant lit for third shift · muted industrial tone under the navy scrim · mobile crop 1080×1350",
+  },
+  gap: {
+    h2: "What’s actually at stake when the third shift runs short",
+    paras: [
+      "A short sanitation shift doesn’t announce itself the way a down line does. It shows up later, as a changeover that can’t start, a deep clean pushed another week, an audit finding you saw coming. Sanitation and deep-clean staffing gaps are one of the named triggers AFIMAC’s food and beverage clients call about, because the roles are hard to fill locally and the work can’t wait for a hiring cycle.",
+    ],
+    photo: "1200×1500 JPG (4:5) beside the list · a production room mid-wash-down, hoses run out, line torn down · muted tone",
+    triggers: {
+      label: "What a short sanitation shift costs",
+      items: [
+        "Audit &amp; compliance findings (GMP, HACCP)",
+        "Sanitation lapses",
+        "Spoilage &amp; lost perishable inventory",
+        "A changeover or new line launch that can’t start",
+        "Overtime and burnout on your core team",
+      ],
+    },
+  },
+  rolesHeading: "The sanitation shift and the facility behind it",
+  process: {
+    h2: "Four phases, sanitation edition",
+    lead: "The same four phases run on every engagement, inside the window your production schedule leaves.",
+    phases: [
+      ["PHASE 1 · ASSESSMENT — TIMING VARIES BY ENGAGEMENT", "Assessment", [
+        "Map your sanitation program, rooms, shift windows &amp; site requirements, then finalize the deployment plan.",
+      ]],
+      ["PHASE 2 · MOBILIZATION — CAN BEGIN RAPIDLY ONCE APPROVED", "Mobilization", [
+        "Source and screen the crew from a 20,000+ talent network; credential and role checks, travel, housing &amp; site-specific safety onboarding.",
+      ]],
+      ["PHASE 3 · DEPLOYMENT (TEAM ON SITE IN DAYS)", "Deployment", [
+        "The crew works your sanitation windows under AFIMAC supervision, with a single point of contact and daily reporting.",
+      ]],
+      ["PHASE 4 · DEMOBILIZATION — IN AS LITTLE AS 48 HOURS", "Demobilization", [
+        "Final performance review and a planned handoff back to your permanent team.",
+      ]],
+    ],
+    photo: "Nightly reset loop · SVG square, art 960×960, min render 640×640 · a circular cycle with five stations around the loop: Tear down · Clean · Sanitize · Verify · Hand back",
+  },
+  included: {
+    h2: "Turnkey, through the night",
+    lead: "You bring the plant and the program; AFIMAC handles the rest.",
+    context: "Every production day ends with the same race: break the line down, clean it, sanitize it, verify it, and hand it back before the first shift arrives. AFIMAC crews run that reset to your documented sanitation program, under AFIMAC supervision.",
+    photo: "Audit-ready checklist card · SVG square, art 960×960, min render 640×640 · five stamped checks in sequence: Vetted · Credentialed · Traveled · Housed · Supervised",
+  },
+  proof: {
+    h2: "Trusted inside food plants at full scale",
+    photo: "1600×1000 JPG (8:5) on the case card · a sanitation crew working a plant reset, a working shot",
+    featured: "When a Fortune 500 food manufacturer needed its production facility fully staffed on short notice, AFIMAC deployed 99 personnel across the operation and kept it running until the client’s workforce recovered.",
+    supporting: "Engagements run as long as the gap does: published AFIMAC deployments range from multi-month assignments to a two-year manufacturing partnership.",
+    note: `Published on the live CSTL pillar; wording lightly adapted. <b>Link to the pillar rather than building a standalone case page.</b>`,
+  },
+  faq: {
+    h2: "Sanitation staffing questions, answered",
+    items: [
+      ["How fast can a sanitation crew be on site?", "For most sanitation roles, within days of a signed plan. Exact timing depends on role, headcount, location, and compliance requirements."],
+      ["Do your crews follow our sanitation program?", "Yes. Crews work to your documented sanitation program and standards, with site-specific safety and role onboarding completed before the first shift. The Assessment phase maps your program, rooms, and shift windows so the crew fits the way your plant runs."],
+      ["Can you staff third-shift and weekend sanitation windows?", "Yes. Shift coverage is scoped during Assessment, and crews are built for the windows your plant sanitizes in, including overnight and weekend resets."],
+      ["Who supervises the crew?", "AFIMAC provides on-site supervision and a single point of contact, working alongside your team."],
+      ["What does it cost?", "Cost depends on roles, headcount, shift coverage, location, and duration. AFIMAC provides a scoped estimate during the consultation, including the risk-avoided impact."],
+    ],
+  },
+  insights: { titles: [
+      "The Labor Gap Took Decades to Build. Solving It Requires a New Playbook.",
+      "Manufacturing’s Persistent Labor Challenge",
+      "Ready on Day One",
+    ] },
+  form: {
+    h2: "Sanitation shift short? Let’s reset it.",
+    bullets: [
+      "The sanitation roles and crew size we’d send",
+      "A realistic timeline to a covered shift",
+      "A ballpark cost",
+    ],
+    illo: "1200×1200 flat isometric vector beside the form · a wash-down and drain motif · greys with safety-orange and blue",
+  },
+  meta: {
+    t: "Sanitation &amp; Facility Support Staffing | AFIMAC Global",
+    d: "Sanitation shift running short? AFIMAC deploys screened, travel-ready sanitation crews to food and industrial plants in days, with housing handled.",
+    k: "sanitation crew staffing · sanitation staffing — secondary: travel sanitation workers · industrial cleaners · CIP operators · deep clean crews",
+  },
+  deckRoles: [
+      "Sanitation (SSOP) crews",
+      "Deep-clean &amp; changeover teams",
+      "Wash-down &amp; CIP operators",
+      "GMP compliance support",
+      "Industrial cleaning &amp; facility crews",
+      "Wastewater treatment technicians",
+    ],
+};
+
+const blocks = familyPage(page);
+const props = familyPageProps(page, B);
+---
+
+<Prototype {...props}>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

@@ -46,7 +46,7 @@ const flyout = (groups: RoleGroup[]): string =>
   `<div class="no-dd">${groups
     .map(
       (g) =>
-        `<div class="no-sub"><a href="${u("/roles")}" class="no-subhead">${g.label}<span class="no-caret">›</span></a><div class="no-flyout">${g.roles
+        `<div class="no-sub"><a href="${u("/who-we-deploy")}" class="no-subhead">${g.label}<span class="no-caret">›</span></a><div class="no-flyout">${g.roles
           .map(link)
           .join("")}</div></div>`,
     )

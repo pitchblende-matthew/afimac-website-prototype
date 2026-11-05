@@ -1,0 +1,119 @@
+---
+/**
+ * Machining & Precision Manufacturing — Who We Deploy family page.
+ *
+ * Content only. The order, the devices and the shared build notes are in
+ * src/lib/family-page.ts, which all six of these render from.
+ */
+import Prototype from "../../layouts/Prototype.astro";
+import Block from "../../components/Block.astro";
+import { B } from "../../data/nav";
+import { familyPage, familyPageProps, type FamilyPageData } from "../../lib/family-page";
+
+const page: FamilyPageData = {
+  family: "Machining &amp; Precision Manufacturing",
+  slug: "machining-precision-manufacturing",
+  hero: {
+    h1: "Machining &amp; Precision Manufacturing, On Site in Days",
+    sub: "Machines Idle? Backlog Growing? Machinists Retiring Faster Than You Can Hire?",
+    body: "When machining capacity is the bottleneck, AFIMAC sends operators, machinists, programmers and setup techs. Get a crew on your floor in days with travel, housing, and on-site supervision covered.",
+    cta2: "See the process",
+    img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a CNC operator at the control of a machining center, shop floor depth behind · muted industrial tone under the navy scrim · focal area centre-left · mobile crop 1080×1350",
+    note: `Also carried into the build: the deck reads “your partner in&nbsp;&nbsp;CNC operator” and “vetted, travel-ready&nbsp;&nbsp;crews” in the meta — double spaces, closed up here.`,
+  },
+  gap: {
+    h2: "The hardest seats on the floor to fill",
+    paras: [
+      "A CNC operator takes months to source and years to develop. An idle machining center is a shift of parts off the schedule. Retirements outpace the arrival of new machinists, and in most markets the local pool is simply tapped out.",
+      "Critical Situation Travel Labor closes that gap. Instead of waiting on a local hiring cycle, AFIMAC recruits, screens, travels, houses, and manages machining crews from a national network, then deploys them to your site until the situation is resolved.",
+    ],
+    photo: "1200×1500 JPG (4:5) beside the intro · an unmanned machining center, work light on · muted tone · no staged distress",
+  },
+  rolesHeading: "The machining seats, ready to travel",
+  process: {
+    h2: "From first call to chips flying",
+    lead: "Every engagement runs through the same four phases. For machining roles, here is what each one covers.",
+    phases: [
+      ["PHASE 1 · ASSESSMENT — TIMING VARIES BY ENGAGEMENT", "Assessment", [
+        "Assess the situation and machining needs: machines, parts, tolerances &amp; shift plan",
+        "Align on roles, headcount, and site requirements",
+        "Scope timeline, costs, and success measures",
+        "Finalize the deployment plan",
+      ]],
+      ["PHASE 2 · MOBILIZATION — CAN BEGIN RAPIDLY ONCE APPROVED", "Mobilization", [
+        "Source and screen machinists from a 20,000+ talent network",
+        "Background, credential, and role checks",
+        "Arrange travel and housing",
+        "Site-specific safety and role onboarding",
+      ]],
+      ["PHASE 3 · DEPLOYMENT (TEAM ON SITE IN DAYS)", "Deployment", [
+        "Operators arrive and start running your machines",
+        "On-site AFIMAC supervision and a single point of contact",
+        "Daily feedback loop and output tracking",
+        "Scale the crew up or down as the backlog moves",
+      ]],
+      ["PHASE 4 · DEMOBILIZATION — IN AS LITTLE AS 48 HOURS", "Demobilization", [
+        "Final performance review",
+        "Support the transition back to your permanent workforce",
+        "Release travel crews and close out the engagement",
+      ]],
+    ],
+    photo: "Shift coverage matrix · SVG 2400×600 (4:1), stacks vertically under 768px · machine rows against shift columns, coverage filling across the engagement: Day 1 first shift covered · full weekday coverage · weekend &amp; second shift added as needed · column labels 1st shift · 2nd shift · Weekend",
+  },
+  included: {
+    h2: "Turnkey, down to the housing",
+    lead: "You bring the machines and the backlog; AFIMAC handles the rest.",
+    photo: "Operator-ready checklist card · SVG square, art 960×960, min render 640×640 · five stamped checks in sequence: Vetted · Credentialed · Traveled · Housed · Supervised",
+  },
+  proof: {
+    h2: "Machinists who moved the numbers",
+    photo: "1600×1000 JPG (8:5) on the featured card · a machining crew at work, shot mid-task, nothing staged",
+    featured: "A Fortune 500 manufacturer faced mounting production delays, with past-due orders peaking at $5.76 million. AFIMAC deployed skilled labor, including assemblers, CNC machinists, and welders. Past-due sales fell by 73.4% and performance returned to previously high levels.",
+    supporting: "Confronted with a significant customer order backlog, a Fortune 500 agricultural equipment manufacturer brought in multiple staffing providers. AFIMAC distinguished itself as the sole non-local partner retained, supplying skilled assemblers and machinists. Over a two-year engagement, AFIMAC’s workforce helped stabilize operations and return the company to on-time order fulfillment.",
+    note: `Both cases are published on the live CSTL pillar; wording is lightly adapted from it. The featured case’s security element is omitted here to keep the page on the labor story. <b>Link both to the pillar rather than building standalone case pages.</b>`,
+  },
+  faq: {
+    h2: "CNC staffing questions, answered",
+    items: [
+      ["How fast can CNC operators be on site?", "For most machining roles, within days of a signed plan. Exact timing depends on role, headcount, location, and compliance requirements."],
+      ["Are operators vetted for my machines?", "Every operator goes through background, credential, and role checks before travel. The Assessment phase maps your machines, parts, and tolerances, so the crew that shows up can run what you actually have."],
+      ["Who supervises the crew?", "AFIMAC provides on-site supervision and a single point of contact, working alongside your team."],
+      ["How long can crews stay?", "As long as the gap lasts. Engagements are temporary by design and end with a planned demobilization when your permanent workforce recovers."],
+      ["What does it cost?", "Cost depends on roles, headcount, shift coverage, location, and duration. AFIMAC provides a scoped estimate during the consultation, including the risk-avoided impact."],
+    ],
+  },
+  insights: { titles: [
+      "For U.S. Automotive Manufacturers, Reshoring Depends on Skilled Labor",
+      "The Labor Gap Took Decades to Build. Closing It Requires a New Playbook.",
+      "The Great Manufacturing (Re)Migration",
+    ] },
+  form: {
+    h2: "Machines waiting? Let’s scope it.",
+    bullets: [
+      "The machining roles and crew size we’d deploy",
+      "A realistic timeline to operators at your machines",
+      "A ballpark cost",
+    ],
+    illo: "1200×1200 flat isometric vector beside the form · a machining cell motif · greys with safety-orange and blue",
+  },
+  meta: {
+    t: "Machining &amp; Precision Manufacturing Staffing | AFIMAC Global",
+    d: "Need CNC operators, machinists or programmers? AFIMAC puts vetted, travel-ready machining crews on your floor in days, with housing and supervision handled.",
+    k: "CNC operator staffing · CNC machinist staffing — secondary: travel CNC machinists · temporary CNC operators · machining labor shortage · contract CNC operators",
+  },
+  deckRoles: [
+      "CNC operators (mill &amp; lathe)",
+      "CNC machinists",
+      "CNC programmers",
+      "Machine setup &amp; changeover support",
+      "Quality &amp; inspection support",
+    ],
+};
+
+const blocks = familyPage(page);
+const props = familyPageProps(page, B);
+---
+
+<Prototype {...props}>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>

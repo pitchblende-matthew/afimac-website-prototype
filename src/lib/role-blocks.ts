@@ -202,7 +202,7 @@ export function leadFormBlock(o: {
  * departure from approved copy and is said on the page rather than left for
  * someone to discover at build.
  */
-export const FAMILY_RETITLE = `<b>The H1, the page title and the meta here are not the deck's.</b> The nav entry is <i>Who We Deploy</i> and this page sits under its family rather than under one job title, so the title follows the family. <b>The deck's own wording is unchanged and still approved.</b> If the family titles are right, the decks need re-issuing to match; if the decks are right, the nav is what moves. <b>One or the other has to give.</b>`;
+export const FAMILY_RETITLE = `<b>The H1, the page title and the meta here are not the deck's.</b> The nav entry is <i>Who We Deploy</i> and this page sits under its family rather than under one job title, so the title follows the family. <b>The deck's own wording is unchanged and still approved.</b> If the family titles are right, the decks need re-issuing to match; if the decks are right, the nav is what moves. <b>One or the other has to give.</b> The URL has moved with the title — this page is now under <code>/who-we-deploy/</code>, and the old <code>/roles/</code> path needs a 301.`;
 
 /** The naming flag every role deck carries into its cost answer. */
 export const CONSULTATION_FLAG = `“Consultation” in the cost answer carries the same naming flag as the hub — <a href="${u("/brand-check")}">still open</a>, pending Maria.`;

@@ -1,0 +1,112 @@
+---
+/**
+ * Material Handling & Warehouse Operations — Who We Deploy family page.
+ *
+ * Content only. The order, the devices and the shared build notes are in
+ * src/lib/family-page.ts, which all six of these render from.
+ */
+import Prototype from "../../layouts/Prototype.astro";
+import Block from "../../components/Block.astro";
+import { B } from "../../data/nav";
+import { familyPage, familyPageProps, type FamilyPageData } from "../../lib/family-page";
+
+const page: FamilyPageData = {
+  family: "Material Handling &amp; Warehouse Operations",
+  slug: "material-handling-warehouse-operations",
+  hero: {
+    h1: "Material Handling &amp; Warehouse Operations, On Site in Days",
+    sub: "Trailers Backing Up? Peak Season Coming? Turnover Thinning Your Dock Crew?",
+    body: "Pallets don’t move themselves. When your warehouse or plant is short-handed, rely on AFIMAC for travel-ready material handling crews — forklift and reach truck operators, order selectors and material handlers. They arrive with housing and supervision handled.",
+    cta2: "See the roles",
+    img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a forklift operator working a loading dock, trailer open behind · muted industrial tone under the navy scrim · mobile crop 1080×1350",
+  },
+  gap: {
+    h2: "The dock is the first place a labor gap shows",
+    paras: [
+      "Certified operators are the seats a warehouse can least afford to leave open, and the ones turnover takes first. A dock short two operators does not run twenty per cent slower; it backs up, and the backlog moves upstream into receiving and downstream into shipping.",
+      "Critical Situation Travel Labor closes that gap. AFIMAC recruits, screens, certifies, travels, houses and manages material handling crews from a national network, then deploys them until the volume is back under control.",
+    ],
+    photo: "1200×1500 JPG (4:5) beside the list · a loading dock with staged pallets and an open trailer door · muted tone · no staged distress",
+    triggers: {
+      label: "The moments dock crews come up short",
+      items: [
+        "Peak season volume your core crew can’t cover",
+        "A backlog at receiving or shipping that keeps growing",
+        "Turnover and absenteeism thinning a shift",
+        "A new facility, line, or contract spinning up",
+        "The local labor market is tapped out",
+      ],
+    },
+  },
+  rolesHeading: "The dock and the warehouse floor, covered",
+  process: {
+    h2: "Four phases, one accountable partner",
+    lead: "The same four phases run on every engagement. For dock and warehouse crews they cover:",
+    phases: [
+      ["PHASE 1 · ASSESSMENT — TIMING VARIES BY ENGAGEMENT", "Assessment", [
+      ]],
+      ["PHASE 2 · MOBILIZATION — CAN BEGIN RAPIDLY ONCE APPROVED", "Mobilization", [
+      ]],
+      ["PHASE 3 · DEPLOYMENT (TEAM ON SITE IN DAYS)", "Deployment", [
+      ]],
+      ["PHASE 4 · DEMOBILIZATION — IN AS LITTLE AS 48 HOURS", "Demobilization", [
+      ]],
+    ],
+    photo: "Dock-to-stock flow · SVG square, art 960×960, min render 640×640 · a facility flow with five stations and arrows: Receive · Put away · Replenish · Pick · Ship",
+  },
+  included: {
+    h2: "One invoice, the whole engagement",
+    lead: "Critical Situation Travel Labor (CSTL) is turnkey. Recruiting, screening, travel, lodging, safety onboarding, on-site supervision, and daily reporting all come from AFIMAC. Crews scale up or down as your volumes move. When the gap closes, demobilization and the handoff back to your permanent workforce are part of the plan.",
+    photo: "Dock-ready checklist card · SVG square, art 960×960, min render 640×640 · five stamped checks in sequence: Certified · Credentialed · Traveled · Housed · Supervised",
+  },
+  proof: {
+    h2: "99 people, zero downtime",
+    photo: "1600×1000 JPG (8:5) on the case card · pallet movement on a production floor, shot mid-task, nothing staged",
+    featured: "When operations at a global food production facility were threatened, AFIMAC deployed 99 personnel, including forklift drivers, packaging operators, boiler operators, and wastewater treatment technicians. With AFIMAC’s support, the client maintained full production and avoided operational downtime throughout.",
+    note: `Published on the live CSTL pillar; wording lightly adapted. <b>Link to the pillar rather than building a standalone case page.</b>`,
+  },
+  faq: {
+    h2: "Forklift staffing questions, answered",
+    items: [
+      ["How fast can forklift operators be on site?", "For most material handling roles, within days of a signed plan. Exact timing depends on headcount, location, and compliance requirements."],
+      ["Are your operators certified?", "Yes. Certification and credential checks happen before travel, and every operator completes site-specific safety onboarding before their first shift."],
+      ["Can crews run our equipment?", "The Assessment phase maps the trucks on your floor so the operators who arrive are matched to the equipment you actually run."],
+      ["Who manages the crew day to day?", "AFIMAC provides on-site supervision and a single point of contact, working alongside your team."],
+      ["What does it cost?", "Cost depends on roles, headcount, shift coverage, location, and duration. AFIMAC provides a scoped estimate during the consultation, including the risk-avoided impact."],
+    ],
+  },
+  insights: { titles: [
+      "Debunking the Top Five Travel Labor Myths",
+      "The Labor Gap Took Decades to Build. Closing It Requires a New Playbook.",
+      "When AFIMAC is the Right Fit",
+    ] },
+  form: {
+    h2: "Trailers waiting? Let’s scope it.",
+    bullets: [
+      "The roles and crew size we’d send",
+      "A realistic timeline to operators on your floor",
+      "A ballpark cost",
+    ],
+    illo: "1200×1200 flat isometric vector beside the form · a pallet-and-forklift motif · greys with safety-orange and blue",
+  },
+  meta: {
+    t: "Material Handling &amp; Warehouse Staffing | AFIMAC Global",
+    d: "Need forklift operators, reach truck operators, order selectors or material handlers? AFIMAC sends certified, travel-ready crews to your warehouse or plant in days, with housing and supervision handled.",
+    k: "forklift operator staffing · warehouse staffing — secondary: travel forklift operators · reach truck operators · order selectors · material handler staffing",
+  },
+  deckRoles: [
+      "Forklift operators (sit-down counterbalance)",
+      "Reach truck &amp; narrow-aisle operators",
+      "Order picker operators",
+      "Electric pallet jack operators",
+      "Material handlers &amp; loaders",
+    ],
+};
+
+const blocks = familyPage(page);
+const props = familyPageProps(page, B);
+---
+
+<Prototype {...props}>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>
