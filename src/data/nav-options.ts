@@ -564,15 +564,25 @@ export const UNCOVERED_LIVE_ROLES: [string, string[]][] = LIVE_ROLE_GROUPS.map(
 ).filter(([, roles]) => roles.length);
 
 /**
- * How many DISTINCT roles that is.
- *
- * Shipping and Receiving Clerks is published under both Warehousing and
- * Logistics, so the groups add up to one more than there are roles. Counting
- * the set rather than the rows keeps the page from claiming a role twice.
+ * No count is derived from this any more, and that is deliberate. Printing a
+ * figure made the list read as the extent of what AFIMAC fills; it is a sample
+ * of common roles drawn from a 20,000+ network. Shipping and Receiving Clerks
+ * is published under both Warehousing and Logistics, so it appears twice — if
+ * a count is ever wanted again, count the set rather than the rows.
  */
-export const UNCOVERED_ROLE_COUNT = new Set(
-  UNCOVERED_LIVE_ROLES.flatMap(([, roles]) => roles.map(norm)),
-).size;
+
+/**
+ * The four figures approved in the June-05 package, in one place so the pages
+ * that run them cannot drift apart. The live site runs two other sets — the
+ * stat-band embed drops the speed and scale figures, and the live credibility
+ * block counts different things again. See /brand-check; one set has to win.
+ */
+export const NETWORK_STATS: [string, string][] = [
+  ["40+", "Years deploying crews"],
+  ["20,000+", "In the talent network"],
+  ["Within 72 hrs", "To a crew on site"],
+  ["1&ndash;500+", "Scalable crew size"],
+];
 
 /**
  * Small numbers as words, so prose can stay prose without giving up the
