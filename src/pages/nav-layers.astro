@@ -1,0 +1,273 @@
+---
+/**
+ * NAV LAYERS — internal working page, not part of the site IA.
+ *
+ * The mega menu has three tiers and almost no colour separating them: tier 1
+ * is white, tier 2 is a 2% tint, tier 3 is white again. On a screenshot the
+ * three bands are one surface. This page puts the same menu under five colour
+ * treatments and both arrangements, so the separation can be picked by
+ * looking rather than described.
+ *
+ * Every menu here is the live menu — same markup, same cascade, same data.
+ * The only difference between the cards is one class on the panel.
+ */
+import Prototype from "../layouts/Prototype.astro";
+import Block from "../components/Block.astro";
+import { u } from "../lib/base";
+import { CASCADE_JS, megaNavAcross, megaNavDown } from "../lib/mega-nav";
+import { FAMILY_TIERS } from "../data/nav-options";
+import type { Block as BlockType } from "../lib/types";
+
+interface Treatment {
+  n: string;
+  cls: string;
+  title: string;
+  gist: string;
+  /** Tiers down (option H) or tiers across (option G). */
+  across?: boolean;
+}
+
+const DOWN: Treatment[] = [
+  {
+    n: "00",
+    cls: "",
+    title: "What it does now",
+    gist:
+      "Tier 1 white, tier 2 a 2% tint, tier 3 white. The hairline between the bands is doing all the work, and at a glance there are no bands — there is one white panel with some tabs in it.",
+  },
+  {
+    n: "01",
+    cls: "nv-tonal",
+    title: "Tonal steps",
+    gist:
+      "One hue, three weights, heaviest at the top. The tiers read as depth: the band you pick from is darkest and the pages you end on are white. Nothing new in the palette and it survives a greyscale print.",
+  },
+  {
+    n: "02",
+    cls: "nv-navy",
+    title: "Navy head",
+    gist:
+      "Tier 1 takes the header's own navy, so the top band reads as part of the bar it dropped out of. Tier 2 is White Glove, tier 3 white. The strongest separation available without leaving the brand palette.",
+  },
+  {
+    n: "03",
+    cls: "nv-hue",
+    title: "A hue per tier",
+    gist:
+      "The bands stay white and the tier is named by colour instead — navy, sky, gold — down a spine on the left and through each tier's label and selected state. Keeps the panel light.",
+  },
+  {
+    n: "04",
+    cls: "nv-inset",
+    title: "Inset content tier",
+    gist:
+      "Colour by job rather than by depth. The two tiers you pick with stay white and tight; the tier you read drops onto a tinted field with the cards lifted off it on white.",
+  },
+  {
+    n: "05",
+    cls: "nv-full",
+    title: "Navy head and inset content",
+    gist:
+      "02 and 04 in one panel: each tier differs from the one above it by weight and by what it is for. Nothing new is introduced — it is the two treatments stacked.",
+  },
+];
+
+/** The across arrangement under the two treatments worth seeing it in. */
+const ACROSS: Treatment[] = [
+  {
+    n: "06",
+    cls: "nv-tonal",
+    title: "Tiers across · tonal steps",
+    gist:
+      "The same tonal steps on option G. Rails rather than bands, so the weight runs left to right instead of top to bottom — and the lightest column is the one with the links in it.",
+    across: true,
+  },
+  {
+    n: "07",
+    cls: "nv-navy",
+    title: "Tiers across · navy head",
+    gist:
+      "The navy treatment on option G. The first rail becomes a navy column down the left of the panel, which is a heavier piece of colour than the same treatment puts in a band.",
+    across: true,
+  },
+];
+
+const card = (t: Treatment): string =>
+  `<div class="nvcard">
+    <div class="nvhead"><span class="nvn">TREATMENT ${t.n}</span><b>${t.title}</b><p>${t.gist}</p></div>
+    <div class="nvstage">${
+      t.across
+        ? megaNavAcross(FAMILY_TIERS, { variant: t.cls })
+        : megaNavDown(FAMILY_TIERS, { variant: t.cls })
+    }</div>
+  </div>`;
+
+/** The switches at the top, which every card answers to. */
+const toolbar = `<div class="nvbar">
+  <label><input type="checkbox" id="nvhold" checked> Hold every menu open <span>— all eight on screen at once. Switch it off to test the hover behaviour instead.</span></label>
+  <label><input type="checkbox" id="nvchips"> Number the tiers <span>— a TIER 1/2/3 marker on each band</span></label>
+</div>`;
+
+const ROWS: [string, string, string][] = [
+  [
+    "00 · Now",
+    "A hairline and a 2% tint",
+    "None of the three tiers is distinguishable in a screenshot, which is how most people will first see this menu.",
+  ],
+  [
+    "01 · Tonal steps",
+    "Three weights of one hue",
+    "Safest change on the page. The darkest band is the one you use first, which is the wrong way round for emphasis but the right way round for depth.",
+  ],
+  [
+    "02 · Navy head",
+    "Navy, White Glove, white",
+    "Strongest separation, no new colour. The navy band is a lot of ink at the top of the panel on a short screen.",
+  ],
+  [
+    "03 · A hue per tier",
+    "Navy, sky, gold spines",
+    "Keeps the panel light, but carries nothing in greyscale and brings gold in — which is the warehousing bar's colour elsewhere on the site.",
+  ],
+  [
+    "04 · Inset content tier",
+    "White, white, tinted field",
+    "Makes the pages tier unmistakable and leaves tiers 1 and 2 looking alike. Also the only treatment that changes a card's shape rather than its background.",
+  ],
+  [
+    "05 · Navy head + inset",
+    "Navy, White Glove, tinted field",
+    "Every tier differs from its neighbour. The most ink of the six, and the panel is noticeably busier for it.",
+  ],
+];
+
+const rows = ROWS.map(([a, b, c]) => `<tr><th>${a}</th><td>${b}</td><td class="hl">${c}</td></tr>`).join("");
+
+const blocks: BlockType[] = [
+  {
+    cls: "dark",
+    n: "NAV LAYERS · TELLING THE TIERS APART",
+    h: `
+  <h1>Seven ways to colour the mega menu</h1>
+  <p class="lead">The menu works. What it does not do is show you which of its three tiers you are in — tier 1 is white, tier 2 is a 2% tint, tier 3 is white again, and a hairline is all that separates them. Open it and you can follow it; look at a screenshot of it and it is one panel with some tabs in it.</p>
+  <p class="lead">Below is the same menu seven times. <b>Same markup, same cascade, same pages</b> — the only difference between the cards is one class on the panel, so any of these is a stylesheet change rather than a rebuild.</p>
+  <p class="sub"><b>Every menu on this page is live.</b> Hover or tab into <i>Solutions</i> to open one, or use the switch below to hold them all open at once.</p>`,
+    spec: `Internal working page. Not in the sub-nav, not part of the site structure. The treatments are the <code>nv-</code> classes at the foot of <code>src/styles/prototype.css</code>.`,
+  },
+
+  {
+    n: "THE TIERS",
+    h: `
+  <h2>What the three tiers are</h2>
+  <p class="lead">Worth naming them before colouring them, because the tiers do different jobs and that is the argument for treating them differently rather than just making the panel prettier.</p>
+  <div class="g3" style="margin-top:22px">
+    <div class="duo"><div class="duohead">Tier 1 · Solution</div><div class="duobody"><p style="margin:0">The five service areas. You pass through it once and never come back to it in the same visit.</p></div></div>
+    <div class="duo"><div class="duohead">Tier 2 · Section</div><div class="duobody"><p style="margin:0">The sections inside the area you picked. You may move along this one two or three times comparing what is in each.</p></div></div>
+    <div class="duo flat"><div class="duohead">Tier 3 · Pages</div><div class="duobody"><p style="margin:0">The links themselves. This is the only tier anybody is trying to reach, and the only one that is not a set of tabs.</p></div></div>
+  </div>
+  <div class="note"><b>Two of the tiers are controls and one is content.</b> That is the distinction the colour can carry, and it is why treatment 04 tints the pages tier rather than the tabs above it.</div>
+  ${toolbar}`,
+    spec: `The tiers come from <code>FAMILY_TIERS</code> in <code>src/data/nav-options.ts</code> — the same data the menu on <a href="${u("/nav-options")}">nav options</a> and the header on <a href="${u("/nav-h-sample")}">the sample page</a> run from.`,
+  },
+
+  {
+    cls: "wash nvwide",
+    n: "TIERS DOWN · SIX TREATMENTS",
+    h: `
+  <h2>The band arrangement, six ways</h2>
+  <p class="lead">Option H — tiers as full-width bands opening downward. Each card below is one treatment. <b>Open two in turn and the difference is obvious; read the descriptions and it is not</b>, which is the reason this page exists rather than a document about it.</p>
+  ${DOWN.map(card).join("")}`,
+    spec: `One class on <code>.no-mega</code> per treatment, via the <code>variant</code> option on <code>megaNavDown()</code>. No markup differs between the six.`,
+  },
+
+  {
+    cls: "nvwide",
+    n: "TIERS ACROSS · THE SAME TREATMENTS",
+    h: `
+  <h2>And on the across arrangement</h2>
+  <p class="lead">Option G puts the tiers in rails rather than bands, so the same treatment lands as a column of colour instead of a strip of it. <b>Colour-coding the tiers does not settle across-or-down</b> — it works on both — but the two look different enough to be worth seeing side by side before either is picked.</p>
+  ${ACROSS.map(card).join("")}
+  <div class="note"><b>The weight sits differently.</b> In a band, navy is a 44px strip across the top of the panel. In a rail it is a 286px column running the full height — about four times the ink for the same treatment. If the navy direction is chosen, it is a stronger argument for the band arrangement than for the rails.</div>`,
+    spec: `The across menu now renders from <code>megaNavAcross()</code> in <code>src/lib/mega-nav.ts</code>, moved out of <code>nav-options.astro</code> so both pages show the same markup rather than two copies of it.`,
+  },
+
+  {
+    cls: "wash",
+    n: "SIDE BY SIDE",
+    h: `
+  <h2>All six, in one table</h2>
+  <div class="tscroll" style="margin-top:20px"><table class="cmp"><thead><tr><th>Treatment</th><th>Tier 1 / 2 / 3</th><th class="hl">What to weigh</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <div class="note"><b>Our recommendation is 02, the navy head.</b> It separates the tiers with a colour already in the header, it needs no new values in the palette, and it reads the same in greyscale and on a projector. <b>If the pages tier still looks like a list of links rather than the destination, 05 adds the inset field</b> — but that is a second decision, and it can be made after the first one is live.</div>
+  <div class="note"><b>03 is the one to be careful with.</b> Hue is the only thing telling the tiers apart in it, so it loses the distinction entirely in greyscale, and it puts gold in the header — which is the warehousing service bar's colour everywhere else on the site. It is on the page because it is the lightest-looking option, not because we would pick it.</div>
+  <div class="note"><b>None of these is a build decision.</b> Every treatment is background colours and borders on the existing markup. Whichever is picked, the menu underneath is the same one, so this can be settled after the structure is agreed rather than before.</div>`,
+    spec: `<b>Elementor:</b> the treatment is CSS on the header widget — no change to the menu's structure, state or content. Worth setting the chosen one in the design system rather than on the widget, since the panel appears on every page.`,
+  },
+];
+---
+
+<Prototype title="Nav layers" crumb="Prototype › Nav layers" url="(internal — not a site page)" status="build">
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>
+
+<script is:inline set:html={CASCADE_JS} />
+
+<script is:inline>
+  /* The two switches, and the room the open panels need.
+
+     Both switches are body classes, so one checkbox reaches every menu on the
+     page. Hold-open starts on: eight treatments are only comparable if they
+     are all on screen, and a reviewer who wants to test the hover behaviour
+     switches it off. The choice is remembered, because comparing treatments
+     means coming back to this page more than once.
+
+     The panels are absolutely positioned, so a card does not grow around the
+     one inside it. Each stage is given padding equal to its panel instead —
+     measured, not guessed, because the panel's height changes with the
+     section picked and with the width of the window. A ResizeObserver on the
+     panel catches both without anything having to listen for a cascade. */
+  (() => {
+    const cards = [...document.querySelectorAll(".nvcard")];
+
+    const room = (card) => {
+      const stage = card.querySelector(".nvstage");
+      const panel = card.querySelector(".no-mega");
+      if (!stage || !panel) return;
+      /* Below 900px the panel is in flow and the stylesheet zeroes this. */
+      const open = document.body.classList.contains("nv-hold") && window.innerWidth > 900;
+      stage.style.paddingBottom = open ? Math.ceil(panel.getBoundingClientRect().height) + 14 + "px" : "";
+    };
+    const measure = () => cards.forEach(room);
+
+    if (window.ResizeObserver) {
+      const ro = new ResizeObserver(() => measure());
+      cards.forEach((c) => {
+        const panel = c.querySelector(".no-mega");
+        if (panel) ro.observe(panel);
+      });
+    }
+    window.addEventListener("resize", measure);
+
+    const wire = (id, cls, dflt) => {
+      const box = document.getElementById(id);
+      if (!box) return;
+      const key = "afimac-cstl:" + id;
+      let saved = null;
+      try {
+        saved = localStorage.getItem(key);
+      } catch (e) {}
+      box.checked = saved === null ? dflt : saved === "1";
+      const apply = () => {
+        document.body.classList.toggle(cls, box.checked);
+        try {
+          localStorage.setItem(key, box.checked ? "1" : "0");
+        } catch (e) {}
+        measure();
+      };
+      box.addEventListener("change", apply);
+      apply();
+    };
+    wire("nvhold", "nv-hold", true);
+    wire("nvchips", "nv-chips", false);
+    measure();
+  })();
+</script>

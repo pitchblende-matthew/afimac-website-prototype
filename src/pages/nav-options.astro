@@ -11,9 +11,8 @@
 import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
-import { navIcon } from "../lib/nav-icons";
-import { CASCADE_JS, megaNavDown, tierPages } from "../lib/mega-nav";
-import { FAMILY_BY_INDUSTRY, FAMILY_GROUPS, FAMILY_LINKS, FAMILY_STATS, FAMILY_TIERS, LABEL_CANDIDATES, OPTIONS, ROLE_FAMILIES, type RoleGroup, type RoleLink } from "../data/nav-options";
+import { CASCADE_JS, megaNavAcross, megaNavDown } from "../lib/mega-nav";
+import { FAMILY_BY_INDUSTRY, FAMILY_GROUPS, FAMILY_LINKS, FAMILY_STATS, LABEL_CANDIDATES, OPTIONS, ROLE_FAMILIES, type RoleGroup, type RoleLink } from "../data/nav-options";
 import type { Block as BlockType } from "../lib/types";
 
 /** The four slots that are not under discussion, shown so the bar reads true. */
@@ -86,58 +85,6 @@ const slot = (label: string, dd: string, extra = ""): string =>
  * solution areas this build does not cover — a line saying so rather than a
  * fake list.
  */
-/**
- * The primary-nav mock and its tiered panel.
- *
- * Three rails left to right: solution, section, pages. Every rail is a
- * button, so the cascade answers to click and keyboard as well as hover —
- * the difference between this and the chain of hovers in option C.
- */
-const megabar = (): string =>
-  `<div class="no-top">
-    <span class="no-logo">AFIMAC</span>
-    <div class="no-titem">Home</div>
-    <div class="no-titem no-hasmega is-mega"><span class="no-live">Solutions</span><span class="no-caret">▾</span>
-      <div class="no-mega no-tier">
-        <div class="no-tiergrid">
-          <div class="no-rail">
-            <div class="no-railhead">Solution</div>
-            ${FAMILY_TIERS.map(
-              (so, i) =>
-                `<button type="button" class="no-railbtn${i === 0 ? " on" : ""}" data-sol="${i}" data-first="${i}-0">${navIcon(so.icon)}<span class="no-rlabel">${so.label}</span><span class="no-caret">›</span></button>`,
-            ).join("")}
-          </div>
-          <div class="no-rail no-rail2">
-            <div class="no-railhead">Section</div>
-            ${FAMILY_TIERS.map(
-              (so, i) =>
-                `<div class="no-secs${i === 0 ? " on" : ""}" data-sol="${i}">${so.sections
-                  .map(
-                    (sec, j) =>
-                      `<button type="button" class="no-railbtn${j === 0 ? " on" : ""}" data-sec="${i}-${j}">${navIcon(sec.icon)}<span class="no-rlabel">${sec.label}</span><span class="no-caret">›</span></button>`,
-                  )
-                  .join("")}</div>`,
-            ).join("")}
-            <a class="no-bandcta" href="${u("/get-in-touch")}">${navIcon("bolt", "no-ico no-ico-sm")}<span>Critical labor situation?</span><b>Get in Touch</b></a>
-          </div>
-          <div class="no-tierpages">
-            ${FAMILY_TIERS.map((so, i) =>
-              so.sections
-                .map(
-                  (sec, j) =>
-                    `<div class="no-pagepane${i === 0 && j === 0 ? " on" : ""}" data-pane="${i}-${j}"><div class="no-colhead">${navIcon(sec.icon, "no-ico no-ico-sm")}<span>${sec.label}</span></div>${sec.gist ? `<p class="no-grpgist">${sec.gist}</p>` : ""}${tierPages(sec)}</div>`,
-                )
-                .join(""),
-            ).join("")}
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="no-titem">Insights</div>
-    <div class="no-titem">About<span class="no-caret">▾</span></div>
-    <div class="no-titem">Contact</div>
-  </div>`;
-
 const familyRows = ROLE_FAMILIES.map(
   (f) =>
     `<tr><th>${f.label}</th><td>${f.roles.join(", ")}</td><td class="hl">${f.pages
@@ -261,7 +208,7 @@ const blocks: BlockType[] = [
   <h2>G · A tiered mega menu — tiers running across</h2>
   <p class="lead">Three levels inside one wide panel. Hover <b>Solutions</b> and the five service areas appear; step right into <b>Critical Situation Travel Labor</b> and its sections appear beside them; step right again and that section&rsquo;s pages fill the rest of the panel. Nothing opens on top of anything else — the panel is one surface and the tiers move across it.</p>
   <p class="sub"><b>All three rails are live.</b> Move across them, or tab through — every rail is a button, not a hover target.</p>
-  ${megabar()}
+  ${megaNavAcross()}
   <h3 style="margin-top:34px">What the tiers are for</h3>
   <p>The CSTL section is <b>28 pages</b>. A single panel that showed all of them at once would be a wall; a dropdown that showed them one list at a time would be several items deep. Tiering means <b>any page in the section is two steps from the header</b>, and the panel never shows more than one section&rsquo;s worth of links at a time — so there is room for the other four solution areas to grow the same way without the menu changing shape.</p>
   <h3 style="margin-top:26px">Why this answers the roles objection</h3>
@@ -286,6 +233,7 @@ const blocks: BlockType[] = [
   <h3 style="margin-top:26px">And where it falls short</h3>
   <p>The panel grows downward as you go, so by the third tier it covers most of the window — and on a laptop screen <b>the choices you made in the first two bands can scroll out of sight</b> while you are reading the third. <b>G keeps all three tiers in view at a fixed height; H trades that for width.</b> That is the whole choice between them.</p>
   ${tradeoffs("mega-down")}
+  <div class="note"><b>The three tiers are nearly the same colour.</b> Tier 1 is white, tier 2 is a 2% tint and tier 3 is white again, which is enough to follow while you are moving through it and not enough to see in a screenshot. <a href="${u("/nav-layers")}">Seven colour treatments for the tiers are mocked up here</a> — all of them stylesheet changes, none of them a change to this menu.</div>
   <div class="note"><b>Judge it on a page, not here.</b> <a href="${u("/nav-h-sample")}">The same menu runs as the header on the Automotive page</a>, with real copy under it. A mock against placeholder bar items does not show how far the panel reaches or what it leaves of the content below.</div>
   <div class="note"><b>Nothing else differs.</b> Same pages, same grouping, same two steps to any page, and the same requirement that the tiers answer to click and keyboard as well as hover. If the mega-menu direction is agreed, <b>across-or-down is a layout decision rather than a structural one</b> — and it can be settled late, because the content behind both is identical.</div>`,
     spec: `<b>Elementor:</b> the same widget as G in a different arrangement. <b>Worth testing at 1366×768</b> — the laptop most buyers are on — since that is the height at which the third band starts pushing the first two off the top.`,
