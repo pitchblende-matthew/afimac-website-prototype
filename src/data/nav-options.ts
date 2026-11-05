@@ -147,7 +147,7 @@ export const OPTIONS: NavOption[] = [
     title: "Second level, categorised by industry",
     label: "Who We Deploy",
     nested: true,
-    works: "Matches how a buyer arrives — they have a plant, not a job title — and mirrors the Industries entry directly above it.",
+    works: "Matches how a buyer arrives — they have a plant, not a job title — and mirrors the Industries entry sitting next to it in the bar.",
     limits: "The same page appears under several industries. Forklift Operators is under all three, which makes the nav look larger than the site is and gives three routes to one URL.",
   },
   {
@@ -295,10 +295,10 @@ export const SOLUTION_TIERS: TierSolution[] = [
     built: true,
     sections: [
       { label: "The Service", icon: "chain", gist: "What it is, how it runs, and what arrives", pages: MEGA_CSTL[0].links },
-      { label: "Industries", icon: "factory", gist: "Where a labor gap stops the line", pages: MEGA_CSTL[1].links,
-        reach: "AFIMAC staffs well beyond the sectors above — if a labor gap is stopping your line, the industry is rarely the obstacle." },
       { label: "Who We Deploy", icon: "people", gist: "The crews, grouped by what they do", groups: BY_FUNCTION,
         reach: "AFIMAC deploys across many more seats than the titles above — if the one you need is not listed, it is still one we fill." },
+      { label: "Industries", icon: "factory", gist: "Where a labor gap stops the line", pages: MEGA_CSTL[1].links,
+        reach: "AFIMAC staffs well beyond the sectors above — if a labor gap is stopping your line, the industry is rarely the obstacle." },
       { label: "Resources", icon: "doc", gist: "Papers, named results and the numbers", pages: MEGA_CSTL[2].links },
     ],
   },

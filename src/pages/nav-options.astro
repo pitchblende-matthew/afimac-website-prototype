@@ -15,8 +15,14 @@ import { CASCADE_JS, megaNavAcross, megaNavDown } from "../lib/mega-nav";
 import { FAMILY_BY_INDUSTRY, FAMILY_GROUPS, FAMILY_LINKS, FAMILY_STATS, LABEL_CANDIDATES, OPTIONS, ROLE_FAMILIES, type RoleGroup, type RoleLink } from "../data/nav-options";
 import type { Block as BlockType } from "../lib/types";
 
-/** The four slots that are not under discussion, shown so the bar reads true. */
-const FIXED = ["Overview", "How It Works", "Industries"];
+/**
+ * The slots that are not under discussion, shown so the bar reads true.
+ * Split either side of the slot that is: Who We Deploy sits ahead of
+ * Industries in the agreed order, so the mocks have to put it there too or
+ * they argue about a position the nav no longer uses.
+ */
+const BEFORE = ["Overview", "How It Works"];
+const AFTER = ["Industries"];
 
 const link = (r: RoleLink): string =>
   `<a href="${u(r.route)}"${r.written ? "" : ' class="no-todo"'}>${r.label}${r.written ? "" : " <span>no copy yet</span>"}</a>`;
@@ -64,11 +70,17 @@ const twopane = (groups: RoleGroup[]): string =>
  * One mock sub-nav bar. `slot` is the markup for the slot under discussion;
  * pass an empty string to show the bar without it.
  */
+const fixed = (labels: string[]): string =>
+  labels
+    .map((f) => `<div class="no-item">${f}${f === "Overview" ? "" : '<span class="no-caret">▾</span>'}</div>`)
+    .join("");
+
 const bar = (slot: string): string =>
   `<div class="no-bar">
     <span class="no-mark">Travel Labor</span>
-    ${FIXED.map((f) => `<div class="no-item">${f}${f === "Overview" ? "" : '<span class="no-caret">▾</span>'}</div>`).join("")}
+    ${fixed(BEFORE)}
     ${slot}
+    ${fixed(AFTER)}
     <a class="no-cta">Get in Touch</a>
   </div>`;
 
@@ -185,7 +197,7 @@ const blocks: BlockType[] = [
   ${bar(slot(opt("flyout-industry").label, flyout(FAMILY_BY_INDUSTRY), "is-focus"))}
   ${tradeoffs("flyout-industry")}
   <div class="note stop"><b>Count the repeats.</b> Material Handling &amp; Warehouse Operations appears under all three industries, Packaging Operations and Production &amp; Assembly under two each. <b>Nine entries for ${FAMILY_STATS.families} families.</b> The nav looks bigger than the site, and three routes lead to one URL — which is a canonical-tag question as well as a navigation one. <b>Families reduce the repetition but do not remove it</b>, because the overlap is real: a warehouse crew works in all three industries.</div>
-  <div class="note"><b>It also duplicates the entry above it.</b> Industries is already in the bar, and each industry page already maps its own crews. This option puts the same three industries in the nav twice.</div>`,
+  <div class="note"><b>It also duplicates the entry beside it.</b> Industries is already in the bar — directly after this slot, now that Who We Deploy leads the pair — and each industry page already maps its own crews. This option puts the same three industries in the nav twice.</div>`,
     spec: `<b>Elementor:</b> as option C. <b>Decide the canonical URL for each role page first</b> — the duplication is in the nav, not the content, but search engines see the links.`,
   },
 
