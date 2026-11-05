@@ -1,36 +1,51 @@
 ---
 /**
- * WHO WE DEPLOY HUB — the six families, and the eight pages behind them.
+ * WHO WE DEPLOY — the section landing page.
  *
- * The cards are the families, because that is what the nav lists. Each one
- * names the job titles it covers — read from ROLE_FAMILIES, so the card and
- * the dropdown cannot disagree — and the page or pages it sits over.
+ * This was an internal index of the family pages. It is now the page a
+ * visitor lands on from the nav entry, with the build material it used to
+ * carry kept as notes and specs rather than as the page itself.
+ *
+ * The six family cards and every count on the page are read from
+ * ROLE_FAMILIES, so the landing page, the dropdown and the family pages
+ * cannot disagree about what AFIMAC deploys.
  */
 import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { B } from "../data/nav";
-import { ROLE_FAMILIES, FAMILY_STATS } from "../data/nav-options";
+import { photo } from "../lib/wireframe";
+import { roleHero, leadFormBlock, insightsBlock, faqBlock, COST_ANSWER, SUPERVISION_ANSWER } from "../lib/role-blocks";
+import { INCLUDED } from "../lib/family-page";
+import { ROLE_FAMILIES, FAMILY_STATS, UNCOVERED_LIVE_ROLES, UNCOVERED_ROLE_COUNT, numWord, NumWord } from "../data/nav-options";
 import type { Block as BlockType } from "../lib/types";
 
-/** What each family's page is for, keyed by the route the nav points at. */
-const ANGLE: Record<string, string> = {
-  "/who-we-deploy/machining-precision-manufacturing": "The hardest seats on the floor to fill. Process runs as a card row.",
-  "/who-we-deploy/welding-fabrication": "Weld processes and a who-brings-what split. Process runs as a chip strip.",
-  "/who-we-deploy/production-assembly": "Scale, not depth — a few seats to a whole line. Process runs as a table.",
-  "/who-we-deploy/material-handling-warehouse-operations": "Equipment classes and dock throughput. Process runs as a vertical rail.",
-  "/who-we-deploy/packaging-operations": "Ship windows and retail stakes. Process runs as a dot stepper.",
-  "/who-we-deploy/sanitation-facility-support": "The shift that makes every other shift possible. Process runs as a definition list.",
+/** One line per family, saying what that crew is for rather than what the page does. */
+const GIST: Record<string, string> = {
+  "Machining &amp; Precision Manufacturing": "Operators, machinists and programmers for the seats that take years to fill locally.",
+  "Welding &amp; Fabrication": "Certified welders, the fit-up before the arc, and the robotic cells.",
+  "Production &amp; Assembly": "A few stations or a whole shift, to your work instructions and your line rate.",
+  "Material Handling &amp; Warehouse Operations": "Certified truck operators, pickers and handlers for the dock and the racking.",
+  "Packaging Operations": "Fill to pallet, staffed end to end against the date the window closes.",
+  "Sanitation &amp; Facility Support": "The reset between production days, run to your documented program.",
 };
 
-/** What is on each page a family covers without the nav pointing at it. */
-const COVERED: Record<string, string> = {
-  Machinists: "Manual, toolroom and maintenance work. Written, wireframed, and now unreachable from the menu.",
-  "Warehouse &amp; Logistics": "On the build sheet. No copy deck, no page, and no route decided — it still resolves to this hub.",
-};
+const cards = ROLE_FAMILIES.map(
+  (f) => `<a class="card famcard" href="${u(f.pages[0].route)}">
+     <h3>${f.label}</h3>
+     <p class="famgist">${GIST[f.label] ?? ""}</p>
+     <p class="famroles">${f.roles.join(" · ")}</p>
+     <span class="readmore">See the crew &raquo;</span></a>`,
+).join("");
 
-/** Old path to new, for the redirect table. Built from the families so a
-    slug change cannot leave the table behind. */
+const PHASES: [string, string, string][] = [
+  ["PHASE 1 · ASSESSMENT", "Assessment", "We map the seats, the shift plan and the site requirements, and scope the timeline and the cost."],
+  ["PHASE 2 · MOBILIZATION", "Mobilization", "We source and screen from a 20,000+ talent network, run credential and role checks, and book travel and housing."],
+  ["PHASE 3 · DEPLOYMENT", "Deployment", "The crew works your floor under AFIMAC supervision, with a single point of contact and daily reporting."],
+  ["PHASE 4 · DEMOBILIZATION", "Demobilization", "A final review, a planned handoff, and the crew stands down when your own workforce recovers."],
+];
+
+/** Old path to new. Built as a list so a slug change cannot leave it behind. */
 const REDIRECTS: [string, string][] = [
   ["/roles/", "/who-we-deploy/"],
   ["/roles/cnc-operators/", "/who-we-deploy/machining-precision-manufacturing/"],
@@ -42,97 +57,140 @@ const REDIRECTS: [string, string][] = [
   ["/roles/machinists/", "/who-we-deploy/machinists/"],
 ];
 
-const cards = ROLE_FAMILIES.map((f) => {
-  const route = f.pages[0].route;
-  const extra = f.pages.slice(1);
-  const behind = [
-    `<b>${f.pages[0].label}</b>`,
-    ...extra.map((pg) => `${pg.label}${pg.written ? "" : " · no copy yet"}`),
-  ].join(" + ");
-  return `<a class="card" style="text-decoration:none;display:block" href="${u(route)}">
-     <h3 style="margin-bottom:10px">${f.label}</h3>
-     <p style="font-size:13.5px;color:var(--spec);margin-bottom:12px">${f.roles.join(" · ")}</p>
-     <p style="font-size:14px;color:var(--ink);margin-bottom:12px">${ANGLE[route] ?? ""}</p>
-     <p style="font-size:12.5px;color:var(--spec)">Behind it: ${behind}</p>
-     <span class="tag build">${extra.length ? "FAMILY · 2 PAGES" : "BUILD · WIREFRAMED"}</span></a>`;
-}).join("");
-
-/* Read off the families themselves — the second page of any family that has
-   one — so a family gaining or losing a page cannot leave this table behind. */
-const coveredRows = ROLE_FAMILIES.flatMap((f) =>
-  f.pages.slice(1).map(
-    (pg) =>
-      `<tr><th>${pg.label}${pg.written ? "" : " <span style=\"color:var(--spec)\">· no copy yet</span>"}</th><td>${
-        COVERED[pg.label] ?? ""
-      }</td><td class="hl">${f.label}</td></tr>`,
-  ),
-).join("");
-
 const blocks: BlockType[] = [
+  roleHero({
+    h1: "Who We Deploy",
+    sub: "Skilled Crews, Screened and Travel-Ready, On Your Floor in Days",
+    body: `AFIMAC deploys ${numWord(FAMILY_STATS.families)} families of skilled and production labor to manufacturing plants, warehouses and distribution centers across North America. Travel, housing, screening and on-site supervision are ours. The crew is yours for as long as the gap lasts.`,
+    cta2: "See the six families",
+    cta2Href: "#families",
+    img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a mixed crew walking a plant floor at shift change, badges visible, plant depth behind · muted industrial tone under the navy scrim · mobile crop 1080×1350",
+    spec: `<b>Elementor:</b> the same hero saved section the six family pages use, with the section's own copy. <b>This page is new</b> — it did not exist in the IA deck, which took the nav entry straight to the role pages.`,
+  }),
+
   {
-    n: "WHO WE DEPLOY · THE SIX FAMILIES",
+    n: "BLOCK 02 · WHAT A TRAVEL CREW IS",
     h: `
-  <h1>Who We Deploy</h1>
-  <p class="lead">${FAMILY_STATS.families} families over ${FAMILY_STATS.pages} pages. The families are what the nav lists and what each page is now titled; the job titles under each are illustration, not links.</p>
-  <p class="lead"><b>Two families cover two pages each.</b> Machining &amp; Precision Manufacturing sits over CNC Operators and Machinists; Material Handling &amp; Warehouse Operations over Forklift Operators and the unwritten Warehouse &amp; Logistics. The nav points at the first of each pair, so the second has no route into it from the menu.</p>
-  <div class="g3" style="margin-top:30px">${cards}</div>
-  <h3 style="margin-top:34px">The two pages with no nav slot</h3>
-  <div class="tscroll"><table class="cmp"><thead><tr><th>Page</th><th>What is on it</th><th class="hl">Covered by</th></tr></thead><tbody>${coveredRows}</tbody></table></div>
-  <div class="note stop"><b>These are the two merges the family list implies, and neither has been made.</b> Fold each into its family page, or give the family two pages and decide which the nav points at. <b>Until one of those happens, written copy sits on a page nothing links to.</b></div>`,
-    spec: `<b>Elementor:</b> Container (3-col) · EK Image Box ×6. This hub is a spoke off <a href="${u("/how-it-works")}">How It Works</a>; every role page links back to it, to the pillar, and to its siblings.`,
+  <h2>Not a temp agency, and not a local hire</h2>
+  <div class="g2" style="margin-top:24px">
+   <div>
+    <p>A travel labor crew is a screened, credentialed team that AFIMAC recruits nationally, moves to your site, houses, supervises and stands down when you no longer need it. It exists for the gap a local hiring cycle cannot close in time — a launch, a turnaround, a relocation, a strike, a season, a shift that turnover has thinned past the point of running.</p>
+    <p>That is a different proposition from a staffing agency filling requisitions one at a time. The crew arrives as a crew, to a plan agreed before anyone travels, and it is managed on your floor by AFIMAC rather than handed to your supervisors to absorb.</p>
+   </div>
+   ${photo("1200×1500 JPG (4:5) beside the intro · a crew arriving at a plant entrance with gear, early light · muted tone · no staged poses")}
+  </div>
+  <div class="note"><b>This block is new copy.</b> The cluster explains travel labor on <a href="${u("/what-is-travel-labor")}">What Is Travel Labor</a> and <a href="${u("/vs-local-staffing")}">Travel vs. Local Staffing</a>; this is the two-paragraph version for people who arrive at the section from the nav rather than from the pillar. <b>Check it against the approved pillar copy before build</b> so the three do not drift.</div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · Image. Link both mentions to the pillar pages rather than restating them here.`,
   },
 
   {
     cls: "wash",
-    n: "SETTLED · THE URLS, AND THE REDIRECTS THEY NEED",
+    id: "families",
+    n: "BLOCK 03 · THE SIX FAMILIES",
     h: `
-  <div class="note" style="margin-top:0"><b>The URLs now follow the section and the page title.</b> <code>/roles/</code> was the drafted pattern and never matched what the nav says; every page in the cluster sits under <code>/who-we-deploy/</code> with a slug that is its family.</div>
+  <h2>${NumWord(FAMILY_STATS.families)} families, ${FAMILY_STATS.titles} job titles</h2>
+  <p class="lead">The families are how the crews are organised and how this section is navigated. The job titles under each are what a family actually covers — not every seat AFIMAC fills, but the ones asked for most.</p>
+  <div class="g3 famgrid">${cards}</div>
+  <div class="note"><b>The cards, the dropdown and the role grids on the six pages all read from one list.</b> A family cannot gain a job title here and keep the old set in the menu.</div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Image Box ×6, linked to the six family pages. <b>Asset gap:</b> six family icons or photographs, not yet commissioned — the role-page icon set should cover them.`,
+  },
+
+  {
+    n: "BLOCK 04 · BEYOND THE SIX",
+    h: `
+  <h2>The six are the common asks, not the limit</h2>
+  <p class="lead">AFIMAC's published role list runs wider than the families. ${NumWord(UNCOVERED_ROLE_COUNT)} of the roles named on the live site sit outside the six — instrumentation, heavy equipment, inventory control and the logistics seats among them.</p>
+  <div class="tscroll" style="margin-top:22px"><table class="cmp"><thead><tr><th>Group</th><th class="hl">Roles outside the six families</th></tr></thead><tbody>
+   ${UNCOVERED_LIVE_ROLES.map(([g, rs]) => `<tr><th>${g}</th><td class="hl">${rs.join(" · ")}</td></tr>`).join("")}
+  </tbody></table></div>
+  <p style="margin-top:22px"><a class="btn" href="${u("/who-we-deploy/other-roles")}">Tell us the seat you need &raquo;</a></p>
+  <div class="note"><b>Every role in that table is already published on afimacglobal.com</b> — this page is not widening the claim, it is pointing at the part of the published list the six families do not reach. <a href="${u("/who-we-deploy/other-roles")}">The page behind the button</a> carries the full list and the form.</div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · Table or EK Icon List · Button. <b>Read from the live site's role groups</b>, so if AFIMAC publishes a new role this table picks it up rather than going stale.`,
+  },
+
+  {
+    cls: "blue",
+    n: "BLOCK 05 · HOW A DEPLOYMENT RUNS",
+    h: `
+  <h2>Four phases, whoever is deployed</h2>
+  <p class="lead">The same engagement runs behind every family. What changes between them is the seats, not the process.</p>
+  <div class="g4" style="margin-top:28px">
+   ${PHASES.map(([label, name, body]) => `<div class="card"><div class="blocknum">${label}</div><h3>${name}</h3><p style="margin:0">${body}</p></div>`).join("")}
+  </div>
+  <h3 style="margin-top:34px">What is included, whoever is deployed</h3>
+  <div class="g2" style="margin-top:16px">
+   <ul class="tick">${INCLUDED.slice(0, 4).map((i) => `<li>${i}</li>`).join("")}</ul>
+   <ul class="tick">${INCLUDED.slice(4).map((i) => `<li>${i}</li>`).join("")}</ul>
+  </div>
+  <div class="note">Phase names and durations follow the approved process doc, including its open <b>Assessment vs. Consultation</b> naming flag. <a href="${u("/brand-check")}">All conflicts →</a></div>`,
+    spec: `<b>Elementor:</b> Container (4-col) · EK Icon Box ×4 · EK Icon List ×2, Readiness Blue band. <b>The seven included items are the same global widget</b> the six family pages and <a href="${u("/how-it-works")}">How It Works</a> use.`,
+  },
+
+  {
+    n: "BLOCK 06 · PROOF IT WORKS",
+    h: `
+  <h2>Crews that kept Fortune 500 operations running</h2>
+  <div class="casecard">
+   ${photo("1600×1000 JPG (8:5) on the featured card · a full production floor mid-shift, crew at stations, a working shot")}
+   <div class="body">
+    <div class="blocknum">FEATURED CASE</div>
+    <p>A Fortune 500 manufacturer faced mounting production delays, with past-due orders peaking at $5.76 million. AFIMAC deployed skilled labor, including assemblers, CNC machinists, and welders. Past-due sales fell by 73.4% and performance returned to previously high levels.</p>
+   </div>
+  </div>
+  <div class="card" style="margin-top:26px">
+   <div class="blocknum">SUPPORTING CASE</div>
+   <p style="margin:0">When a Fortune 500 food manufacturer needed its production facility fully staffed on short notice, AFIMAC deployed 99 personnel across the operation and kept it running until the client's workforce recovered.</p>
+  </div>
+  <div class="note">Both cases are published on the live CSTL pillar and are the same two the family pages lead with. <b>Link them to the pillar rather than building standalone case pages.</b></div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · Image · Heading · Text Editor. Same three published cases carry the whole cluster.`,
+  },
+
+  faqBlock({
+    n: "BLOCK 07 · FAQ",
+    h2: "Questions buyers ask first",
+    items: [
+      ["Which roles can you actually deploy?", `The six families on this page cover the seats asked for most. AFIMAC's published role list runs wider — ${numWord(UNCOVERED_ROLE_COUNT)} further roles across manufacturing, warehousing and logistics. If the seat you need is not named, it is still worth asking.`],
+      ["How fast can a crew be on site?", "Within days of a signed plan for most roles. Exact timing depends on the roles, the headcount, the location and the compliance requirements."],
+      ["Who supervises the crew?", SUPERVISION_ANSWER],
+      ["How long can a crew stay?", "As long as the gap lasts. Engagements are temporary by design and end with a planned demobilization when your permanent workforce recovers."],
+      ["What does it cost?", COST_ANSWER],
+    ],
+    spec: `<b>Elementor:</b> EK Accordion (5 items) + FAQPage structured data. Four of the five are the cluster's shared answers — <b>keep the wording identical</b> to the <a href="${u("/faq")}">FAQ page</a> and the family pages.`,
+  }),
+
+  insightsBlock({
+    n: "BLOCK 08 · RELATED INSIGHTS",
+    titles: [
+      "The Labor Gap Took Decades to Build. Closing It Requires a New Playbook.",
+      "Ready on Day One",
+      "When AFIMAC is the Right Fit",
+    ],
+    spec: `<b>Elementor:</b> EK Post Grid (3-up). Section-level posts rather than the family-specific combinations the six pages run.`,
+  }),
+
+  leadFormBlock({
+    n: "BLOCK 09 · TALK TO AFIMAC (LEAD FORM)",
+    h2: "Short a crew? Let's scope it.",
+    bullets: [
+      "The roles and crew size we'd send",
+      "A realistic timeline to people on your floor",
+      "A ballpark cost",
+    ],
+    illo: "1200×1200 flat isometric vector beside the form · a mixed-crew motif, machining and material handling together · greys with safety-orange and blue",
+    spec: `<b>Elementor:</b> Metform · EK Icon List · Button, Mobilization Sky band. The same global form section as the six family pages.`,
+  }),
+
+  {
+    cls: "wash",
+    n: "INTERNAL · THE URLS, AND THE REDIRECTS THEY NEED",
+    h: `
+  <div class="note" style="margin-top:0"><b>The URLs follow the section and the page title.</b> <code>/roles/</code> was the drafted pattern and never matched what the nav says; every page in the cluster now sits under <code>/who-we-deploy/</code> with a slug that is its family.</div>
   <div class="tscroll" style="margin-top:20px"><table class="cmp"><thead><tr><th>Was</th><th>Is</th><th class="hl">Needs</th></tr></thead><tbody>${REDIRECTS.map(
     ([was, now]) => `<tr><th><code>${was}</code></th><td><code>${now}</code></td><td class="hl">301</td></tr>`,
   ).join("")}</tbody></table></div>
-  <div class="note stop"><b>${REDIRECTS.length} redirects, and none of these pages is live yet.</b> The old paths exist only in this prototype and in the copy decks, so nothing is 404ing in public today — but <b>the decks, the build sheet and any link already shared carry the old paths</b>, and the redirects have to go in with the build rather than after it. <a href="${u("/industries")}">The industries cluster has the same question outstanding</a> and should be settled in the same pass.</div>`,
-    spec: `<b>Elementor / hosting:</b> eight 301s. The slug pattern is now <code>/who-we-deploy/&lt;family&gt;/</code>, matching the nav entry and each page's H1.`,
-  },
-
-  {
-    n: "SETTLED · TWO NAMES DRIFTED",
-    h: `
-  <div class="tscroll"><table class="cmp"><thead><tr><th>Agreed sub-nav label</th><th>Copy deck title</th><th class="hl">Which to use</th></tr></thead><tbody>
-   <tr><th>Welders (travel crews)</th><td>Welders &amp; Fabricators</td><td class="hl">Deck — fabricators are a named role on the page</td></tr>
-   <tr><th>Packaging Operators</th><td>Packaging Operations</td><td class="hl">Deck — the page covers the line, not just the operator</td></tr>
-  </tbody></table></div>
-  <div class="note"><b>Neither name is in play any more.</b> The nav lists the six families, and the page H1s now follow the family too — so Welders and Packaging are job titles inside a page rather than the name of one. <b>The drift is closed at both ends.</b> What it leaves behind is a bigger copy question, flagged on every page: the H1, title and meta no longer match the approved decks.</div>`,
-    spec: `The family labels are settled and the dropdown is built from them. <b>The decks are what now need re-issuing</b>, or the family titles need to go back to the deck wording — one or the other.`,
-  },
-
-  {
-    cls: "wash",
-    n: "OPEN ITEM · KEYWORD SPLITS TO HOLD",
-    h: `
-  <p class="lead">Three pairs of pages sit close enough to compete with each other in search. The decks resolve each one, and the resolutions only hold if the cross-links get built.</p>
-  <div class="g3" style="margin-top:26px">
-   <div class="card"><h3>CNC Operators ↔ Machinists</h3><p style="margin:0">The split still holds — CNC terms on one page, manual, toolroom and maintenance on the other — but <b>one family now sits over both and the nav points only at the first</b>. The cross-links matter more than they did, because they are the only route to the second.</p></div>
-   <div class="card"><h3>Assemblers ↔ Packaging</h3><p style="margin:0">Packaging keywords moved off the Assemblers page to Packaging Operations, which keeps assembler, production and general labor. The Assemblers deck was revised in step.</p></div>
-   <div class="card"><h3>Sanitation ↔ Food &amp; Beverage</h3><p style="margin:0">Sanitation owns sanitation, deep-clean and wash-down staffing; the industry page keeps the plant-level framing.</p></div>
-  </div>`,
-    spec: `These are internal-linking rules, not copy. Worth writing into the build sheet so they survive the hand-off.`,
-  },
-
-  {
-    n: "SHARED ASSET GAP",
-    h: `
-  <div class="note" style="margin-top:0"><b>The role cluster needs one icon set and seven form illustrations before it can go live.</b> Every page specs 96×96 line icons in the existing CSTL style — five or six per page, roughly forty in total — plus a 1200×1200 isometric form illustration each, all specified as distinct subjects. On top of that: seven hero photographs, five bespoke infographics and four case images. <b>Commission the icon set once, as a set.</b></div>`,
-    spec: `Only the Welders resource card reuses an existing asset (the eBook cover from the live pillar). Everything else on these seven pages is new.`,
-  },
-
-  {
-    cls: "wash",
-    n: "SETTLED · THE SUB-NAV SLOT",
-    h: `
-  <div class="note" style="margin-top:0"><b>Settled: the entry is <i>Who We Deploy</i>, and it lists the six families.</b> The objection was a sub-nav entry that read as a list of job titles. Families answer it — the titles are still on the page, under a heading that is a capability rather than a vacancy.</div>
-  <div class="note"><b>The comparison that got there is still up.</b> Renaming the entry, grouping the list under headings, two ways of adding a second level, a two-pane panel, and two mega menus that move the question to the primary nav — every one of them opens. <a href="${u("/nav-options")}">The comparison →</a> &middot; <a href="${u("/nav-h-sample")}">The menu as a site header →</a> &middot; <a href="${u("/nav-layers")}">Colour treatments for its tiers →</a></div>
-  <div class="note stop"><b>What is still open is across-or-down, not the label.</b> If the mega menu goes ahead, the CSTL sub-nav either shrinks to a few in-section links or goes away, and this entry goes with it.</div>`,
-    spec: `The label and the groupings are decided. <b>Whether the section is reached from a sub-nav at all is not.</b>`,
+  <div class="note stop"><b>${REDIRECTS.length} redirects, and none of these pages is live yet.</b> The old paths exist only in this prototype and in the copy decks, so nothing is 404ing in public today — but <b>the decks, the build sheet and any link already shared carry the old paths</b>, and the redirects have to go in with the build rather than after it.</div>
+  <div class="note"><b>Two pages still have no nav slot.</b> <code>/who-we-deploy/machinists</code> is written and wireframed and sits behind Machining &amp; Precision Manufacturing; Warehouse &amp; Logistics has no copy and no page and sits behind Material Handling. <b>Both are merges the family list implies and neither has been made.</b></div>`,
+    spec: `<b>Elementor / hosting:</b> eight 301s. <b>This block is prototype chrome</b> — it is here so the redirect list travels with the section, and it comes off before the page ships.`,
   },
 ];
 ---
@@ -143,6 +201,11 @@ const blocks: BlockType[] = [
   url={`${B}who-we-deploy/`}
   status="build"
   active="/who-we-deploy"
+  meta={{
+    t: "Who We Deploy: Skilled Travel Labor Crews | AFIMAC Global",
+    d: "AFIMAC deploys machining, welding, production, material handling, packaging and sanitation crews to your plant in days, with travel, housing and supervision handled.",
+    k: "travel labor crews · skilled labor staffing — secondary: travel welders · travel machinists · warehouse staffing · production staffing · sanitation staffing",
+  }}
 >
   {blocks.map((b) => <Block {...b} />)}
 </Prototype>

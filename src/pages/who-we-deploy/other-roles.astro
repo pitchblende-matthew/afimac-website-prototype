@@ -1,0 +1,148 @@
+---
+/**
+ * OTHER ROLES WE DEPLOY — the page behind the nav's "Looking for something
+ * else?" entry.
+ *
+ * A form page first. Its job is to catch the visitor whose seat is not one of
+ * the six families and get them to say what they need, rather than let them
+ * conclude AFIMAC does not fill it.
+ *
+ * The role lists are NOT invented for this page. The groups come from
+ * LIVE_ROLE_GROUPS — what AFIMAC already publishes on every live industry
+ * page — with the six families' own titles subtracted. Nothing here widens
+ * the claim; it points at the part of the published list the menu misses.
+ */
+import Prototype from "../../layouts/Prototype.astro";
+import Block from "../../components/Block.astro";
+import { u } from "../../lib/base";
+import { B } from "../../data/nav";
+import { photo } from "../../lib/wireframe";
+import { roleHero, leadFormBlock, faqBlock, COST_ANSWER, SUPERVISION_ANSWER } from "../../lib/role-blocks";
+import { ROLE_FAMILIES, FAMILY_STATS, UNCOVERED_LIVE_ROLES, UNCOVERED_ROLE_COUNT, numWord, NumWord } from "../../data/nav-options";
+import type { Block as BlockType } from "../../lib/types";
+
+
+
+/** The situations that bring someone to this page rather than to a family. */
+const SITUATIONS: [string, string][] = [
+  ["The seat is a hybrid", "A role that sits across two families — a machine operator who also runs the packaging line, a material handler who also picks."],
+  ["The seat is technical", "Instrumentation, controls and maintenance-adjacent work that the six families do not name."],
+  ["The need is a whole function", "Not seats but a shift, a department or a facility — staffed, supervised and run while yours recovers."],
+  ["The site is not a plant", "A distribution centre, a cold store, a yard or a project site rather than a production floor."],
+  ["You are not sure what to ask for", "You know the output you are missing. Working back from that to a crew is the Assessment phase's job, not yours."],
+];
+
+const blocks: BlockType[] = [
+  roleHero({
+    h1: "Tell Us the Seat You Need",
+    sub: "Not on the List? It Is Still Worth Asking.",
+    body: `The ${numWord(FAMILY_STATS.families)} families in the menu are the crews AFIMAC is asked for most. They are not the limit of what it deploys. If the role you are short of is not named there, describe it below — the fastest route to an answer is a short conversation, not a longer list.`,
+    cta2: "See the roles we publish",
+    cta2Href: "#roles",
+    img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a supervisor on a plant floor mid-conversation, clipboard, crew working behind · muted industrial tone under the navy scrim · mobile crop 1080×1350",
+    spec: `<b>Elementor:</b> the shared hero saved section. <b>This page is new</b> and has no approved copy deck behind it — every line on it is written for the prototype.`,
+  }),
+
+  leadFormBlock({
+    n: "BLOCK 02 · THE FORM",
+    h2: "What are you short of?",
+    bullets: [
+      "Whether it is a seat AFIMAC fills, answered straight",
+      "The roles and crew size we'd send",
+      "A realistic timeline and a ballpark cost",
+    ],
+    illo: "1200×1200 flat isometric vector beside the form · an open requisition motif — a seat outline on a floor plan · greys with safety-orange and blue",
+    spec: `<b>Elementor:</b> Metform · EK Icon List · Button, Mobilization Sky band. <b>The form is the point of this page, so it runs second rather than last</b> — the only page in the cluster that puts it above the content. <b>Add a free-text "What role are you short of?" field</b>; the shared form does not have one and this page needs it.`,
+  }),
+
+  {
+    cls: "wash",
+    id: "roles",
+    n: "BLOCK 03 · WHAT WE ALREADY PUBLISH",
+    h: `
+  <h2>${NumWord(UNCOVERED_ROLE_COUNT)} more roles, already on the site</h2>
+  <p class="lead">These are the roles AFIMAC publishes on its industry pages that the ${numWord(FAMILY_STATS.families)} families do not cover. They are a floor, not a ceiling — but if one of them is what you are short of, the answer is already yes.</p>
+  <div class="g3" style="margin-top:26px">
+   ${UNCOVERED_LIVE_ROLES.map(
+     ([group, roles]) =>
+       `<div class="card"><div class="blocknum">${group}</div><ul class="tick" style="margin-top:12px">${roles
+         .map((r) => `<li>${r}</li>`)
+         .join("")}</ul></div>`,
+   ).join("")}
+  </div>
+  <div class="note"><b>Read from the live site, not written here.</b> Shipping and Receiving Clerks is published under two groups, so the three lists show it twice while the count above counts it once. The three groups are AFIMAC's own published role list with the six families' job titles subtracted, so this page cannot claim a role the site does not already name — and picks up any role AFIMAC adds.</div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Icon List ×3. <b>Confirm with ops whether the published list is still current</b> before build; it is transcribed from the live industry pages, which predate this project.`,
+  },
+
+  {
+    n: "BLOCK 04 · WHEN PEOPLE LAND HERE",
+    h: `
+  <h2>The five reasons this page exists</h2>
+  <p class="lead">Most visitors reach it from the menu after not finding their seat. These are the situations behind that, and none of them is a dead end.</p>
+  <div class="g2" style="margin-top:24px">
+   ${SITUATIONS.map(([t, d]) => `<div class="duo"><div class="duohead">${t}</div><div class="duobody"><p style="margin:0">${d}</p></div></div>`).join("")}
+  </div>
+  <div class="note stop"><b>All five situations are written for the prototype.</b> They are plausible from the cluster's own copy and from the Assessment phase as the process doc describes it, but <b>none of them is client-supplied and none is in an approved deck.</b> Take them to AFIMAC ops before build — particularly "the need is a whole function", which is the largest claim on the page.</div>`,
+    spec: `<b>Elementor:</b> Container (2-col) · EK Icon Box ×5. Could equally run as an accordion if the page is getting long.`,
+  },
+
+  {
+    cls: "blue",
+    n: "BLOCK 05 · THE SIX, FOR ANYONE IN THE WRONG PLACE",
+    h: `
+  <h2>Or start with a family</h2>
+  <p class="lead">If one of these is closer to what you are short of, its page has the detail — the job titles, the process and what is included.</p>
+  <div class="g3" style="margin-top:24px">
+   ${ROLE_FAMILIES.map(
+     (f) => `<a class="card famcard" href="${u(f.pages[0].route)}"><h3>${f.label}</h3><p class="famroles">${f.roles.join(" · ")}</p><span class="readmore">See the crew &raquo;</span></a>`,
+   ).join("")}
+  </div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Image Box ×6, Readiness Blue band. <b>The same six cards as the section landing page</b> — build once, place twice.`,
+  },
+
+  faqBlock({
+    n: "BLOCK 06 · FAQ",
+    cls: "wash",
+    h2: "Before you ask",
+    items: [
+      ["Will you tell me if it is not a role you fill?", "Yes, and quickly. A straight no in the first conversation is worth more to both of us than a scoping exercise that ends in one."],
+      ["Can you staff a whole shift rather than a few seats?", "Yes. Published AFIMAC deployments run from a 12-person specialist team to a 99-person production deployment."],
+      ["Who supervises the crew?", SUPERVISION_ANSWER],
+      ["How fast can a crew be on site?", "Within days of a signed plan for most roles. A role outside the six families may take longer to source — the Assessment phase is where that gets answered honestly."],
+      ["What does it cost?", COST_ANSWER],
+    ],
+    note: `<b>Two of these five are new.</b> “Will you tell me if it is not a role you fill” and the sourcing caveat in the timing answer are written for this page. The other three are the cluster's shared answers and match the <a href="${u("/faq")}">FAQ page</a> word for word.`,
+    spec: `<b>Elementor:</b> EK Accordion (5 items) + FAQPage structured data. <b>Do not add the two new questions to the cluster FAQ schema</b> until they are approved — the FAQ page deck is final.`,
+  }),
+
+  {
+    n: "BLOCK 07 · WHAT HAPPENS NEXT",
+    h: `
+  <h2>From this form to a crew on the floor</h2>
+  <div class="g2" style="margin-top:24px">
+   <div>
+    <p>A submission from this page goes to the same place a submission from any role page does. The difference is the first conversation: instead of confirming a known crew, it works out whether the seat you need is one AFIMAC sources, and what it would take to fill it.</p>
+    <p>If it is, the engagement runs the way every other one does — Assessment, Mobilization, Deployment, Demobilization. <a href="${u("/how-it-works")}">How It Works</a> has the detail.</p>
+   </div>
+   ${photo("1200×1500 JPG (4:5) beside the copy · two people at a plant-floor table with a site plan between them · muted tone · no staged handshake")}
+  </div>
+  <div class="note"><b>Confirm the routing before build.</b> This page's form is specified as going to the same destination as the rest of the cluster. <b>If AFIMAC wants out-of-family enquiries triaged differently, that is a form-routing decision and it has not been made.</b></div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · Image. Link the four phase names to <a href="${u("/how-it-works")}">How It Works</a>.`,
+  },
+];
+---
+
+<Prototype
+  title="Other Roles We Deploy"
+  crumb="Solutions › CSTL › Who We Deploy › Other Roles"
+  url={`${B}who-we-deploy/other-roles/`}
+  status="build"
+  active="/who-we-deploy/other-roles"
+  meta={{
+    t: "Other Roles We Deploy: Tell Us What You Need | AFIMAC Global",
+    d: "Short of a role outside AFIMAC's six crew families? Instrumentation, heavy equipment, inventory control, logistics and more. Tell us the seat and we'll answer straight.",
+    k: "specialty labor staffing · hard-to-fill roles — secondary: instrumentation technicians · heavy equipment operators · inventory control staffing · logistics staffing",
+  }}
+>
+  {blocks.map((b) => <Block {...b} />)}
+</Prototype>
