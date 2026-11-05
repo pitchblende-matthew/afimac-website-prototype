@@ -18,10 +18,10 @@ import { u } from "../../lib/base";
 import { B } from "../../data/nav";
 import { photo } from "../../lib/wireframe";
 import { roleHero, leadFormBlock, faqBlock, COST_ANSWER, SUPERVISION_ANSWER } from "../../lib/role-blocks";
-import { ROLE_FAMILIES, FAMILY_STATS, UNCOVERED_LIVE_ROLES, UNCOVERED_ROLE_COUNT } from "../../data/nav-options";
+import { ROLE_FAMILIES, FAMILY_STATS, UNCOVERED_LIVE_ROLES, UNCOVERED_ROLE_COUNT, numWord, NumWord } from "../../data/nav-options";
 import type { Block as BlockType } from "../../lib/types";
 
-const uncoveredCount = UNCOVERED_ROLE_COUNT;
+
 
 /** The situations that bring someone to this page rather than to a family. */
 const SITUATIONS: [string, string][] = [
@@ -36,7 +36,7 @@ const blocks: BlockType[] = [
   roleHero({
     h1: "Tell Us the Seat You Need",
     sub: "Not on the List? It Is Still Worth Asking.",
-    body: `The ${FAMILY_STATS.families} families in the menu are the crews AFIMAC is asked for most. They are not the limit of what it deploys. If the role you are short of is not named there, describe it below — the fastest route to an answer is a short conversation, not a longer list.`,
+    body: `The ${numWord(FAMILY_STATS.families)} families in the menu are the crews AFIMAC is asked for most. They are not the limit of what it deploys. If the role you are short of is not named there, describe it below — the fastest route to an answer is a short conversation, not a longer list.`,
     cta2: "See the roles we publish",
     cta2Href: "#roles",
     img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a supervisor on a plant floor mid-conversation, clipboard, crew working behind · muted industrial tone under the navy scrim · mobile crop 1080×1350",
@@ -60,8 +60,8 @@ const blocks: BlockType[] = [
     id: "roles",
     n: "BLOCK 03 · WHAT WE ALREADY PUBLISH",
     h: `
-  <h2>${uncoveredCount} more roles, already on the site</h2>
-  <p class="lead">These are the roles AFIMAC publishes on its industry pages that the ${FAMILY_STATS.families} families do not cover. They are a floor, not a ceiling — but if one of them is what you are short of, the answer is already yes.</p>
+  <h2>${NumWord(UNCOVERED_ROLE_COUNT)} more roles, already on the site</h2>
+  <p class="lead">These are the roles AFIMAC publishes on its industry pages that the ${numWord(FAMILY_STATS.families)} families do not cover. They are a floor, not a ceiling — but if one of them is what you are short of, the answer is already yes.</p>
   <div class="g3" style="margin-top:26px">
    ${UNCOVERED_LIVE_ROLES.map(
      ([group, roles]) =>

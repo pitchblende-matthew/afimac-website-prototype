@@ -574,6 +574,17 @@ export const UNCOVERED_ROLE_COUNT = new Set(
   UNCOVERED_LIVE_ROLES.flatMap(([, roles]) => roles.map(norm)),
 ).size;
 
+/**
+ * Small numbers as words, so prose can stay prose without giving up the
+ * guarantee that the figure is counted rather than typed.
+ */
+const WORDS = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"];
+export const numWord = (n: number): string => WORDS[n] ?? String(n);
+export const NumWord = (n: number): string => {
+  const w = numWord(n);
+  return w[0].toUpperCase() + w.slice(1);
+};
+
 /** Counted rather than written down, so the prose cannot drift from the data. */
 export const FAMILY_STATS = {
   families: ROLE_FAMILIES.length,
