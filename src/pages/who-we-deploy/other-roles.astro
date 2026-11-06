@@ -38,7 +38,7 @@ const blocks: BlockType[] = [
     bullets: [
       "Whether it is a role we source",
       "How long it would take to get them there",
-      "Crew size, and a ballpark cost",
+      "How many people, and a ballpark cost",
     ],
     illo: "1200×1200 flat isometric vector beside the form · an open requisition motif — a seat outline on a floor plan · greys with safety-orange and blue",
     spec: `<b>Elementor:</b> Metform · EK Icon List · Button, Mobilization Sky band. <b>The form runs second rather than last</b> — it is the point of the page. <b>Add a free-text "What role are you short of?" field</b>; the shared form does not have one.`,
@@ -48,7 +48,7 @@ const blocks: BlockType[] = [
     n: "BLOCK 03 · THE NETWORK",
     h: `
   <h2>A network of 20,000+ to recruit from</h2>
-  <p class="lead">AFIMAC draws from a network of 20,000+ skilled and unskilled workers who are vetted, mobile and ready to work. Crews are built for the role you are short of. The families in the menu are the trades AFIMAC is asked for most, and the network reaches well past them.</p>
+  <p class="lead">AFIMAC draws from a network of 20,000+ skilled and unskilled workers who are vetted, mobile and ready to work. People are recruited for the role you are short of — one of them or over a hundred. The families in the menu are the trades AFIMAC is asked for most, and the network reaches well past them.</p>
   <div class="g4" style="margin-top:28px">
    ${NETWORK_STATS.map(([fig, label]) => `<div><div class="stat">${fig}</div><p>${label}</p></div>`).join("")}
   </div>
@@ -94,12 +94,12 @@ const blocks: BlockType[] = [
     h2: "Before you ask",
     items: [
       ["Is there a list of roles you will not fill?", "No. AFIMAC recruits to the role from a network of 20,000+ workers. Some roles take longer to source than others, and the first call is where we work out which yours is."],
-      ["Can you staff a whole shift rather than a few seats?", "Yes. Published AFIMAC deployments run from a 12-person specialist team to a 99-person production deployment."],
-      ["Who supervises the crew?", SUPERVISION_ANSWER],
-      ["How fast can a crew be on site?", "Within days of a signed plan for the roles we staff most often. Less common roles take longer to recruit for, and you get that timeline before you commit to anything."],
+      ["How many people can you send?", "Anywhere from one to over a hundred. Published AFIMAC deployments run from a 12-person specialist team to a 99-person production deployment, and the headcount can move up or down while the engagement runs."],
+      ["Who supervises them?", SUPERVISION_ANSWER],
+      ["How fast can people be on site?", "Within days of a signed plan for the roles we staff most often. Less common roles take longer to recruit for, and you get that timeline before you commit to anything."],
       ["What does it cost?", COST_ANSWER],
     ],
-    note: `<b>Two of these five are new.</b> “Is there a list of roles you will not fill” and the sourcing caveat in the timing answer are written for this page and have not been approved. The other three are the cluster's shared answers and match the <a href="${u("/faq")}">FAQ page</a> word for word. <b>Do not add the new two to the cluster FAQ schema until they are approved.</b>`,
+    note: `<b>Three of these five are new or changed.</b> “Is there a list of roles you will not fill” and the sourcing caveat in the timing answer are written for this page. <b>“How many people can you send?” replaces “Can you staff a whole shift rather than a few seats?”</b> and leads with the range rather than the shift, because the scale argument is one person to over a hundred; both figures in the answer are published AFIMAC deployments. The remaining two are the cluster's shared answers and match the <a href="${u("/faq")}">FAQ page</a> word for word. <b>Do not add the new three to the cluster FAQ schema until they are approved.</b>`,
     spec: `<b>Elementor:</b> EK Accordion (5 items) + FAQPage structured data.`,
   }),
 

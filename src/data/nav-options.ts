@@ -592,9 +592,12 @@ export const INDUSTRIES_AWAITING_ROLES: { label: string; route: string }[] = IND
  * block counts different things again. See /brand-check; one set has to win.
  */
 export const NETWORK_STATS: [string, string][] = [
-  ["40+", "Years deploying crews"],
+  ["40+", "Years deploying labor"],
   ["20,000+", "In the talent network"],
-  ["Within 72 hrs", "To a crew on site"],
+  ["Within 72 hrs", "To people on site"],
+  // The label the June-05 package approved, kept verbatim. Note that the
+  // approved range runs to 500+, while the copy says "over a hundred" — the
+  // copy is the conservative one, and the two want reconciling before build.
   ["1&ndash;500+", "Scalable crew size"],
 ];
 
