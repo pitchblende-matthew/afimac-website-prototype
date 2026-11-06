@@ -13,22 +13,26 @@
  *    20,000 people, so we can find people for a wide variety of skills. If the
  *    work is in your plant, we can staff it."
  *
- * TWO PAGE SPLITS ARE STILL OPEN, per Maria 10/23, and the decks say so
- * themselves:
+ * TWO PAGE SPLITS ARE OPEN, per Maria 10/23, and BOTH ARE NOW DRAFTED ON
+ * BOTH SIDES. pitchblende wrote each option in full rather than picking one:
  *
- *   · Chemicals & Plastics may become two pages. The combined v2 deck is
- *     below as "chemicals-plastics"; the Plastics v1 deck, written for the
- *     split, is below as "plastics". If the split happens, chemical
- *     processing needs its own page and this entry narrows to it.
- *   · Oil & Energy may become two pages. The combined v2 deck is below as
- *     "oil-energy"; the Power & Energy v1 deck is below as "power-energy".
- *     The Oil & Gas half of that split has no deck yet.
+ *   · Chemicals & Plastics — combined v2 deck, or split into Chemicals v1
+ *     and Plastics v1. The split decks specify a 301 from the old
+ *     /chemicals-plastics/ URL to the Chemicals page.
+ *   · Oil & Energy — combined v2 deck, or split into Oil & Gas v1 and
+ *     Power & Energy v1. Same arrangement: 301 from /oil-energy/ to the
+ *     Oil & Gas page.
  *
- * So "plastics" and "power-energy" are HELD, NOT WIRED IN. They are not in
- * the nav, they have no route, and nothing renders them. Adding them while
- * the combined pages still exist would count plastics and power twice. When
- * the split is decided, give them nav entries and routes and the Who We
- * Deploy table picks them up with no further change.
+ * The combined decks say the structure waits on keyword volumes, so the
+ * DECISION IS NOT MADE and this file does not make it. The four split-half
+ * decks are HELD, NOT WIRED IN: no nav entry, no route, nothing renders
+ * them. Wiring them while the combined pages exist would count plastics and
+ * power twice.
+ *
+ * What changed is that the split is no longer blocked. Every page it needs
+ * now has copy. Choosing it means: give the four a nav entry and a route,
+ * flip `wired`, narrow "chemicals-plastics" and "oil-energy" to redirects,
+ * and the Who We Deploy table follows with no further change.
  */
 import type { Station } from "./industry-copy";
 
@@ -83,7 +87,63 @@ export const DECK_ROLE_GRIDS: Record<string, DeckRoleGrid> = {
     ],
   },
 
+  "aerospace-aviation-defense": {
+    deck: "Aerospace, Aviation & Defense Travel Labor — Page Copy v2",
+    wired: true,
+    stations: [
+      { n: "01", title: "Detail Parts &amp; Machining", roles: ["CNC machinists", "Machine operators", "Sheet metal fabricators", "Deburr &amp; finish technicians"] },
+      { n: "02", title: "Composites &amp; Bonding", roles: ["Composite layup technicians", "Bond &amp; cure operators", "Composite trim &amp; drill techs", "Sealant applicators"] },
+      { n: "03", title: "Structures &amp; Assembly", roles: ["Structures assemblers", "Riveters &amp; fastener installers", "Jig &amp; fixture builders", "Sub-assembly mechanics"] },
+      { n: "04", title: "Electrical &amp; Systems", roles: ["Wire harness assemblers", "Electrical installers", "Hydraulic &amp; tubing installers", "Systems test technicians"] },
+      { n: "05", title: "Paint &amp; Finish", roles: ["Aerospace painters", "Surface prep technicians", "Masking &amp; coating techs"] },
+      { n: "06", title: "Quality &amp; Inspection", roles: ["Quality inspectors", "CMM operators", "NDT technicians", "First article inspection support"] },
+      { n: "07", title: "Material &amp; Logistics", roles: ["Material handlers", "Kitting &amp; stores clerks", "Forklift operators", "Shipping &amp; receiving clerks"] },
+    ],
+  },
+
+  "industrial-equipment": {
+    deck: "Industrial Equipment Travel Labor — Page Copy v2",
+    wired: true,
+    stations: [
+      { n: "01", title: "Fabrication", roles: ["Fabricators", "Press brake operators", "Laser &amp; plasma cutting operators", "Sheet &amp; plate fitters"] },
+      { n: "02", title: "Welding", roles: ["MIG &amp; flux-core welders", "TIG welders", "Weld fitters", "Robotic weld techs"] },
+      { n: "03", title: "Machining", roles: ["CNC machinists", "CNC operators", "Horizontal boring mill operators", "Machine operators"] },
+      { n: "04", title: "Paint &amp; Finish", roles: ["Industrial painters", "Blast &amp; prep technicians", "Powder coat operators", "Masking techs"] },
+      { n: "05", title: "Assembly &amp; Test", roles: ["Mechanical assemblers", "Electrical &amp; control panel assemblers", "Piping &amp; cooling system assemblers", "Test &amp; run-off technicians"] },
+      { n: "06", title: "Quality &amp; Maintenance", roles: ["Quality inspectors", "CMM operators", "Maintenance technicians", "Controls &amp; automation techs"] },
+      { n: "07", title: "Material &amp; Logistics", roles: ["Forklift &amp; overhead crane operators", "Heavy equipment operators", "Kitting &amp; material handlers", "Shipping &amp; receiving clerks"] },
+    ],
+  },
+
   // ── Held pending the page splits ──────────────────────────────────────────
+
+  chemicals: {
+    deck: "Chemicals Travel Labor — Page Copy v1 (new page, split from Chemicals & Plastics)",
+    wired: false,
+    stations: [
+      { n: "01", title: "Receiving &amp; Raw Materials", roles: ["Material handlers", "Rail &amp; truck unloading operators", "Drum &amp; tote handlers", "Inventory control specialists"] },
+      { n: "02", title: "Reaction &amp; Batching", roles: ["Process operators", "Batch operators", "Control room operators", "Weigh &amp; charge operators"] },
+      { n: "03", title: "Separation &amp; Finishing", roles: ["Distillation &amp; dryer operators", "Blending &amp; mixing operators", "Filtration operators", "Finishing line operators"] },
+      { n: "04", title: "Filling &amp; Shipping", roles: ["Drum &amp; tote fillers", "Bulk loading operators", "Packaging line operators", "Shipping &amp; receiving clerks"] },
+      { n: "05", title: "Quality &amp; Lab", roles: ["QC lab technicians", "Sampling technicians", "Quality inspectors", "Batch record reviewers"] },
+      { n: "06", title: "Maintenance &amp; Reliability", roles: ["Maintenance technicians", "Millwrights", "Instrumentation &amp; controls techs", "Industrial electricians"] },
+      { n: "07", title: "Turnaround &amp; Facility Support", roles: ["Turnaround support crews", "Industrial cleaning crews", "Scaffold helpers", "Fire watch &amp; hole watch attendants"] },
+    ],
+  },
+
+  "oil-gas": {
+    deck: "Oil & Gas Travel Labor — Page Copy v1 (new page, split from Oil & Energy)",
+    wired: false,
+    stations: [
+      { n: "01", title: "Fabrication &amp; Weld", roles: ["Pipe welders", "Pressure vessel welders", "Pipe fitters", "Structural fabricators"] },
+      { n: "02", title: "Machining", roles: ["CNC machinists", "Vertical &amp; horizontal lathe operators", "Boring mill operators", "Valve body machinists"] },
+      { n: "03", title: "Assembly", roles: ["Pump &amp; valve assemblers", "Compressor &amp; skid assemblers", "Wellhead &amp; pressure control assemblers", "Hydraulic assemblers"] },
+      { n: "04", title: "Test &amp; Inspection", roles: ["Hydrostatic test technicians", "NDT technicians", "Quality inspectors", "Instrumentation techs"] },
+      { n: "05", title: "Coating &amp; Shipping", roles: ["Industrial painters &amp; coaters", "Blast technicians", "Crating &amp; packing crews", "Shipping &amp; receiving clerks"] },
+      { n: "06", title: "Facility &amp; Turnaround Support", roles: ["Turnaround support crews", "Millwrights", "Rigging crews", "Fire watch &amp; hole watch attendants"] },
+      { n: "07", title: "Material &amp; Logistics", roles: ["Forklift operators", "Heavy equipment operators", "Inventory control specialists", "CDL truck drivers"] },
+    ],
+  },
 
   plastics: {
     deck: "Plastics Travel Labor — Page Copy v1 (new page, split from Chemicals & Plastics)",

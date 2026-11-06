@@ -587,7 +587,12 @@ export const INDUSTRY_ROLE_SAMPLES: IndustryRoles[] = INDUSTRY_KIDS.map((kid) =>
   roles: (INDUSTRY_STATIONS[kid.route] ?? []).map((st) => st.roles[0]),
 }));
 
-/** How many of them still need a role set written. */
+/**
+ * How many still need a role set written. Zero today — every industry has a
+ * deck. It stays because the table renders a gap badge for an empty row, and
+ * the next industry added without copy should be counted rather than appear
+ * as a silently blank cell.
+ */
 export const INDUSTRIES_AWAITING_ROLES = INDUSTRY_ROLE_SAMPLES.filter((i) => !i.roles.length).length;
 
 /**
