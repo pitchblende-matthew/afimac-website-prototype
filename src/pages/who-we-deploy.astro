@@ -6,9 +6,14 @@
  * visitor lands on from the nav entry, with the build material it used to
  * carry kept as notes and specs rather than as the page itself.
  *
- * The six family cards and every count on the page are read from
- * ROLE_FAMILIES, so the landing page, the dropdown and the family pages
- * cannot disagree about what AFIMAC deploys.
+ * The family cards are read from ROLE_FAMILIES, so the landing page, the
+ * dropdown and the family pages cannot disagree about what AFIMAC deploys.
+ *
+ * NO COUNT IS PRINTED ANYWHERE ON THIS PAGE, deliberately. A figure in front
+ * of "families" or "job titles" reads as the extent of what AFIMAC fills. The
+ * families are the trades it is asked for most; it recruits to the role from a
+ * 20,000+ network. Every block that could name a number links to Other Roles
+ * instead.
  */
 import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
@@ -17,7 +22,7 @@ import { B } from "../data/nav";
 import { photo } from "../lib/wireframe";
 import { roleHero, leadFormBlock, insightsBlock, faqBlock, COST_ANSWER, SUPERVISION_ANSWER } from "../lib/role-blocks";
 import { INCLUDED } from "../lib/family-page";
-import { ROLE_FAMILIES, FAMILY_STATS, UNCOVERED_LIVE_ROLES, numWord, NumWord } from "../data/nav-options";
+import { ROLE_FAMILIES, UNCOVERED_LIVE_ROLES } from "../data/nav-options";
 import type { Block as BlockType } from "../lib/types";
 
 /** One line per family, saying what that crew is for rather than what the page does. */
@@ -60,8 +65,8 @@ const REDIRECTS: [string, string][] = [
 /** Hoisted out of the FAQ array: a nested backtick inside an array literal
     inside the frontmatter is valid TypeScript and not valid Astro. */
 const WHICH_ROLES =
-  "The " + numWord(FAMILY_STATS.families) + " crews on this page are the trades AFIMAC is asked for most, " +
-  "drawn from a network of 20,000+ skilled and unskilled workers. Crews are built to the role, so plenty of " +
+  "The crews on this page are the trades AFIMAC is asked for most, drawn from a network of " +
+  "20,000+ skilled and unskilled workers. Crews are built to the role, so plenty of " +
   "what AFIMAC deploys sits outside them. " +
   '<a href="' + u("/who-we-deploy/other-roles") + '">Tell us the role you need</a> and we will tell you how long it takes to get people there.';
 
@@ -69,8 +74,8 @@ const blocks: BlockType[] = [
   roleHero({
     h1: "Who We Deploy",
     sub: "Skilled Crews, Screened and Travel-Ready, On Your Floor in Days",
-    body: `AFIMAC deploys ${numWord(FAMILY_STATS.families)} families of skilled and production labor to manufacturing plants, warehouses and distribution centers across North America. Travel, housing, screening and on-site supervision are ours. The crew is yours for as long as the gap lasts.`,
-    cta2: "See the six families",
+    body: `AFIMAC deploys skilled and production labor to manufacturing plants, warehouses and distribution centers across North America, recruited to the role from a network of 20,000+ vetted, mobile workers. Travel, housing, screening and on-site supervision are ours. The crew is yours for as long as the gap lasts.`,
+    cta2: "See the crews",
     cta2Href: "#families",
     img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a mixed crew walking a plant floor at shift change, badges visible, plant depth behind · muted industrial tone under the navy scrim · mobile crop 1080×1350",
     spec: `<b>Elementor:</b> the same hero saved section the six family pages use, with the section's own copy. <b>This page is new</b> — it did not exist in the IA deck, which took the nav entry straight to the role pages.`,
@@ -94,27 +99,28 @@ const blocks: BlockType[] = [
   {
     cls: "wash",
     id: "families",
-    n: "BLOCK 03 · THE SIX FAMILIES",
+    n: "BLOCK 03 · THE CREWS",
     h: `
-  <h2>${NumWord(FAMILY_STATS.families)} families, ${FAMILY_STATS.titles} job titles</h2>
-  <p class="lead">The families are how the crews are organized and how this section is navigated. The job titles under each are what a family actually covers — not every seat AFIMAC fills, but the ones asked for most.</p>
+  <h2>The crews AFIMAC is asked for most</h2>
+  <p class="lead">These families are how the crews are grouped and how this section is navigated. The job titles under each are what that crew commonly covers. AFIMAC recruits to the role, so a seat that is not listed here is still a seat it can fill.</p>
   <div class="g3 famgrid">${cards}</div>
-  <div class="note"><b>The cards, the dropdown and the role grids on the six pages all read from one list.</b> A family cannot gain a job title here and keep the old set in the menu.</div>`,
+  <p style="margin-top:28px">Need a role that is not here? <a href="${u("/who-we-deploy/other-roles")}">Tell us what you are short of</a> and we will tell you how long it takes to get people there.</p>
+  <div class="note"><b>The cards, the dropdown and the role grids on the family pages all read from one list.</b> A family cannot gain a job title here and keep the old set in the menu. <b>The heading used to count the families and the job titles</b> — both counts are gone, because a figure in front of them reads as the limit of what AFIMAC fills.</div>`,
     spec: `<b>Elementor:</b> Container (3-col) · EK Image Box ×6, linked to the six family pages. <b>Asset gap:</b> six family icons or photographs, not yet commissioned — the role-page icon set should cover them.`,
   },
 
   {
     n: "BLOCK 04 · THE WIDER NETWORK",
     h: `
-  <h2>A network that runs wider than the ${numWord(FAMILY_STATS.families)}</h2>
-  <p class="lead">The families above are the trades AFIMAC is asked for most, drawn from a network of 20,000+ skilled and unskilled workers. Crews are built to the role. Below are some of the other roles that network is commonly asked for.</p>
+  <h2>A network that runs wider than these crews</h2>
+  <p class="lead">The crews above are the trades AFIMAC is asked for most, drawn from a network of 20,000+ skilled and unskilled workers. Crews are built to the role. Below are some of the other roles that network is commonly asked for.</p>
   <div class="tscroll" style="margin-top:22px"><table class="cmp"><thead><tr><th>Industry</th><th class="hl">Some roles commonly deployed</th></tr></thead><tbody>
    ${UNCOVERED_LIVE_ROLES.map(([g, rs]) => `<tr><th>${g}</th><td class="hl">${rs.join(" · ")}</td></tr>`).join("")}
   </tbody></table></div>
   <p style="margin-top:22px">For a role that is not here either, the question is how long it takes to recruit for, and that is settled on the first call.</p>
   <p style="margin-top:22px"><a class="btn" href="${u("/who-we-deploy/other-roles")}">Tell us the role you need &raquo;</a></p>
-  <div class="note"><b>A sample of common roles, not a catalog.</b> They are read from AFIMAC's live industry pages with the ${numWord(FAMILY_STATS.families)} families' own job titles removed, so the table cannot name a role the site does not already name. <b>The copy has to keep this a sample</b> — the network is 20,000+ people recruited to the role, and a table a reader takes for the full list invites them to treat anything missing as a no. <b>The Other Roles page names no roles at all</b>, for the same reason.</div>`,
-    spec: `<b>Elementor:</b> Heading · Text Editor · Table or EK Icon List · Button. <b>Read from the live site's role groups</b>, so a newly published role appears here rather than the table going stale. <b>This is the only page in the section that names roles outside the ${numWord(FAMILY_STATS.families)} families.</b>`,
+  <div class="note"><b>A sample of common roles, not a catalog.</b> They are read from AFIMAC's live industry pages with the families' own job titles removed, so the table cannot name a role the site does not already name. <b>The copy has to keep this a sample</b> — the network is 20,000+ people recruited to the role, and a table a reader takes for the full list invites them to treat anything missing as a no. <b>The Other Roles page names no roles at all</b>, for the same reason.</div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · Table or EK Icon List · Button. <b>Read from the live site's role groups</b>, so a newly published role appears here rather than the table going stale. <b>This is the only page in the section that names roles outside the families.</b>`,
   },
 
   {
