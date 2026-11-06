@@ -3,7 +3,7 @@
  * OTHER ROLES WE DEPLOY — the page behind the nav's "Looking for something
  * else?" entry.
  *
- * A form page. The families in the menu are the crews AFIMAC is asked for
+ * A form page. The families in the menu are the specialties AFIMAC is asked for
  * most; it staffs plenty of roles outside them. The page exists to say so and
  * take the enquiry.
  *
@@ -24,7 +24,7 @@ import type { Block as BlockType } from "../../lib/types";
 const blocks: BlockType[] = [
   roleHero({
     h1: "Tell Us the Role You Need",
-    sub: "The Crews in the Menu Are the Ones We Are Asked for Most",
+    sub: "The Specialties in the Menu Are the Ones We Are Asked for Most",
     body: `AFIMAC staffs plenty of roles beyond them. If what you are short of is not in the menu, tell us the role and when you need people on site, and we will tell you how long it would take to get them there.`,
     cta2: "How long it takes",
     cta2Href: "#timing",
@@ -65,7 +65,7 @@ const blocks: BlockType[] = [
   <h2>How long a role takes to source</h2>
   <p class="lead">How fast a role reaches your site comes down to how many of those 20,000 hold it, what screening and credentials it needs, and how far they have to travel.</p>
   <div class="g3" style="margin-top:26px">
-   <div class="card"><div class="blocknum">ROLES WE STAFF MOST OFTEN</div><h3>Days from a signed plan</h3><p style="margin:0">The crews in the menu and the roles around them. We keep a deep bench in these trades, so most of the lead time goes on travel, housing and site onboarding.</p></div>
+   <div class="card"><div class="blocknum">ROLES WE STAFF MOST OFTEN</div><h3>Days from a signed plan</h3><p style="margin:0">The specialties in the menu and the roles around them. We keep a deep bench in these trades, so most of the lead time goes on travel, housing and site onboarding.</p></div>
    <div class="card"><div class="blocknum">SPECIALIST AND UNCOMMON ROLES</div><h3>Longer to source</h3><p style="margin:0">There are fewer candidates to start from, so recruiting and screening take more time. You get a date before you commit to anything.</p></div>
    <div class="card"><div class="blocknum">LICENSES AND CLEARANCES</div><h3>Depends on the site</h3><p style="margin:0">Where a role needs a specific license, certification or site clearance, how long that takes to verify usually sets the schedule.</p></div>
   </div>
@@ -76,16 +76,16 @@ const blocks: BlockType[] = [
 
   {
     cls: "blue",
-    n: "BLOCK 05 · THE CREWS, FOR ANYONE IN THE WRONG PLACE",
+    n: "BLOCK 05 · THE SPECIALTIES, FOR ANYONE IN THE WRONG PLACE",
     h: `
-  <h2>Or start with a crew</h2>
-  <p class="lead">If one of these is closer to what you are short of, its page has the job titles, the process and what is included.</p>
+  <h2>Some of what AFIMAC specializes in</h2>
+  <p class="lead">These are the specialties AFIMAC is asked for most often. If one of them is closer to what you are short of, its page has the job titles, the process and what is included.</p>
   <div class="g3" style="margin-top:24px">
    ${ROLE_FAMILIES.map(
-     (f) => `<a class="card famcard" href="${u(f.pages[0].route)}"><h3>${f.label}</h3><p class="famroles">${f.roles.join(" · ")}</p><span class="readmore">See the crew &raquo;</span></a>`,
+     (f) => `<a class="card famcard" href="${u(f.pages[0].route)}"><h3>${f.label}</h3><p class="famroles">${f.roles.join(" · ")}</p><span class="readmore">What it covers &raquo;</span></a>`,
    ).join("")}
   </div>`,
-    spec: `<b>Elementor:</b> Container (3-col) · EK Image Box ×6, Readiness Blue band. The same six cards as the section landing page — build once, place twice.`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Image Box ×6, Readiness Blue band. The same cards as the section landing page — build once, place twice. <b>The wording differs on purpose:</b> this page calls them specialties rather than crews, because a visitor who has landed here has already not found their role among them.`,
   },
 
   faqBlock({
@@ -114,7 +114,7 @@ const blocks: BlockType[] = [
    </div>
    ${photo("1200×1500 JPG (4:5) beside the copy · two people at a plant-floor table with a site plan between them · muted tone · no staged handshake")}
   </div>
-  <div class="note"><b>Confirm the routing before build.</b> This form is specified as going to the same destination as the rest of the cluster. <b>If AFIMAC wants enquiries for roles outside the listed crews triaged differently, that decision has not been made.</b></div>`,
+  <div class="note"><b>Confirm the routing before build.</b> This form is specified as going to the same destination as the rest of the cluster. <b>If AFIMAC wants enquiries for roles outside the listed specialties triaged differently, that decision has not been made.</b></div>`,
     spec: `<b>Elementor:</b> Heading · Text Editor · Image. "Within one business day" matches the form's own consent line — keep the two in step.`,
   },
 ];

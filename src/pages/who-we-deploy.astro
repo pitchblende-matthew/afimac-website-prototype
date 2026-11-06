@@ -22,7 +22,7 @@ import { B } from "../data/nav";
 import { photo } from "../lib/wireframe";
 import { roleHero, leadFormBlock, insightsBlock, faqBlock, COST_ANSWER, SUPERVISION_ANSWER } from "../lib/role-blocks";
 import { INCLUDED } from "../lib/family-page";
-import { ROLE_FAMILIES, UNCOVERED_LIVE_ROLES } from "../data/nav-options";
+import { ROLE_FAMILIES, INDUSTRY_ROLE_SAMPLES, INDUSTRIES_AWAITING_ROLES } from "../data/nav-options";
 import type { Block as BlockType } from "../lib/types";
 
 /** One line per family, saying what that crew is for rather than what the page does. */
@@ -110,17 +110,18 @@ const blocks: BlockType[] = [
   },
 
   {
-    n: "BLOCK 04 · THE WIDER NETWORK",
+    n: "BLOCK 04 · ACROSS THE INDUSTRIES",
     h: `
-  <h2>A network that runs wider than these crews</h2>
-  <p class="lead">The crews above are the trades AFIMAC is asked for most, drawn from a network of 20,000+ skilled and unskilled workers. Crews are built to the role. Below are some of the other roles that network is commonly asked for.</p>
-  <div class="tscroll" style="margin-top:22px"><table class="cmp"><thead><tr><th>Industry</th><th class="hl">Some roles commonly deployed</th></tr></thead><tbody>
-   ${UNCOVERED_LIVE_ROLES.map(([g, rs]) => `<tr><th>${g}</th><td class="hl">${rs.join(" · ")}</td></tr>`).join("")}
+  <h2>What a crew looks like depends on the plant</h2>
+  <p class="lead">The crews above are the trades AFIMAC is asked for most, drawn from a network of 20,000+ skilled and unskilled workers. What a crew is made of changes with the floor it is going to. Here is some of what AFIMAC staffs in the industries it works in.</p>
+  <div class="tscroll" style="margin-top:22px"><table class="cmp"><thead><tr><th>Industry</th><th class="hl">Some of what we staff there</th></tr></thead><tbody>
+   ${INDUSTRY_ROLE_SAMPLES.map((i) => `<tr><th><a href="${u(i.route)}">${i.label}</a></th><td class="hl">${i.roles.join(" · ")}</td></tr>`).join("")}
   </tbody></table></div>
-  <p style="margin-top:22px">For a role that is not here either, the question is how long it takes to recruit for, and that is settled on the first call.</p>
+  <p style="margin-top:22px">AFIMAC works in ${INDUSTRIES_AWAITING_ROLES.map((i) => `<a href="${u(i.route)}">${i.label}</a>`).join(", ").replace(/, ([^,]*)$/, " and $1")} as well.</p>
+  <p style="margin-top:22px">Don&rsquo;t see the role you need? If it runs on your floor, we can staff it.</p>
   <p style="margin-top:22px"><a class="btn" href="${u("/who-we-deploy/other-roles")}">Tell us the role you need &raquo;</a></p>
-  <div class="note"><b>A sample of common roles, not a catalog.</b> They are read from AFIMAC's live industry pages with the families' own job titles removed, so the table cannot name a role the site does not already name. <b>The copy has to keep this a sample</b> — the network is 20,000+ people recruited to the role, and a table a reader takes for the full list invites them to treat anything missing as a no. <b>The Other Roles page names no roles at all</b>, for the same reason.</div>`,
-    spec: `<b>Elementor:</b> Heading · Text Editor · Table or EK Icon List · Button. <b>Read from the live site's role groups</b>, so a newly published role appears here rather than the table going stale. <b>This is the only page in the section that names roles outside the families.</b>`,
+  <div class="note"><b>This block now reads from the industry pages.</b> It used to show the <b>15 generic roles the live site repeats word for word on every industry page</b>, in three groups — Manufacturing, Warehousing, Logistics — not one of them specific to any industry. These are one role per station from each industry's own copy, so this page and the industry pages cannot disagree. <b>Five industry pages have no role copy of their own yet</b>; they are named as links rather than quoting a list that would be identical on all of them. <b>"Don't see the role you need? If it runs on your floor, we can staff it." is AFIMAC's own line</b>, from the Automotive and Food &amp; Beverage pages.</div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · Table · Button. <b>Rows are read from the industry copy</b>, so an industry gaining its own roles appears here without a second list to maintain. <b>Confirm the industry set</b> — eight pages today, and the five without role copy are a content gap rather than a design one.`,
   },
 
   {
