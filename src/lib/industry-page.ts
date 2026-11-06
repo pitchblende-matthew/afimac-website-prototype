@@ -10,7 +10,8 @@ import { bars, photo, figure, artPair, stationFlow } from "./wireframe";
 import { PHASE_TIMELINE } from "../data/graphics";
 import { LIVE_INDUSTRIES, LIVE_ROLE_GROUPS, LIVE_SITUATIONS } from "../data/live-industries";
 import { u } from "./base";
-import type { Industry } from "../data/industries";
+import { B } from "../data/nav";
+import { INDUSTRY_REDIRECTS, type Industry } from "../data/industries";
 import { INDUSTRY_COPY } from "../data/industry-copy";
 import type { Block, PageProps } from "./types";
 
@@ -25,11 +26,24 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
   const c = INDUSTRY_COPY[o.slug];
   const isNew = o.liveH1 === null;
 
+  /**
+   * Where a new URL comes from. Four of the new pages are halves of the two
+   * splits rather than pages out of nowhere: one of each pair inherits the old
+   * URL's traffic through a 301, the other is genuinely new. Logistics is the
+   * only page here that no live URL feeds at all.
+   */
+  const redirectedFrom = Object.entries(INDUSTRY_REDIRECTS).find(([, r]) => r.to === o.slug);
+  const splitSibling = Object.entries(INDUSTRY_REDIRECTS).find(([, r]) => r.sibling === o.slug);
+
   /** Says plainly whether this page replaces live copy or creates a new page. */
   const scope: Block = {
     n: isNew ? "SCOPE · NEW PAGE" : "SCOPE · UPDATE TO A LIVE PAGE",
-    h: isNew
-      ? `<div class="note stop" style="margin-top:0"><b>This is the only new page in the industry cluster.</b> There is no live ${o.short} page and no slot for one in the agreed CSTL sub-nav. Everything below is new copy and new layout at a new URL, <code>${o.url}</code>.</div>`
+    h: splitSibling
+      ? `<div class="note stop" style="margin-top:0"><b>New page, created by the ${splitSibling[0] === "chemicals-plastics" ? "Chemicals &amp; Plastics" : "Oil &amp; Energy"} split.</b> Its pair keeps the old URL through a 301; this half is a new URL with no live traffic behind it, so it <b>needs a sub-nav slot and a sitemap entry</b>, and the hub and its sibling page both need to link to it. Everything below is new copy at <code>${o.url}</code>.</div>`
+      : isNew
+      ? `<div class="note stop" style="margin-top:0"><b>A new page in the industry cluster.</b> There is no live ${o.short} page and no slot for one in the agreed CSTL sub-nav. Everything below is new copy and new layout at a new URL, <code>${o.url}</code>.</div>`
+      : redirectedFrom
+      ? `<div class="note stop" style="margin-top:0"><b>New URL, but not a new page — this is half of the ${redirectedFrom[0] === "chemicals-plastics" ? "Chemicals &amp; Plastics" : "Oil &amp; Energy"} split.</b> The live page at <code>${B}industries/${redirectedFrom[0]}/</code> <b>301s here</b>, so this page inherits its traffic and its ranking. Its H1 today reads “${o.liveH1}”. <b>The redirect has to ship with the page</b>, and the other half, <a href="${u(`/industries/${redirectedFrom[1].sibling}`)}">${redirectedFrom[1].sibling === "plastics" ? "Plastics" : "Power &amp; Energy"}</a>, is a separate new URL.</div>`
       : `<div class="note" style="margin-top:0"><b>This updates a page that is already live, it does not replace it.</b> The live page sits at <code>${o.url}</code> and its H1 today reads “${o.liveH1}”. It keeps that URL — see the <a href="${u("/industries")}">URL conflict</a> raised on the hub. What changes is the argument: the live page runs the same fifteen generic roles as every other industry page, and the update below replaces them with ${o.roles.length} that are actually ${o.short}.</div>`,
     spec: isNew
       ? `Needs a sub-nav slot, a URL sign-off, and the full asset set — nothing can be inherited.`
@@ -108,7 +122,11 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
       ? `<div class="note"><b>The delivered speed graphic is no longer placed.</b> <code>${o.speedArt.src.split("/").pop()}</code> ran as its own block above the hero until 16 Oct 2026 — a bar chart of other people's hiring timelines, opening the page. It stays in <code>public/graphics/</code> for decks and PDFs. <b>This page states its own speed in the hero and again in How We Deploy</b>, which is where a buyer is already asking the question.</div>`
       : ""
   }
-  <div class="note"><b>The speed comparison is not on this page.</b> The deck specs it under this block — the label “${c.speedLabel}” with ${c.speedBars.map((r) => r[1]).join(" / ")} — and it was rendered here as a table while no graphic existed. <b>Removed 16 Oct 2026:</b> a three-row table of someone else's hiring timelines is not worth the width, and the page already states its own speed in the hero and the deployment block.</div>`
+  ${
+    c.speedLabel && c.speedBars
+      ? `<div class="note"><b>The speed comparison is not on this page.</b> The deck specs it under this block — the label “${c.speedLabel}” with ${c.speedBars.map((r) => r[1]).join(" / ")} — and it was rendered here as a table while no graphic existed. <b>Removed 16 Oct 2026:</b> a three-row table of someone else's hiring timelines is not worth the width, and the page already states its own speed in the hero and the deployment block.</div>`
+      : ""
+  }`
       : `
   <h2>The ${o.short} labor gap</h2>
   <div class="ph t"></div>${bars(2)}

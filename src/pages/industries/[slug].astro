@@ -2,7 +2,7 @@
 import Prototype from "../../layouts/Prototype.astro";
 import Block from "../../components/Block.astro";
 import { u } from "../../lib/base";
-import { INDUSTRIES, EXISTING } from "../../data/industries";
+import { INDUSTRIES, EXISTING, INDUSTRY_REDIRECTS } from "../../data/industries";
 import {
   LIVE_INDUSTRIES,
   LIVE_SITUATIONS,
@@ -19,6 +19,16 @@ import type { Block as BlockType } from "../../lib/types";
 const { slug } = Astro.params;
 const built = slug ? INDUSTRIES[slug] : undefined;
 const existing = slug && !built ? EXISTING[slug] : undefined;
+
+/** Set when this live URL is one the split retires. */
+const redirect = slug ? INDUSTRY_REDIRECTS[slug] : undefined;
+
+const REDIRECT_LABEL: Record<string, string> = {
+  chemicals: "Chemicals",
+  plastics: "Plastics",
+  "oil-gas": "Oil &amp; Gas",
+  "power-energy": "Power &amp; Energy",
+};
 
 if (!built && !existing) {
   return new Response(null, { status: 404, statusText: "Not found" });
@@ -174,17 +184,26 @@ const blocks: BlockType[] = built
       ...liveTemplate(existing!.slug),
       // A note about the page, after the page.
       {
-        n: "STATUS · LIVE, NO CSTL UPDATE WRITTEN",
+        n: redirect ? "STATUS · THIS URL IS BEING RETIRED" : "STATUS · LIVE, NO CSTL UPDATE WRITTEN",
         h: `
   <h2>${existing!.label}</h2>
-  <p class="lead">This page is live on afimacglobal.com and carries the copy below today. <b>No CSTL update has been written for it</b> — it is one of five in that position. The page’s single H1 is the live page’s own, in the hero block below.</p>
+  ${
+    redirect
+      ? `<p class="lead">This page is live on afimacglobal.com and carries the copy below today. <b>It is being split in two, and this URL goes away.</b> A 301 points it at <a href="${u(`/industries/${redirect.to}`)}">${REDIRECT_LABEL[redirect.to]}</a>, which inherits its traffic; <a href="${u(`/industries/${redirect.sibling}`)}">${REDIRECT_LABEL[redirect.sibling]}</a> is a new URL alongside it. Both have their copy written. What is wireframed below is what is live today, so the scope of the change is visible.</p>
+  <div class="note stop"><b>The redirect has to ship with the two new pages</b>, not after them. Until it does, this URL and its replacement both answer, which is a duplicate-content problem on the two pages carrying the ranking.</div>`
+      : `<p class="lead">This page is live on afimacglobal.com and carries the copy below today. <b>No CSTL update has been written for it.</b> The page’s single H1 is the live page’s own, in the hero block below.</p>`
+  }
   <div class="tscroll"><table class="cmp" style="max-width:900px"><tbody>
    <tr><th>Live URL</th><td>${existing!.url}</td></tr>
    <tr><th>SEO title today</th><td>${existing!.seoTitle} <span style="color:var(--spec)">(${existing!.seoTitle.replace(/&amp;/g, "&").length} chars · target 50–60)</span></td></tr>
    <tr><th>Meta description today</th><td>${existing!.seoDesc} <span style="color:var(--spec)">(${existing!.seoDesc.length} chars · target 145–160)</span></td></tr>
   </tbody></table></div>
   ${existing!.note ? `<div class="note">${existing!.note}</div>` : ""}
-  <div class="btns"><a class="btn ghost" href="${u("/industries/automotive")}">See what an update looks like →</a></div>`,
+  <div class="btns">${
+    redirect
+      ? `<a class="btn" href="${u(`/industries/${redirect.to}`)}">${REDIRECT_LABEL[redirect.to]} →</a> <a class="btn ghost" href="${u(`/industries/${redirect.sibling}`)}">${REDIRECT_LABEL[redirect.sibling]} →</a>`
+      : `<a class="btn ghost" href="${u("/industries/automotive")}">See what an update looks like →</a>`
+  }</div>`,
         spec: `Wireframed below is the live page as it stands, so the scope of an update is visible. <b>Nothing here is new copy.</b>`,
       },
     ];

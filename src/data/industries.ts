@@ -165,6 +165,90 @@ export const INDUSTRIES: Record<string, Industry> = {
     map: "Line map · HTML widget · receiving → put-away → pick → pack → ship",
     roles: ["Forklift Operators", "Material Handlers", "Inventory Control Specialists", "Shipping &amp; Receiving Clerks", "CDL Truck Drivers", "Logistics Coordinators"],
   },
+
+  "aerospace-aviation-defense": {
+    title: "Aerospace, Aviation &amp; Defense Travel Labor",
+    short: "Aerospace, Aviation &amp; Defense",
+    slug: "aerospace-aviation-defense",
+    url: `${B}industries/aerospace-aviation-defense/`,
+    liveH1: "Aerospace, Aviation &amp; Defense Travel Labor",
+    heroImg: "Wide shot inside an aircraft assembly bay or structures line, technicians in PPE working a fuselage or wing section. No identifiable military aircraft, tail numbers, or program markings. Cool/industrial tone to sit under the navy scrim. Landscape, min 2000px wide.",
+    rolesTitle: "Role-Ready Aerospace Staffing",
+    map: "Displayed as a build-flow map above a role grid: five build stages (01 → 05) left to right, with Quality &amp; Inspection (06) and Material &amp; Logistics (07) as bands running under every stage. Aerospace builds by position rather than on a moving line, so this replaces the linear rail used on the Automotive page.",
+    roles: ["CNC machinists", "Composite layup technicians", "Structures assemblers", "Wire harness assemblers", "Aerospace painters", "Quality inspectors", "Material handlers"],
+  },
+
+  "chemicals": {
+    title: "Chemicals Travel Labor",
+    short: "Chemicals",
+    slug: "chemicals",
+    url: `${B}industries/chemicals/`,
+    liveH1: null,
+    heroImg: "Wide shot of a chemical plant processing area, tanks, reactors, and piping, operators in PPE (hard hats, safety glasses, FR clothing). No visible spills, flares, or hazard signage that reads as an incident. Cool/industrial tone to sit under the navy scrim. Landscape, min 2000px wide.",
+    rolesTitle: "Role-Ready Chemicals Staffing",
+    map: "Displayed as a process map above a role grid: material moves left to right from Receiving &amp; Raw Materials (01) through Reaction &amp; Batching (02) and Separation &amp; Finishing (03) to Filling &amp; Shipping (04), with Quality &amp; Lab (05), Maintenance &amp; Reliability (06), and Turnaround &amp; Facility Support (07) as bands running under all four. Chemical processing runs through vessels and transfer lines rather than stations, so this replaces the linear rail used on the Automotive page and is drawn differently from the Plastics press-floor map.",
+    roles: ["Material handlers", "Process operators", "Distillation &amp; dryer operators", "Drum &amp; tote fillers", "QC lab technicians", "Maintenance technicians", "Turnaround support crews"],
+  },
+
+  "consumer-goods": {
+    title: "Consumer Goods Manufacturing Travel Labor",
+    short: "Consumer Goods",
+    slug: "consumer-goods",
+    url: `${B}industries/consumer-goods/`,
+    liveH1: "Consumer Goods Manufacturing Travel Labor",
+    heroImg: "Wide shot of a high-speed filling or packaging line, operators in PPE, bottles or cartons of household or personal care product moving on conveyor. No visible retail brands or logos. Cool/industrial tone to sit under the navy scrim. Landscape, min 2000px wide.",
+    rolesTitle: "Role-Ready Consumer Goods Plant Staffing",
+    map: "Displayed as a multi-line map above a role grid: two parallel production lines run through stations 01 → 03 and merge into a shared warehouse zone (04), with Changeover &amp; Maintenance (05), Quality &amp; Lab (06), and Co-Packing &amp; Rework (07) as shared support around them. Consumer goods plants usually run several lines into one end-of-line area, so this replaces the single rail used on the Automotive page.",
+    roles: ["Batch makers", "Packaging line operators", "Case packer operators", "Forklift operators", "Changeover technicians", "Quality inspectors", "Hand packers"],
+  },
+
+  "industrial-equipment": {
+    title: "Industrial Equipment Travel Labor",
+    short: "Industrial Equipment",
+    slug: "industrial-equipment",
+    url: `${B}industries/industrial-equipment/`,
+    liveH1: "Industrial Equipment Travel Labor",
+    heroImg: "Wide shot of a heavy fabrication or assembly bay, a large equipment frame under an overhead crane, welders or assemblers in PPE. Cool/industrial tone to sit under the navy scrim. Landscape, min 2000px wide.",
+    rolesTitle: "Role-Ready Industrial Equipment Staffing",
+    map: "Displayed as a cellular shop map above a role grid: Fabrication (01), Welding (02), and Machining (03) cells feed a shared Paint &amp; Finish bay (04), which feeds Assembly &amp; Test (05), with Quality &amp; Maintenance (06) and Material &amp; Logistics (07) running alongside. Industrial equipment is built in cells and bays rather than on one moving line, so this replaces the linear rail used on the Automotive page.",
+    roles: ["Fabricators", "MIG &amp; flux-core welders", "CNC machinists", "Industrial painters", "Mechanical assemblers", "Quality inspectors", "Forklift &amp; overhead crane operators"],
+  },
+
+  "oil-gas": {
+    title: "Oil &amp; Gas Travel Labor",
+    short: "Oil &amp; Gas",
+    slug: "oil-gas",
+    url: `${B}industries/oil-gas/`,
+    liveH1: null,
+    heroImg: "Wide shot of a heavy fabrication bay with a large pressure vessel, valve body, or compressor skid under an overhead crane, welders in PPE. No flares, spills, or rig imagery that reads as an incident. Cool/industrial tone to sit under the navy scrim. Landscape, min 2000px wide.",
+    rolesTitle: "Role-Ready Oil &amp; Gas Staffing",
+    map: "Displayed as a heavy-bay map above a role grid: a large unit (a vessel, skid, or compressor package) moves through five bays under an overhead crane rail (01 → 05), with Facility &amp; Turnaround Support (06) and Material &amp; Logistics (07) as tiles off the main flow. Oil and gas equipment is built one heavy unit at a time in bays, so this replaces the line rail used on the Automotive page.",
+    roles: ["Pipe welders", "CNC machinists", "Pump &amp; valve assemblers", "Hydrostatic test technicians", "Industrial painters &amp; coaters", "Turnaround support crews", "Forklift operators"],
+  },
+
+  "plastics": {
+    title: "Plastics Travel Labor",
+    short: "Plastics",
+    slug: "plastics",
+    url: `${B}industries/plastics/`,
+    liveH1: null,
+    heroImg: "Wide shot of an injection molding or extrusion floor, a row of presses or a film line, operators in PPE. No visible customer brands or part logos. Cool/industrial tone to sit under the navy scrim. Landscape, min 2000px wide.",
+    rolesTitle: "Role-Ready Plastics Staffing",
+    map: "Displayed as a press-floor map above a role grid: a top-down plant with Resin Handling &amp; Drying (01) feeding a bank of molding presses (02) and extrusion lines (03), which feed Secondary Ops &amp; Converting (04), with Tooling &amp; Changeover (05), Quality (06), and Maintenance &amp; Material Flow (07) as zones around the floor. A molding plant runs many machines side by side rather than one line, so this replaces the linear rail used on the Automotive page and is drawn differently from the Chemicals process map.",
+    roles: ["Material handlers", "Injection mold operators", "Extrusion operators", "Converting line operators", "Mold setters", "Quality inspectors", "Maintenance technicians"],
+  },
+
+  "power-energy": {
+    title: "Power &amp; Energy Travel Labor",
+    short: "Power &amp; Energy",
+    slug: "power-energy",
+    url: `${B}industries/power-energy/`,
+    liveH1: null,
+    heroImg: "Wide shot of a switchgear or transformer assembly floor, technicians in PPE wiring cabinets or working a core and coil. No utility logos or customer markings. Cool/industrial tone to sit under the navy scrim. Landscape, min 2000px wide.",
+    rolesTitle: "Role-Ready Power &amp; Energy Staffing",
+    map: "Displayed as a build-and-test map above a role grid: Fabrication &amp; Enclosures (01) and Coil, Core &amp; Winding (02) feed an Electrical Assembly &amp; Wiring floor (03), which feeds a fenced high-voltage Test bay (04) and then Finish &amp; Ship (05), with Quality (06) and Material &amp; Logistics (07) as bands running underneath. Power equipment is wired and tested unit by unit before it ships, so the test bay is the visual anchor, and the map is drawn differently from the Oil &amp; Gas heavy-bay map.",
+    roles: ["Sheet metal fabricators", "Coil winders", "Switchgear assemblers", "Electrical test technicians", "Industrial painters &amp; coaters", "Quality inspectors", "Forklift &amp; overhead crane operators"],
+  },
 };
 
 /**
@@ -229,10 +313,26 @@ export const EXISTING: Record<string, ExistingIndustry> = {
 export const INDUSTRY_ORDER = [
   "aerospace-aviation-defense",
   "automotive",
-  "chemicals-plastics",
+  "chemicals",
   "consumer-goods",
   "food-beverage",
   "industrial-equipment",
-  "oil-energy",
+  "oil-gas",
+  "plastics",
+  "power-energy",
   "logistics-warehousing",
 ];
+
+/**
+ * The two live URLs the split retires, and where each one goes.
+ *
+ * Chemicals & Plastics becomes Chemicals and Plastics; Oil & Energy becomes
+ * Oil & Gas and Power & Energy. Both split decks specify a 301 from the old
+ * URL to the first of its pair, so the old slugs keep rendering here — a
+ * prototype that 404s the page a reviewer has bookmarked is no use — with a
+ * redirect note on top.
+ */
+export const INDUSTRY_REDIRECTS: Record<string, { to: string; sibling: string }> = {
+  "chemicals-plastics": { to: "chemicals", sibling: "plastics" },
+  "oil-energy": { to: "oil-gas", sibling: "power-energy" },
+};

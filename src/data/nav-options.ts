@@ -552,8 +552,13 @@ export const FAMILY_TIERS: TierSolution[] = SOLUTION_TIERS.map((so, i) =>
  * appears here without anyone maintaining a second list.
  */
 const INDUSTRY_STATIONS: Record<string, Station[]> = {
-  "/industries/automotive": INDUSTRY_COPY.automotive.stations,
-  "/industries/food-beverage": INDUSTRY_COPY["food-beverage"].stations,
+  // Every industry with a copy deck now has a built page, so the stations come
+  // straight from INDUSTRY_COPY and this table cannot disagree with the page it
+  // points at. Logistics & Warehousing keeps its own list: its deck predates
+  // INDUSTRY_COPY and the page renders from LOG_STATIONS directly.
+  ...Object.fromEntries(
+    Object.entries(INDUSTRY_COPY).map(([slug, c]) => [`/industries/${slug}`, c.stations]),
+  ),
   "/industries/logistics-warehousing": LOG_STATIONS,
 };
 
@@ -581,7 +586,12 @@ export const INDUSTRY_ROLE_SAMPLES: IndustryRoles[] = INDUSTRY_KIDS.map((kid) =>
   roles: (INDUSTRY_STATIONS[kid.route] ?? []).map((st) => st.roles[0]),
 }));
 
-/** How many of them still need a role set written. */
+/**
+ * How many still need a role set written. Zero today — every industry has a
+ * deck. It stays because the table renders a gap badge for an empty row, and
+ * the next industry added without copy should be counted rather than appear
+ * as a silently blank cell.
+ */
 export const INDUSTRIES_AWAITING_ROLES = INDUSTRY_ROLE_SAMPLES.filter((i) => !i.roles.length).length;
 
 /**

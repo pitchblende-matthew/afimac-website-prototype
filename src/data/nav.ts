@@ -153,17 +153,31 @@ export const NAV: NavItem[] = [
     live: true,
     phase: 1,
     kids: [
-      k("Aerospace, Aviation &amp; Defense", "/industries/aerospace-aviation-defense", "todo", true),
+      k("Aerospace, Aviation &amp; Defense", "/industries/aerospace-aviation-defense", "ready", true),
       k("Automotive", "/industries/automotive", "partial", true),
-      k("Chemicals &amp; Plastics", "/industries/chemicals-plastics", "todo", true),
-      k("Consumer Goods", "/industries/consumer-goods", "todo", true),
+      // Chemicals & Plastics split. The old URL 301s to Chemicals, so that
+      // entry is an update to a live page even though its slug is new.
+      k("Chemicals", "/industries/chemicals", "ready", true),
+      k("Consumer Goods", "/industries/consumer-goods", "ready", true),
       k("Food &amp; Beverage", "/industries/food-beverage", "partial", true),
-      k("Industrial Equipment", "/industries/industrial-equipment", "todo", true),
-      k("Oil &amp; Energy", "/industries/oil-energy", "todo", true),
+      k("Industrial Equipment", "/industries/industrial-equipment", "ready", true),
+      // Oil & Energy split, same arrangement: /oil-energy/ 301s to Oil & Gas.
+      k("Oil &amp; Gas", "/industries/oil-gas", "ready", true),
+      {
+        // The halves the splits create. Both are new URLs with nothing behind
+        // them on the live site, so they cannot go up at phase 1 with the
+        // updates — same reasoning as Logistics & Warehousing below.
+        ...k("Plastics — new page", "/industries/plastics", "ready"),
+        phase: 3,
+      },
+      {
+        ...k("Power &amp; Energy — new page", "/industries/power-energy", "ready"),
+        phase: 3,
+      },
       {
         ...k("Logistics &amp; Warehousing — needs a slot", "/industries/logistics-warehousing", "ready"),
-        // The only genuinely new page in the cluster, so its slot cannot go up
-        // with the others at phase 1 — there would be nothing behind it.
+        // A genuinely new page, so its slot cannot go up with the others at
+        // phase 1 — there would be nothing behind it.
         phase: 3,
       },
     ],
