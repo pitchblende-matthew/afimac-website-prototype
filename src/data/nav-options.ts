@@ -9,7 +9,8 @@
  * The nav entries are the six role families; the pages behind them are fixed —
  * seven written, one still to write. Only the way into them changes.
  */
-import { LIVE_ROLE_GROUPS } from "./live-industries";
+import { INDUSTRY_COPY, LOG_STATIONS, type Station } from "./industry-copy";
+import { NAV } from "./nav";
 
 export interface RoleLink {
   label: string;
@@ -538,38 +539,50 @@ export const FAMILY_TIERS: TierSolution[] = SOLUTION_TIERS.map((so, i) =>
 );
 
 /**
- * The published roles the six families do NOT reach.
+ * The industry pages, each with a sample of the roles that page names itself.
  *
- * LIVE_ROLE_GROUPS is the role list AFIMAC already publishes on every live
- * industry page. Subtracting the families' own job titles leaves the seats a
- * visitor could be looking for and not find in the menu — which is what the
- * "Looking for something else?" entry is for.
+ * Who We Deploy used to show LIVE_ROLE_GROUPS here: the 15 generic roles the
+ * live site repeats, word for word, on every industry page, in three groups
+ * (MANUFACTURING / WAREHOUSING / LOGISTICS). Not one of them is specific to
+ * any industry. The prototype replaces that list on the industry pages with
+ * each industry's own stations, so this section reads from the same copy —
+ * one role per station, in the station order the deck sets.
  *
- * Derived rather than typed out, so the day AFIMAC publishes a new role, or a
- * family takes one over, the page follows without anyone editing a second list.
+ * Derived rather than typed out: an industry that gains its own role copy
+ * appears here without anyone maintaining a second list.
  */
-const norm = (s: string) => s.replace(/&amp;/g, "&").toLowerCase().trim();
+const INDUSTRY_STATIONS: Record<string, Station[]> = {
+  "/industries/automotive": INDUSTRY_COPY.automotive.stations,
+  "/industries/food-beverage": INDUSTRY_COPY["food-beverage"].stations,
+  "/industries/logistics-warehousing": LOG_STATIONS,
+};
 
-const FAMILY_TITLES: string[] = ROLE_FAMILIES.flatMap((f) => f.roles.map(norm));
+/** Nav labels carry build asides ("— needs a slot"); the page wants the name. */
+const industryName = (label: string): string => label.split(" \u2014 ")[0];
 
-export const UNCOVERED_LIVE_ROLES: [string, string[]][] = LIVE_ROLE_GROUPS.map(
-  ([group, roles]) =>
-    [
-      group,
-      roles.filter((r) => {
-        const n = norm(r);
-        return !FAMILY_TITLES.some((t) => t === n || t.includes(n) || n.includes(t));
-      }),
-    ] as [string, string[]],
-).filter(([, roles]) => roles.length);
+const INDUSTRY_KIDS = NAV.find((i) => i.route === "/industries")?.kids ?? [];
+
+export interface IndustryRoles {
+  label: string;
+  route: string;
+  roles: string[];
+}
 
 /**
- * No count is derived from this any more, and that is deliberate. Printing a
- * figure made the list read as the extent of what AFIMAC fills; it is a sample
- * of common roles drawn from a 20,000+ network. Shipping and Receiving Clerks
- * is published under both Warehousing and Logistics, so it appears twice — if
- * a count is ever wanted again, count the set rather than the rows.
+ * EVERY industry page, in nav order. Three have role copy written for them;
+ * the other five have none anywhere in the project — INDUSTRIES.roles covers
+ * the same three, and EXISTING carries SEO metadata only. Their rows carry an
+ * empty roles array rather than a borrowed or invented list, and the page
+ * marks them so the gap is visible instead of papered over.
  */
+export const INDUSTRY_ROLE_SAMPLES: IndustryRoles[] = INDUSTRY_KIDS.map((kid) => ({
+  label: industryName(kid.label),
+  route: kid.route,
+  roles: (INDUSTRY_STATIONS[kid.route] ?? []).map((st) => st.roles[0]),
+}));
+
+/** How many of them still need a role set written. */
+export const INDUSTRIES_AWAITING_ROLES = INDUSTRY_ROLE_SAMPLES.filter((i) => !i.roles.length).length;
 
 /**
  * The four figures approved in the June-05 package, in one place so the pages
@@ -578,9 +591,12 @@ export const UNCOVERED_LIVE_ROLES: [string, string[]][] = LIVE_ROLE_GROUPS.map(
  * block counts different things again. See /brand-check; one set has to win.
  */
 export const NETWORK_STATS: [string, string][] = [
-  ["40+", "Years deploying crews"],
+  ["40+", "Years deploying labor"],
   ["20,000+", "In the talent network"],
-  ["Within 72 hrs", "To a crew on site"],
+  ["Within 72 hrs", "To people on site"],
+  // The label the June-05 package approved, kept verbatim. Note that the
+  // approved range runs to 500+, while the copy says "over a hundred" — the
+  // copy is the conservative one, and the two want reconciling before build.
   ["1&ndash;500+", "Scalable crew size"],
 ];
 

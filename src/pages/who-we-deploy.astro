@@ -22,10 +22,10 @@ import { B } from "../data/nav";
 import { photo } from "../lib/wireframe";
 import { roleHero, leadFormBlock, insightsBlock, faqBlock, COST_ANSWER, SUPERVISION_ANSWER } from "../lib/role-blocks";
 import { INCLUDED } from "../lib/family-page";
-import { ROLE_FAMILIES, UNCOVERED_LIVE_ROLES } from "../data/nav-options";
+import { ROLE_FAMILIES, INDUSTRY_ROLE_SAMPLES, INDUSTRIES_AWAITING_ROLES } from "../data/nav-options";
 import type { Block as BlockType } from "../lib/types";
 
-/** One line per family, saying what that crew is for rather than what the page does. */
+/** One line per family, saying what those skills are for rather than what the page does. */
 const GIST: Record<string, string> = {
   "Machining &amp; Precision Manufacturing": "Operators, machinists and programmers for the seats that take years to fill locally.",
   "Welding &amp; Fabrication": "Certified welders, the fit-up before the arc, and the robotic cells.",
@@ -40,14 +40,14 @@ const cards = ROLE_FAMILIES.map(
      <h3>${f.label}</h3>
      <p class="famgist">${GIST[f.label] ?? ""}</p>
      <p class="famroles">${f.roles.join(" · ")}</p>
-     <span class="readmore">See the crew &raquo;</span></a>`,
+     <span class="readmore">See the skills &raquo;</span></a>`,
 ).join("");
 
 const PHASES: [string, string, string][] = [
   ["PHASE 1 · ASSESSMENT", "Assessment", "We map the seats, the shift plan and the site requirements, and scope the timeline and the cost."],
   ["PHASE 2 · MOBILIZATION", "Mobilization", "We source and screen from a 20,000+ talent network, run credential and role checks, and book travel and housing."],
-  ["PHASE 3 · DEPLOYMENT", "Deployment", "The crew works your floor under AFIMAC supervision, with a single point of contact and daily reporting."],
-  ["PHASE 4 · DEMOBILIZATION", "Demobilization", "A final review, a planned handoff, and the crew stands down when your own workforce recovers."],
+  ["PHASE 3 · DEPLOYMENT", "Deployment", "Your people work the floor under AFIMAC supervision, with a single point of contact and daily reporting."],
+  ["PHASE 4 · DEMOBILIZATION", "Demobilization", "A final review, a planned handoff, and they stand down when your own workforce recovers."],
 ];
 
 /** Old path to new. Built as a list so a slug change cannot leave it behind. */
@@ -65,30 +65,30 @@ const REDIRECTS: [string, string][] = [
 /** Hoisted out of the FAQ array: a nested backtick inside an array literal
     inside the frontmatter is valid TypeScript and not valid Astro. */
 const WHICH_ROLES =
-  "The crews on this page are the trades AFIMAC is asked for most, drawn from a network of " +
-  "20,000+ skilled and unskilled workers. Crews are built to the role, so plenty of " +
-  "what AFIMAC deploys sits outside them. " +
+  "The skills on this page are the ones AFIMAC is asked for most, drawn from a network of " +
+  "20,000+ skilled and unskilled workers. AFIMAC recruits to the role, so plenty of " +
+  "what it deploys sits outside them. " +
   '<a href="' + u("/who-we-deploy/other-roles") + '">Tell us the role you need</a> and we will tell you how long it takes to get people there.';
 
 const blocks: BlockType[] = [
   roleHero({
     h1: "Who We Deploy",
-    sub: "Skilled Crews, Screened and Travel-Ready, On Your Floor in Days",
-    body: `AFIMAC deploys skilled and production labor to manufacturing plants, warehouses and distribution centers across North America, recruited to the role from a network of 20,000+ vetted, mobile workers. Travel, housing, screening and on-site supervision are ours. The crew is yours for as long as the gap lasts.`,
-    cta2: "See the crews",
+    sub: "Skilled People, Screened and Travel-Ready, On Your Floor in Days",
+    body: `AFIMAC deploys skilled and production labor to manufacturing plants, warehouses and distribution centers across North America, recruited to the role from a network of 20,000+ vetted, mobile workers. One machinist or over a hundred production workers, for as long as the gap lasts. Travel, housing, screening and on-site supervision are ours.`,
+    cta2: "See the skills",
     cta2Href: "#families",
     img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a mixed crew walking a plant floor at shift change, badges visible, plant depth behind · muted industrial tone under the navy scrim · mobile crop 1080×1350",
     spec: `<b>Elementor:</b> the same hero saved section the six family pages use, with the section's own copy. <b>This page is new</b> — it did not exist in the IA deck, which took the nav entry straight to the role pages.`,
   }),
 
   {
-    n: "BLOCK 02 · WHAT A TRAVEL CREW IS",
+    n: "BLOCK 02 · WHAT TRAVEL LABOR IS",
     h: `
   <h2>Not a temp agency, and not a local hire</h2>
   <div class="g2" style="margin-top:24px">
    <div>
-    <p>A travel labor crew is a screened, credentialed team that AFIMAC recruits nationally, moves to your site, houses, supervises and stands down when you no longer need it. It exists for the gap a local hiring cycle cannot close in time — a launch, a turnaround, a relocation, a strike, a season, a shift that turnover has thinned past the point of running.</p>
-    <p>That is a different proposition from a staffing agency filling requisitions one at a time. The crew arrives as a crew, to a plan agreed before anyone travels, and it is managed on your floor by AFIMAC rather than handed to your supervisors to absorb.</p>
+    <p>Travel labor is skilled people AFIMAC recruits nationally, screens, credentials, moves to your site, houses and supervises, then stands down when you no longer need them. A single specialist or a whole shift; the number is whatever the gap is. It exists for the gap a local hiring cycle cannot close in time: a launch, a turnaround, a relocation, a strike, a season, a shift that turnover has thinned past the point of running.</p>
+    <p>That is a different proposition from a staffing agency filling requisitions one at a time. Everyone arrives to a plan agreed before anyone travels, and they are managed on your floor by AFIMAC rather than handed to your supervisors to absorb.</p>
    </div>
    ${photo("1200×1500 JPG (4:5) beside the intro · a crew arriving at a plant entrance with gear, early light · muted tone · no staged poses")}
   </div>
@@ -99,28 +99,28 @@ const blocks: BlockType[] = [
   {
     cls: "wash",
     id: "families",
-    n: "BLOCK 03 · THE CREWS",
+    n: "BLOCK 03 · THE SKILLS",
     h: `
-  <h2>The crews AFIMAC is asked for most</h2>
-  <p class="lead">These families are how the crews are grouped and how this section is navigated. The job titles under each are what that crew commonly covers. AFIMAC recruits to the role, so a seat that is not listed here is still a seat it can fill.</p>
+  <h2>The skills AFIMAC is asked for most</h2>
+  <p class="lead">These families group the skills and are how this section is navigated. The job titles under each are what that group commonly covers. AFIMAC recruits to the role, so a seat that is not listed here is still a seat it can fill.</p>
   <div class="g3 famgrid">${cards}</div>
-  <p style="margin-top:28px">Need a role that is not here? <a href="${u("/who-we-deploy/other-roles")}">Tell us what you are short of</a> and we will tell you how long it takes to get people there.</p>
+  <p style="margin-top:28px">AFIMAC deploys one person or over a hundred at a time, in any mix of these skills. Need a role that is not here? <a href="${u("/who-we-deploy/other-roles")}">Tell us what you are short of</a> and we will tell you how long it takes to get people there.</p>
   <div class="note"><b>The cards, the dropdown and the role grids on the family pages all read from one list.</b> A family cannot gain a job title here and keep the old set in the menu. <b>The heading used to count the families and the job titles</b> — both counts are gone, because a figure in front of them reads as the limit of what AFIMAC fills.</div>`,
     spec: `<b>Elementor:</b> Container (3-col) · EK Image Box ×6, linked to the six family pages. <b>Asset gap:</b> six family icons or photographs, not yet commissioned — the role-page icon set should cover them.`,
   },
 
   {
-    n: "BLOCK 04 · THE WIDER NETWORK",
+    n: "BLOCK 04 · ACROSS THE INDUSTRIES",
     h: `
-  <h2>A network that runs wider than these crews</h2>
-  <p class="lead">The crews above are the trades AFIMAC is asked for most, drawn from a network of 20,000+ skilled and unskilled workers. Crews are built to the role. Below are some of the other roles that network is commonly asked for.</p>
-  <div class="tscroll" style="margin-top:22px"><table class="cmp"><thead><tr><th>Industry</th><th class="hl">Some roles commonly deployed</th></tr></thead><tbody>
-   ${UNCOVERED_LIVE_ROLES.map(([g, rs]) => `<tr><th>${g}</th><td class="hl">${rs.join(" · ")}</td></tr>`).join("")}
+  <h2>What we staff depends on the plant</h2>
+  <p class="lead">The skills above are the ones AFIMAC is asked for most, drawn from a network of 20,000+ skilled and unskilled workers. What a floor is short of changes with the work it runs. Here is some of what AFIMAC staffs in the industries it works in.</p>
+  <div class="tscroll" style="margin-top:22px"><table class="cmp"><thead><tr><th>Industry</th><th class="hl">Some of what we staff there</th></tr></thead><tbody>
+   ${INDUSTRY_ROLE_SAMPLES.map((i) => `<tr><th><a href="${u(i.route)}">${i.label}</a></th><td class="hl">${i.roles.length ? i.roles.join(" · ") : `<span class="pip gap">role set not written</span>`}</td></tr>`).join("")}
   </tbody></table></div>
-  <p style="margin-top:22px">For a role that is not here either, the question is how long it takes to recruit for, and that is settled on the first call.</p>
+  <p style="margin-top:22px">Don&rsquo;t see the role you need? If it runs on your floor, we can staff it.</p>
   <p style="margin-top:22px"><a class="btn" href="${u("/who-we-deploy/other-roles")}">Tell us the role you need &raquo;</a></p>
-  <div class="note"><b>A sample of common roles, not a catalog.</b> They are read from AFIMAC's live industry pages with the families' own job titles removed, so the table cannot name a role the site does not already name. <b>The copy has to keep this a sample</b> — the network is 20,000+ people recruited to the role, and a table a reader takes for the full list invites them to treat anything missing as a no. <b>The Other Roles page names no roles at all</b>, for the same reason.</div>`,
-    spec: `<b>Elementor:</b> Heading · Text Editor · Table or EK Icon List · Button. <b>Read from the live site's role groups</b>, so a newly published role appears here rather than the table going stale. <b>This is the only page in the section that names roles outside the families.</b>`,
+  <div class="note"><b>Every industry page is here, and this block reads from them.</b> It used to show the <b>15 generic roles the live site repeats word for word on every industry page</b>, in three groups — Manufacturing, Warehousing, Logistics — not one of them specific to any industry. The roles shown are one per station from each industry's own copy, so this page and the industry pages cannot disagree. <b>${INDUSTRIES_AWAITING_ROLES} of the ${INDUSTRY_ROLE_SAMPLES.length} have no role set written anywhere in the project</b> — not in the industry copy, not in the live page, which still runs the generic 15. Those rows are marked rather than filled with a borrowed list, because a row carrying another industry's roles would be worse than an empty one. <b>Writing those ${INDUSTRIES_AWAITING_ROLES} role sets is a content task, and it is the only thing standing between this table and being complete.</b> <b>"Don't see the role you need? If it runs on your floor, we can staff it." is AFIMAC's own line</b>, from the Automotive and Food &amp; Beverage pages.</div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · Table · Button. <b>Rows are read from the nav and the industry copy</b>, so an industry gaining its own roles fills its own row here with no second list to maintain. <b>Do not hand-type the table</b> — it goes stale the moment an industry page changes.`,
   },
 
   {
@@ -144,7 +144,7 @@ const blocks: BlockType[] = [
   {
     n: "BLOCK 06 · PROOF IT WORKS",
     h: `
-  <h2>Crews that kept Fortune 500 operations running</h2>
+  <h2>Deployments that kept Fortune 500 operations running</h2>
   <div class="casecard">
    ${photo("1600×1000 JPG (8:5) on the featured card · a full production floor mid-shift, crew at stations, a working shot")}
    <div class="body">
@@ -165,12 +165,13 @@ const blocks: BlockType[] = [
     h2: "Questions buyers ask first",
     items: [
       ["Which roles can you actually deploy?", WHICH_ROLES],
-      ["How fast can a crew be on site?", "Within days of a signed plan for most roles. Exact timing depends on the roles, the headcount, the location and the compliance requirements."],
-      ["Who supervises the crew?", SUPERVISION_ANSWER],
-      ["How long can a crew stay?", "As long as the gap lasts. Engagements are temporary by design and end with a planned demobilization when your permanent workforce recovers."],
+      ["How many people can you send?", "Anywhere from one to over a hundred. Published AFIMAC deployments run from a 12-person specialist team to a 99-person production deployment, and the headcount can move up or down while the engagement runs."],
+      ["How fast can people be on site?", "Within days of a signed plan for most roles. Exact timing depends on the roles, the headcount, the location and the compliance requirements."],
+      ["Who supervises them?", SUPERVISION_ANSWER],
+      ["How long can they stay?", "As long as the gap lasts. Engagements are temporary by design and end with a planned demobilization when your permanent workforce recovers."],
       ["What does it cost?", COST_ANSWER],
     ],
-    spec: `<b>Elementor:</b> EK Accordion (5 items) + FAQPage structured data. Four of the five are the cluster's shared answers — <b>keep the wording identical</b> to the <a href="${u("/faq")}">FAQ page</a> and the family pages.`,
+    spec: `<b>Elementor:</b> EK Accordion (6 items) + FAQPage structured data. Four are the cluster's shared answers — <b>keep the wording identical</b> to the <a href="${u("/faq")}">FAQ page</a> and the family pages. <b>"How many people can you send?" is new and not in the cluster FAQ</b>; both figures in it are published AFIMAC deployments. Do not add it to the schema until approved.`,
   }),
 
   insightsBlock({
@@ -185,9 +186,9 @@ const blocks: BlockType[] = [
 
   leadFormBlock({
     n: "BLOCK 09 · TALK TO AFIMAC (LEAD FORM)",
-    h2: "Short a crew? Let's scope it.",
+    h2: "Short-staffed? Let's scope it.",
     bullets: [
-      "The roles and crew size we'd send",
+      "The roles, and how many people we'd send",
       "A realistic timeline to people on your floor",
       "A ballpark cost",
     ],
@@ -217,8 +218,8 @@ const blocks: BlockType[] = [
   status="build"
   active="/who-we-deploy"
   meta={{
-    t: "Who We Deploy: Skilled Travel Labor Crews | AFIMAC Global",
-    d: "AFIMAC deploys machining, welding, production, material handling, packaging and sanitation crews in days, with travel, housing and supervision handled.",
+    t: "Who We Deploy: Skilled Travel Labor Staffing | AFIMAC Global",
+    d: "AFIMAC deploys machining, welding, production, material handling, packaging and sanitation workers in days — one person or over a hundred, housing handled.",
     k: "travel labor crews · skilled labor staffing — secondary: travel welders · travel machinists · warehouse staffing · production staffing · sanitation staffing",
   }}
 >
