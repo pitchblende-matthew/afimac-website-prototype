@@ -10,6 +10,7 @@
  * seven written, one still to write. Only the way into them changes.
  */
 import { INDUSTRY_COPY, LOG_STATIONS, type Station } from "./industry-copy";
+import { DECK_STATIONS_BY_ROUTE } from "./industry-roles";
 import { NAV } from "./nav";
 
 export interface RoleLink {
@@ -552,9 +553,14 @@ export const FAMILY_TIERS: TierSolution[] = SOLUTION_TIERS.map((so, i) =>
  * appears here without anyone maintaining a second list.
  */
 const INDUSTRY_STATIONS: Record<string, Station[]> = {
+  // Industries whose pages the prototype has built out.
   "/industries/automotive": INDUSTRY_COPY.automotive.stations,
   "/industries/food-beverage": INDUSTRY_COPY["food-beverage"].stations,
   "/industries/logistics-warehousing": LOG_STATIONS,
+  // Industries whose copy decks exist but whose pages are not built yet. The
+  // role grids are the decks' own section 04, so this table is reading
+  // approved-track copy rather than waiting on the page.
+  ...DECK_STATIONS_BY_ROUTE,
 };
 
 /** Nav labels carry build asides ("— needs a slot"); the page wants the name. */
