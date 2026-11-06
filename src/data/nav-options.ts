@@ -568,22 +568,21 @@ export interface IndustryRoles {
   roles: string[];
 }
 
-export const INDUSTRY_ROLE_SAMPLES: IndustryRoles[] = INDUSTRY_KIDS.filter(
-  (kid) => INDUSTRY_STATIONS[kid.route],
-).map((kid) => ({
+/**
+ * EVERY industry page, in nav order. Three have role copy written for them;
+ * the other five have none anywhere in the project — INDUSTRIES.roles covers
+ * the same three, and EXISTING carries SEO metadata only. Their rows carry an
+ * empty roles array rather than a borrowed or invented list, and the page
+ * marks them so the gap is visible instead of papered over.
+ */
+export const INDUSTRY_ROLE_SAMPLES: IndustryRoles[] = INDUSTRY_KIDS.map((kid) => ({
   label: industryName(kid.label),
   route: kid.route,
-  roles: INDUSTRY_STATIONS[kid.route].map((st) => st.roles[0]),
+  roles: (INDUSTRY_STATIONS[kid.route] ?? []).map((st) => st.roles[0]),
 }));
 
-/**
- * The industry pages with no role copy of their own yet. They still run the
- * generic 15 on the live site, so this page names them rather than quoting a
- * role list that would be the same on all of them.
- */
-export const INDUSTRIES_AWAITING_ROLES: { label: string; route: string }[] = INDUSTRY_KIDS.filter(
-  (kid) => !INDUSTRY_STATIONS[kid.route],
-).map((kid) => ({ label: industryName(kid.label), route: kid.route }));
+/** How many of them still need a role set written. */
+export const INDUSTRIES_AWAITING_ROLES = INDUSTRY_ROLE_SAMPLES.filter((i) => !i.roles.length).length;
 
 /**
  * The four figures approved in the June-05 package, in one place so the pages
