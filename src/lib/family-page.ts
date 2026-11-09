@@ -18,8 +18,8 @@
  * What a page supplies is copy. What it cannot vary is the order, the
  * devices, or the parts of the service that are the same whoever is deployed.
  */
-import { photo, artPair } from "./wireframe";
-import type { ArtPair } from "../data/graphics";
+import { photo, artPair, figure } from "./wireframe";
+import type { Art, ArtPair } from "../data/graphics";
 import { u } from "./base";
 import {
   roleHero, roleSection, deckRoles, faqBlock, insightsBlock, leadFormBlock,
@@ -56,7 +56,7 @@ export interface FamilyPageData {
    * packaging's deadline scoping, sanitation's nightly reset — so that
    * content survives the move to one order.
    */
-  included: { h2: string; lead: string; context?: string; photo: string };
+  included: { h2: string; lead: string; context?: string; photo: string; art?: Art };
   /** Block 06 — one featured case, optionally a supporting one. */
   proof: { h2: string; photo: string; featured: string; supporting?: string; note: string };
   faq: { h2: string; items: [string, string][] };
@@ -176,7 +176,7 @@ export function familyPage(d: FamilyPageData): BlockType[] {
    <ul class="tick">${INCLUDED.slice(0, 4).map((i) => `<li>${i}</li>`).join("")}</ul>
    <ul class="tick">${INCLUDED.slice(4).map((i) => `<li>${i}</li>`).join("")}</ul>
   </div>
-  <div style="margin-top:28px">${photo(d.included.photo)}</div>`,
+  <div style="margin-top:28px">${d.included.art ? figure(d.included.art) : photo(d.included.photo)}</div>`,
       spec: SPEC.included,
     },
 

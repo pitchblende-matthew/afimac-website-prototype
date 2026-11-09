@@ -312,3 +312,13 @@ export const MACH_SHIFT_COVERAGE: ArtPair = {
   caption:
     `<b>Delivered artwork, 9 Nov 2026.</b> Shift coverage matrix, 2400×600, with a stacked version under 780px. The same machine-by-shift grid shown three times, so coverage visibly fills left to right: <b>Day 1</b> first shift on the first machines, then <b>full weekday coverage</b>, then <b>second shift and weekend added as needed</b>, drawn dashed because they are optional rather than promised. Orange marks Day 1 only. No day counts past Day 1, in line with the directional timing. The four machine names are illustrative and can be swapped for a client’s own cell in one line of the build script.`,
 };
+
+export const MACH_OPERATOR_CHECKLIST: Art = {
+  src: "/graphics/afimac-mach-operator-checklist.svg",
+  alt: "Operator-ready checklist, five stamped checks in sequence: Vetted, background and role screening. Credentialed, credentials checked before travel. Traveled, travel and logistics handled. Housed, lodging arranged near your site. Supervised, on-site AFIMAC supervision. Ready for the first shift.",
+  width: 960,
+  height: 960,
+  caption:
+    `<b>Delivered artwork, 9 Nov 2026.</b> Operator-ready checklist card, 960×960 SVG, holds up down to 640px. Five stamped checks in the spec’s order, each with a line taken from the What’s Included list above it, ending on one orange “Ready for the first shift” band. Drawn as a vertical checklist so it does not read as the Day 1 Ready seal, which puts its five checks around a ring.`,
+  maxWidth: 560,
+};
