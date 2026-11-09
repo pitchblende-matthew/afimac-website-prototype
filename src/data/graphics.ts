@@ -300,3 +300,15 @@ export const PDC_SWIMLANE: ArtPair = {
   caption:
     `<b>Delivered artwork, 12 Oct 2026.</b> Pre-deployment swimlane, 2400×600, with a stacked version under 780px that keeps the two lanes as side-by-side columns. Both sides against the same sequence: open markers are yours, filled are AFIMAC’s, and the one shared step straddles the lanes. Item labels are condensed from the checklist, which runs in full directly beneath. <b>No day scale</b>: the script asked for one, but the directional timing retired day counts, so the phases sit on equal segments. Phase names and lines follow the approved option card: Assessment, Mobilization, Deployment. <b>The page’s own phase headings below still read “Before the crew travels” and “Day one morning”</b>, which is page copy rather than artwork.`,
 };
+
+/* ---------------- Machining & Precision Manufacturing ---------------- */
+
+export const MACH_SHIFT_COVERAGE: ArtPair = {
+  src: "/graphics/afimac-mach-shift-coverage.svg",
+  mobile: "/graphics/afimac-mach-shift-coverage-mobile.svg",
+  alt: "Shift coverage across the engagement, four machines against 1st shift, 2nd shift and weekend. Day 1: first shift covered on the machining center and CNC lathe. As the crew builds: full weekday coverage, first shift on every machine. As the backlog needs: second shift and weekend added on the machines that need them.",
+  width: 2400,
+  height: 600,
+  caption:
+    `<b>Delivered artwork, 9 Nov 2026.</b> Shift coverage matrix, 2400×600, with a stacked version under 780px. The same machine-by-shift grid shown three times, so coverage visibly fills left to right: <b>Day 1</b> first shift on the first machines, then <b>full weekday coverage</b>, then <b>second shift and weekend added as needed</b>, drawn dashed because they are optional rather than promised. Orange marks Day 1 only. No day counts past Day 1, in line with the directional timing. The four machine names are illustrative and can be swapped for a client’s own cell in one line of the build script.`,
+};

@@ -9,6 +9,7 @@ import Prototype from "../../layouts/Prototype.astro";
 import Block from "../../components/Block.astro";
 import { B } from "../../data/nav";
 import { familyPage, familyPageProps, type FamilyPageData } from "../../lib/family-page";
+import { MACH_SHIFT_COVERAGE } from "../../data/graphics";
 
 const page: FamilyPageData = {
   family: "Machining &amp; Precision Manufacturing",
@@ -58,6 +59,7 @@ const page: FamilyPageData = {
         "Release travel crews and close out the engagement",
       ]],
     ],
+    art: MACH_SHIFT_COVERAGE,
     photo: "Shift coverage matrix · SVG 2400×600 (4:1), stacks vertically under 768px · machine rows against shift columns, coverage filling across the engagement: Day 1 first shift covered · full weekday coverage · weekend &amp; second shift added as needed · column labels 1st shift · 2nd shift · Weekend",
   },
   included: {
