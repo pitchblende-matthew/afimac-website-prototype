@@ -9,6 +9,7 @@ import Prototype from "../../layouts/Prototype.astro";
 import Block from "../../components/Block.astro";
 import { B } from "../../data/nav";
 import { familyPage, familyPageProps, type FamilyPageData } from "../../lib/family-page";
+import { WLD_PROCESS_TILES, WLD_WELD_CHECKLIST } from "../../data/graphics";
 
 const page: FamilyPageData = {
   family: "Welding &amp; Fabrication",
@@ -47,11 +48,13 @@ const page: FamilyPageData = {
         "When the welding labor shortage closes, demobilization hands the work back to your permanent team.",
       ]],
     ],
+    art: WLD_PROCESS_TILES,
     photo: "Weld process tile grid · SVG square, art 960×960, min render 640×640 · five labelled tiles: MIG · TIG · Stick · Flux-core · Robotic cells · flat isometric, greys with safety-orange and blue",
   },
   included: {
     h2: "You bring the work. We bring the welders.",
     lead: "You bring the prints, the specs and the standards your parts are built to, the machines and consumables, and the site and the schedule. AFIMAC brings the rest.",
+    art: WLD_WELD_CHECKLIST,
     photo: "Weld-ready checklist card · SVG square, art 960×960, min render 640×640 · five stamped checks in sequence: Vetted · Credentialed · Traveled · Housed · Supervised",
   },
   proof: {

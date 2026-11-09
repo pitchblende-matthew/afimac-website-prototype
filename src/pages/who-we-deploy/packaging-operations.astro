@@ -9,6 +9,7 @@ import Prototype from "../../layouts/Prototype.astro";
 import Block from "../../components/Block.astro";
 import { B } from "../../data/nav";
 import { familyPage, familyPageProps, type FamilyPageData } from "../../lib/family-page";
+import { PKG_SHIP_WINDOW, PKG_LINE_CHECKLIST } from "../../data/graphics";
 
 const page: FamilyPageData = {
   family: "Packaging Operations",
@@ -56,12 +57,14 @@ const page: FamilyPageData = {
         "final performance review and a planned handoff back to your permanent team (in as little as 48 hours).",
       ]],
     ],
+    art: PKG_SHIP_WINDOW,
     photo: "Ship-window countdown · SVG 2400×600 (4:1), stacks vertically under 768px · a calendar strip running left to right with the window marked and crew coverage filling toward it",
   },
   included: {
     h2: "Built for deadlines with dates on them",
     lead: "You bring the line and the window; AFIMAC handles the rest.",
     context: "Packaging surges come with a date attached: a retail reset, a promotion, a co-packing commitment, a seasonal window. During Assessment, AFIMAC works backward from that date, scoping the roles, headcount, and shift coverage the window demands, and the crew arrives in days, sized to hit it.",
+    art: PKG_LINE_CHECKLIST,
     photo: "Line-ready checklist card · SVG square, art 960×960, min render 640×640 · five stamped checks in sequence: Vetted · Credentialed · Traveled · Housed · Supervised",
   },
   proof: {
