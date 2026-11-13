@@ -60,7 +60,6 @@ export interface Industry {
    * runs the same file the build pastes into WordPress.
    */
   lineMapEmbed?: EmbedKey;
-  statBandEmbed?: EmbedKey;
   roles: string[];
 }
 
@@ -101,7 +100,6 @@ export const INDUSTRIES: Record<string, Industry> = {
     deployArt: AUTO_DEPLOY_TIMELINE,
     flowEyebrow: "Body shop to shipping",
     lineMapEmbed: "auto-line-map",
-    statBandEmbed: "auto-stat-band",
     roles: ["CNC Operators", "Welders", "Assemblers", "Machinists", "Material Handlers", "Quality Inspectors"],
   },
 
@@ -143,7 +141,6 @@ export const INDUSTRIES: Record<string, Industry> = {
     },
     flowEyebrow: "Receiving to cold chain",
     lineMapEmbed: "fb-line-map",
-    statBandEmbed: "fb-stat-band",
     roles: ["Packaging Operators", "Sanitation Crews", "Line Prep", "Forklift Operators", "Quality Control Inspectors", "Boiler Operators", "Wastewater Techs"],
   },
 

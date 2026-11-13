@@ -16,6 +16,7 @@ import { u } from "../../lib/base";
 import { B } from "../../data/nav";
 import { photo, figure, artPair, stationFlow } from "../../lib/wireframe";
 import { INDUSTRIES } from "../../data/industries";
+import { STAT_BAND } from "../../lib/industry-page";
 import { LOG_DEPLOY } from "../../data/graphics";
 import { SOFT_PHASES } from "../../data/timing";
 import { LOG_SITUATIONS, LOG_RISKS, LOG_STATIONS } from "../../data/industry-copy";
@@ -107,13 +108,11 @@ const blocks: BlockType[] = [
     h: `
   <h2>The premier resource for warehouse labor under pressure</h2>
   <p class="lead">For four decades, Fortune 500 shippers and 3PLs have called AFIMAC when a labor gap threatens throughput and the clock is running.</p>
-  <div class="note"><b>Settled at 26+, Oct 2026.</b> This band read <b>18+ Industries Served</b>, against a live overview counter saying <b>26 Industries</b> and a list on that same page with <b>18</b> entries. The client has settled it: the figure is <b>26+</b>, and the counter was right. <b>The list is now what disagrees</b> — it is eight industries short of the claim above it, so it needs extending before either goes out. <a href="${u("/brand-check")}">All conflicts →</a></div>
-  <div class="note"><b>Three stats here, four on every other industry page.</b> The others run 40+ / 20,000+ / 72 hrs / 1–500+. This drops the speed and crew-size figures and adds industries served — which conveniently avoids restating the contested 72-hour claim.</div>`,
-    embed: {
-      name: "log-stat-band",
-      caption: `<b>Live embed, delivered.</b> The counters run once when the band scrolls into view and then hold; they respect <code>prefers-reduced-motion</code> and fall back to the static figures where <code>IntersectionObserver</code> is missing.`,
-    },
-    spec: `<b>Elementor:</b> HTML widget — paste <code>/embeds/afimac-log-stat-band.html</code> whole. Self-contained and paints its own band, so the section needs no background colour. If you would rather use EK Funfact, the figures are 40+ / 20,000+ / 26+.`,
+  <div class="g4">
+   ${STAT_BAND.map(([fig, label]) => `<div><div class="stat">${fig}</div><p>${label}</p></div>`).join("")}
+  </div>
+  <div class="note"><b>This band now runs the same four figures as every other industry page.</b> It used to paste <code>/embeds/afimac-log-stat-band.html</code>, which carries <b>40+ · 20,000+ · 26+ industries served</b> — three figures, dropping the speed and crew-size arguments and adding industries served. <b>The 26+ decision still stands</b> and still needs the industries list extended to match it; what has changed is that this page no longer carries that figure instead of the approved four. <a href="${u("/brand-check")}">All conflicts &rarr;</a></div>`,
+    spec: `<b>Elementor:</b> Container · EK Funfact / Counter ×4, blue band — the same block as every other industry page. <b>The delivered widget is no longer pasted here</b>; <code>/embeds/afimac-log-stat-band.html</code> stays in the repository, unused, until it is re-cut to the approved four.`,
   },
 
   {
