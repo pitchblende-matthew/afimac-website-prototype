@@ -48,7 +48,7 @@ const blocks: BlockType[] = [
     n: "BLOCK 03 · THE NETWORK",
     h: `
   <h2>A network of 20,000+ to recruit from</h2>
-  <p class="lead">AFIMAC draws from a network of 20,000+ skilled and unskilled workers who are vetted, mobile and ready to work. People are recruited for the role you are short of — one of them or over a hundred. The families in the menu are the trades AFIMAC is asked for most, and the network reaches well past them.</p>
+  <p class="lead">AFIMAC draws from a network of 20,000+ skilled and general workers who are vetted, mobile and ready to work. People are recruited for the role you are short of — one of them or over a hundred. The families in the menu are the trades AFIMAC is asked for most, and the network reaches well past them.</p>
   <div class="g4" style="margin-top:28px">
    ${NETWORK_STATS.map(([fig, label]) => `<div><div class="stat">${fig}</div><p>${label}</p></div>`).join("")}
   </div>
@@ -65,7 +65,7 @@ const blocks: BlockType[] = [
   <h2>How long a role takes to source</h2>
   <p class="lead">How fast a role reaches your site comes down to how many of those 20,000 hold it, what screening and credentials it needs, and how far they have to travel.</p>
   <div class="g3" style="margin-top:26px">
-   <div class="card"><div class="blocknum">ROLES WE STAFF MOST OFTEN</div><h3>Days from a signed plan</h3><p style="margin:0">The specialties in the menu and the roles around them. We keep a deep bench in these trades, so most of the lead time goes on travel, housing and site onboarding.</p></div>
+   <div class="card"><div class="blocknum">ROLES WE STAFF MOST OFTEN</div><h3>Days from a signed plan</h3><p style="margin:0">The specialties in the menu and the roles around them. We keep a deep bench in these trades, so mobilization and deployment can be quicker.</p></div>
    <div class="card"><div class="blocknum">SPECIALIST AND UNCOMMON ROLES</div><h3>Longer to source</h3><p style="margin:0">There are fewer candidates to start from, so recruiting and screening take more time. You get a date before you commit to anything.</p></div>
    <div class="card"><div class="blocknum">LICENSES AND CLEARANCES</div><h3>Depends on the site</h3><p style="margin:0">Where a role needs a specific license, certification or site clearance, how long that takes to verify usually sets the schedule.</p></div>
   </div>
@@ -93,10 +93,10 @@ const blocks: BlockType[] = [
     cls: "wash",
     h2: "Before you ask",
     items: [
-      ["Is there a list of roles you will not fill?", "No. AFIMAC recruits to the role from a network of 20,000+ workers. Some roles take longer to source than others, and the first call is where we work out which yours is."],
+      ["Is there a list of roles you will not fill?", "No. AFIMAC recruits to the role from a network of 20,000+ workers. Some roles take longer to source than others, and we’ll work out your requests on the first call."],
       ["How many people can you send?", "Anywhere from one to over a hundred. Published AFIMAC deployments run from a 12-person specialist team to a 99-person production deployment, and the headcount can move up or down while the engagement runs."],
       ["Who supervises them?", SUPERVISION_ANSWER],
-      ["How fast can people be on site?", "Within days of a signed plan for the roles we staff most often. Less common roles take longer to recruit for, and you get that timeline before you commit to anything."],
+      ["How fast can people be on site?", "For the roles we staff most often, we can deploy crews in as little as three days. Less common roles take longer to recruit for, and you get that timeline before you commit to anything."],
       ["What does it cost?", COST_ANSWER],
     ],
     note: `<b>Three of these five are new or changed.</b> “Is there a list of roles you will not fill” and the sourcing caveat in the timing answer are written for this page. <b>“How many people can you send?” replaces “Can you staff a whole shift rather than a few seats?”</b> and leads with the range rather than the shift, because the scale argument is one person to over a hundred; both figures in the answer are published AFIMAC deployments. The remaining two are the cluster's shared answers and match the <a href="${u("/faq")}">FAQ page</a> word for word. <b>Do not add the new three to the cluster FAQ schema until they are approved.</b>`,

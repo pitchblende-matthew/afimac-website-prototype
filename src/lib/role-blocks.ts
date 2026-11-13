@@ -50,16 +50,18 @@ export function roleHero(o: {
  * ROLE_FAMILIES makes that impossible rather than merely unlikely.
  */
 /**
- * The deck's own role lines, kept visible under the grid that replaced them.
+ * The v1 role lines, kept visible under the grid that replaced them.
  *
- * The approved decks carry detail the nav's titles do not — processes, truck
- * classes, what "support" covers. Dropping it silently would lose approved
- * copy; printing it here leaves the choice on the page where it can be made.
+ * v2 settles the grid: block 03 of every family deck is the job titles the
+ * menu lists, each with a line on what the seat does, and that is what renders
+ * above. What it does not settle is where v1's detail goes — processes, truck
+ * classes, what "support" covers — so it stays printed here rather than being
+ * dropped on a decision nobody made.
  */
 export const deckRoles = (lines: string[]): string =>
-  `<div class="note"><b>The grid above is the nav's list. The deck's is not the same list.</b> The approved deck specs ${lines.length}: ${lines
+  `<div class="note"><b>v2 settles the grid: it shows the job titles the menu lists.</b> What it leaves open is v1's detail, which is not the same list. v1 specs ${lines.length}: ${lines
     .map((l) => `<i>${l}</i>`)
-    .join(" · ")}. That detail is worth keeping — <b>decide whether the grid shows the family's job titles or the deck's lines</b>, because the dropdown promises the first and the copy was written for the second.</div>`;
+    .join(" · ")}. <b>Decide whether any of that detail belongs on the page</b> — as a line under each title, or not at all. Each deck carries the same question as its Decision 1.</div>`;
 
 export const familyRoles = (family: string): string[] => {
   const f = ROLE_FAMILIES.find((x) => x.label === family);
@@ -94,7 +96,7 @@ export function roleSection(family: string, heading: string, extra = ""): string
   ${FAMILY_INTRO[family] ? `<p class="lead">${FAMILY_INTRO[family]}</p>` : ""}
   ${extra}
   ${roleGrid(familyRoles(family))}
-  <div class="note stop"><b>The line under each job title is ours, not the deck's.</b> The titles are the client's and are settled; what each seat does was written here so the section could be judged at the right density. <b>Every line is an operational claim — certifications, equipment classes, what a seat is and is not responsible for — and needs AFIMAC ops to confirm it before build.</b></div>`;
+  <div class="note"><b>The titles and the line under each now carry in the v2 decks</b>, which specify this block as the job titles the menu lists with a line on what each seat does. <b>Every line is still an operational claim</b> — certifications, equipment classes, what a seat is and is not responsible for — <b>and needs AFIMAC ops to confirm it before build.</b></div>`;
 }
 
 /** FAQ accordion. First item open, matching the hub and the industry pages. */
@@ -211,6 +213,13 @@ export const CONSULTATION_FLAG = `“Consultation” in the cost answer carries 
 export const COST_ANSWER =
   "Cost depends on roles, headcount, shift coverage, location, and duration. AFIMAC provides a scoped estimate during the consultation, including the risk-avoided impact.";
 
-/** The supervision answer, worded identically across six of the seven decks. */
+/**
+ * The supervision answer, shared across the cluster.
+ *
+ * The v2 decks name who is supervised: "for the travel crew". Welding writes
+ * it plural and Production writes "of" rather than "for"; both are held to
+ * this one string, because the point of the constant is that the seven places
+ * it appears cannot drift.
+ */
 export const SUPERVISION_ANSWER =
-  "AFIMAC provides on-site supervision and a single point of contact, working alongside your team.";
+  "AFIMAC provides on-site supervision for the travel crew and a single point of contact, working alongside your team.";
