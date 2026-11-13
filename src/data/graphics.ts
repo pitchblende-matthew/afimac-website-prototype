@@ -313,23 +313,23 @@ export const MACH_SHIFT_COVERAGE: ArtPair = {
     `<b>Delivered artwork, 9 Nov 2026.</b> Shift coverage matrix, 2400×600, with a stacked version under 780px. The same machine-by-shift grid shown three times, so coverage visibly fills left to right: <b>Day 1</b> first shift on the first machines, then <b>full weekday coverage</b>, then <b>second shift and weekend added as needed</b>, drawn dashed because they are optional rather than promised. Orange marks Day 1 only. No day counts past Day 1, in line with the directional timing. The four machine names are illustrative and can be swapped for a client’s own cell in one line of the build script.`,
 };
 
-export const MACH_OPERATOR_CHECKLIST: Art = {
+export const MACH_OPERATOR_CHECKLIST: ArtPair = {
   src: "/graphics/afimac-mach-operator-checklist.svg",
+  mobile: "/graphics/afimac-mach-operator-checklist-mobile.svg",
   alt: "Operator-ready checklist, five stamped checks in sequence: Vetted, background and role screening. Credentialed, credentials checked before travel. Traveled, travel and logistics handled. Housed, lodging arranged near your site. Supervised, on-site AFIMAC supervision. Ready for the first shift.",
-  width: 960,
-  height: 960,
+  width: 2400,
+  height: 640,
   caption:
-    `<b>Delivered artwork, 9 Nov 2026.</b> Operator-ready checklist card, 960×960 SVG, holds up down to 640px. Five stamped checks in the spec’s order, each with a line taken from the What’s Included list above it, ending on one orange “Ready for the first shift” band. Drawn as a vertical checklist so it does not read as the Day 1 Ready seal, which puts its five checks around a ring.`,
-  maxWidth: 560,
+    `<b>Delivered artwork, 13 Nov 2026.</b> Operator-ready checklist, 2400×640 so it spans the content column, with the 960×960 card as the phone version under 780px. Five stamped checks left to right in the spec’s order, each with a line taken from the What’s Included list above it, over one orange “Ready for the first shift” band.`,
 };
 
 /* ---------------- Who We Deploy family pages ---------------- */
 
-const FAMILY = "<b>Delivered artwork, 9 Nov 2026.</b>";
-const CARD_NOTE = "Same drawing as the Machining operator-ready card: five stamped checks in the spec’s order, sublines taken from the What’s Included list above it, one orange ready band at the foot. 960×960 SVG, holds up down to 640px.";
+const FAMILY = "<b>Delivered artwork, 13 Nov 2026.</b>";
+const CARD_NOTE = "2400×640 so it spans the content column, with the 960×960 card as the phone version under 780px. Same drawing as the Machining operator-ready checklist: five stamped checks left to right in the spec’s order, sublines taken from the What’s Included list above it, one orange ready band underneath.";
 
-const card = (src: string, alt: string, extra = ""): Art => ({
-  src, alt, width: 960, height: 960, maxWidth: 560,
+const card = (src: string, alt: string, extra = ""): ArtPair => ({
+  src, mobile: src.replace(".svg", "-mobile.svg"), alt, width: 2400, height: 640,
   caption: `${FAMILY} ${CARD_NOTE}${extra ? " " + extra : ""}`,
 });
 
@@ -345,7 +345,7 @@ export const PKG_LINE_CHECKLIST = card(
 export const ASM_LINE_CHECKLIST = card(
   "/graphics/afimac-assembly-line-checklist.svg",
   "Line-ready checklist: vetted, credentialed, traveled, housed, supervised. Ready for the first shift.",
-  "Identical in content to the Packaging card, since both specs ask for a line-ready card; kept as two files so either can change without touching the other.",
+  "Identical in content to the Packaging checklist, since both specs ask for a line-ready card; kept as two files so either can change without touching the other.",
 );
 export const WH_DOCK_CHECKLIST = card(
   "/graphics/afimac-warehouse-dock-checklist.svg",
@@ -357,11 +357,12 @@ export const WLD_WELD_CHECKLIST = card(
   "Weld-ready checklist: vetted, credentialed, traveled, housed, supervised. Ready for the first shift.",
 );
 
-export const SAN_RESET_LOOP: Art = {
+export const SAN_RESET_LOOP: ArtPair = {
   src: "/graphics/afimac-sanitation-reset-loop.svg",
-  alt: "The nightly reset, a loop of five stations: tear down, clean, sanitize, verify, hand back, every night before the first shift arrives.",
-  width: 960, height: 960, maxWidth: 640,
-  caption: `${FAMILY} Nightly reset loop, 960×960 SVG. Five stations clockwise round one ring, Tear down to Hand back, with the hand-back in orange since it is the moment the line goes back to production. The centre carries the block’s own idea, every night before the first shift arrives, rather than a figure.`,
+  mobile: "/graphics/afimac-sanitation-reset-loop-mobile.svg",
+  alt: "The nightly reset, five stations in order: tear down, clean, sanitize, verify, hand back, then back to the start the next night. Every night, before the first shift arrives.",
+  width: 2400, height: 600,
+  caption: `${FAMILY} Nightly reset, 2400×600, with the circular 960×960 loop as the phone version under 780px. On desktop the five stations run left to right with a dotted return line underneath, “and again the next night”, so it still reads as a loop at full width. Hand back is in orange, since it is the moment the line goes back to production.`,
 };
 
 export const PKG_SHIP_WINDOW: ArtPair = {
@@ -372,11 +373,12 @@ export const PKG_SHIP_WINDOW: ArtPair = {
   caption: `${FAMILY} Ship-window countdown, 2400×600, with a stacked version under 780px that lays the strip out as four weeks of seven. Calendar cells carry no dates, and the phase brackets reuse the approved wording, so the strip shows the order and the build-up without promising a number of days. Coverage bars climb toward the window, marked in orange.`,
 };
 
-export const WH_DOCK_TO_STOCK: Art = {
+export const WH_DOCK_TO_STOCK: ArtPair = {
   src: "/graphics/afimac-warehouse-dock-to-stock.svg",
-  alt: "Dock to stock and back out: receive at the inbound docks, put away into the racks, replenish the pick faces, pick, and ship from the outbound docks.",
-  width: 960, height: 960, maxWidth: 640,
-  caption: `${FAMILY} Dock-to-stock flow, 960×960 SVG. A plan view of one building: inbound docks top left, racks in the middle, the five stations running round them, outbound docks bottom left. Ship is in orange as the point the freight leaves.`,
+  mobile: "/graphics/afimac-warehouse-dock-to-stock-mobile.svg",
+  alt: "Dock to stock and back out, a floor plan: receive at the inbound docks, put away into the racks, replenish the pick faces from them, pick, and ship from the outbound docks.",
+  width: 2400, height: 680,
+  caption: `${FAMILY} Dock-to-stock flow, 2400×680, with the 960×960 plan as the phone version under 780px. A wide floor plan of one building: inbound docks on the left wall, outbound on the right, the five stations running across, and the racks underneath with put-away going down into them and replenishment coming back up. Ship is in orange as the point the freight leaves.`,
 };
 
 export const ASM_CREW_SCALE: ArtPair = {
@@ -387,9 +389,10 @@ export const ASM_CREW_SCALE: ArtPair = {
   caption: `${FAMILY} Crew-scale steps, 2400×600, with a stacked version under 780px. Four steps rising left to right, with people standing on each so the headcount reads at a glance. The counts drawn are illustrative, not quoted crew sizes. No orange: this graphic makes no speed claim.`,
 };
 
-export const WLD_PROCESS_TILES: Art = {
+export const WLD_PROCESS_TILES: ArtPair = {
   src: "/graphics/afimac-welding-process-tiles.svg",
+  mobile: "/graphics/afimac-welding-process-tiles-mobile.svg",
   alt: "Weld processes, five tiles: MIG (GMAW), TIG (GTAW), Stick (SMAW), Flux-core (FCAW), and robotic cells, programming and tending.",
-  width: 960, height: 960, maxWidth: 640,
-  caption: `${FAMILY} Weld process tile grid, 960×960 SVG. Five tiles, three over two, each with a simple drawing of the process, its name and its AWS designation. <b>Drawn flat rather than isometric</b>, as with the other diagrams in the set, so the five stay legible at 640px. The robotic-cells subline, “Programming &amp; tending”, is ours: worth confirming it matches what AFIMAC places on robotic cells.`,
+  width: 2400, height: 640,
+  caption: `${FAMILY} Weld process tiles, 2400×640 with all five in one row, and the 960×960 three-over-two grid as the phone version under 780px. Each tile has a simple drawing of the process, its name and its AWS designation, drawn flat rather than isometric so the five stay legible. The robotic-cells subline, “Programming &amp; tending”, is ours: worth confirming it matches what AFIMAC places on robotic cells.`,
 };
