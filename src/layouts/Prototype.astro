@@ -28,6 +28,8 @@ const TOGGLES = [
   { cls: "nometa", label: "SEO &amp; page meta", hint: "Title, description and slug table" },
   { cls: "nolabels", label: "Block labels", hint: "BLOCK 01 · HERO captions" },
   { cls: "noassets", label: "Content assets", hint: "Approved monday.com assets and where they belong" },
+  { cls: "nocrumb", label: "Breadcrumb", hint: "The breadcrumb strip, its BUILD/LIVE tag and the target URL" },
+  { cls: "nodots", label: "Status dots", hint: "The build-status dots in the sub-nav — switch off to read the nav as it will ship" },
 ];
 ---
 
@@ -142,6 +144,31 @@ const TOGGLES = [
       </div>
     </div>
 
+    {/* The breadcrumb is instrumentation, not page design: it names where the
+        page sits and what URL it is destined for. It runs above the navigation
+        so the real page starts at the utility strip and is not interrupted
+        between the nav and the content, and it switches off from the bar. */}
+    <div class="crumb">
+      <div class="wrap" id="crumb">
+        <a href={u("/overview")}>Home</a> › <Fragment set:html={crumb} />
+        <span style="float:right">
+          {
+            metaPre ? (
+              <Fragment>
+                <span class="tag live pv-pre">LIVE</span>
+                <span class="tag build pv-post">BUILD</span>
+              </Fragment>
+            ) : status === "live" ? (
+              <span class="tag live">LIVE</span>
+            ) : (
+              <span class="tag build">BUILD</span>
+            )
+          }
+          <span style="color:#b3bcc7">{url}</span>
+        </span>
+      </div>
+    </div>
+
     <div class="utilbar">
       <div class="utilbar-in">
         <a class="crit" href={u("/get-in-touch")}>
@@ -185,26 +212,6 @@ const TOGGLES = [
       !megaNav && <SubNav active={active} />
     }
 
-    <div class="crumb">
-      <div class="wrap" id="crumb">
-        <a href={u("/overview")}>Home</a> › <Fragment set:html={crumb} />
-        <span style="float:right">
-          {
-            metaPre ? (
-              <Fragment>
-                <span class="tag live pv-pre">LIVE</span>
-                <span class="tag build pv-post">BUILD</span>
-              </Fragment>
-            ) : status === "live" ? (
-              <span class="tag live">LIVE</span>
-            ) : (
-              <span class="tag build">BUILD</span>
-            )
-          }
-          <span style="color:#b3bcc7">{url}</span>
-        </span>
-      </div>
-    </div>
 
     <main id="app">
       {/* The page first, then the working notes about it. Both of these are
