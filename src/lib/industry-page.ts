@@ -15,6 +15,19 @@ import { INDUSTRY_REDIRECTS, type Industry } from "../data/industries";
 import { INDUSTRY_COPY } from "../data/industry-copy";
 import type { Block, PageProps } from "./types";
 
+/**
+ * The approved stat band — the June-05 four, in order.
+ *
+ * Declared here rather than inline so the industry pages cannot drift from
+ * each other the way they did while three of them pasted a widget instead.
+ */
+export const STAT_BAND: [string, string][] = [
+  ["40+", "Years"],
+  ["20,000+", "Skilled laborers"],
+  ["Within 72 hrs", "To a crew on site"],
+  ["1\u2013500+", "Scalable crew size"],
+];
+
 export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
   const numbersFirst = o.slug === "logistics-warehousing";
   /**
@@ -142,40 +155,25 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
   const numsN = "BLOCK 0" + (numbersFirst ? "4" : "6") + " · AFIMAC BY THE NUMBERS";
 
   /**
-   * Where a stat-band embed exists it replaces the EK Funfact row outright —
-   * and brings its own navy background, so the block drops the `blue` class
-   * rather than stacking two navy bands.
+   * One stat band on every industry page: the four figures the June-05
+   * package approved.
+   *
+   * Three pages used to paste a delivered HTML widget here instead, and it
+   * ran a different set — 40+ / 20,000+ / 26+ industries served — dropping
+   * the two figures that carry the speed and the scale arguments. The pages
+   * are now one band and one set of figures; the widgets are what is out of
+   * step, and the note below says so rather than letting it go quiet.
    */
-  const nums: Block = o.statBandEmbed
-    ? {
-        n: numsN,
-        h: c ? `<h2>${c.numbersH2}</h2>` : "",
-        embed: {
-          name: o.statBandEmbed,
-          caption: `<b>Live embed, delivered.</b> This is the HTML widget itself, not a picture of it — the prototype renders the same file the build pastes into Elementor. The counters run once when the band scrolls into view and then hold; they respect <code>prefers-reduced-motion</code> and fall back to the static figures where <code>IntersectionObserver</code> is missing.`,
-        },
-        hEnd: `
-  <div class="note stop"><b>Three figures here, four in the approved package, and four different ones on the live page.</b> This band runs <b>40+ years · 20,000+ skilled laborers · 26+ industries served</b>. The June-05 package approved <b>40+ years · 20,000+ skilled laborers · within 72 hours · 1–500+ scalable crew size</b> — so the embed drops the two figures carrying the speed and the scale arguments. The live page's own credibility block runs a third set again: Years · Industry Deployments · Companies Served · Laborers Provided. <b>One set has to win before this ships.</b> <a href="${u("/stat-modules")}">The stat module, and what else belongs in it →</a> &middot; <a href="${u("/brand-check")}">All conflicts →</a></div>
-  <div class="note stop"><b>The widget drops the deck’s H2.</b> It carries the lede — “For four decades, Fortune 500 manufacturers have called AFIMAC…” — but not the heading above it, which the deck writes as <b>“${
-          c ? c.numbersH2 : "The premier resource for … labor under pressure"
-        }”</b>. That heading is supplied as a separate Elementor Heading above the widget here. <b>Either add it to the widget or keep the Heading element</b>, but the block cannot ship headless.</div>
-  <div class="note"><b>Build note.</b> The lede lives inside the widget’s HTML. Whoever edits copy in Elementor will not find it in a Text Editor; it is only reachable by opening the file.</div>`,
-        spec: `<b>Elementor:</b> HTML widget — paste <code>/embeds/afimac-auto-stat-band.html</code> whole. It is self-contained: no libraries, no external requests, no browser storage. It replaces the EK Funfact / Counter ×4 row this block specs on the other industry pages, and paints its own navy, so the section needs no background colour. <b>Figures still need sourcing.</b>`,
-      }
-    : {
-        cls: "blue",
-        n: numsN,
-        h: `${c ? `<h2>${c.numbersH2}</h2><p class="lead">${c.numbersBody}</p>` : ""}
+  const nums: Block = {
+    cls: "blue",
+    n: numsN,
+    h: `${c ? `<h2>${c.numbersH2}</h2><p class="lead">${c.numbersBody}</p>` : ""}
   <div class="g4">
-   ${["40+ / Years", "20,000+ / Skilled laborers", "Within 72 hrs / To a crew on site", "1–500+ / Scalable crew size"]
-     .map((x) => {
-       const [a, b] = x.split(" / ");
-       return `<div><div class="stat">${a}</div><p>${b}</p></div>`;
-     })
-     .join("")}
-  </div>`,
-        spec: `<b>Elementor:</b> Container · EK Funfact / Counter ×4, blue band. Figures are the four already approved in the June-05 package — no new stats without sourcing.`,
-      };
+   ${STAT_BAND.map(([fig, label]) => `<div><div class="stat">${fig}</div><p>${label}</p></div>`).join("")}
+  </div>
+  <div class="note"><b>The three delivered stat-band embeds still run the old set.</b> <code>afimac-auto-stat-band.html</code>, <code>afimac-fb-stat-band.html</code> and <code>afimac-log-stat-band.html</code> carry <b>40+ · 20,000+ · 26+ industries served</b>, which is three figures where the approved package has four. They stay in the repository, unused, until they are re-cut to match this band. <a href="${u("/brand-check")}">All conflicts &rarr;</a></div>`,
+    spec: `<b>Elementor:</b> Container · EK Funfact / Counter ×4, blue band. Figures are the four already approved in the June-05 package — no new stats without sourcing.`,
+  };
 
   /**
    * The deck's four deployment phases. The timing line is deliberately absent:
