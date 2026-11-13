@@ -56,7 +56,7 @@ export interface FamilyPageData {
    * packaging's deadline scoping, sanitation's nightly reset — so that
    * content survives the move to one order.
    */
-  included: { h2: string; lead: string; context?: string; photo: string; art?: Art };
+  included: { h2: string; lead: string; context?: string; photo: string; art?: Art | ArtPair };
   /** Block 06 — one featured case, optionally a supporting one. */
   proof: { h2: string; photo: string; featured: string; supporting?: string; note: string };
   faq: { h2: string; items: [string, string][] };
@@ -176,7 +176,7 @@ export function familyPage(d: FamilyPageData): BlockType[] {
    <ul class="tick">${INCLUDED.slice(0, 4).map((i) => `<li>${i}</li>`).join("")}</ul>
    <ul class="tick">${INCLUDED.slice(4).map((i) => `<li>${i}</li>`).join("")}</ul>
   </div>
-  <div style="margin-top:28px">${d.included.art ? figure(d.included.art) : photo(d.included.photo)}</div>`,
+  <div style="margin-top:28px">${d.included.art ? ("mobile" in d.included.art ? artPair(d.included.art) : figure(d.included.art)) : photo(d.included.photo)}</div>`,
       spec: SPEC.included,
     },
 
