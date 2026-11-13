@@ -25,12 +25,18 @@ export function roleHero(o: {
   img: string;
   spec: string;
   note?: string;
+  /**
+   * The section the page sits in, for the eyebrow. Every page using this hero
+   * was a Who We Deploy page until the Industries cluster borrowed it, so that
+   * stays the default rather than becoming a required argument on six pages.
+   */
+  section?: string;
 }): Block {
   return {
     cls: "dark",
     n: "BLOCK 01 · HERO",
     h: `
-  <p class="eyebrow">Critical Situation Travel Labor · Who We Deploy</p>
+  <p class="eyebrow">Critical Situation Travel Labor · ${o.section ?? "Who We Deploy"}</p>
   <h1>${o.h1}</h1>
   <p class="sub"><b>${o.sub}</b></p>
   <p class="lead">${o.body}</p>

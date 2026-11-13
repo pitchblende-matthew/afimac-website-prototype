@@ -195,6 +195,13 @@ body.nonotes .figure.embed{border-left:0;padding-left:0}
 body.nonotes .protoblock{display:none}
 body.nometa .pagemeta{display:none}
 body.nolabels .blocklabel{display:none}
+/* The breadcrumb strip, with its BUILD/LIVE tag and target URL. */
+body.nocrumb .crumb{display:none}
+/* The build-status dots in the sub-nav and its dropdowns, so the nav can be
+   read as it will ship. The legend in the bar above goes with them; the dots
+   in that legend are what the legend is about, so they stay. */
+body.nodots .subnav .sdot{display:none}
+body.nodots .subnav .ddhead{display:none}
 
 /* ---------- bands ---------- */
 .block{padding:clamp(64px,5.2vw,92px) 0}
