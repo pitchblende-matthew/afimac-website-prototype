@@ -142,21 +142,26 @@ const TOGGLES = [
       </div>
     </div>
 
-    <div class="crisisbar">
-      <div class="wrap">
-        <a href={u("/get-in-touch")}>&#9889; I have a critical labor situation</a>
+    <div class="utilbar">
+      <div class="utilbar-in">
+        <a class="crit" href={u("/get-in-touch")}>
+          <span class="bolt" aria-hidden="true" />I have a critical labor situation
+        </a>
+        {/* Careers has no prototype page; the nav's convention for an
+            out-of-scope destination is to land on the overview. */}
+        <a class="careers" href={u("/overview")}>Careers</a>
       </div>
     </div>
 
     <header class="site-header">
       <div class="wrap">
-        <a href={u("/overview")} aria-label="AFIMAC home"><Logo width={150} /></a>
+        <a href={u("/overview")} aria-label="AFIMAC home"><Logo width={190} /></a>
         {
           megaNav ? (
             <Fragment set:html={megaNavDown(undefined, { bare: true })} />
           ) : (
             <ul>
-              <li><a href={u("/overview")}>Home</a></li>
+              <li><a class="here" href={u("/overview")}>Home</a></li>
               <li><a href={u("/overview")}>Solutions &#9662;</a></li>
               <li><a href={u("/overview")}>Insights</a></li>
               <li><a href={u("/overview")}>About &#9662;</a></li>
@@ -164,7 +169,12 @@ const TOGGLES = [
             </ul>
           )
         }
-        <span class="hicons">&#9906; &nbsp; in &nbsp; f</span>
+        <div class="hicons">
+          <span class="hic hic-search" aria-hidden="true" />
+          <span class="hic-div" aria-hidden="true" />
+          <a class="hic hic-li" href="https://www.linkedin.com/company/afimac-global" aria-label="AFIMAC on LinkedIn" />
+          <a class="hic hic-fb" href="https://www.facebook.com/afimacglobal" aria-label="AFIMAC on Facebook" />
+        </div>
       </div>
     </header>
 
