@@ -18,7 +18,8 @@
  * What a page supplies is copy. What it cannot vary is the order, the
  * devices, or the parts of the service that are the same whoever is deployed.
  */
-import { photo } from "./wireframe";
+import { photo, artPair, figure } from "./wireframe";
+import type { Art, ArtPair } from "../data/graphics";
 import { u } from "./base";
 import {
   roleHero, roleSection, deckRoles, faqBlock, insightsBlock, leadFormBlock,
@@ -47,7 +48,7 @@ export interface FamilyPageData {
   /** Block 03 — heading only; the grid and its flag come from the family. */
   rolesHeading: string;
   /** Block 04 — the same four phases, in this family's words. */
-  process: { h2: string; lead: string; phases: Phase[]; photo: string };
+  process: { h2: string; lead: string; phases: Phase[]; photo: string; art?: Art | ArtPair };
   /**
    * Block 05 — the lead and the artwork vary; the seven items do not.
    *
@@ -55,7 +56,7 @@ export interface FamilyPageData {
    * packaging's deadline scoping, sanitation's nightly reset — so that
    * content survives the move to one order.
    */
-  included: { h2: string; lead: string; context?: string; photo: string };
+  included: { h2: string; lead: string; context?: string; photo: string; art?: Art };
   /** Block 06 — one featured case, optionally a supporting one. */
   proof: { h2: string; photo: string; featured: string; supporting?: string; note: string };
   faq: { h2: string; items: [string, string][] };
@@ -159,7 +160,7 @@ export function familyPage(d: FamilyPageData): BlockType[] {
      )
      .join("")}
   </div>
-  <div style="margin-top:32px">${photo(d.process.photo)}</div>
+  <div style="margin-top:32px">${d.process.art ? ("mobile" in d.process.art ? artPair(d.process.art) : figure(d.process.art)) : photo(d.process.photo)}</div>
   <div class="note">Phase names and durations match the approved process doc, including its open <b>Assessment vs. Consultation</b> naming flag. <a href="${u("/brand-check")}">All conflicts →</a></div>`,
       spec: SPEC.process,
     },
@@ -175,7 +176,7 @@ export function familyPage(d: FamilyPageData): BlockType[] {
    <ul class="tick">${INCLUDED.slice(0, 4).map((i) => `<li>${i}</li>`).join("")}</ul>
    <ul class="tick">${INCLUDED.slice(4).map((i) => `<li>${i}</li>`).join("")}</ul>
   </div>
-  <div style="margin-top:28px">${photo(d.included.photo)}</div>`,
+  <div style="margin-top:28px">${d.included.art ? figure(d.included.art) : photo(d.included.photo)}</div>`,
       spec: SPEC.included,
     },
 

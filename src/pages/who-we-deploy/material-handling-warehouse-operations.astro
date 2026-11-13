@@ -9,6 +9,7 @@ import Prototype from "../../layouts/Prototype.astro";
 import Block from "../../components/Block.astro";
 import { B } from "../../data/nav";
 import { familyPage, familyPageProps, type FamilyPageData } from "../../lib/family-page";
+import { WH_DOCK_TO_STOCK, WH_DOCK_CHECKLIST } from "../../data/graphics";
 
 const page: FamilyPageData = {
   family: "Material Handling &amp; Warehouse Operations",
@@ -52,11 +53,13 @@ const page: FamilyPageData = {
       ["PHASE 4 · DEMOBILIZATION — IN AS LITTLE AS 48 HOURS", "Demobilization", [
       ]],
     ],
+    art: WH_DOCK_TO_STOCK,
     photo: "Dock-to-stock flow · SVG square, art 960×960, min render 640×640 · a facility flow with five stations and arrows: Receive · Put away · Replenish · Pick · Ship",
   },
   included: {
     h2: "One invoice, the whole engagement",
     lead: "Critical Situation Travel Labor (CSTL) is turnkey. Recruiting, screening, travel, lodging, safety onboarding, on-site supervision, and daily reporting all come from AFIMAC. Crews scale up or down as your volumes move. When the gap closes, demobilization and the handoff back to your permanent workforce are part of the plan.",
+    art: WH_DOCK_CHECKLIST,
     photo: "Dock-ready checklist card · SVG square, art 960×960, min render 640×640 · five stamped checks in sequence: Certified · Credentialed · Traveled · Housed · Supervised",
   },
   proof: {

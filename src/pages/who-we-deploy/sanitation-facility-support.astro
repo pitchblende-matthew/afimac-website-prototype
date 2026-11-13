@@ -9,6 +9,7 @@ import Prototype from "../../layouts/Prototype.astro";
 import Block from "../../components/Block.astro";
 import { B } from "../../data/nav";
 import { familyPage, familyPageProps, type FamilyPageData } from "../../lib/family-page";
+import { SAN_RESET_LOOP, SAN_AUDIT_CHECKLIST } from "../../data/graphics";
 
 const page: FamilyPageData = {
   family: "Sanitation &amp; Facility Support",
@@ -55,12 +56,14 @@ const page: FamilyPageData = {
         "Final performance review and a planned handoff back to your permanent team.",
       ]],
     ],
+    art: SAN_RESET_LOOP,
     photo: "Nightly reset loop · SVG square, art 960×960, min render 640×640 · a circular cycle with five stations around the loop: Tear down · Clean · Sanitize · Verify · Hand back",
   },
   included: {
     h2: "Turnkey, through the night",
     lead: "You bring the plant and the program; AFIMAC handles the rest.",
     context: "Every production day ends with the same race: break the line down, clean it, sanitize it, verify it, and hand it back before the first shift arrives. AFIMAC crews run that reset to your documented sanitation program, under AFIMAC supervision.",
+    art: SAN_AUDIT_CHECKLIST,
     photo: "Audit-ready checklist card · SVG square, art 960×960, min render 640×640 · five stamped checks in sequence: Vetted · Credentialed · Traveled · Housed · Supervised",
   },
   proof: {

@@ -1221,3 +1221,8 @@ body.nv-hold .no-hasmega.is-mega .no-live::after{display:none}
 .blue .famcard,.blue .famcard h3{color:#fff}
 .blue .famcard{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.2)}
 .blue .famroles{color:#cfe3f2}
+
+/* Delivered-art captions on the dark bands: the default green is unreadable on navy. */
+.blue .figure figcaption,.dark .figure figcaption,.readiness .figure figcaption{color:#d6efe1}
+.blue .figure figcaption b,.dark .figure figcaption b,.readiness .figure figcaption b{color:#fff}
+.blue .figure,.dark .figure,.readiness .figure{border-left-color:#7fd4a5}

@@ -9,6 +9,7 @@ import Prototype from "../../layouts/Prototype.astro";
 import Block from "../../components/Block.astro";
 import { B } from "../../data/nav";
 import { familyPage, familyPageProps, type FamilyPageData } from "../../lib/family-page";
+import { ASM_CREW_SCALE, ASM_LINE_CHECKLIST } from "../../data/graphics";
 
 const page: FamilyPageData = {
   family: "Production &amp; Assembly",
@@ -55,11 +56,13 @@ const page: FamilyPageData = {
         "Final performance review and a planned handoff back to your permanent workforce.",
       ]],
     ],
+    art: ASM_CREW_SCALE,
     photo: "Crew-scale steps · SVG 2400×600 (4:1), stacks vertically under 768px · four rising steps labelled A few seats · A crew · A shift · A whole line",
   },
   included: {
     h2: "Turnkey, whatever the headcount",
     lead: "You bring the line and the work instructions; AFIMAC handles the rest, at a few seats or a few hundred.",
+    art: ASM_LINE_CHECKLIST,
     photo: "Line-ready checklist card · SVG square, art 960×960, min render 640×640 · five stamped checks in sequence: Vetted · Credentialed · Traveled · Housed · Supervised",
   },
   proof: {
