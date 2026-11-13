@@ -31,26 +31,35 @@
   --line:#d5dee2;
   --spec:#7b8b95;
   --ph:#dde5e9;
-  --max:1180px;
+  --max:1280px;
   --museo:"Museo","Museo Slab","MuseoSlab","Zilla Slab",Georgia,serif;
   --sans:"Museo Sans","MuseoSans","Museo Sans W01",Mulish,"Segoe UI",Roboto,Arial,sans-serif;
 }
+/* The type scale, band padding, button metrics and stat treatment below are
+   read off the Webflow build's own classes (.cstl-h2, .cstl-lead, .cstl-section,
+   .cstl-btn, .cstl-statnum and the rest), so the two renderings of this site
+   agree. Webflow is the reference for style; the copy in the Astro pages is the
+   approved copy and is not touched by it. The one place they still differ on
+   purpose is the hero copy column: Webflow lets the title run to 880px, while
+   --hero-copy holds it to 640px here so the measured 4.8:1 contrast over the
+   photographs survives. */
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:80px}
-body{margin:0;font-family:var(--sans);color:var(--ink);font-size:17px;line-height:1.7;background:#fff;-webkit-font-smoothing:antialiased}
+body{margin:0;font-family:var(--sans);color:var(--ink);font-size:clamp(16px,1.15vw,18px);font-weight:500;line-height:1.7;background:#fff;-webkit-font-smoothing:antialiased}
 img{max-width:100%}
 a{color:var(--cstl-blue)}
 h1,h2,h3,h4{font-family:var(--museo);color:var(--cstl-blue);line-height:1.15;margin:0 0 .5em;font-weight:700}
-h1{font-size:clamp(34px,5vw,64px)}
-h2{font-size:clamp(28px,3.4vw,44px)}
-h3{font-size:clamp(21px,2.2vw,28px)}
+h1{font-size:clamp(32px,4vw,64px);margin-bottom:18px}
+h2{font-size:clamp(27px,2.7vw,42px);margin-bottom:16px}
+h3{font-size:clamp(20px,1.55vw,24px);margin-bottom:12px}
 h4{font-size:19px}
 p{margin:0 0 1.1em}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 26px}
 .center{text-align:center}
 .center .lead,.center>p{margin-left:auto;margin-right:auto}
-.lead{font-size:18px;max-width:820px}
-.eyebrow{font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:#fff;margin:0 0 18px;font-family:var(--sans)}
+.lead{font-size:clamp(17px,1.3vw,21px);max-width:840px;line-height:1.7;font-weight:500;margin-bottom:26px}
+.eyebrow{font-size:clamp(12px,.9vw,13px);letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--spec);margin:0 0 14px;font-family:var(--sans)}
+.blue .eyebrow,.dark .eyebrow,.readiness .eyebrow,.sky .eyebrow,.hasbg .eyebrow,.hero .eyebrow{color:#fff}
 
 /* ---------- header: white, as live ---------- */
 .site-header{background:#fff;border-bottom:1px solid var(--line)}
@@ -166,7 +175,7 @@ body.nometa .pagemeta{display:none}
 body.nolabels .blocklabel{display:none}
 
 /* ---------- bands ---------- */
-.block{padding:70px 0}
+.block{padding:clamp(64px,5.2vw,92px) 0}
 .block.wash{background:var(--white-glove)}
 .block.blue{background:var(--cstl-blue)}
 .block.dark{background:var(--deep)}
@@ -291,14 +300,14 @@ ul.tick li::before{content:"\2714";position:absolute;left:2px;top:7px;color:var(
 .inds span:last-child{border-right:0}
 
 /* buttons — live page uses coral for everything */
-.btn{display:inline-block;background:var(--cta);color:#fff;font-weight:700;padding:14px 34px;text-decoration:none;border-radius:4px;font-size:16px;border:2px solid var(--cta);font-family:var(--sans)}
+.btn{display:inline-block;background:var(--cta);color:#fff;font-weight:700;padding:15px 26px;text-decoration:none;border-radius:0;font-size:15px;border:2px solid var(--cta);font-family:var(--sans)}
 .btn:hover{filter:brightness(.93)}
 .btn.wide{display:block;text-align:center}
 .btn.ghost{background:transparent;color:#fff;border-color:#fff}
 .blue .btn.ghost,.dark .btn.ghost,.sky .btn.ghost,.readiness .btn.ghost{color:#fff;border-color:#fff}
 .block:not(.blue):not(.dark):not(.sky):not(.readiness):not(.hero) .btn.ghost{color:var(--cstl-blue);border-color:var(--cstl-blue)}
-.btns{display:flex;gap:16px;flex-wrap:wrap;margin-top:28px}
-.center .btns{justify-content:center}
+.btns{display:flex;gap:16px;flex-wrap:wrap;margin-top:28px;max-width:640px}
+.center .btns{max-width:none;justify-content:center}
 .readmore{color:var(--cta);font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none}
 
 /* phase cards, as live */
@@ -314,8 +323,10 @@ ul.tick li::before{content:"\2714";position:absolute;left:2px;top:7px;color:var(
 .counter .statlabel{color:var(--cstl-blue);font-size:19px;margin-top:6px}
 .blue .counter .stat,.dark .counter .stat,.sky .counter .stat,.readiness .counter .stat{color:#fff}
 .blue .counter .statlabel,.dark .counter .statlabel,.sky .counter .statlabel,.readiness .counter .statlabel{color:rgba(255,255,255,.85)}
-.stat{font-family:var(--museo);font-size:44px;font-weight:700;color:var(--sky);line-height:1}
-.statlabel{font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--spec)}
+.stat{font-family:var(--museo);font-size:44px;font-weight:700;color:var(--cstl-blue);line-height:1.1}
+.blue .stat,.dark .stat,.readiness .stat,.sky .stat,.hasbg .stat{color:#fff}
+.statlabel{font-size:15px;color:var(--ink);margin-top:6px;font-family:var(--sans)}
+.blue .statlabel,.dark .statlabel,.readiness .statlabel,.sky .statlabel,.hasbg .statlabel{color:var(--white-glove)}
 
 /* post cards, as live */
 .postcard{background:#fff;border:0}
