@@ -12,22 +12,52 @@ import { liveImg } from "../../lib/wireframe";
 import { EBOOK_ART } from "../../data/live-media";
 import { LIVE_HUB, LIVE_CREDIBILITY_BODY, LIVE_COUNTERS } from "../../data/live-industries";
 import { B } from "../../data/nav";
-import { INDUSTRIES, EXISTING, INDUSTRY_ORDER } from "../../data/industries";
+import { INDUSTRIES, EXISTING, INDUSTRY_ORDER, INDUSTRY_REDIRECTS } from "../../data/industries";
+import { INDUSTRY_COPY } from "../../data/industry-copy";
 import type { Block as BlockType } from "../../lib/types";
 
-/** The seven tiles as the live page orders them, plus the one that isn't there. */
+/**
+ * All ten industries, in the order the cluster uses.
+ *
+ * `live` means a visitor can read this industry on afimacglobal.com today —
+ * which for Chemicals and Oil & Gas means under the slug the split retires,
+ * not under their own. Looking EXISTING up by the new slug therefore misses
+ * them, and the grid rendered five tiles where the live page carries seven.
+ * The redirect map is the thing that knows, so ask it rather than the slug.
+ */
+/** New slug -> the old slug it still answers at, for the two split pages. */
+const OLD_SLUG_FOR: Record<string, string> = Object.fromEntries(
+  Object.entries(INDUSTRY_REDIRECTS).map(([from, r]) => [r.to, from]),
+);
+
+/**
+ * Automotive and Food & Beverage are live but have no EXISTING record, because
+ * that map holds the pages whose live copy was captured and those two were
+ * rewritten instead. Named here so the one definition covers them.
+ */
+const LIVE_WITHOUT_RECORD = ["automotive", "food-beverage"];
+
+/** The single answer to "can a visitor read this industry today?". */
+const isLive = (slug: string) =>
+  Boolean(EXISTING[slug]) || Boolean(OLD_SLUG_FOR[slug]) || LIVE_WITHOUT_RECORD.includes(slug);
+
 const TILES = INDUSTRY_ORDER.map((slug) => {
   const built = INDUSTRIES[slug];
   const existing = EXISTING[slug];
   return {
     slug,
     label: existing?.label ?? built.short,
-    live: Boolean(existing) || slug === "automotive" || slug === "food-beverage",
+    live: isLive(slug),
     route: `/industries/${slug}`,
   };
 });
 
 const LIVE_TILES = TILES.filter((t) => t.live);
+const NEW_TILES = TILES.filter((t) => !t.live);
+
+/** Which industries have a deck behind them, for the update table's note. */
+const WITH_COPY = INDUSTRY_ORDER.filter((slug) => INDUSTRY_COPY[slug]);
+const WITHOUT_COPY = INDUSTRY_ORDER.filter((slug) => !INDUSTRY_COPY[slug]);
 
 // Table rows are built here rather than inline: nesting a template literal
 // three deep inside a block's `h` string trips the Astro frontmatter parser.
@@ -35,11 +65,22 @@ const UPDATE_ROWS = INDUSTRY_ORDER.map((slug) => {
   const built = INDUSTRIES[slug];
   const ex = EXISTING[slug];
   const label = ex ? ex.label : built.short;
-  const livecell = ex || built.liveH1 ? "Live" : "<i>None — new page</i>";
+  // Same trap as the tile grid: a split page is live, but recorded under the
+  // slug it is moving away from, so EXISTING[slug] does not find it. Say which
+  // URL it answers at rather than calling it a new page.
+  const old = OLD_SLUG_FOR[slug];
+  const livecell = old
+    ? `Live at <code>/${old}/</code>`
+    : isLive(slug)
+      ? "Live"
+      : "<i>None — new page</i>";
   const href = u("/industries/" + slug);
-  const update = built
-    ? '<a href="' + href + '">Wireframed, copy outstanding →</a>'
-    : "Not started";
+  // Logistics is the one page with no deck behind it. It is not untouched —
+  // its copy is authored in the page itself rather than in INDUSTRY_COPY — so
+  // do not let the absence of a deck entry read as "nothing written".
+  const update = INDUSTRY_COPY[slug]
+    ? '<a href="' + href + '">Deck copy written →</a>'
+    : '<a href="' + href + '">Copy written in the page →</a>';
   return `<tr><th>${label}</th><td>${livecell}</td><td class="hl">${update}</td></tr>`;
 }).join("");
 
@@ -58,7 +99,7 @@ const blocks: BlockType[] = [
     h: `
   <p class="eyebrow">Critical Situation Travel Labor</p>
   <h1>Critical Situation Travel Labor:<br>Industries We Serve</h1>
-  <div class="note" style="max-width:760px;margin-left:auto;margin-right:auto">The live hero carries the H1 and nothing else — no sub-headline, no body copy, no CTA. <b>It is the thinnest hero in the section</b>, on the page that has to route visitors to seven others.</div>`,
+  <div class="note" style="max-width:760px;margin-left:auto;margin-right:auto">The live hero carries the H1 and nothing else — no sub-headline, no body copy, no CTA. <b>It is the thinnest hero in the section</b>, on the page that has to route visitors to every industry below it.</div>`,
     spec: `<b>Elementor:</b> Container · Heading. Replicated from the live page. If the industry updates go ahead, this hero is the cheapest place to add a line of orientation copy.`,
   },
 
@@ -66,7 +107,7 @@ const blocks: BlockType[] = [
     n: "BLOCK 02 · INDUSTRIES WE SERVE",
     h: `
   <div class="g3" style="margin-top:6px">
-   ${LIVE_TILES.map(
+   ${TILES.map(
      (t) => `<a class="card" style="text-decoration:none;display:block" href="${u(t.route)}">
      <div class="photo" style="min-height:150px"><span class="art">Industry tile image</span></div>
      <h3 style="margin-top:16px;margin-bottom:8px">${t.label}</h3>
@@ -74,10 +115,11 @@ const blocks: BlockType[] = [
    ).join("")}
   </div>
   <div class="note pvnote-pre"><b>Through phase 2, every one of these tiles opens onto the copy that is live today.</b> Phase 1 adds the Industries slot to the sub-nav and phase 2 adds How It Works — neither changes a word on the pages underneath. The two industries with a rewrite written, <a href="${u("/industries/automotive")}">Automotive</a> and <a href="${u("/industries/food-beverage")}">Food &amp; Beverage</a>, only show it from phase 3. <a href="?phase=3"><b>Switch to phase 3 to compare →</b></a></div>
-  <div class="note pvnote-post"><b>At phase 3 and later, two of these tiles open onto rewritten copy</b> — <a href="${u("/industries/automotive")}">Automotive</a> and <a href="${u("/industries/food-beverage")}">Food &amp; Beverage</a>. The other five are unchanged from phase 0, because no update has been written for them. Go to <a href="?phase=0"><b>phase 0</b></a>, <a href="?phase=1"><b>1</b></a> or <a href="?phase=2"><b>2</b></a> to see what the slot opens onto before that.</div>
+  <div class="note pvnote-post"><b>At phase 3 and later, two of these tiles open onto rewritten copy</b> — <a href="${u("/industries/automotive")}">Automotive</a> and <a href="${u("/industries/food-beverage")}">Food &amp; Beverage</a>. Go to <a href="?phase=0"><b>phase 0</b></a>, <a href="?phase=1"><b>1</b></a> or <a href="?phase=2"><b>2</b></a> to see what the slot opens onto before that.</div>
   <p style="margin-top:28px">AFIMAC recruits to the role rather than to the sector, so these are the industries it is asked for most, not the limit of where it staffs. Operation not among them? <a href="${u("/industries/other-industries")}">Tell us what your site runs</a> and we will tell you whether it is work we staff.</p>
-  <div class="note"><b>Seven tiles, seven live pages.</b> Logistics &amp; Warehousing is not among them — it has no live page and no slot in the agreed sub-nav, and it is the only genuinely new page in this cluster. Everything else here is an update to a page that already exists.</div>`,
-    spec: `<b>Elementor:</b> Container (3-col) · EK Image Box ×7. Seven into a 3-col grid leaves an orphan on the last row; adding Logistics &amp; Warehousing makes it eight and squares the grid — a small argument for building it.`,
+  <div class="note"><b>Ten tiles: ${LIVE_TILES.length} industries a visitor can read today, ${NEW_TILES.length} new URLs with nothing behind them yet</b> — ${NEW_TILES.map((t) => `<a href="${u(t.route)}">${t.label}</a>`).join(", ")}. Two of the ${LIVE_TILES.length} are live under the slug the split retires rather than their own: <a href="${u("/industries/chemicals")}">Chemicals</a> answers at <code>/chemicals-plastics/</code> and <a href="${u("/industries/oil-gas")}">Oil &amp; Gas</a> at <code>/oil-energy/</code>, so <b>their tiles cannot go up before the 301s do</b>.</div>
+  <div class="note stop"><b>This grid used to draw five tiles where the live page carries seven.</b> It looked <code>EXISTING</code> up by each industry's new slug, and the two split pages are recorded under their old ones, so Chemicals and Oil &amp; Gas silently dropped out. It now reads the redirect map, which is the thing that knows. <b>Worth a look anywhere else the two slugs are matched by name.</b></div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Image Box ×10. Ten into a 3-col grid leaves an orphan on the last row — a 4-col grid or a fifth row of two. <b>The live page builds seven</b>; the other three go up with their pages.`,
   },
 
   {
@@ -90,7 +132,7 @@ const blocks: BlockType[] = [
   <div class="g4" style="margin-top:30px">
    ${LIVE_COUNTERS.map((c) => `<div><div class="stat">0</div><p>${c}</p></div>`).join("")}
   </div>
-  <div class="note stop"><b>The hub names one industry, and it is the wrong one.</b> That lead line reads “…resources to <b>aerospace, aviation, and defense</b>” — on the page about all seven. It is the <a href="${u("/industries/aerospace-aviation-defense")}">Aerospace page’s</a> line, copied and never localised. <b>Live on the site today.</b> The fix is one sentence.</div>
+  <div class="note stop"><b>The hub names one industry, and it is the wrong one.</b> That lead line reads “…resources to <b>aerospace, aviation, and defense</b>” — on the page about all of them. It is the <a href="${u("/industries/aerospace-aviation-defense")}">Aerospace page’s</a> line, copied and never localised. <b>Live on the site today.</b> The fix is one sentence.</div>
   <div class="note">The paragraph beneath it and the four counters are identical on the hub and on all seven industry pages. <b>The counters read 0 because that is what the page serves</b> — they animate up on scroll, so the published figures live only in the Elementor settings and a visitor who does not scroll sees four zeros.</div>`,
     spec: `<b>Elementor:</b> Heading ×2 · Text Editor · EK Funfact / Counter ×4. Shared saved section — which is how the aerospace line got here.`,
   },
@@ -119,7 +161,7 @@ const blocks: BlockType[] = [
      )
      .join("")}
   </div>
-  <div class="note stop"><b>The lead line names one industry on a page that lists seven.</b> “…responsiveness, expertise, and resources to <i>aerospace, aviation, and defense</i>” is the Aerospace page’s line — the Automotive page runs the same sentence ending “…to the automotive industry”. The hub is running an industry page’s credibility block. <b>It needs its own sentence.</b></div>
+  <div class="note stop"><b>The lead line names one industry on a page that lists every one of them.</b> “…responsiveness, expertise, and resources to <i>aerospace, aviation, and defense</i>” is the Aerospace page’s line — the Automotive page runs the same sentence ending “…to the automotive industry”. The hub is running an industry page’s credibility block. <b>It needs its own sentence.</b></div>
   <div class="note stop"><b>Four counters here; three on the Overview.</b> This page counts <b>Years · Industry Deployments · Companies Served · Laborers Provided</b>. The Overview counts <b>Years · Skilled Laborers · Industries</b> — 40, 20,000 and 26. Two credibility blocks one click apart, sharing one metric. <a href="${u("/brand-check")}">All conflicts →</a></div>`,
     spec: `<b>Elementor:</b> Heading · Text Editor · EK Funfact / Counter ×4. <b>Figures not captured:</b> the counters animate from zero on scroll, so the four numbers are not in the page source. Confirm all four before this block is reused anywhere.`,
   },
@@ -184,8 +226,9 @@ const blocks: BlockType[] = [
   <div class="tscroll"><table class="cmp"><thead><tr><th>Industry</th><th>Live page</th><th class="hl">CSTL update</th></tr></thead><tbody>
    ${UPDATE_ROWS}
   </tbody></table></div>
-  <div class="note"><b>Two of eight have update copy.</b> Automotive and Food &amp; Beverage are wireframed with copy still outstanding; Logistics is wireframed and new. The remaining five live pages have had no CSTL update written — they carry today’s copy until they do.</div>`,
-    spec: `The five untouched pages are the next copy commission after the role cluster.`,
+  <div class="note"><b>All ${INDUSTRY_ORDER.length} are wireframed and carry written copy</b>, ${WITH_COPY.length} of them from a copy deck. ${WITHOUT_COPY.length ? `${WITHOUT_COPY.map((s) => `<a href="${u("/industries/" + s)}">${INDUSTRIES[s].short}</a>`).join(", ")} ${WITHOUT_COPY.length === 1 ? "is the exception" : "are the exceptions"} — bespoke ${WITHOUT_COPY.length === 1 ? "page, written" : "pages, written"} in the prototype rather than supplied, so ${WITHOUT_COPY.length === 1 ? "it wants" : "they want"} a read before build.` : ""}</div>
+  <div class="note"><b>Counts here are read from the copy data, not typed.</b> This note used to say two of eight, which was true when it was written and silently wrong for a long time afterwards.</div>`,
+    spec: `The pages without deck copy are the next copy commission after the role cluster.`,
   },
 
   {
