@@ -11,7 +11,7 @@ import {
   LIVE_COUNTERS,
   GENERIC_POSTS,
 } from "../../data/live-industries";
-import { industryPage } from "../../lib/industry-page";
+import { industryPage, STAT_BAND } from "../../lib/industry-page";
 import type { Block as BlockType } from "../../lib/types";
 
 // Rendered on demand — `output: "server"` is the Webflow Cloud contract, so
@@ -105,17 +105,17 @@ const liveTemplate = (slug: string, hasUpdate = false): BlockType[] => {
     },
     {
       cls: "center",
-      n: "BLOCK 05 · AFIMAC CREDIBILITY — AS LIVE",
+      n: "BLOCK 05 · AFIMAC CREDIBILITY",
       h: `
   <h2>AFIMAC Credibility</h2>
   <p class="lead">${p.credibilityLead}</p>
   <p>${LIVE_CREDIBILITY_BODY}</p>
   <div class="g4" style="margin-top:30px">
-   ${LIVE_COUNTERS.map((c) => `<div><div class="stat">0</div><p>${c}</p></div>`).join("")}
+   ${STAT_BAND.map(([fig, label]) => `<div><div class="stat">${fig}</div><p>${label}</p></div>`).join("")}
   </div>
-  <div class="note stop"><b>A fifth set of credibility figures.</b> These four counters — ${LIVE_COUNTERS.join(" · ")} — are not the four in the approved June-05 package, not the three on the automotive stat band, and not the three the Logistics deck specifies. <b>And the figures themselves cannot be read off the page</b>: all four render as <b>0</b> and animate up on scroll, so the published values live only in the Elementor settings. <b>0 is shown here because 0 is what the page serves</b> — a visitor who does not scroll, or who has motion reduced, sees four zeros. <a href="${u("/brand-check")}">All conflicts →</a></div>
-  <div class="note">Only the first line is industry-specific. The paragraph under it is identical on all seven pages and on the hub.</div>`,
-      spec: `<b>Elementor:</b> Heading ×2 · Text Editor · EK Funfact / Counter ×4. Counters animate on scroll.`,
+  <div class="note stop"><b>This band used to reproduce the live one, and the live one is broken.</b> The published page runs a fifth set of counters — ${LIVE_COUNTERS.join(" · ")} — that match neither the approved June-05 package nor any other set on the site, and <b>its figures cannot be read off the page at all</b>: all four render as <b>0</b> and animate up on scroll, so the published values live only in the Elementor settings and anyone who does not scroll, or who has motion reduced, sees four zeros. <b>The prototype now runs the approved four instead</b>, the same band as the stat section above and as every other page in the cluster. <b>The live labels and their missing figures are the open item</b> — they are recorded here rather than rendered. <a href="${u("/brand-check")}">All conflicts →</a></div>
+  <div class="note">Only the first line is industry-specific. The paragraph under it is identical on all seven live pages and on the hub.</div>`,
+      spec: `<b>Elementor:</b> Heading ×2 · Text Editor · EK Funfact / Counter ×4, carrying the approved four. <b>If the live counters are kept instead, their four figures have to be recovered from the Elementor settings first</b> — they are not in the page source.`,
     },
     {
       cls: "wash",

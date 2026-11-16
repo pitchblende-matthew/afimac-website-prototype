@@ -34,14 +34,21 @@ const blocks: BlockType[] = [
     cls: "hero",
     raw: true,
     h: `
-  <div class="heroimg"><div class="wrap">
+  <div class="heroimg">
+   <video class="herovid" autoplay muted loop playsinline preload="metadata"
+          poster="${u("/video/afimac-cstl-hero-poster.jpg")}" aria-hidden="true" tabindex="-1">
+    <source src="${u("/video/afimac-cstl-hero.mp4")}" type="video/mp4">
+   </video>
+   <div class="heroscrim"></div>
+   <div class="wrap">
    <p class="eyebrow">Critical Situation Travel Labor</p>
    <h1>Production Deadline? Near-Term Labor Shortage? Initial Line Start-up?</h1>
    <p class="lead">AFIMAC delivers skilled production workforces to keep your North American manufacturing, warehousing, and logistics operations on track.</p>
    <div class="btns" style="justify-content:center"><a class="btn" href="${u("/get-in-touch")}">Get the Numbers</a></div>
   </div>
-  <div class="herospec">Full-bleed hero photograph · warehouse floor, workers in hi-vis · warm/teal grade · centred text, no scrim panel</div>
+  <div class="herospec">Full-bleed hero video · warehouse line, workers in hi-vis · 1920×1080 H.264, 8s silent loop · navy scrim at 68% over it, centred text</div>
   </div>`,
+    spec: `<b>Elementor:</b> Container with a background video, or an HTML widget holding the <code>&lt;video&gt;</code>. <b>Webflow runs this hero the same way</b> — an embed classed <code>afm-hero-video</code> under <code>.cstl-hero-scrim</code>. <b>The clip is muted, looped and <code>playsinline</code></b>, which is what lets iOS play it inline instead of going full screen; a poster frame covers the moment before it loads and stands in when motion is switched off.`,
   },
 
   {
