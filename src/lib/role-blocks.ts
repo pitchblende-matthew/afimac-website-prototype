@@ -31,6 +31,12 @@ export function roleHero(o: {
    * stays the default rather than becoming a required argument on six pages.
    */
   section?: string;
+  /**
+   * The delivered hero photograph. When it is set the band carries it as its
+   * background under the navy scrim, the way the Elementor build layers it, and
+   * the dashed brief gives way to a note saying which file filled the slot.
+   */
+  bg?: { src: string; focus?: string; note: string };
 }): Block {
   return {
     cls: "dark",
@@ -41,9 +47,10 @@ export function roleHero(o: {
   <p class="sub"><b>${o.sub}</b></p>
   <p class="lead">${o.body}</p>
   <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Talk to AFIMAC</a><a class="btn ghost" href="${o.cta2Href}">${o.cta2}</a></div>
-  <div style="margin-top:34px">${photo(o.img)}</div>
+  ${o.bg ? `<div class="note">${o.bg.note}</div>` : `<div style="margin-top:34px">${photo(o.img)}</div>`}
   ${o.note ? `<div class="note">${o.note}</div>` : ""}`,
     spec: o.spec,
+    ...(o.bg ? { bg: { src: o.bg.src, focus: o.bg.focus } } : {}),
   };
 }
 

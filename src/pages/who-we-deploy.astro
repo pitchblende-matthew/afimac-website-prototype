@@ -19,7 +19,7 @@ import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { B } from "../data/nav";
-import { photo } from "../lib/wireframe";
+import { photo, shot } from "../lib/wireframe";
 import { roleHero, leadFormBlock, insightsBlock, faqBlock, COST_ANSWER, SUPERVISION_ANSWER } from "../lib/role-blocks";
 import { INCLUDED } from "../lib/family-page";
 import { ROLE_FAMILIES, INDUSTRY_ROLE_SAMPLES } from "../data/nav-options";
@@ -78,6 +78,11 @@ const blocks: BlockType[] = [
     cta2: "See the skills",
     cta2Href: "#families",
     img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a mixed crew walking a plant floor at shift change, badges visible, plant depth behind · muted industrial tone under the navy scrim · mobile crop 1080×1350",
+    bg: {
+      src: "/photos/cstl-who-we-deploy_hero_photo.jpg",
+      focus: "center 40%",
+      note: `<b>The hero photograph is the band’s background</b>, under the navy scrim, which is how the Elementor build layers it. <code>cstl-who-we-deploy_hero_photo.jpg</code>, delivered 16 Nov 2026 as Who We Deploy A. Matches the brief: a mixed crew walking a plant floor, badges visible, plant depth behind. <b>The mobile crop (1080×1350) was not in the delivery</b>, so narrow screens cover the same file.`,
+    },
     spec: `<b>Elementor:</b> the same hero saved section the six family pages use, with the section's own copy. <b>This page is new</b> — it did not exist in the IA deck, which took the nav entry straight to the role pages.`,
   }),
 
@@ -90,7 +95,15 @@ const blocks: BlockType[] = [
     <p>Travel labor is skilled people AFIMAC recruits nationally, screens, moves to your site, houses and supervises, then stands down when you no longer need them. A single specialist or a whole shift; the number is whatever the gap is. It’s a solution that exists for the gap a local hiring cycle cannot close in time: a launch, a turnaround, a relocation, a strike, a season, or a shift that turnover has thinned past the point of running.</p>
     <p>That is a different proposition from a staffing agency filling requisitions one at a time. Everyone arrives to a plan agreed on before anyone travels, and they are managed on your floor by AFIMAC rather than handed to your supervisors to absorb.</p>
    </div>
-   ${photo("1200×1500 JPG (4:5) beside the intro · a crew arriving at a plant entrance with gear, early light · muted tone · no staged poses")}
+   ${shot({
+     src: "/photos/cstl-who-we-deploy_crew-arriving_photo.jpg",
+     alt: "Four workers in hard hats and navy coveralls with reflective stripes, seen from behind as they walk into a plant",
+     width: 1600,
+     height: 1000,
+     ratio: "4/5",
+     focus: "50% center",
+     note: `Delivered 16 Nov 2026 as Who We Deploy C. Matches the brief: a crew arriving at the plant in their gear, nothing posed. <b>Delivered at 1600×1000 (8:5), not the 1200×1500 (4:5) the slot specs</b>, so it is cropped to 4:5 on the centre of the crew.`,
+   })}
   </div>
   <div class="note"><b>This block is new copy.</b> The cluster explains travel labor on <a href="${u("/what-is-travel-labor")}">What Is Travel Labor</a> and <a href="${u("/vs-local-staffing")}">Travel vs. Local Staffing</a>; this is the two-paragraph version for people who arrive at the section from the nav rather than from the pillar. <b>Check it against the approved pillar copy before build</b> so the three do not drift.</div>`,
     spec: `<b>Elementor:</b> Heading · Text Editor · Image. Link both mentions to the pillar pages rather than restating them here.`,

@@ -16,7 +16,7 @@ import Prototype from "../../layouts/Prototype.astro";
 import Block from "../../components/Block.astro";
 import { u } from "../../lib/base";
 import { B } from "../../data/nav";
-import { photo } from "../../lib/wireframe";
+import { shot } from "../../lib/wireframe";
 import { roleHero, leadFormBlock, faqBlock, COST_ANSWER, SUPERVISION_ANSWER } from "../../lib/role-blocks";
 import { ROLE_FAMILIES, NETWORK_STATS } from "../../data/nav-options";
 import type { Block as BlockType } from "../../lib/types";
@@ -112,7 +112,15 @@ const blocks: BlockType[] = [
     <p>A specialist comes back to you within one business day. The first call covers what the role actually involves on your site, how many you need, and when you need them working.</p>
     <p>From there it runs like any other engagement — Assessment, Mobilization, Deployment, Demobilization. <a href="${u("/how-it-works")}">How It Works</a> has the detail.</p>
    </div>
-   ${photo("1200×1500 JPG (4:5) beside the copy · two people at a plant-floor table with a site plan between them · muted tone · no staged handshake")}
+   ${shot({
+     src: "/photos/cstl-other-roles_what-happens-next_photo.jpg",
+     alt: "A supervisor in a high-visibility vest and a colleague going over a tablet together in a warehouse aisle",
+     width: 1200,
+     height: 1200,
+     ratio: "4/5",
+     focus: "center",
+     note: `Delivered 16 Nov 2026 as Who We Deploy D. Close to the brief: two people working through a plan on the floor, no handshake. <b>The plan is on a tablet rather than a site plan on a table.</b> Delivered square (1200×1200), so it is cropped to the slot's 4:5.`,
+   })}
   </div>
   <div class="note"><b>Confirm the routing before build.</b> This form is specified as going to the same destination as the rest of the cluster. <b>If AFIMAC wants enquiries for roles outside the listed specialties triaged differently, that decision has not been made.</b></div>`,
     spec: `<b>Elementor:</b> Heading · Text Editor · Image. "Within one business day" matches the form's own consent line — keep the two in step.`,
