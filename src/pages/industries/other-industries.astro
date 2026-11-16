@@ -43,10 +43,10 @@ const blocks: BlockType[] = [
   roleHero({
     section: "Industries",
     h1: "Tell Us About Your Operation",
-    sub: "The Industries in the Menu Are the Ones We Are Asked for Most",
-    body: `AFIMAC staffs plenty of operations beyond them. The work travels better than the sector label does — a packaging line, a maintenance crew or a sanitation shift runs much the same whichever industry it sits in. Tell us what your site runs and what it is short of, and we will tell you whether it is work we staff and how fast we could get people there.`,
-    cta2: "What carries across",
-    cta2Href: "#carries",
+    sub: "These Are the Industries We Are Asked for Most",
+    body: `AFIMAC staffs plenty of operations beyond them. A packaging line, a maintenance crew or a sanitation shift runs much the same whichever industry it sits in. Tell us what your site runs and what it is short of, and we will tell you whether it is work we staff and how fast we could get people there.`,
+    cta2: "What we staff",
+    cta2Href: "#what-we-staff",
     img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a wide plant floor that does not read as any one sector — overhead services, racking, a crew mid-shift · muted industrial tone under the navy scrim · mobile crop 1080×1350",
     spec: `<b>Elementor:</b> the shared hero saved section. <b>This page is new</b> and has no approved copy deck behind it. <b>Brief the photograph away from any identifiable sector</b> — a recognisable automotive or food line on this page argues against the point it is making.`,
   }),
@@ -64,15 +64,15 @@ const blocks: BlockType[] = [
   }),
 
   {
-    id: "carries",
-    n: "BLOCK 03 · WHAT CARRIES ACROSS",
+    id: "what-we-staff",
+    n: "BLOCK 03 · WHAT WE STAFF",
     h: `
   <h2>We recruit to the role, not to the industry</h2>
-  <p class="lead">AFIMAC draws from a network of 20,000+ skilled and general workers who are vetted, mobile and ready to work. People are recruited for the work your site needs doing, which is why the sector on the sign matters less than what runs inside it.</p>
+  <p class="lead">AFIMAC draws from a network of 20,000+ skilled and general workers who are vetted, mobile and ready to work. People are recruited for the work your site needs doing, so what matters is the job, not the industry it sits in.</p>
   <div class="g4" style="margin-top:28px">
    ${NETWORK_STATS.map(([fig, label]) => `<div><div class="stat">${fig}</div><p>${label}</p></div>`).join("")}
   </div>
-  <p style="margin-top:28px">What travels is the process, not the sector: the same assessment, the same screening, the same supervision on your floor, and the same planned stand-down when your own workforce recovers. <a href="${u("/how-it-works")}">How It Works</a> has the detail.</p>
+  <p style="margin-top:28px">The process is the same wherever a crew goes: the same assessment, the same screening, the same supervision on your floor, and the same planned stand-down when your own workforce recovers. <a href="${u("/how-it-works")}">How It Works</a> has the detail.</p>
   <div class="note"><b>The four figures are the June-05 approved set</b> — 40+ years, 20,000+ laborers, within 72 hours, 1&ndash;500+ crew size — and are the same four the industry stat band runs, so whichever set wins there wins here. <a href="${u("/brand-check")}">All conflicts &rarr;</a></div>`,
     spec: `<b>Elementor:</b> Heading · Text Editor · EK Funfact / Counter ×4. <b>Same four figures as the industry stat band</b> — build the counter row once and place it twice.`,
   },
@@ -81,14 +81,14 @@ const blocks: BlockType[] = [
     cls: "wash",
     n: "BLOCK 04 · WHAT WE ARE USUALLY ASKED",
     h: `
-  <h2>What a site is short of, wherever it sits</h2>
-  <p class="lead">The gaps that bring an operation to AFIMAC look much the same across sectors. If one of these is yours, the industry on your sign is rarely the thing that decides whether we can help.</p>
+  <h2>The gaps we are usually called about</h2>
+  <p class="lead">The gaps that bring an operation to AFIMAC look much the same from one industry to the next. If one of these is yours, the sector you are in is rarely what decides whether we can help.</p>
   <div class="g3" style="margin-top:26px">
    <div class="card"><div class="blocknum">A GAP LOCAL HIRING CANNOT CLOSE IN TIME</div><h3>The cycle is too slow</h3><p style="margin:0">A launch, a turnaround, a relocation or a season that starts before a local hiring cycle can finish. The seats are ordinary; the timing is not.</p></div>
    <div class="card"><div class="blocknum">A SHIFT THINNED PAST THE POINT OF RUNNING</div><h3>Turnover has caught up</h3><p style="margin:0">Enough people have gone that the shift no longer runs reliably, and overtime is covering it at a cost that is not holding.</p></div>
    <div class="card"><div class="blocknum">A SITE THAT CANNOT STOP</div><h3>The work has to continue</h3><p style="margin:0">A dispute, a disruption or a sudden loss of people, where the floor still has to run while it is sorted out.</p></div>
   </div>
-  <p style="margin-top:26px">If none of those is quite it, say so on the form — the first call is the fastest way to find out.</p>
+  <p style="margin-top:26px">If none of those is quite it, say so on the form. The first call is the fastest way to find out.</p>
   <div class="note stop"><b>These three framings are written for the prototype, not supplied.</b> They are drawn from the gap language the approved Who We Deploy copy already uses — <i>"a launch, a turnaround, a relocation, a strike, a season, or a shift that turnover has thinned past the point of running"</i> — and regrouped into three cards. <b>Nothing here is a new claim about what AFIMAC does</b>, but the grouping is ours and wants a read before build.</div>`,
     spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×3. <b>Reuses the approved gap list</b> rather than inventing situations — if that list changes on the Who We Deploy landing, change it here too.`,
   },
@@ -97,8 +97,8 @@ const blocks: BlockType[] = [
     cls: "blue",
     n: "BLOCK 05 · THE INDUSTRIES, FOR ANYONE IN THE WRONG PLACE",
     h: `
-  <h2>The industries we publish pages for</h2>
-  <p class="lead">These are the sectors AFIMAC is asked for most often. If one of them is closer to your operation than this page is, its page has the roles, the process and what is included.</p>
+  <h2>The industries we are asked for most</h2>
+  <p class="lead">If one of these fits your operation, its page has the roles, the process and what is included.</p>
   <div class="g5" style="margin-top:24px">
    ${TILES.map(
      (t) => `<a class="card" style="text-decoration:none;display:block" href="${u(t.route)}"><h3 style="font-size:17px;line-height:1.3;margin:0 0 10px">${t.label}</h3><span class="readmore">Learn More &raquo;</span></a>`,
@@ -113,7 +113,7 @@ const blocks: BlockType[] = [
     h2: "Before you ask",
     items: [
       ["Is there a list of industries you will not work in?", "No. AFIMAC recruits to the role rather than to the sector, so what matters is the work your site needs doing and the conditions people will be working in. We will tell you on the first call."],
-      ["Do you only work in manufacturing?", "No. The published pages lean that way because that is what AFIMAC is asked for most, but the network covers warehousing, distribution, facilities and general site labor as well."],
+      ["Do you only work in manufacturing?", "No. Most of the pages here are manufacturing because that is what AFIMAC is asked for most, but the network covers warehousing, distribution, facilities and general site labor as well."],
       ["How many people can you send?", "Anywhere from one to over a hundred. Published AFIMAC deployments run from a 12-person specialist team to a 99-person production deployment, and the headcount can move up or down while the engagement runs."],
       ["Who supervises them?", SUPERVISION_ANSWER],
       ["What does it cost?", COST_ANSWER],

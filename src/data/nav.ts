@@ -183,7 +183,7 @@ export const NAV: NavItem[] = [
     ],
     // Ten published sectors are the common asks, not the limit of where AFIMAC
     // staffs — the same reasoning as the Who We Deploy entry above.
-    more: { label: "Don&rsquo;t see your industry?", route: "/industries/other-industries" },
+    more: { label: "Don’t see your industry?", route: "/industries/other-industries" },
   },
 
   {
