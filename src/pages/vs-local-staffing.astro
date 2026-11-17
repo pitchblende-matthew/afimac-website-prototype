@@ -40,15 +40,18 @@ const RAIL_CARDS = RAIL.map((t) => {
 
 const blocks: BlockType[] = [
   {
+    cls: "dark",
     n: "BLOCK 02 · HERO",
+    bg: { src: "/photos/cstl-who-we-deploy_crew-lineup_photo.jpg", focus: "center 28%" },
     h: `
   <p class="eyebrow">Critical Situation Travel Labor · Compare Your Options</p>
   <h1>CSTL vs. Local Staffing: Which Fits Your Situation</h1>
   <p class="sub"><b>Travel labor, a local agency, or a direct hire, compared what keeps operations moving.</b></p>
   <p class="lead">There are three real ways to fill a labor gap, and each one fits a different situation. Compare each side by side on speed, cost, control, and risk, to see which one fits yours before you act.</p>
   <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Let’s talk</a><a class="btn ghost" href="#compare">Jump to the comparison</a></div>
+  <div class="note"><b>The hero photograph is the band’s background</b>, under the navy scrim. Who We Deploy B, placed here 17 Nov 2026 at River’s request: a crew of four in full PPE on a plant floor. <b>It is a portrait shot (1200×1500)</b>, so the wide band crops it to the crew’s heads and torsos.</div>
   <div class="note stop"><b>The sub-headline is missing a word.</b> “compared what keeps operations moving” — most likely “compared <b>on</b> what keeps operations moving”. Shown as delivered.</div>`,
-    spec: `<b>Elementor:</b> Container (centred) · Breadcrumbs · Heading ×3 · Text Editor · Button ×2. Light, text-led, no hero photo — this buyer already understands travel labor. The brief asks for documentary hero photography; the built page has run without it and reads better that way.`,
+    spec: `<b>Elementor:</b> Container (centred, bg image + navy overlay) · Breadcrumbs · Heading ×3 · Text Editor · Button ×2.`,
   },
 
   {
