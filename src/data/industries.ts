@@ -153,26 +153,21 @@ export const INDUSTRIES: Record<string, Industry> = {
       caption: "Delivered as Industries FB B, 17 Nov 2026. Matches the slot size (1200×800).",
     },
     insightPhotos: [
+      // C was not in the delivery: the first card is left as it was.
+      undefined,
       {
-        src: "/photos/afimac-fb-insight-1.jpg",
+        src: "/photos/afimac-fb-insight-2.jpg",
         alt: "Cans moving along a conveyor",
         width: 1280,
         height: 720,
-        caption: "Industries FB D, 17 Nov 2026. <b>No C came in the delivery</b>, so D moved up to the F&amp;B post, which it suits best: food product moving on a line.",
+        caption: "Industries FB D, 17 Nov 2026.",
       },
       {
-        src: "/photos/afimac-fb-insight-2.jpg",
+        src: "/photos/afimac-fb-insight-3.jpg",
         alt: "A technician with a tablet among stainless process piping",
         width: 1280,
         height: 720,
-        caption: "Industries FB E, 17 Nov 2026. Moved up one card for the line-launch post.",
-      },
-      {
-        src: "/photos/afimac-insight-tech-laptop.jpg",
-        alt: "A technician in a hard hat and hi-vis vest working on a laptop on a factory floor",
-        width: 1280,
-        height: 720,
-        caption: "Not in the F&amp;B delivery. The photograph six other industry pages use for their manufacturing post, placed here 17 Nov 2026 so the card is not empty. Swap it if an F&amp;B C arrives.",
+        caption: "Industries FB E, 17 Nov 2026.",
       },
     ],
     heroPhoto: {
