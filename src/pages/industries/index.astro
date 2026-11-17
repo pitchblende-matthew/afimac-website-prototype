@@ -8,7 +8,7 @@
 import Prototype from "../../layouts/Prototype.astro";
 import Block from "../../components/Block.astro";
 import { u } from "../../lib/base";
-import { shot } from "../../lib/wireframe";
+import { shot, photo } from "../../lib/wireframe";
 import { EBOOK_MOCKUP } from "../../data/live-media";
 import { LIVE_HUB, LIVE_CREDIBILITY_BODY, LIVE_COUNTERS } from "../../data/live-industries";
 import { B } from "../../data/nav";
@@ -94,27 +94,28 @@ const SEO_ROWS = Object.values(EXISTING)
   .join("");
 
 /** The approved copy for this page. Blocks 01–03 are written from it. */
-const DECK = "https://docs.google.com/document/d/1do2iv6s21sjfEUNXCHuR9TEWZ3cYXa-i0HSKRGBkG_0/edit";
+const DECK = "https://docs.google.com/document/d/17Ggq8Cc8nLkRfkoJt7tFYjiktvpuvALGToN96r_p1A0/edit";
 
 const blocks: BlockType[] = [
   {
-    cls: "dark center",
+    cls: "dark",
     n: "BLOCK 01 · HERO",
     h: `
   <p class="eyebrow">Critical Situation Travel Labor</p>
   <h1>Critical Situation Travel Labor:<br>Industries We Serve</h1>
-  <p class="sub"><b>Skilled Travel Labor, Matched to What Your Floor Runs</b></p>
-  <p class="lead">AFIMAC staffs manufacturing plants, warehouses and distribution centers across North America, recruiting to the role rather than to the sector. The industries below are the ones we are asked for most, and each one has its own page covering the work, the process and what arrives with the crew.</p>
-  <div class="btns" style="justify-content:center"><a class="btn" href="${u("/get-in-touch")}">Talk to AFIMAC</a></div>
-  <div class="note" style="max-width:760px;margin-left:auto;margin-right:auto"><b>The live hero is the thinnest in the section</b> — the H1 and nothing else, no sub-headline, no body copy and no CTA, on the page whose job is to route visitors to every industry below it. <b>The subhead, the body and the button are written</b>, from the <a href="${DECK}">copy deck</a>. The H1 is the live one and stays: it is what the page ranks on.</div>`,
-    spec: `<b>Elementor:</b> Container · Heading · Text Editor ×2 · Button. The H1 is unchanged; everything under it is new.`,
+  <p class="sub"><b>Skilled Crews On Your Floor in Days</b></p>
+  <p class="lead">When a plant or a warehouse is short of people and hiring locally will not close the gap in time, AFIMAC sends workers to the site. We screen them before they travel, put them up while they are there, and run the crew on your floor. Pick your industry below to see the jobs we fill in it and how fast people can be working.</p>
+  <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Get the Numbers</a><a class="btn ghost" href="${u("/how-it-works")}">See how it works</a></div>
+  <div style="margin-top:34px">${photo("Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a plant floor that does not read as one sector — overhead services, racking, a crew mid-shift · muted industrial tone under the navy scrim · mobile crop 1080×1350")}</div>
+  <div class="note"><b>The live hero is the thinnest in the section</b> — the H1 and nothing else, no sub-headline, no body copy and no CTA, on the page whose job is to send visitors to ten others. <b>Everything under the H1 is written</b>, from the <a href="${DECK}">copy deck</a>. The H1 itself is the live one and stays: it is what the page ranks on. <b>The layout is the section's</b> — copy left, two buttons, photograph under it — rather than the centred version this page used to run.</div>`,
+    spec: `<b>Elementor:</b> the shared hero saved section. The H1 is unchanged; everything under it is new. <b>Both buttons match the Overview hero's</b>, so the section opens the same way wherever a visitor lands.`,
   },
 
   {
     n: "BLOCK 02 · INDUSTRIES WE SERVE",
     h: `
-  <h2>The industries we are asked for most</h2>
-  <p class="lead" style="margin-bottom:26px">Every page below covers what AFIMAC staffs on that kind of floor, how an engagement runs, and what is included when a crew arrives.</p>
+  <h2>Pick your industry</h2>
+  <p class="lead" style="margin-bottom:26px">Each page lists the jobs we fill in that industry, the shifts we cover, and how quickly people can be on site.</p>
   <div class="g3">
    ${TILES.map(
      (t) => `<a class="card" style="text-decoration:none;display:block" href="${u(t.route)}">
@@ -125,15 +126,31 @@ const blocks: BlockType[] = [
   </div>
   <div class="note pvnote-pre"><b>Through phase 2, every one of these tiles opens onto the copy that is live today.</b> Phase 1 adds the Industries slot to the sub-nav and phase 2 adds How It Works — neither changes a word on the pages underneath. The two industries with a rewrite written, <a href="${u("/industries/automotive")}">Automotive</a> and <a href="${u("/industries/food-beverage")}">Food &amp; Beverage</a>, only show it from phase 3. <a href="?phase=3"><b>Switch to phase 3 to compare →</b></a></div>
   <div class="note pvnote-post"><b>At phase 3 and later, two of these tiles open onto rewritten copy</b> — <a href="${u("/industries/automotive")}">Automotive</a> and <a href="${u("/industries/food-beverage")}">Food &amp; Beverage</a>. Go to <a href="?phase=0"><b>phase 0</b></a>, <a href="?phase=1"><b>1</b></a> or <a href="?phase=2"><b>2</b></a> to see what the slot opens onto before that.</div>
-  <p style="margin-top:28px">AFIMAC recruits to the role rather than to the sector, so these are the industries it is asked for most, not the limit of where it staffs. Operation not among them? <a href="${u("/industries/other-industries")}">Tell us what your site runs</a> and we will tell you whether it is work we staff.</p>
+  <p style="margin-top:28px">We hire for the job, not for the industry. If yours is not on this list, that does not mean we cannot staff it — <a href="${u("/industries/other-industries")}">tell us what your site makes or moves</a> and we will give you a straight answer.</p>
   <div class="note"><b>Ten tiles: ${LIVE_TILES.length} industries a visitor can read today, ${NEW_TILES.length} new URLs with nothing behind them yet</b> — ${NEW_TILES.map((t) => `<a href="${u(t.route)}">${t.label}</a>`).join(", ")}. Two of the ${LIVE_TILES.length} are live under the slug the split retires rather than their own: <a href="${u("/industries/chemicals")}">Chemicals</a> answers at <code>/chemicals-plastics/</code> and <a href="${u("/industries/oil-gas")}">Oil &amp; Gas</a> at <code>/oil-energy/</code>, so <b>their tiles cannot go up before the 301s do</b>.</div>
   <div class="note stop"><b>This grid used to draw five tiles where the live page carries seven.</b> It looked <code>EXISTING</code> up by each industry's new slug, and the two split pages are recorded under their old ones, so Chemicals and Oil &amp; Gas silently dropped out. It now reads the redirect map, which is the thing that knows. <b>Worth a look anywhere else the two slugs are matched by name.</b></div>`,
     spec: `<b>Elementor:</b> Container (3-col) · EK Image Box ×10. Ten into a 3-col grid leaves an orphan on the last row — a 4-col grid or a fifth row of two. <b>The live page builds seven</b>; the other three go up with their pages.`,
   },
 
   {
+    cls: "wash",
+    n: "BLOCK 03 · WHAT WE DO IN ALL OF THEM",
+    h: `
+  <h2>What we do in all of them</h2>
+  <p class="lead">The industries are different. The problem that brings people to this page usually is not: not enough workers, and no time to hire them nearby.</p>
+  <div class="g3" style="margin-top:26px">
+   <div class="card"><h3>We find the people</h3><p style="margin:0">We recruit for the job you are short of from a network of more than 20,000 workers who are screened and willing to travel. One person or a few hundred.</p></div>
+   <div class="card"><h3>We get them there</h3><p style="margin:0">We book the travel and the housing, run background and credential checks, and get everyone through your site safety onboarding before the first shift.</p></div>
+   <div class="card"><h3>We run the crew on site</h3><p style="margin:0">An AFIMAC supervisor works on your floor and you get one person to call. When your own staff are back, the crew stands down.</p></div>
+  </div>
+  <p style="margin-top:26px">The full sequence, with timings, is on <a href="${u("/how-it-works")}">How It Works</a>.</p>
+  <div class="note"><b>This block is written for the prototype.</b> The live hub goes straight from the tiles to the credibility band, so a visitor who lands here from search is never told what AFIMAC actually does before being asked to pick an industry. <b>The three cards restate the approved phase summaries in plain terms</b> — Assessment and Mobilization, Deployment, Demobilization — rather than making any new claim. <b>Check the wording against <a href="${u("/how-it-works")}">How It Works</a> before build</b> so the two cannot drift.</div>`,
+    spec: `<b>Elementor:</b> Container (3-col) · EK Icon Box ×3 on a White Glove band. <b>Asset gap:</b> three icons, or run it as text if the role-page icon set does not cover them.`,
+  },
+
+  {
     cls: "center",
-    n: "BLOCK 03 · AFIMAC CREDIBILITY",
+    n: "BLOCK 04 · AFIMAC CREDIBILITY",
     h: `
   <h2>AFIMAC Credibility</h2>
   <p class="lead">We bring unmatched responsiveness, expertise, and resources to manufacturing, warehousing, and logistics.</p>
@@ -148,7 +165,7 @@ const blocks: BlockType[] = [
 
   {
     cls: "wash center",
-    n: "BLOCK 04 · SERVICE CTA",
+    n: "BLOCK 05 · SERVICE CTA",
     h: `
   <h2>Learn More About Our Critical Situation Travel Labor Service</h2>
   <div class="btns" style="justify-content:center"><a class="btn" href="${u("/overview")}">Learn More</a></div>`,
@@ -157,7 +174,7 @@ const blocks: BlockType[] = [
 
   {
     cls: "wash",
-    n: "BLOCK 05 · GATED EBOOK",
+    n: "BLOCK 06 · GATED EBOOK",
     h: `
   <div class="g2">
    <div>
@@ -172,7 +189,7 @@ const blocks: BlockType[] = [
 
   {
     cls: "sky",
-    n: "BLOCK 06 · GET THE NUMBERS",
+    n: "BLOCK 07 · GET THE NUMBERS",
     h: `
   <div class="g2">
    <div class="center">
