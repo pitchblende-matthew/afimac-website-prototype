@@ -386,6 +386,34 @@ ul.tick li::before{content:"\2714";position:absolute;left:2px;top:7px;color:var(
 .statlabel{font-size:15px;color:var(--ink);margin-top:6px;font-family:var(--sans)}
 .blue .statlabel,.dark .statlabel,.readiness .statlabel,.sky .statlabel,.hasbg .statlabel{color:var(--white-glove)}
 
+/* Client case card, laid out as the approved v1 sheet lays it: the figure in
+   coral on the left against a pale band, a hairline rule, then the two
+   category tags, the client and the story. The sheet drops the isometric
+   illustrations the live carousel runs, so there is no art slot here. */
+.casestudy{display:grid;grid-template-columns:170px 1px 1fr;gap:0 28px;
+  background:var(--white-glove);padding:26px 30px;align-items:start}
+.casestudy + .casestudy{margin-top:18px}
+.cs-fig{text-align:center}
+.cs-kicker{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:700;color:var(--cta);margin-bottom:2px;font-family:var(--sans)}
+.cs-num{font-family:var(--museo);font-size:40px;font-weight:700;color:var(--cta);line-height:1}
+.cs-numlabel{font-size:13px;color:var(--spec);margin-top:8px;line-height:1.35}
+.cs-rule{width:1px;align-self:stretch;background:var(--line)}
+.cs-tags{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;
+  color:var(--readiness-blue);margin-bottom:8px;font-family:var(--sans)}
+.casestudy h3{margin:0 0 10px}
+.casestudy p{margin:0}
+/* On a dark band the card inverts rather than punching a pale hole in it. */
+.blue .casestudy,.dark .casestudy,.readiness .casestudy,.sky .casestudy{
+  background:rgba(255,255,255,.09)}
+.blue .cs-numlabel,.dark .cs-numlabel,.readiness .cs-numlabel,.sky .cs-numlabel{color:var(--white-glove)}
+.blue .cs-tags,.dark .cs-tags,.readiness .cs-tags,.sky .cs-tags{color:#fff}
+@media(max-width:720px){
+  .casestudy{grid-template-columns:1fr;gap:16px;padding:22px}
+  .cs-rule{display:none}
+  .cs-fig{text-align:left}
+}
+
 /* post cards, as live */
 .postcard{background:#fff;border:0}
 .postcard .thumb{min-height:190px}

@@ -12,32 +12,34 @@ import Block from "../../components/Block.astro";
 import { u } from "../../lib/base";
 import { B } from "../../data/nav";
 import { photo } from "../../lib/wireframe";
+import { CASE_STUDIES, CASE_SHEET_LEAD, caseCard } from "../../data/case-studies";
 import type { Block as BlockType } from "../../lib/types";
 
-const CASES: [string, string, string, boolean][] = [
-  ["[Client name] · Manufacturing · Travel Labor", "Past-due sales cut by 73.4%", "A Fortune 500 manufacturer’s past-due orders had peaked at $5.76 million. AFIMAC deployed a crew of assemblers, CNC machinists, and welders that brought the backlog down and kept it there.", false],
-  ["[Client name] · Agricultural Equipment · Travel Labor", "Two years to on-time fulfillment", "Facing a significant order backlog, the manufacturer brought in multiple staffing providers. AFIMAC was the sole non-local partner retained, supplying skilled assemblers and machinists through a two-year engagement that returned the company to on-time order fulfillment.", false],
-  ["[Client name] · Food Manufacturing · Travel Labor", "99 personnel, one working facility", "When the production facility needed to be fully staffed on short notice, AFIMAC deployed 99 personnel across production and material handling roles and kept the facility operational until the client’s workforce recovered.", false],
-  ["[Client name] · Manufacturing · Travel Labor", "12 wiring technicians, in days", "A specialist team of 12 wiring technicians, screened and on site in days, for a client that couldn’t fill the roles locally.", false],
-  ["Qualcomm · Technology · Protective Services", "Executive protection, sustained", "“Our experience with AFIMAC has been nothing short of outstanding. The team has consistently demonstrated professionalism, reliability, and a high level of expertise in all aspects of security management.” Ronnie Lopez, Qualcomm Executive Protection Manager.", true],
-];
+/**
+ * The six travel-labor cases come from the approved sheet, through
+ * `src/data/case-studies.ts`, so this page cannot drift from the overview
+ * carousel or the industry pages the way the five paraphrases here used to.
+ * The Qualcomm testimonial is not in that sheet and is kept as its own row.
+ */
+/**
+ * The six travel-labor cards come straight from the approved v1 sheet through
+ * `caseCard`, so this page, the overview carousel and the industry pages all
+ * render the same design from the same words. The Qualcomm testimonial is not
+ * in that sheet and keeps the older logo row, which is the right shape for it:
+ * it is a named client with a quote, not a figure and a deployment.
+ */
+const CASE_CARDS = CASE_STUDIES.map(caseCard).join("");
 
 const READ_HREF = u("/resources");
 
-/** Rows are built here rather than inline: a third level of nested template
-    literal inside a block's `h` is what the Astro compiler refuses. */
-const CASE_ROWS = CASES.map(([eyebrow, title, summary, named]) => {
-  const logo = named
-    ? "Client logo · SVG or PNG @2×, 160px wide max · greyscale on the row, colour on hover"
-    : "Client logo · blocked on permission";
-  return [
-    '<div class="casecard" style="margin-top:18px">',
-    `<div style="max-width:160px">${photo(logo)}</div>`,
-    `<div><div class="blocknum">${eyebrow}</div><h3>${title}</h3><p>${summary}</p>`,
-    `<a class="readmore" href="${READ_HREF}">Read the case »</a></div>`,
-    "</div>",
-  ].join("");
-}).join("");
+const QUALCOMM = [
+  '<div class="casecard" style="margin-top:18px">',
+  `<div style="max-width:160px">${photo("Client logo · SVG or PNG @2×, 160px wide max · greyscale on the row, colour on hover")}</div>`,
+  '<div><div class="blocknum">Qualcomm · Technology · Protective Services</div><h3>Executive protection, sustained</h3>',
+  '<p>“Our experience with AFIMAC has been nothing short of outstanding. The team has consistently demonstrated professionalism, reliability, and a high level of expertise in all aspects of security management.” Ronnie Lopez, Qualcomm Executive Protection Manager.</p>',
+  `<a class="readmore" href="${READ_HREF}">Read the case »</a></div>`,
+  "</div>",
+].join("");
 
 const blocks: BlockType[] = [
   {
@@ -56,10 +58,14 @@ const blocks: BlockType[] = [
   {
     n: "BLOCK 02 · THE CASE STUDIES",
     h: `
-  <p style="color:var(--spec);font-size:13px">Optional filter chips above the list: All · Travel Labor · Protective Services</p>
-  ${CASE_ROWS}
-  <div class="note stop"><b>Row 04 is the thinnest case on record.</b> One sentence, no figure beyond the headcount, no timeline. The deck asks to confirm the client, the industry and the timeline before it runs — and if none of that firms up, four strong rows beat five uneven ones.</div>
-  <div class="note"><b>Summaries follow the pillar’s published wording</b>, including its softened framing for why clients were short-staffed. Match the pillar at build rather than rewriting — these are the sentences legal has already seen.</div>
+  <p class="lead">${CASE_SHEET_LEAD}</p>
+  <div class="note">Optional filter chips above the list: <b>All · Travel Labor · Protective Services</b>. Worth having once the travel-labor rows outnumber the protective-services one, which they now do six to one.</div>
+  ${CASE_CARDS}
+  <div style="margin-top:34px"><div class="blocknum">PROTECTIVE SERVICES</div>${QUALCOMM}</div>
+  <div class="note"><b>The cards are the v1 sheet's design</b> — the figure in coral on the left, the two category tags, the client, the story — rather than the logo-and-summary row this page used to run. <b>Seven cases, up from five:</b> the sheet carries six travel-labor cases and this page had five, four of them shorter paraphrases. The two it never had are the building materials manufacturer and the second food manufacturer.</div>
+  <div class="note"><b>The Qualcomm row keeps the old shape.</b> It is not in the sheet, and it is a named client with a quote rather than a figure and a deployment, so a card built around a number would have nothing to put in it.</div>
+  <div class="note stop"><b>Two approved sources word these cases differently, and this page follows the sheet.</b> The paraphrases it used to run came from the pillar, and the note on them read: “these are the sentences legal has already seen.” The designed sheet is also AFIMAC-approved and is fuller, so it wins on completeness — but <b>if the pillar's wording is the one that cleared legal, this swap has to be checked before build</b>, not after. The old text is in the history of this file.</div>
+  <div class="note"><b>The logo column is gone from the six.</b> The sheet's design has no logo slot, which quietly removes the thing that was blocking them — but only from the layout. <b>The permission problem is unchanged</b>: these clients are anonymised, and the brackets came off because the design stopped asking for a name, not because anyone granted one.</div>
   <div class="note"><b>“Read the case” has no destination yet.</b> Either build per-case detail pages or expand the row in place. The deck leaves it open; a five-row list with five links to nothing is the one outcome to avoid.</div>`,
     spec: `<b>Elementor:</b> Container (single-column list) · EK Icon Box ×5 · optional EK Filter Gallery for the chips. Logos need written permission on file — <b>each one, individually</b>.`,
   },
@@ -80,8 +86,8 @@ const blocks: BlockType[] = [
   {
     n: "SCOPE · WHAT BLOCKS THIS PAGE",
     h: `
-  <div class="note stop" style="margin-top:0"><b>Four of the five rows cannot ship as written.</b> This page exists to name clients; AFIMAC’s published cases are anonymized — Fortune 500 manufacturer, agricultural equipment manufacturer, food manufacturer. Every one of rows 01 to 04 needs <b>written permission to be named and logo’d</b> before it runs. <b>Qualcomm is the only client currently named in public</b>, and row 05 is a testimonial rather than a case study. Until permissions land, each row either runs with the anonymized descriptor in place of the bracket, or stays off the page.</div>
-  <div class="note"><b>A page that ships with four bracketed placeholders is worse than a page with one Qualcomm row.</b> The realistic launch is row 05 plus whichever of 01–04 clears legal — so treat the permission chase as the critical path, not the build.</div>
+  <div class="note stop" style="margin-top:0"><b>Six of the seven rows cannot ship as written</b>, and the new sheet does not change that. This page exists to name clients; every case AFIMAC publishes is anonymised — Fortune 500 manufacturer, agricultural equipment manufacturer, food manufacturer, switchgear manufacturer, building materials manufacturer. Each needs <b>written permission to be named and logo\u2019d</b> before it runs. <b>Qualcomm is the only client currently named in public</b>, and that row is a testimonial rather than a case study.</div>
+  <div class="note"><b>A page that ships with six bracketed placeholders is worse than a page with one Qualcomm row.</b> The realistic launch is the Qualcomm row plus whichever of the six clears legal — so treat the permission chase as the critical path, not the build. <b>More cases makes that chase longer, not shorter.</b></div>
   <div class="note stop"><b>And this page may not belong under CSTL at all.</b> Row 05 is protective services. If more protective-services cases are approved, the deck says the page may belong one level up — which would take it out of the <a href="${u("/launch-phases")}">CSTL rollout</a> entirely.</div>`,
     spec: `Permissions are a legal task with a lead time. Start it now; the build is a day and the approvals are not.`,
   },
