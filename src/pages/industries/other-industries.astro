@@ -27,7 +27,7 @@ import Prototype from "../../layouts/Prototype.astro";
 import Block from "../../components/Block.astro";
 import { u } from "../../lib/base";
 import { B } from "../../data/nav";
-import { photo } from "../../lib/wireframe";
+import { photo, shot } from "../../lib/wireframe";
 import { roleHero, leadFormBlock, faqBlock, COST_ANSWER, SUPERVISION_ANSWER } from "../../lib/role-blocks";
 import { NETWORK_STATS } from "../../data/nav-options";
 import { INDUSTRIES } from "../../data/industries";
@@ -48,6 +48,11 @@ const blocks: BlockType[] = [
     cta2: "What we staff",
     cta2Href: "#what-we-staff",
     img: "Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a wide plant floor that does not read as any one sector — overhead services, racking, a crew mid-shift · muted industrial tone under the navy scrim · mobile crop 1080×1350",
+    bg: {
+      src: "/photos/cstl-who-we-deploy_crew-arriving_photo.jpg",
+      focus: "center 45%",
+      note: `<b>The hero photograph is the band’s background</b>, under the navy scrim. <code>cstl-who-we-deploy_crew-arriving_photo.jpg</code> (Who We Deploy C), placed 17 Nov 2026. <b>No Other Industries hero came in the delivery.</b> This one fits the brief: a crew in plain navy coveralls walking into a plant that reads as no particular sector. <b>It is 1600px wide against the brief’s 2000px minimum</b>, so it softens on large screens; a dedicated 2560×1440 shot is the fix.`,
+    },
     spec: `<b>Elementor:</b> the shared hero saved section. <b>This page is new</b> and has no approved copy deck behind it. <b>Brief the photograph away from any identifiable sector</b> — a recognisable automotive or food line on this page argues against the point it is making.`,
   }),
 
@@ -131,7 +136,15 @@ const blocks: BlockType[] = [
     <p>A specialist comes back to you within one business day. The first call covers what your site runs, what it is short of, and when you need people working.</p>
     <p>From there it runs like any other engagement — Assessment, Mobilization, Deployment, Demobilization. <a href="${u("/how-it-works")}">How It Works</a> has the detail.</p>
    </div>
-   ${photo("1200×1500 JPG (4:5) beside the copy · two people walking a site with a plan between them, sector-neutral · muted tone · no staged handshake")}
+   ${shot({
+     src: "/photos/cstl-other-roles_what-happens-next_photo.jpg",
+     alt: "A supervisor in a high-visibility vest and a colleague going over a tablet together in a warehouse aisle",
+     width: 1200,
+     height: 1200,
+     ratio: "4/5",
+     focus: "center",
+     note: `Who We Deploy D, placed 17 Nov 2026. <b>Not in the industries delivery</b>, but this slot carries the same brief as the one it fills on Other Roles (two people working through a plan, no handshake), and this page is that page’s industries twin, so the same photograph is the right one. Cropped square to 4:5.`,
+   })}
   </div>
   <div class="note"><b>Confirm the routing before build.</b> This form is specified as going to the same destination as the rest of the cluster. <b>An enquiry from a sector with no page behind it may want triaging differently from one that names a published industry — that decision has not been made.</b></div>`,
     spec: `<b>Elementor:</b> Heading · Text Editor · Image. "Within one business day" matches the form's own consent line — keep the two in step.`,
