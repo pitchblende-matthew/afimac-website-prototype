@@ -58,8 +58,10 @@ export const shot = (o: {
   focus?: string;
   /** The slot's art direction, shown only with notes on. */
   note?: string;
+  /** A cut-out with a transparent background: drop the grey loading fill. */
+  cutout?: boolean;
 }): string =>
-  `<figure class="shot"${o.maxWidth ? ` style="max-width:${o.maxWidth}px"` : ""}>
+  `<figure class="shot${o.cutout ? " cutout" : ""}"${o.maxWidth ? ` style="max-width:${o.maxWidth}px"` : ""}>
     <img src="${u(o.src)}" alt="${o.alt}" width="${o.width}" height="${o.height}"${
       o.ratio
         ? ` style="aspect-ratio:${o.ratio};object-fit:cover;object-position:${o.focus ?? "center"}"`

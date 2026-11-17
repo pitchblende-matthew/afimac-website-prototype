@@ -32,6 +32,10 @@ export interface Industry {
   heroImg: string;
   /** The hero photograph, once supplied. Replaces the heroImg placeholder. */
   heroPhoto?: Art;
+  /** Block 07's featured case photograph, once supplied. */
+  casePhoto?: Art;
+  /** Block 08's three insight thumbnails, in the deck's post order. */
+  insightPhotos?: Art[];
   rolesTitle: string;
   /** Line-map art-direction note, used when no real artwork exists yet. */
   map: string;
@@ -170,6 +174,45 @@ export const INDUSTRIES: Record<string, Industry> = {
     url: `${B}industries/aerospace-aviation-defense/`,
     liveH1: "Aerospace, Aviation &amp; Defense Travel Labor",
     heroImg: "Wide shot inside an aircraft assembly bay or structures line, technicians in PPE working a fuselage or wing section. No identifiable military aircraft, tail numbers, or program markings. Cool/industrial tone to sit under the navy scrim. Landscape, min 2000px wide.",
+    heroPhoto: {
+      src: "/photos/afimac-aero-hero.jpg",
+      alt: "A technician in blue coveralls and safety glasses working on an open jet engine under an aircraft wing in a hangar",
+      width: 2560,
+      height: 1440,
+      caption: "Delivered as Industries Aerospace A.",
+      placed: "16 Nov 2026",
+      flag: "<b>This is engine maintenance, not assembly.</b> The brief asks for an assembly bay or structures line, and Maria's 10/23 note keeps MRO and airline maintenance off this page in favour of manufacturers. The photograph reads as MRO, so it sits here as delivered until a manufacturing shot replaces it or Maria says it works.",
+    },
+    casePhoto: {
+      src: "/photos/afimac-aero-featured-case.jpg",
+      alt: "A technician in a hard hat and safety glasses servicing the base of an industrial robot arm on a plant floor",
+      width: 1200,
+      height: 800,
+      caption: "Delivered as Industries Aerospace B, 16 Nov 2026. Matches the slot size. A general manufacturing shot rather than an aerospace one, which suits a case that has not been chosen yet.",
+    },
+    insightPhotos: [
+      {
+        src: "/photos/afimac-aero-insight-1.jpg",
+        alt: "An engineer behind a turbine engine on a test stand, its fan blades in the foreground",
+        width: 1280,
+        height: 720,
+        caption: "Industries Aerospace C. The aerospace post.",
+      },
+      {
+        src: "/photos/afimac-aero-insight-2.jpg",
+        alt: "A technician in a hard hat and safety glasses checking a robot arm against a tablet",
+        width: 1280,
+        height: 720,
+        caption: "Industries Aerospace D. A skilled tech at work, for the manufacturing post.",
+      },
+      {
+        src: "/photos/afimac-aero-insight-3.jpg",
+        alt: "Two colleagues in conversation across a desk",
+        width: 1280,
+        height: 720,
+        caption: "Industries Aerospace E. A workforce scene, for the staffing post.",
+      },
+    ],
     rolesTitle: "Role-Ready Aerospace Staffing",
     map: "Displayed as a build-flow map above a role grid: five build stages (01 → 05) left to right, with Quality &amp; Inspection (06) and Material &amp; Logistics (07) as bands running under every stage. Aerospace builds by position rather than on a moving line, so this replaces the linear rail used on the Automotive page.",
     roles: ["CNC machinists", "Composite layup technicians", "Structures assemblers", "Wire harness assemblers", "Aerospace painters", "Quality inspectors", "Material handlers"],

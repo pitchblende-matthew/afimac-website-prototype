@@ -291,6 +291,7 @@ body.nospec .spec,body.nospec .herospec{display:none}
    shot against, so it goes with the notes. */
 .shot{margin:0}
 .shot img{display:block;width:100%;height:auto;background:#eef3f6}
+.shot.cutout img{background:none}
 .shot figcaption{margin-top:10px;font-size:12.5px;line-height:1.55;color:var(--spec)}
 .blue .shot figcaption,.dark .shot figcaption,
 .sky .shot figcaption,.readiness .shot figcaption{color:#cfe2f0}
