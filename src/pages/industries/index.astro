@@ -93,6 +93,9 @@ const SEO_ROWS = Object.values(EXISTING)
   })
   .join("");
 
+/** The approved copy for this page. Blocks 01–03 are written from it. */
+const DECK = "https://docs.google.com/document/d/1do2iv6s21sjfEUNXCHuR9TEWZ3cYXa-i0HSKRGBkG_0/edit";
+
 const blocks: BlockType[] = [
   {
     cls: "dark center",
@@ -100,14 +103,19 @@ const blocks: BlockType[] = [
     h: `
   <p class="eyebrow">Critical Situation Travel Labor</p>
   <h1>Critical Situation Travel Labor:<br>Industries We Serve</h1>
-  <div class="note" style="max-width:760px;margin-left:auto;margin-right:auto">The live hero carries the H1 and nothing else — no sub-headline, no body copy, no CTA. <b>It is the thinnest hero in the section</b>, on the page that has to route visitors to every industry below it.</div>`,
-    spec: `<b>Elementor:</b> Container · Heading. Replicated from the live page. If the industry updates go ahead, this hero is the cheapest place to add a line of orientation copy.`,
+  <p class="sub"><b>Skilled Travel Labor, Matched to What Your Floor Runs</b></p>
+  <p class="lead">AFIMAC staffs manufacturing plants, warehouses and distribution centers across North America, recruiting to the role rather than to the sector. The industries below are the ones we are asked for most, and each one has its own page covering the work, the process and what arrives with the crew.</p>
+  <div class="btns" style="justify-content:center"><a class="btn" href="${u("/get-in-touch")}">Talk to AFIMAC</a></div>
+  <div class="note" style="max-width:760px;margin-left:auto;margin-right:auto"><b>The live hero is the thinnest in the section</b> — the H1 and nothing else, no sub-headline, no body copy and no CTA, on the page whose job is to route visitors to every industry below it. <b>The subhead, the body and the button are written</b>, from the <a href="${DECK}">copy deck</a>. The H1 is the live one and stays: it is what the page ranks on.</div>`,
+    spec: `<b>Elementor:</b> Container · Heading · Text Editor ×2 · Button. The H1 is unchanged; everything under it is new.`,
   },
 
   {
     n: "BLOCK 02 · INDUSTRIES WE SERVE",
     h: `
-  <div class="g3" style="margin-top:6px">
+  <h2>The industries we are asked for most</h2>
+  <p class="lead" style="margin-bottom:26px">Every page below covers what AFIMAC staffs on that kind of floor, how an engagement runs, and what is included when a crew arrives.</p>
+  <div class="g3">
    ${TILES.map(
      (t) => `<a class="card" style="text-decoration:none;display:block" href="${u(t.route)}">
      <div class="photo" style="min-height:150px"><span class="art">Industry tile image</span></div>
@@ -125,41 +133,26 @@ const blocks: BlockType[] = [
 
   {
     cls: "center",
-    n: "BLOCK 02b · AFIMAC CREDIBILITY",
+    n: "BLOCK 03 · AFIMAC CREDIBILITY",
     h: `
   <h2>AFIMAC Credibility</h2>
-  <p class="lead">${LIVE_HUB.credibilityLead}</p>
+  <p class="lead">We bring unmatched responsiveness, expertise, and resources to manufacturing, warehousing, and logistics.</p>
   <p>${LIVE_CREDIBILITY_BODY}</p>
   <div class="g4" style="margin-top:30px">
    ${STAT_BAND.map(([fig, label]) => `<div><div class="stat">${fig}</div><p>${label}</p></div>`).join("")}
   </div>
-  <div class="note stop"><b>The hub names one industry, and it is the wrong one.</b> That lead line reads “…resources to <b>aerospace, aviation, and defense</b>” — on the page about all of them. It is the <a href="${u("/industries/aerospace-aviation-defense")}">Aerospace page’s</a> line, copied and never localised. <b>Live on the site today.</b> The fix is one sentence.</div>
-  <div class="note">The paragraph beneath it is identical on the hub and on all seven live industry pages. <b>The live counters here are ${LIVE_COUNTERS.join(" · ")}, and they serve 0</b> — the figures animate up on scroll, so the published values live only in the Elementor settings and a visitor who does not scroll sees four zeros. <b>The prototype runs the approved four instead</b>, the same band as the industry pages.</div>`,
-    spec: `<b>Elementor:</b> Heading ×2 · Text Editor · EK Funfact / Counter ×4. Shared saved section — which is how the aerospace line got here.`,
+  <div class="note stop"><b>The live hub names one industry, and it is the wrong one.</b> Its lead line reads “…resources to <b>aerospace, aviation, and defense</b>” — on the page about all ten. It is the <a href="${u("/industries/aerospace-aviation-defense")}">Aerospace page’s</a> sentence, copied and never localised, and it is <b>live on the site today</b>. The line above is the same sentence with the industry swapped for what this page is about, per the <a href="${DECK}">copy deck</a>.</div>
+  <div class="note">The paragraph beneath it is identical on the hub and on all seven live industry pages. <b>The live counters here are ${LIVE_COUNTERS.join(" · ")}, and they serve 0</b> — the figures animate up on scroll, so the published values live only in the Elementor settings and a visitor who does not scroll sees four zeros. <b>The prototype runs the approved four instead</b>, the same band as the industry pages. <b>The live page runs this block twice</b>, once here and once after the service CTA; the deck specifies it once and the second has been removed.</div>`,
+    spec: `<b>Elementor:</b> Heading ×2 · Text Editor · EK Funfact / Counter ×4. Shared saved section — which is how the aerospace line got here. <b>The hub needs its own copy of it</b>, or the next edit to the industry pages drags that sentence back.`,
   },
 
   {
     cls: "wash center",
-    n: "BLOCK 03 · SERVICE CTA",
+    n: "BLOCK 04 · SERVICE CTA",
     h: `
   <h2>Learn More About Our Critical Situation Travel Labor Service</h2>
   <div class="btns" style="justify-content:center"><a class="btn" href="${u("/overview")}">Learn More</a></div>`,
     spec: `<b>Elementor:</b> Heading · Button. Points back to the CSTL pillar.`,
-  },
-
-  {
-    cls: "center",
-    n: "BLOCK 04 · AFIMAC CREDIBILITY",
-    h: `
-  <h2>AFIMAC Credibility</h2>
-  <p class="lead">We bring unmatched responsiveness, expertise, and resources to aerospace, aviation, and defense.</p>
-  <p class="lead">AFIMAC is the premier resource for Fortune 500 manufacturing, warehousing, and logistics organizations facing labor shortages with critical time constraints. We deliver on-demand specialized labor crews to help businesses ensure operational continuity and reduce financial risk.</p>
-  <div class="g4" style="margin-top:44px">
-   ${STAT_BAND.map(([fig, label]) => `<div class="counter"><div class="stat">${fig}</div><div class="statlabel">${label}</div></div>`).join("")}
-  </div>
-  <div class="note stop"><b>The lead line names one industry on a page that lists every one of them.</b> “…responsiveness, expertise, and resources to <i>aerospace, aviation, and defense</i>” is the Aerospace page’s line — the Automotive page runs the same sentence ending “…to the automotive industry”. The hub is running an industry page’s credibility block. <b>It needs its own sentence.</b></div>
-  <div class="note stop"><b>Two credibility blocks on one page, and this is the second.</b> Both now run the approved four, so they no longer disagree with each other or with the industry pages — but <b>the duplication itself is still an open item</b>: 02b and this block say the same thing twice, one scroll apart. <b>The live page runs different figures in each</b> — Years · Industry Deployments · Companies Served · Laborers Provided here, against the Overview’s Years · Skilled Laborers · Industries at 40, 20,000 and 26 — and none of this block’s four could be read off the page at all. <a href="${u("/brand-check")}">All conflicts →</a></div>`,
-    spec: `<b>Elementor:</b> Heading · Text Editor · EK Funfact / Counter ×4, carrying the approved four. <b>Decide whether this block survives at all</b> — it repeats 02b. If it does, and the live labels are kept instead, their figures have to be recovered from the Elementor settings first: they are not in the page source.`,
   },
 
   {
@@ -202,6 +195,7 @@ const blocks: BlockType[] = [
   },
 
   {
+    cls: "protoblock",
     n: "OPEN ITEM · THE URL CONFLICT",
     h: `
   <h2>The industry pages already have URLs</h2>
@@ -216,7 +210,7 @@ const blocks: BlockType[] = [
   },
 
   {
-    cls: "wash",
+    cls: "wash protoblock",
     n: "OPEN ITEM · WHAT THE UPDATES COVER",
     h: `
   <div class="tscroll"><table class="cmp"><thead><tr><th>Industry</th><th>Live page</th><th class="hl">CSTL update</th></tr></thead><tbody>
@@ -228,6 +222,7 @@ const blocks: BlockType[] = [
   },
 
   {
+    cls: "protoblock",
     n: "OPEN ITEM · SEO ON THE FIVE UNTOUCHED PAGES",
     h: `
   <p class="lead">Reading the live pages against the section’s own three SEO formulas — title 50–60 characters, exactly one H1, meta description 145–160 — the five that have had no update are uneven.</p>
@@ -241,7 +236,7 @@ const blocks: BlockType[] = [
   },
 
   {
-    cls: "wash",
+    cls: "wash protoblock",
     n: "OPEN ITEM · THE NAMING SPLIT",
     h: `
   <div class="tscroll"><table class="cmp"><thead><tr><th>Where</th><th class="hl">What it says</th></tr></thead><tbody>
@@ -261,6 +256,11 @@ const blocks: BlockType[] = [
   url={`${B}industries/`}
   status="live"
   active="/industries"
+  meta={{
+    t: "Industries We Serve: Travel Labor Staffing | AFIMAC Global",
+    d: "AFIMAC deploys skilled travel labor to manufacturing, warehousing and logistics sites across North America. Crews recruited to the role, housing handled.",
+    k: "industrial staffing by industry · travel labor staffing — secondary: manufacturing staffing · warehouse staffing · skilled labor network · contract labor crews",
+  }}
 >
   {blocks.map((b) => <Block {...b} />)}
 </Prototype>
