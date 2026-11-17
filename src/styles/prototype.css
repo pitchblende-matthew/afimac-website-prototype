@@ -247,7 +247,24 @@ body.nodots .subnav .ddhead{display:none}
 .block.hero{padding:0;background:var(--deep)}
 .heroimg{min-height:520px;display:flex;align-items:center;justify-content:center;text-align:center;
   background:repeating-linear-gradient(135deg,#0f4066,#0f4066 14px,#123f61 14px,#123f61 28px);position:relative}
-.heroimg .wrap{padding-top:70px;padding-bottom:70px}
+.heroimg .wrap{padding-top:70px;padding-bottom:70px;position:relative;z-index:1}
+
+/* Hero background video, as the Webflow build runs it: the clip covers the
+   band, a scrim sits over it, the copy above both. */
+.herovid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  pointer-events:none;border:0;display:block}
+/* An even wash, not the 90deg gradient the photo heroes use. That gradient is
+   built for a left-hand copy column; this hero centres its text, so the right
+   of the band has to carry type too. 0.68 is measured, not picked: sampled
+   across the clip, the brightest text-sized patch under the copy composites to
+   4.78:1 against white, clear of the 4.5:1 floor. 0.65 drops it to 4.39. */
+.heroscrim{position:absolute;inset:0;background:rgba(9,54,90,.68)}
+.heroimg .herospec{z-index:1}
+/* Reduced motion: hold the poster frame rather than loop footage at someone
+   who has asked the browser not to. The still carries the same scrim. */
+@media(prefers-reduced-motion:reduce){
+  .herovid{display:none}
+}
 .heroimg h1,.heroimg p{color:#fff}
 .herospec{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.42);color:#d9e6f0;font-size:12px;padding:8px 20px;text-align:center}
 

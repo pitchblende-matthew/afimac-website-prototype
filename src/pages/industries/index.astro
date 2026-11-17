@@ -14,6 +14,7 @@ import { LIVE_HUB, LIVE_CREDIBILITY_BODY, LIVE_COUNTERS } from "../../data/live-
 import { B } from "../../data/nav";
 import { INDUSTRIES, EXISTING, INDUSTRY_ORDER, INDUSTRY_REDIRECTS } from "../../data/industries";
 import { INDUSTRY_COPY } from "../../data/industry-copy";
+import { STAT_BAND } from "../../lib/industry-page";
 import type { Block as BlockType } from "../../lib/types";
 
 /**
@@ -124,16 +125,16 @@ const blocks: BlockType[] = [
 
   {
     cls: "center",
-    n: "BLOCK 02b · AFIMAC CREDIBILITY — AS LIVE",
+    n: "BLOCK 02b · AFIMAC CREDIBILITY",
     h: `
   <h2>AFIMAC Credibility</h2>
   <p class="lead">${LIVE_HUB.credibilityLead}</p>
   <p>${LIVE_CREDIBILITY_BODY}</p>
   <div class="g4" style="margin-top:30px">
-   ${LIVE_COUNTERS.map((c) => `<div><div class="stat">0</div><p>${c}</p></div>`).join("")}
+   ${STAT_BAND.map(([fig, label]) => `<div><div class="stat">${fig}</div><p>${label}</p></div>`).join("")}
   </div>
   <div class="note stop"><b>The hub names one industry, and it is the wrong one.</b> That lead line reads “…resources to <b>aerospace, aviation, and defense</b>” — on the page about all of them. It is the <a href="${u("/industries/aerospace-aviation-defense")}">Aerospace page’s</a> line, copied and never localised. <b>Live on the site today.</b> The fix is one sentence.</div>
-  <div class="note">The paragraph beneath it and the four counters are identical on the hub and on all seven industry pages. <b>The counters read 0 because that is what the page serves</b> — they animate up on scroll, so the published figures live only in the Elementor settings and a visitor who does not scroll sees four zeros.</div>`,
+  <div class="note">The paragraph beneath it is identical on the hub and on all seven live industry pages. <b>The live counters here are ${LIVE_COUNTERS.join(" · ")}, and they serve 0</b> — the figures animate up on scroll, so the published values live only in the Elementor settings and a visitor who does not scroll sees four zeros. <b>The prototype runs the approved four instead</b>, the same band as the industry pages.</div>`,
     spec: `<b>Elementor:</b> Heading ×2 · Text Editor · EK Funfact / Counter ×4. Shared saved section — which is how the aerospace line got here.`,
   },
 
@@ -154,16 +155,11 @@ const blocks: BlockType[] = [
   <p class="lead">We bring unmatched responsiveness, expertise, and resources to aerospace, aviation, and defense.</p>
   <p class="lead">AFIMAC is the premier resource for Fortune 500 manufacturing, warehousing, and logistics organizations facing labor shortages with critical time constraints. We deliver on-demand specialized labor crews to help businesses ensure operational continuity and reduce financial risk.</p>
   <div class="g4" style="margin-top:44px">
-   ${["Years", "Industry Deployments", "Companies Served", "Laborers Provided"]
-     .map(
-       (l) =>
-         `<div class="counter"><div class="stat" style="color:var(--ph)">—</div><div class="statlabel">${l}</div></div>`,
-     )
-     .join("")}
+   ${STAT_BAND.map(([fig, label]) => `<div class="counter"><div class="stat">${fig}</div><div class="statlabel">${label}</div></div>`).join("")}
   </div>
   <div class="note stop"><b>The lead line names one industry on a page that lists every one of them.</b> “…responsiveness, expertise, and resources to <i>aerospace, aviation, and defense</i>” is the Aerospace page’s line — the Automotive page runs the same sentence ending “…to the automotive industry”. The hub is running an industry page’s credibility block. <b>It needs its own sentence.</b></div>
-  <div class="note stop"><b>Four counters here; three on the Overview.</b> This page counts <b>Years · Industry Deployments · Companies Served · Laborers Provided</b>. The Overview counts <b>Years · Skilled Laborers · Industries</b> — 40, 20,000 and 26. Two credibility blocks one click apart, sharing one metric. <a href="${u("/brand-check")}">All conflicts →</a></div>`,
-    spec: `<b>Elementor:</b> Heading · Text Editor · EK Funfact / Counter ×4. <b>Figures not captured:</b> the counters animate from zero on scroll, so the four numbers are not in the page source. Confirm all four before this block is reused anywhere.`,
+  <div class="note stop"><b>Two credibility blocks on one page, and this is the second.</b> Both now run the approved four, so they no longer disagree with each other or with the industry pages — but <b>the duplication itself is still an open item</b>: 02b and this block say the same thing twice, one scroll apart. <b>The live page runs different figures in each</b> — Years · Industry Deployments · Companies Served · Laborers Provided here, against the Overview’s Years · Skilled Laborers · Industries at 40, 20,000 and 26 — and none of this block’s four could be read off the page at all. <a href="${u("/brand-check")}">All conflicts →</a></div>`,
+    spec: `<b>Elementor:</b> Heading · Text Editor · EK Funfact / Counter ×4, carrying the approved four. <b>Decide whether this block survives at all</b> — it repeats 02b. If it does, and the live labels are kept instead, their figures have to be recovered from the Elementor settings first: they are not in the page source.`,
   },
 
   {
