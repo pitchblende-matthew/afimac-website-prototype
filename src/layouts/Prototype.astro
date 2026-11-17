@@ -475,9 +475,10 @@ const TOGGLES = [
         const dots = ui.querySelector<HTMLElement>(".cscar-dots")!;
         const count = ui.querySelector<HTMLElement>(".cscar-count")!;
 
-        /* How many slides fit at the current width — the overview shows two
-           side by side on a wide screen, so the last reachable position is
-           not the last slide. */
+        /* How many slides fit at the current width. Every carousel here runs
+           one at a time, so this is 1 — it is measured rather than assumed so
+           that a wider slide basis would not silently break the arrow step,
+           the counter or the last reachable position. */
         const perView = () =>
           Math.max(1, Math.round(track.clientWidth / (slides[0].offsetWidth || 1)));
         const lastPos = () => Math.max(0, slides.length - perView());

@@ -442,11 +442,6 @@ ul.tick li::before{content:"\2714";position:absolute;left:2px;top:7px;color:var(
   background:transparent;color:#fff;border-color:rgba(255,255,255,.45)}
 .blue .cscar-dot,.dark .cscar-dot,.readiness .cscar-dot,.sky .cscar-dot{background:rgba(255,255,255,.35)}
 .blue .cscar-count,.dark .cscar-count,.readiness .cscar-count,.sky .cscar-count{color:var(--white-glove)}
-/* Two at a time once there is room for two, which is what the live
-   overview carousel shows. */
-@media(min-width:1100px){
-  .cscar[data-per="2"] .cscar-slide{flex-basis:calc((100% - 18px) / 2)}
-}
 
 /* post cards, as live */
 .postcard{background:#fff;border:0}

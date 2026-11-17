@@ -195,12 +195,12 @@ export const caseCard = (c: CaseStudy): string =>
  */
 export const caseCarousel = (
   cases: CaseStudy[],
-  opts: { label?: string; perView?: 1 | 2 } = {},
+  opts: { label?: string } = {},
 ): string => {
   if (cases.length < 2) return cases.map(caseCard).join("");
   const label = opts.label ?? "Client cases";
   return [
-    `<div class="cscar" data-cscar data-per="${opts.perView ?? 1}"`,
+    `<div class="cscar" data-cscar`,
     ` role="group" aria-roledescription="carousel" aria-label="${label}">`,
     '<div class="cscar-track" data-cscar-track>',
     ...cases.map(
