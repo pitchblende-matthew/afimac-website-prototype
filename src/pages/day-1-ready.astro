@@ -10,10 +10,11 @@
  * turned on in one edit rather than rebuilt.
  */
 import Prototype from "../layouts/Prototype.astro";
+import { FORM_PHOTO } from "../data/form-photo";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { B } from "../data/nav";
-import { photo, figure, artPair, downloadCard } from "../lib/wireframe";
+import { photo, figure, artPair, downloadCard, shot } from "../lib/wireframe";
 import { D1R_SEAL, D1R_SEAL_STANDALONE, D1R_TIMELINE, D1R_FORM_ILLUSTRATION } from "../data/graphics";
 import { CLIENT_CHECKLIST, READY_CHECKS, DAY1_FORM_BULLETS } from "../data/day1";
 import type { Block as BlockType } from "../lib/types";
@@ -142,7 +143,7 @@ const blocks: BlockType[] = [
     <p>Tell us what you’re facing and we’ll come back with:</p>
     <ul class="tick">${DAY1_FORM_BULLETS.map((b) => `<li>${b}</li>`).join("")}</ul>
     <p style="margin-top:22px"><b style="color:#fff">Urgent line</b> · 1.800.554.4622</p>
-    <div style="margin-top:22px">${figure(D1R_FORM_ILLUSTRATION)}</div>
+    <div style="margin-top:22px">${shot(FORM_PHOTO)}</div>
    </div>
    <div>
     <div class="form">

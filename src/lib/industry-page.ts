@@ -7,6 +7,7 @@
  * rather than silently normalised, because it is a live sign-off question.
  */
 import { bars, photo, figure, artPair, stationFlow, shot } from "./wireframe";
+import { FORM_PHOTO } from "../data/form-photo";
 import { PHASE_TIMELINE } from "../data/graphics";
 import { LIVE_INDUSTRIES, LIVE_ROLE_GROUPS, LIVE_SITUATIONS } from "../data/live-industries";
 import { u } from "./base";
@@ -333,7 +334,8 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
   <div class="g2"><div><h2>${c ? c.formH2 : "Get the numbers"}</h2><p class="lead">${c ? c.formIntro : "Shared lead-form block, navy band."}</p>
   <ul class="tick">${(c ? c.formBullets : ["Available labor resources", "Rapid deployment timing", "Ballpark costs", "Estimated ROI impact"]).map((x) => `<li>${x}</li>`).join("")}</ul>
   <div class="btns"><a class="btn" href="${u("/get-in-touch")}">${c ? c.formButton : "Get the Numbers"}</a></div>
-  ${c ? `<p style="margin-top:16px"><b>Urgent line:</b> ${c.urgentLine}</p>` : ""}</div>
+  ${c ? `<p style="margin-top:16px"><b>Urgent line:</b> ${c.urgentLine}</p>` : ""}
+  <div style="margin-top:22px">${shot(FORM_PHOTO)}</div></div>
   <div class="form"><input placeholder="First name"><input placeholder="Last name"><input class="full" placeholder="Company"><input placeholder="Work email"><input placeholder="Phone">${
     c ? `<input class="full" placeholder="${c.formFields[3]}">` : ""
   }<textarea class="full" rows="3" placeholder="${c ? c.formFields[4] : "Tell us about your situation"}"></textarea></div></div>

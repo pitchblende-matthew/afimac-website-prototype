@@ -9,6 +9,7 @@
  * figures that disagree with the comparison page.
  */
 import Prototype from "../layouts/Prototype.astro";
+import { FORM_PHOTO } from "../data/form-photo";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { B } from "../data/nav";
@@ -130,7 +131,7 @@ const blocks: BlockType[] = [
     <p>Tell us what you’re facing and we’ll give you a straight read, including when we’d tell you to hire locally instead:</p>
     <ul class="tick"><li>The play we’d run for your gap</li><li>A realistic timeline if travel labor is the fit</li><li>A ballpark cost</li></ul>
     <p style="margin-top:22px"><b style="color:#fff">Urgent line</b> · 1.800.554.4622</p>
-    <div style="margin-top:22px">${photo("1200×1200 flat isometric vector beside the form · a forked-path motif resolving into a single route · greys with safety-orange and blue · echoes the decision tree without repeating it")}</div>
+    <div style="margin-top:22px">${shot(FORM_PHOTO)}</div>
    </div>
    <div>
     <div class="form">

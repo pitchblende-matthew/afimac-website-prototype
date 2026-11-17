@@ -7,10 +7,11 @@
  * word for word, and sharing the source is the only way to guarantee it.
  */
 import Prototype from "../layouts/Prototype.astro";
+import { FORM_PHOTO } from "../data/form-photo";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { B } from "../data/nav";
-import { photo, artPair, downloadCard } from "../lib/wireframe";
+import { photo, artPair, downloadCard, shot } from "../lib/wireframe";
 import { PDC_SWIMLANE } from "../data/graphics";
 import { CLIENT_CHECKLIST, READY_CHECKS, DAY1_FORM_BULLETS } from "../data/day1";
 import type { Block as BlockType } from "../lib/types";
@@ -153,7 +154,7 @@ const blocks: BlockType[] = [
     <p>Tell us what you’re facing and we’ll come back with:</p>
     <ul class="tick">${DAY1_FORM_BULLETS.map((b) => `<li>${b}</li>`).join("")}</ul>
     <p style="margin-top:22px"><b style="color:#fff">Urgent line</b> · 1.800.554.4622</p>
-    <div style="margin-top:22px">${photo("1200×1200 flat isometric vector beside the form · a checklist-on-clipboard motif with a facility behind it · greys with safety-orange and blue · distinct subject from every form illustration in the cluster")}</div>
+    <div style="margin-top:22px">${shot(FORM_PHOTO)}</div>
    </div>
    <div>
     <div class="form">

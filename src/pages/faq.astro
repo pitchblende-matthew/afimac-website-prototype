@@ -10,10 +10,11 @@
  * stay identical in both places.
  */
 import Prototype from "../layouts/Prototype.astro";
+import { FORM_PHOTO } from "../data/form-photo";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { B } from "../data/nav";
-import { photo } from "../lib/wireframe";
+import { photo, shot } from "../lib/wireframe";
 import type { Block as BlockType } from "../lib/types";
 
 type QA = [string, string];
@@ -183,7 +184,7 @@ const blocks: BlockType[] = [
     <h2>Didn’t find your answer? Ask us directly.</h2>
     <p class="lead">Tell us about your situation and a specialist will come back with answers, timing, and a ballpark cost.</p>
     <p style="margin-top:22px"><b style="color:#fff">Urgent line</b> · 1.800.554.4622</p>
-    <div style="margin-top:22px">${photo("1200×1200 flat isometric vector beside the form · a question-and-route motif in the cluster’s style · greys with safety-orange and blue · the page’s only illustration")}</div>
+    <div style="margin-top:22px">${shot(FORM_PHOTO)}</div>
    </div>
    <div>
     <div class="form">
