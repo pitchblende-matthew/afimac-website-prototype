@@ -99,6 +99,21 @@ export const EBOOK_ART: LiveMedia = {
 };
 
 /**
+ * The gated white paper's replacement art, served from this app rather than
+ * the live site: the updated paper (v4.3, Nov 2026) laid out the way the live
+ * EBOOK_ART is, cover tilted in front with page 2 behind it. EBOOK_ART stays
+ * above as the record of what is live today.
+ */
+export const EBOOK_MOCKUP = {
+  src: "/graphics/afimac-labor-gap-white-paper-mockup.webp",
+  alt: "The Labor Gap is an Operational Gap white paper, cover in front with the introduction page behind it",
+  width: 1148,
+  height: 1050,
+  cutout: true,
+  note: `<b>Updated art, 16 Nov 2026.</b> Built from v4.3 of the paper, pages 1 and 2, in the same layout as the live image. <b>The paper is now titled “The Labor Gap is an Operational Gap”</b>, so the heading and the line above still carry the old title and need updating to match.`,
+};
+
+/**
  * BLOCK 06 · the six client-success illustrations, in carousel order.
  *
  * `art` is the file the live page pairs with that case. Three of the six pair

@@ -8,8 +8,8 @@
 import Prototype from "../../layouts/Prototype.astro";
 import Block from "../../components/Block.astro";
 import { u } from "../../lib/base";
-import { liveImg } from "../../lib/wireframe";
-import { EBOOK_ART } from "../../data/live-media";
+import { shot } from "../../lib/wireframe";
+import { EBOOK_MOCKUP } from "../../data/live-media";
 import { LIVE_HUB, LIVE_CREDIBILITY_BODY, LIVE_COUNTERS } from "../../data/live-industries";
 import { B } from "../../data/nav";
 import { INDUSTRIES, EXISTING, INDUSTRY_ORDER, INDUSTRY_REDIRECTS } from "../../data/industries";
@@ -176,7 +176,7 @@ const blocks: BlockType[] = [
     <p class="lead">Uncover the strategies business leaders are leveraging to overcome workforce shortages and unlock growth potential.</p>
     <div class="btns"><a class="btn" href="${u("/resources")}">Get the eBook</a></div>
    </div>
-   ${liveImg(EBOOK_ART)}
+   ${shot(EBOOK_MOCKUP)}
   </div>`,
     spec: `<b>Elementor:</b> Container (2-col) · Heading · Text Editor · Image · Metform. Same block as the Overview and the Welders role page — one saved section, three placements.`,
   },

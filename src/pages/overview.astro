@@ -6,8 +6,8 @@
 import Prototype from "../layouts/Prototype.astro";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
-import { liveImg } from "../lib/wireframe";
-import { GAP_ART, PROCESS_ART, EBOOK_ART, CASE_ART, postArt } from "../data/live-media";
+import { liveImg, shot } from "../lib/wireframe";
+import { GAP_ART, PROCESS_ART, EBOOK_MOCKUP, CASE_ART, postArt } from "../data/live-media";
 import { B } from "../data/nav";
 import type { Block as BlockType } from "../lib/types";
 import { GENERAL_SITUATIONS, GENERAL_RISKS } from "../data/industry-copy";
@@ -150,7 +150,7 @@ const blocks: BlockType[] = [
    <div>
     <h2>Bridging the Manufacturing Labor Gap</h2>
     <p class="lead">Uncover the strategies business leaders are leveraging to overcome workforce shortages and unlock growth potential.</p>
-    <div style="margin-top:26px">${liveImg(EBOOK_ART)}</div>
+    <div style="margin-top:26px">${shot(EBOOK_MOCKUP)}</div>
    </div>
    <div class="formpanel"><div class="form">
     <div><label>First Name<i>*</i></label><input placeholder=""></div>
