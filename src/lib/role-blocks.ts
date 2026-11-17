@@ -8,6 +8,7 @@
  * template.
  */
 import { photo, liveImg, shot } from "./wireframe";
+import { FORM_PHOTO } from "../data/form-photo";
 import { postArt, postTitleDrift } from "../data/live-media";
 import { u } from "./base";
 import { FAMILY_INTRO, ROLE_FAMILIES, ROLE_NOTES } from "../data/nav-options";
@@ -193,7 +194,7 @@ export function leadFormBlock(o: {
     <p>Tell us what you’re facing and we’ll come back with:</p>
     <ul class="tick">${o.bullets.map((b) => `<li>${b}</li>`).join("")}</ul>
     <p style="margin-top:22px"><b style="color:#fff">Urgent line</b> · 1.800.554.4622</p>
-    <div style="margin-top:22px">${o.photo ? shot(o.photo) : photo(o.illo)}</div>
+    <div style="margin-top:22px">${shot(o.photo ?? FORM_PHOTO)}</div>
    </div>
    <div>
     <div class="form">

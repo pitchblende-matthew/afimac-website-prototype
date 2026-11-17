@@ -1,6 +1,7 @@
 ---
 /** HOW IT WORKS — full approved copy from the content package. */
 import Prototype from "../layouts/Prototype.astro";
+import { FORM_PHOTO } from "../data/form-photo";
 import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { liveImg, figure, artPair } from "../lib/wireframe";
@@ -198,7 +199,7 @@ const blocks: BlockType[] = [
     <p>Tell us what you’re facing and we’ll come back with:</p>
     <ul class="tick"><li>The roles and team size we’d deploy</li><li>A realistic timeline to a working team</li><li>A ballpark cost</li></ul>
     <p style="margin-top:22px"><b style="color:#fff">Urgent line</b> · 1.800.554.4622</p>
-    <div style="margin-top:22px">${figure(FORM_ILLUSTRATION)}</div>
+    <div style="margin-top:22px">${shot(FORM_PHOTO)}</div>
    </div>
    <div>
     <div class="form">

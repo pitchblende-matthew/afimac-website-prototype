@@ -1,10 +1,11 @@
 ---
 /** WHITE PAPERS LIBRARY — gated downloads. Full approved copy, v1. */
 import Prototype from "../../layouts/Prototype.astro";
+import { FORM_PHOTO } from "../../data/form-photo";
 import Block from "../../components/Block.astro";
 import { u } from "../../lib/base";
 import { B } from "../../data/nav";
-import { photo, liveImg } from "../../lib/wireframe";
+import { photo, liveImg, shot } from "../../lib/wireframe";
 import { PAPER_ART } from "../../data/live-media";
 import type { Block as BlockType } from "../../lib/types";
 
@@ -54,6 +55,7 @@ const blocks: BlockType[] = [
     <h2>Almost there</h2>
     <p>Tell us where to send it and the paper is on its way.</p>
     <p style="margin-top:20px"><b style="color:#fff">Thank-you state</b> — replaces the form on submit: “Done. The paper is headed to your inbox now.”</p>
+    <div style="margin-top:22px">${shot(FORM_PHOTO)}</div>
    </div>
    <div>
     <div class="form">

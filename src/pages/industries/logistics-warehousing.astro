@@ -11,6 +11,7 @@
  * for the hub tile and the nav.
  */
 import Prototype from "../../layouts/Prototype.astro";
+import { FORM_PHOTO } from "../../data/form-photo";
 import Block from "../../components/Block.astro";
 import { u } from "../../lib/base";
 import { B } from "../../data/nav";
@@ -161,6 +162,7 @@ const blocks: BlockType[] = [
     <p>Tell us what you’re facing and we’ll come back with:</p>
     <ul class="tick"><li>Available labor resources for your roles</li><li>Rapid deployment timing to your facility</li><li>Ballpark costs</li><li>Estimated ROI &amp; risk-avoided impact</li></ul>
     <p style="margin-top:22px"><b style="color:#fff">Urgent line</b> · 1.844.99.AFIMAC</p>
+    <div style="margin-top:22px">${shot(FORM_PHOTO)}</div>
    </div>
    <div>
     <div class="form">

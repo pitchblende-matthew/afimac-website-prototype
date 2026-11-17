@@ -6,6 +6,7 @@
  * Source: /solutions/critical-situation-travel-labor/industries/
  */
 import Prototype from "../../layouts/Prototype.astro";
+import { FORM_PHOTO } from "../../data/form-photo";
 import Block from "../../components/Block.astro";
 import { u } from "../../lib/base";
 import { shot, photo } from "../../lib/wireframe";
@@ -197,6 +198,7 @@ const blocks: BlockType[] = [
     <h2>Get the Numbers</h2>
     <p>Let’s talk today and we’ll provide solutions matched to your needs:</p>
     <ul class="check" style="display:inline-block;text-align:left"><li>Available labor resources</li><li>Rapid deployment timing</li><li>Ballpark costs</li><li>Estimated ROI impact</li></ul>
+    <div style="margin-top:24px;text-align:left">${shot(FORM_PHOTO)}</div>
    </div>
    <div class="formpanel"><div class="form">
     <div><label>First Name<i>*</i></label><input></div>
