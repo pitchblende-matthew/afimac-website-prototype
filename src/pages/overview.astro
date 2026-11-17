@@ -8,7 +8,7 @@ import Block from "../components/Block.astro";
 import { u } from "../lib/base";
 import { liveImg, shot } from "../lib/wireframe";
 import { GAP_ART, PROCESS_ART, EBOOK_MOCKUP, CASE_ART, postArt } from "../data/live-media";
-import { CASE_STUDIES, caseCard } from "../data/case-studies";
+import { CASE_STUDIES, caseCarousel } from "../data/case-studies";
 import { B } from "../data/nav";
 import type { Block as BlockType } from "../lib/types";
 import { GENERAL_SITUATIONS, GENERAL_RISKS } from "../data/industry-copy";
@@ -132,21 +132,20 @@ const blocks: BlockType[] = [
   },
 
   {
-    cls: "center",
     n: "BLOCK 06 · CLIENT SUCCESS STORIES",
     h: `
   <h2>Client Success Stories</h2>
-  <div style="margin-top:34px">
-   ${[0, 1].map((i) => caseCard(CASE_STUDIES[i])).join("")}
+  <p class="lead">Six engagements, in the client’s own order of magnitude — a 73.4% cut in past-due orders, ninety-nine people on site through a labor disruption, twelve wiring technicians against a backlog.</p>
+  <div style="margin-top:30px">
+   ${caseCarousel(CASE_STUDIES, { label: "Client success stories", perView: 2 })}
   </div>
-  <p style="margin-top:26px;color:var(--spec);font-size:14px">‹ &nbsp; • • • • • • &nbsp; › &nbsp; — six cases, two at a time</p>
-  <div class="blocklabel" style="margin-top:34px">THE LIVE PAGE\u2019S OWN ART, AND HOW IT PAIRS IT</div>
+  <div class="blocklabel" style="margin-top:44px">THE LIVE PAGE\u2019S OWN ART, AND HOW IT PAIRS IT</div>
   <div class="caseart">${CASE_ART.map((c) => `<div>${liveImg(c.art)}<div class="cap"><b>${c.label}</b>${c.gist}</div></div>`).join("")}</div>
   <div class="note"><b>The v1 sheet drops the illustrations entirely</b> and runs photography instead, which retires the pairing problem below rather than solving it. The strip stays as the record of what the live carousel does today.</div>
   <div class="note stop"><b>Three of the six illustrations are on the wrong case.</b> The switchgear manufacturer — twelve wiring technicians — is illustrated with a <b>forklift</b>, while the case that actually asked for twenty forklift operators gets a <b>chef at a meat counter</b>. And the agricultural equipment manufacturer gets an <b>earthmover</b> while the generic “Fortune 500 Manufacturer” gets the <b>tractor</b>. Swapping four files fixes all three.</div>
   <div class="note"><b>Alt text on this carousel is the client label, which is not a description of the image, and one of them is simply wrong</b> — <code>forklift.webp</code> is tagged “Fortune 500 Agricultural Equipment Manufacturer” on a switchgear case. Two more pairs are duplicates. The prototype ships descriptive alt instead; compare with the live values in <code>src/data/live-media.ts</code>.</div>
-  <div class="note"><b>The six now run from one place, in the v1 sheet\u2019s own design.</b> <code>src/data/case-studies.ts</code> holds that sheet\u2019s wording verbatim and renders the card, so this carousel, the <a href="${u("/resources/case-studies")}">Case Studies</a> page and the industry pages cannot drift on the words or the layout. They used to carry three different versions of the same cases. <b>Only three industries have a case behind them</b>: Food &amp; Beverage has two, Industrial Equipment and Power &amp; Energy one each. The other seven stay blocked, and nothing in the set fits Logistics or names a sector for the Fortune 500 manufacturer case.</div>`,
-    spec: `<b>Elementor:</b> carousel, two slides visible, arrows plus dots. Note this is the Swiper instance that broke on the Elementor 4.x asset-loading change — worth regression-testing after any header template edit.`,
+  <div class="note"><b>All six run here now, and from one place, in the v1 sheet\u2019s own design.</b> The block used to print two of the six with a drawing of a carousel under them. <code>src/data/case-studies.ts</code> holds that sheet\u2019s wording verbatim and renders the card, so this carousel, the <a href="${u("/resources/case-studies")}">Case Studies</a> page and the industry pages cannot drift on the words or the layout. They used to carry three different versions of the same cases. <b>Only three industries have a case behind them</b>: Food &amp; Beverage has two, Industrial Equipment and Power &amp; Energy one each. The other seven stay blocked, and nothing in the set fits Logistics or names a sector for the Fortune 500 manufacturer case.</div>`,
+    spec: `<b>Elementor:</b> carousel, two slides visible, arrows plus dots — which is what this block now does. Note this is the Swiper instance that broke on the Elementor 4.x asset-loading change — worth regression-testing after any header template edit.`,
   },
 
   {

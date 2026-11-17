@@ -391,7 +391,7 @@ ul.tick li::before{content:"\2714";position:absolute;left:2px;top:7px;color:var(
    category tags, the client and the story. The sheet drops the isometric
    illustrations the live carousel runs, so there is no art slot here. */
 .casestudy{display:grid;grid-template-columns:170px 1px 1fr;gap:0 28px;
-  background:var(--white-glove);padding:26px 30px;align-items:start}
+  background:var(--white-glove);padding:26px 30px;align-items:start;text-align:left}
 .casestudy + .casestudy{margin-top:18px}
 .cs-fig{text-align:center}
 .cs-kicker{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
@@ -412,6 +412,40 @@ ul.tick li::before{content:"\2714";position:absolute;left:2px;top:7px;color:var(
   .casestudy{grid-template-columns:1fr;gap:16px;padding:22px}
   .cs-rule{display:none}
   .cs-fig{text-align:left}
+}
+
+/* case carousel ------------------------------------------------------
+   One card per slide, scroll-snapped. The track is a real scroller, so
+   a trackpad swipe, a shift-wheel and the arrows all move the same thing
+   and the thing still works with the JS off — which is why the arrows and
+   dots are built by script rather than shipped in the markup: without it
+   they would be buttons that do nothing. */
+.cscar{position:relative}
+.cscar-track{display:flex;gap:18px;overflow-x:auto;overscroll-behavior-x:contain;
+  scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;padding-bottom:2px}
+.cscar-track::-webkit-scrollbar{display:none}
+.cscar-slide{flex:0 0 100%;min-width:0;scroll-snap-align:start}
+.cscar-slide .casestudy{height:100%}
+.cscar-ui{display:flex;align-items:center;gap:14px;margin-top:18px}
+.cscar-btn{width:36px;height:36px;flex:0 0 auto;border:1px solid var(--line);background:#fff;
+  color:var(--cstl-blue);font-size:19px;line-height:1;cursor:pointer;border-radius:50%;
+  font-family:var(--sans);display:grid;place-items:center;padding:0}
+.cscar-btn:hover:not(:disabled){border-color:var(--cta);color:var(--cta)}
+.cscar-btn:disabled{opacity:.3;cursor:default}
+.cscar-dots{display:flex;gap:8px;flex:1 1 auto}
+.cscar-dot{width:9px;height:9px;padding:0;border:0;border-radius:50%;
+  background:var(--line);cursor:pointer}
+.cscar-dot[aria-current="true"]{background:var(--cta)}
+.cscar-count{font-size:13px;color:var(--spec);font-family:var(--sans);white-space:nowrap}
+.blue .cscar-btn,.dark .cscar-btn,.readiness .cscar-btn,.sky .cscar-btn{
+  background:transparent;color:#fff;border-color:rgba(255,255,255,.45)}
+.blue .cscar-dot,.dark .cscar-dot,.readiness .cscar-dot,.sky .cscar-dot{background:rgba(255,255,255,.35)}
+.blue .cscar-count,.dark .cscar-count,.readiness .cscar-count,.sky .cscar-count{color:var(--white-glove)}
+/* Two at a time once there is room for two, which is what the live
+   overview carousel shows. */
+@media(min-width:1100px){
+  .cscar[data-per="2"] .cscar-slide{flex-basis:calc((100% - 18px) / 2)}
 }
 
 /* post cards, as live */

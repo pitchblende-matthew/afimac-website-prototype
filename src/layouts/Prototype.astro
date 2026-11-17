@@ -446,6 +446,110 @@ const TOGGLES = [
         );
         io.observe(el);
       });
+
+      /* ---- case carousels -------------------------------------------
+         The track is a real horizontal scroller with scroll snapping, so
+         swiping and shift-wheel already work with no script at all. This
+         only adds the arrows, the dots and the counter — which is why they
+         are built here rather than shipped in the markup: without the
+         script they would be controls that do nothing. Position is read
+         back off scrollLeft rather than tracked in a variable, so a manual
+         swipe and an arrow click can never disagree. */
+      document.querySelectorAll<HTMLElement>("[data-cscar]").forEach((car) => {
+        const track = car.querySelector<HTMLElement>("[data-cscar-track]");
+        if (!track) return;
+        const slides = Array.from(track.children) as HTMLElement[];
+        if (slides.length < 2) return;
+
+        const ui = document.createElement("div");
+        ui.className = "cscar-ui";
+        ui.innerHTML =
+          '<button type="button" class="cscar-btn" data-prev aria-label="Previous case">‹</button>' +
+          '<button type="button" class="cscar-btn" data-next aria-label="Next case">›</button>' +
+          '<div class="cscar-dots" role="tablist" aria-label="Choose a case"></div>' +
+          '<div class="cscar-count" aria-live="polite"></div>';
+        car.appendChild(ui);
+
+        const prev = ui.querySelector<HTMLButtonElement>("[data-prev]")!;
+        const next = ui.querySelector<HTMLButtonElement>("[data-next]")!;
+        const dots = ui.querySelector<HTMLElement>(".cscar-dots")!;
+        const count = ui.querySelector<HTMLElement>(".cscar-count")!;
+
+        /* How many slides fit at the current width — the overview shows two
+           side by side on a wide screen, so the last reachable position is
+           not the last slide. */
+        const perView = () =>
+          Math.max(1, Math.round(track.clientWidth / (slides[0].offsetWidth || 1)));
+        const lastPos = () => Math.max(0, slides.length - perView());
+
+        const left = (i: number) => slides[i].offsetLeft - slides[0].offsetLeft;
+        const pos = () => {
+          const x = track.scrollLeft;
+          let best = 0;
+          slides.forEach((_, i) => {
+            if (Math.abs(left(i) - x) < Math.abs(left(best) - x)) best = i;
+          });
+          return Math.min(best, lastPos());
+        };
+        const go = (i: number) =>
+          track.scrollTo({ left: left(Math.max(0, Math.min(i, lastPos()))), behavior: "smooth" });
+
+        slides.forEach((_, i) => {
+          const d = document.createElement("button");
+          d.type = "button";
+          d.className = "cscar-dot";
+          d.setAttribute("role", "tab");
+          d.setAttribute("aria-label", `Case ${i + 1}`);
+          d.addEventListener("click", () => go(i));
+          dots.appendChild(d);
+        });
+
+        const sync = () => {
+          const i = pos();
+          const last = lastPos();
+          Array.from(dots.children).forEach((d, n) => {
+            const on = n >= i && n < i + perView();
+            d.setAttribute("aria-current", String(on));
+            d.setAttribute("aria-selected", String(on));
+            (d as HTMLElement).hidden = n > last;
+          });
+          prev.disabled = i <= 0;
+          next.disabled = i >= last;
+          const shown = Math.min(perView(), slides.length);
+          count.textContent =
+            shown > 1
+              ? `${i + 1}–${i + shown} of ${slides.length}`
+              : `${i + 1} of ${slides.length}`;
+        };
+
+        prev.addEventListener("click", () => go(pos() - perView()));
+        next.addEventListener("click", () => go(pos() + perView()));
+
+        let t: number | undefined;
+        track.addEventListener("scroll", () => {
+          window.clearTimeout(t);
+          t = window.setTimeout(sync, 90);
+        });
+        window.addEventListener("resize", () => {
+          window.clearTimeout(t);
+          t = window.setTimeout(sync, 150);
+        });
+
+        /* Left/right keys once the track itself has focus, which it can take
+           because it scrolls. */
+        track.tabIndex = 0;
+        track.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowRight") {
+            e.preventDefault();
+            go(pos() + perView());
+          } else if (e.key === "ArrowLeft") {
+            e.preventDefault();
+            go(pos() - perView());
+          }
+        });
+
+        sync();
+      });
     </script>
   </body>
 </html>

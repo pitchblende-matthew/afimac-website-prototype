@@ -13,7 +13,7 @@ import { u } from "./base";
 import { B } from "../data/nav";
 import { INDUSTRY_REDIRECTS, type Industry } from "../data/industries";
 import { INDUSTRY_COPY } from "../data/industry-copy";
-import { casesFor, caseCard } from "../data/case-studies";
+import { casesFor, caseCarousel } from "../data/case-studies";
 import type { Block, PageProps } from "./types";
 
 /**
@@ -290,19 +290,30 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
   <div class="g3" style="margin-top:26px">${[1, 2, 3].map(() => `<div class="card"><div class="ph t"></div>${bars(3)}</div>`).join("")}</div>
   <div class="note"><b>Still blocked, and the deck says so too.</b> ${c ? c.successNote : "This section stays empty until real AFIMAC cases are confirmed — one featured plus two or three supporting per industry."} <b>The approved case sheet does not cover this industry</b> — it carries six cases, and only Food &amp; Beverage, Industrial Equipment and Power &amp; Energy have one behind them. <b>The deck's instruction stands: “Use approved AFIMAC figures only. Leave this section out until those cases are confirmed rather than running placeholder numbers.”</b></div>`;
         }
-        const [featured, ...rest] = cases;
+        // Roles across every case on the page, in first-mention order, with
+        // exact repeats collapsed. It does not reconcile wordings: Food &
+        // Beverage ends up with both "Forklift drivers" and "Forklift
+        // operators" because its two cases say it two ways, and that is a
+        // copy decision, flagged in the note below rather than made here.
+        const roles = [...new Set(cases.flatMap((x) => x.roles))];
         return `
   <h2>${c ? c.successTitle : "Client success"}</h2>
-  <div style="margin-top:22px">${o.casePhoto ? shot({ ...o.casePhoto, note: o.casePhoto.caption }) : photo("Featured case image · 1200×800")}</div>
-  <div style="margin-top:24px">${caseCard(featured)}</div>
-  <p style="margin-top:22px"><b>Who AFIMAC sent:</b> ${featured.roles.join(" &middot; ")}</p>
-  ${
-    rest.length
-      ? `<div style="margin-top:30px"><div class="blocknum">ALSO ON THIS KIND OF FLOOR</div>${rest.map(caseCard).join("")}</div>`
-      : ""
-  }
-  <div class="note"><b>Real cases, from the approved v1 sheet.</b> The wording and the card design are both that sheet's — <code>src/data/case-studies.ts</code> — so this block, the <a href="${u("/resources/case-studies")}">Case Studies</a> page and the overview carousel cannot drift on either. <b>The client is not named</b>, here or anywhere: every case in the set is anonymised, and naming one needs written permission on file. <b>The roles line is read from the case\u2019s own sentence</b> rather than written, so it cannot claim a role the case does not. The deck asks for three supporting cards under the featured case; <b>the sheet has no second and third figure to fill them with</b>, so that row is a decision for the build rather than something to invent here.</div>
-  <div class="note"><b>A featured case plus a photograph is the shape the deck asks for.</b> ${o.casePhoto ? "The photograph is placed." : "<b>The featured image is still outstanding</b> for this industry."}</div>`;
+  <div class="g2" style="margin-top:22px;align-items:start">
+   <div>${o.casePhoto ? shot({ ...o.casePhoto, note: o.casePhoto.caption }) : photo("Featured case image · 1200×800")}</div>
+   <div>
+    <div class="blocknum">WHO AFIMAC SENT</div>
+    <ul class="tick">${roles.map((r) => `<li>${r}</li>`).join("")}</ul>
+    <p style="margin-top:18px;color:var(--spec);font-size:14px">${
+      cases.length === 1
+        ? "One confirmed case on this floor."
+        : `${cases.length} confirmed cases on this floor — scroll the cards below.`
+    }</p>
+   </div>
+  </div>
+  <div style="margin-top:30px">${caseCarousel(cases, { label: (c ? c.successTitle : "Client success") + " cases" })}</div>
+  ${roles.some((r) => /^Forklift /.test(r)) && roles.filter((r) => /^Forklift /.test(r)).length > 1 ? `<div class="note stop"><b>The roles list reads \u201cForklift drivers\u201d and \u201cForklift operators\u201d \u2014 one role, two wordings.</b> Both come straight from the approved sheet: the ninety-nine-person case says drivers, the twenty-operator case says operators. Pick one for the build and change it in the sheet, not on the page.</div>` : ""}
+  <div class="note"><b>Real cases, from the approved v1 sheet.</b> The wording and the card design are both that sheet's — <code>src/data/case-studies.ts</code> — so this block, the <a href="${u("/resources/case-studies")}">Case Studies</a> page and the overview carousel cannot drift on either. <b>The client is not named</b>, here or anywhere: every case in the set is anonymised, and naming one needs written permission on file. <b>The roles list is read from the cases\u2019 own sentences</b> rather than written, so it cannot claim a role they do not. The deck asks for three supporting cards under the featured case; <b>the sheet has no second and third figure to fill them with</b>, so that row is a decision for the build rather than something to invent here.</div>
+  <div class="note"><b>A featured case plus a photograph is the shape the deck asks for</b>, and the photograph now sits beside the roles rather than above an empty half-page. ${o.casePhoto ? "The photograph is placed." : "<b>The featured image is still outstanding</b> for this industry."}</div>`;
       })(),
       spec: `<b>Elementor:</b> Heading · Text Editor · EK Funfact ×3 · Image · EK Icon Box ×3.`,
     },
