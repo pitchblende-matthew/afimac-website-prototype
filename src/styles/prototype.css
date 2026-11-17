@@ -394,6 +394,16 @@ ul.tick li::before{content:"\2714";position:absolute;left:2px;top:7px;color:var(
   background:var(--white-glove);padding:26px 30px;align-items:start;text-align:left}
 .casestudy + .casestudy{margin-top:18px}
 .cs-fig{text-align:center}
+/* The spot illustration above the number. The column is 170px, so the art is
+   capped there rather than at the column width — a wider card must not grow
+   the picture. The dashed panel is the brief for the one case the six drawn
+   illustrations do not cover; `.photo` is 210px tall by default, which would
+   dwarf the figure beside it. */
+.cs-art{margin:0 auto 14px;max-width:170px}
+.cs-art .photo{min-height:112px;padding:14px;font-size:11.5px}
+.cs-art .liveimg img{mix-blend-mode:multiply}
+.blue .cs-art .liveimg img,.dark .cs-art .liveimg img,
+.readiness .cs-art .liveimg img,.sky .cs-art .liveimg img{mix-blend-mode:normal}
 .cs-kicker{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
   font-weight:700;color:var(--cta);margin-bottom:2px;font-family:var(--sans)}
 .cs-num{font-family:var(--museo);font-size:40px;font-weight:700;color:var(--cta);line-height:1}
@@ -412,6 +422,7 @@ ul.tick li::before{content:"\2714";position:absolute;left:2px;top:7px;color:var(
   .casestudy{grid-template-columns:1fr;gap:16px;padding:22px}
   .cs-rule{display:none}
   .cs-fig{text-align:left}
+  .cs-art{margin-left:0}
 }
 
 /* case carousel ------------------------------------------------------
