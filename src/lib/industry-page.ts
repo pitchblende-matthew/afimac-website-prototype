@@ -6,7 +6,7 @@
  * mockup — the discrepancy is surfaced as an OPEN ITEM block on that page
  * rather than silently normalised, because it is a live sign-off question.
  */
-import { bars, photo, figure, artPair, stationFlow } from "./wireframe";
+import { bars, photo, figure, artPair, stationFlow, shot } from "./wireframe";
 import { PHASE_TIMELINE } from "../data/graphics";
 import { LIVE_INDUSTRIES, LIVE_ROLE_GROUPS, LIVE_SITUATIONS } from "../data/live-industries";
 import { u } from "./base";
@@ -196,8 +196,8 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
   const insightCards = c
     ? c.insights
         .map(
-          ([t, cat]) =>
-            `<div class="card">${photo("1280×720")}<h3 style="margin-top:16px;font-size:17px">${t}</h3><p style="font-size:12.5px;color:var(--spec)">${cat}</p></div>`,
+          ([t, cat], i) =>
+            `<div class="card">${o.insightPhotos?.[i] ? shot({ ...o.insightPhotos[i], note: o.insightPhotos[i].caption }) : photo("1280×720")}<h3 style="margin-top:16px;font-size:17px">${t}</h3><p style="font-size:12.5px;color:var(--spec)">${cat}</p></div>`,
         )
         .join("")
     : "";
@@ -275,7 +275,7 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
       h: `
   <h2>${c ? c.successTitle : "Client success"}</h2>
   <div class="g2" style="margin-top:22px">
-   <div>${photo("Featured case image · 1200×800")}</div>
+   <div>${o.casePhoto ? shot({ ...o.casePhoto, note: o.casePhoto.caption }) : photo("Featured case image · 1200×800")}</div>
    <div><div class="ph t"></div>${bars(4)}<div class="g3" style="margin-top:24px">${[1, 2, 3].map(() => `<div><div class="stat" style="color:var(--ph)">—</div><div class="ph xs"></div></div>`).join("")}</div></div>
   </div>
   <div class="g3" style="margin-top:26px">${[1, 2, 3].map(() => `<div class="card"><div class="ph t"></div>${bars(3)}</div>`).join("")}</div>
@@ -375,7 +375,7 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
       <div class="btns"><a class="btn" href="${u("/get-in-touch")}">${c ? c.ctas[0] : "Get the Numbers"}</a><a class="btn ghost" href="${c ? "#deploy" : u("/how-it-works")}">${c ? c.ctas[1] : "See how it works"}</a></div></div>
      <div>${
        o.heroPhoto
-         ? `<div class="note"><b>The hero photograph is the band’s background</b>, under the navy scrim, which is how the Elementor build layers it. <code>${o.heroPhoto.src.split("/").pop()}</code>, placed 19 Oct 2026. The copy holds the left column; the right is left to the photograph.</div>`
+         ? `<div class="note"><b>The hero photograph is the band’s background</b>, under the navy scrim, which is how the Elementor build layers it. <code>${o.heroPhoto.src.split("/").pop()}</code>, placed ${o.heroPhoto.placed ?? "19 Oct 2026"}. The copy holds the left column; the right is left to the photograph.</div>${o.heroPhoto.flag ? `<div class="note stop">${o.heroPhoto.flag}</div>` : ""}`
          : photo(o.heroImg)
      }${
        o.heroChip

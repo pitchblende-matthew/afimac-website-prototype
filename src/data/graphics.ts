@@ -30,6 +30,10 @@ export interface Art {
   maxWidth?: number;
   /** Rebuilt in this repo rather than delivered. */
   standIn?: boolean;
+  /** When a photograph was placed, for the note beside it. */
+  placed?: string;
+  /** A mismatch against the brief, shown as a coral note beside the photograph. */
+  flag?: string;
 }
 
 /** A graphic with a separately laid-out narrow version. */
