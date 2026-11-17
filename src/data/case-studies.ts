@@ -185,6 +185,34 @@ export const caseCard = (c: CaseStudy): string =>
     "</div>",
   ].join("");
 
+/**
+ * The cases as a scrolling carousel: one card per slide, snapped, with the
+ * arrows and dots added by the layout's script once it sees `data-cscar`.
+ *
+ * A single case is returned as a bare card. A carousel of one is a control
+ * strip over nothing, and two of the three industry pages that have a case
+ * have exactly one.
+ */
+export const caseCarousel = (
+  cases: CaseStudy[],
+  opts: { label?: string } = {},
+): string => {
+  if (cases.length < 2) return cases.map(caseCard).join("");
+  const label = opts.label ?? "Client cases";
+  return [
+    `<div class="cscar" data-cscar`,
+    ` role="group" aria-roledescription="carousel" aria-label="${label}">`,
+    '<div class="cscar-track" data-cscar-track>',
+    ...cases.map(
+      (c, i) =>
+        `<div class="cscar-slide" role="group" aria-roledescription="slide"` +
+        ` aria-label="${i + 1} of ${cases.length}">${caseCard(c)}</div>`,
+    ),
+    "</div>",
+    "</div>",
+  ].join("");
+};
+
 /** The cases placed on a given industry page, featured first. */
 export const casesFor = (slug: string): CaseStudy[] =>
   CASE_STUDIES.filter((c) => (c.industries as string[]).includes(slug));
