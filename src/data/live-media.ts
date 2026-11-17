@@ -119,6 +119,53 @@ export const EBOOK_MOCKUP = {
  * `art` is the file the live page pairs with that case. Three of the six pair
  * badly and two carry the wrong alt text — see `ART_MISMATCH` below.
  */
+/**
+ * The six isometric spot illustrations the live overview carousel runs.
+ *
+ * Named by what each one DEPICTS, not by which case it sits on today, because
+ * three of the six sit on the wrong case live. `CASE_ART` below records the
+ * published pairing; `CASE_STUDIES` carries the corrected one. Keying on the
+ * subject is what lets those two lists disagree in the open.
+ */
+export const CASE_SPOT: Record<
+  "tractor" | "combine" | "foodline" | "forklift" | "builder" | "chef",
+  LiveMedia
+> = {
+  tractor: {
+    src: `${UP}/2025/06/tractor.webp`,
+    alt: "Isometric green tractor with a trailer",
+    fallback: "Isometric spot illustration \u00b7 tractor",
+  },
+  combine: {
+    // Filed as earthmover.webp, but the illustration is a combine harvester:
+    // cab, grain tank and a header on the front. The live alt text inherits
+    // the filename's mistake; the alt below describes the actual image.
+    src: `${UP}/2025/06/earthmover.webp`,
+    alt: "Isometric yellow combine harvester",
+    fallback: "Isometric spot illustration \u00b7 combine harvester",
+  },
+  foodline: {
+    src: `${UP}/2025/06/food-manufacturing.webp`,
+    alt: "Isometric worker at a mill hopper beside a filled sack",
+    fallback: "Isometric spot illustration \u00b7 food production line",
+  },
+  forklift: {
+    src: `${UP}/2025/06/forklift.webp`,
+    alt: "Isometric forklift lifting a pallet",
+    fallback: "Isometric spot illustration \u00b7 forklift",
+  },
+  builder: {
+    src: `${UP}/2025/06/builder.webp`,
+    alt: "Isometric roof frame going up over a house on scaffolding",
+    fallback: "Isometric spot illustration \u00b7 builder",
+  },
+  chef: {
+    src: `${UP}/2025/06/baker.webp`,
+    alt: "Isometric worker loading trays onto a rack",
+    fallback: "Isometric spot illustration \u00b7 worker at a tray rack",
+  },
+};
+
 export interface CaseArt {
   /** The client label the case runs under. */
   label: string;
@@ -131,62 +178,32 @@ export const CASE_ART: CaseArt[] = [
   {
     label: "Fortune 500 Manufacturer",
     gist: "Assemblers, CNC machinists and welders · 73.4% cut in past-due sales",
-    art: {
-      src: `${UP}/2025/06/tractor.webp`,
-      alt: "Isometric green tractor with a trailer",
-      liveAlt: "Fortune 500 Manufacturer",
-      fallback: "Isometric spot illustration · tractor",
-    },
+    art: { ...CASE_SPOT.tractor, liveAlt: "Fortune 500 Manufacturer" },
   },
   {
     label: "Fortune 500 Agricultural Equipment Manufacturer",
     gist: "Sole non-local partner retained · two-year engagement",
-    art: {
-      src: `${UP}/2025/06/earthmover.webp`,
-      alt: "Isometric earthmover",
-      liveAlt: "Fortune 500 Agricultural Equipment Manufacturer",
-      fallback: "Isometric spot illustration · earthmover",
-    },
+    art: { ...CASE_SPOT.combine, liveAlt: "Fortune 500 Agricultural Equipment Manufacturer" },
   },
   {
     label: "Global Food Manufacturer",
     gist: "99 personnel through a labor disruption · full production maintained",
-    art: {
-      src: `${UP}/2025/06/food-manufacturing.webp`,
-      alt: "Isometric food production line",
-      liveAlt: "Global Food Manufacturer",
-      fallback: "Isometric spot illustration · food production line",
-    },
+    art: { ...CASE_SPOT.foodline, liveAlt: "Global Food Manufacturer" },
   },
   {
     label: "Fortune 500 Switchgear Manufacturer",
     gist: "12 wiring technicians · backlog cleared, surplus built",
-    art: {
-      src: `${UP}/2025/06/forklift.webp`,
-      alt: "Isometric forklift",
-      liveAlt: "Fortune 500 Agricultural Equipment Manufacturer",
-      fallback: "Isometric spot illustration · forklift",
-    },
+    art: { ...CASE_SPOT.forklift, liveAlt: "Fortune 500 Agricultural Equipment Manufacturer" },
   },
   {
     label: "Large Building Materials Manufacturer",
     gist: "24 material handlers, fiber formers and wastewater operators",
-    art: {
-      src: `${UP}/2025/06/builder.webp`,
-      alt: "Isometric builder on a construction lift",
-      liveAlt: "Large Building Materials Manufacturer",
-      fallback: "Isometric spot illustration · builder",
-    },
+    art: { ...CASE_SPOT.builder, liveAlt: "Large Building Materials Manufacturer" },
   },
   {
     label: "Global Food Manufacturer",
     gist: "Up to 20 forklift operators over two years · stable output",
-    art: {
-      src: `${UP}/2025/06/baker.webp`,
-      alt: "Isometric chef at a refrigerated meat display",
-      liveAlt: "Global Food Manufacturer",
-      fallback: "Isometric spot illustration · chef and display case",
-    },
+    art: { ...CASE_SPOT.chef, liveAlt: "Global Food Manufacturer" },
   },
 ];
 

@@ -42,6 +42,9 @@
  * written permission; nothing in this sheet unblocks that.
  */
 
+import { CASE_SPOT } from "./live-media";
+import { liveImg } from "../lib/wireframe";
+
 /** Industry page slugs a case can be placed on. */
 export type IndustrySlug =
   | "automotive"
@@ -80,6 +83,19 @@ export interface CaseStudy {
   industries: IndustrySlug[];
   /** Why it sits where it sits, where that is a judgement rather than obvious. */
   placement?: string;
+  /**
+   * The isometric spot illustration that runs above the figure on the card.
+   *
+   * This is the CORRECTED pairing, not the published one. `CASE_ART` in
+   * `live-media.ts` records what the live carousel shows today, and the two
+   * disagree on three of the six — which is the finding, kept visible by
+   * letting the two lists differ rather than by a note alone.
+   */
+  art?: (typeof CASE_SPOT)[keyof typeof CASE_SPOT];
+  /** The brief for a case the six drawn illustrations do not cover. */
+  artBrief?: string;
+  /** Said on the page where the pairing is a compromise rather than a fit. */
+  artNote?: string;
 }
 
 export const CASE_STUDIES: CaseStudy[] = [
@@ -91,6 +107,9 @@ export const CASE_STUDIES: CaseStudy[] = [
     figure: "73.4%",
     figureLabel: "reduction in past-due orders",
     roles: ["Assemblers", "CNC machinists", "Welders", "On-site security"],
+    art: CASE_SPOT.combine,
+    artNote:
+      "Weakest of the six pairings. The case names no sector \u2014 it is assemblers, CNC machinists and welders \u2014 so nothing in the drawn set fits it properly, and a manufactured machine is the nearest thing. Live, this case runs the tractor.",
     industries: [],
     placement:
       "Names no sector, so it is not placed on an industry page. It is the section-level case and already runs on Who We Deploy and the role pages.",
@@ -103,6 +122,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     figure: "2-year",
     figureLabel: "engagement as the sole non-local partner retained",
     roles: ["Assemblers", "Machinists"],
+    art: CASE_SPOT.tractor,
     industries: ["industrial-equipment"],
     placement: "Agricultural equipment is built on an industrial equipment floor; the roles match that page's own.",
   },
@@ -114,6 +134,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     figure: "12",
     figureLabel: "experienced wiring technicians deployed",
     roles: ["Wiring technicians"],
+    artBrief: "Wiring technician at a switchgear panel",
     industries: ["power-energy"],
     placement: "Switchgear assemblers are on the Power & Energy page's own role list.",
   },
@@ -131,6 +152,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       "Wastewater treatment technicians",
       "Security",
     ],
+    art: CASE_SPOT.foodline,
     industries: ["food-beverage"],
   },
   {
@@ -141,6 +163,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     figure: "24",
     figureLabel: "personnel deployed to critical production lines",
     roles: ["Material handlers", "Fiber formers", "Wastewater treatment operators"],
+    art: CASE_SPOT.builder,
     industries: [],
     placement:
       "Building materials is not one of the ten published industries and is not close enough to any of them to borrow. It runs on the overview and the Case Studies page only.",
@@ -154,6 +177,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     figure: "20",
     figureLabel: "experienced forklift operators over two years",
     roles: ["Forklift operators"],
+    art: CASE_SPOT.forklift,
     industries: ["food-beverage"],
     placement:
       "Set in a food plant, so it goes to Food & Beverage rather than Logistics & Warehousing — but it is the only case in the set that is purely material handling, and the closest the sheet comes to a logistics story.",
@@ -172,6 +196,11 @@ export const caseCard = (c: CaseStudy): string =>
   [
     '<div class="casestudy">',
     '<div class="cs-fig">',
+    c.art
+      ? `<div class="cs-art">${liveImg({ ...c.art, width: 300, height: 220 })}</div>`
+      : c.artBrief
+        ? `<div class="cs-art"><div class="photo"><span class="art">${c.artBrief}</span></div></div>`
+        : "",
     c.kicker ? `<span class="cs-kicker">${c.kicker}</span>` : "",
     `<div class="cs-num">${c.figure}</div>`,
     `<div class="cs-numlabel">${c.figureLabel}</div>`,
