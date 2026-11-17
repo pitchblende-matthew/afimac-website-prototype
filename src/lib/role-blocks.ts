@@ -7,7 +7,7 @@
  * differences stay visible rather than being flattened into options on a
  * template.
  */
-import { photo, liveImg } from "./wireframe";
+import { photo, liveImg, shot } from "./wireframe";
 import { postArt, postTitleDrift } from "../data/live-media";
 import { u } from "./base";
 import { FAMILY_INTRO, ROLE_FAMILIES, ROLE_NOTES } from "../data/nav-options";
@@ -179,6 +179,8 @@ export function leadFormBlock(o: {
   h2: string;
   bullets: string[];
   illo: string;
+  /** A delivered photograph that fills the illustration slot. */
+  photo?: { src: string; alt: string; width: number; height: number; note: string };
   spec: string;
 }): Block {
   return {
@@ -191,7 +193,7 @@ export function leadFormBlock(o: {
     <p>Tell us what you’re facing and we’ll come back with:</p>
     <ul class="tick">${o.bullets.map((b) => `<li>${b}</li>`).join("")}</ul>
     <p style="margin-top:22px"><b style="color:#fff">Urgent line</b> · 1.800.554.4622</p>
-    <div style="margin-top:22px">${photo(o.illo)}</div>
+    <div style="margin-top:22px">${o.photo ? shot(o.photo) : photo(o.illo)}</div>
    </div>
    <div>
     <div class="form">
