@@ -100,13 +100,15 @@ const blocks: BlockType[] = [
   {
     cls: "dark",
     n: "BLOCK 01 · HERO",
+    bg: { src: "/photos/cstl-who-we-deploy_hero_photo.jpg", focus: "center 40%" },
     h: `
   <p class="eyebrow">Critical Situation Travel Labor</p>
   <h1>Critical Situation Travel Labor:<br>Industries We Serve</h1>
   <p class="sub"><b>Skilled Crews On Your Floor in Days</b></p>
   <p class="lead">When a plant or a warehouse is short of people and hiring locally will not close the gap in time, AFIMAC sends workers to the site. We screen them before they travel, put them up while they are there, and run the crew on your floor. Pick your industry below to see the jobs we fill in it and how fast people can be working.</p>
   <div class="btns"><a class="btn" href="${u("/get-in-touch")}">Get the Numbers</a><a class="btn ghost" href="${u("/how-it-works")}">See how it works</a></div>
-  <div style="margin-top:34px">${photo("Full-bleed hero · 2560×1440 JPG (min 2000px wide) · a plant floor that does not read as one sector — overhead services, racking, a crew mid-shift · muted industrial tone under the navy scrim · mobile crop 1080×1350")}</div>
+  <div class="note"><b>The hero photograph is the band’s background</b>, under the navy scrim. <code>cstl-who-we-deploy_hero_photo.jpg</code>, placed 17 Nov 2026. <b>No Industries hub hero came in the delivery</b>, so this is the Who We Deploy hero, which fits this brief closely: a plant floor that is not one sector, racking and overhead services, a crew mid-shift.</div>
+  <div class="note stop"><b>The same photograph now opens both hubs.</b> Fine for the prototype; worth a dedicated shot before launch so Who We Deploy and Industries do not look like the same page.</div>
   <div class="note"><b>The live hero is the thinnest in the section</b> — the H1 and nothing else, no sub-headline, no body copy and no CTA, on the page whose job is to send visitors to ten others. <b>Everything under the H1 is written</b>, from the <a href="${DECK}">copy deck</a>. The H1 itself is the live one and stays: it is what the page ranks on. <b>The layout is the section's</b> — copy left, two buttons, photograph under it — rather than the centred version this page used to run.</div>`,
     spec: `<b>Elementor:</b> the shared hero saved section. The H1 is unchanged; everything under it is new. <b>Both buttons match the Overview hero's</b>, so the section opens the same way wherever a visitor lands.`,
   },
@@ -119,7 +121,7 @@ const blocks: BlockType[] = [
   <div class="g3">
    ${TILES.map(
      (t) => `<a class="card" style="text-decoration:none;display:block" href="${u(t.route)}">
-     <div class="photo" style="min-height:150px"><span class="art">Industry tile image</span></div>
+     ${INDUSTRIES[t.slug]?.heroPhoto ? shot({ src: INDUSTRIES[t.slug]!.heroPhoto!.src, alt: INDUSTRIES[t.slug]!.heroPhoto!.alt, width: INDUSTRIES[t.slug]!.heroPhoto!.width, height: INDUSTRIES[t.slug]!.heroPhoto!.height, ratio: "16/10", focus: "center" }) : `<div class="photo" style="min-height:150px"><span class="art">Industry tile image</span></div>`}
      <h3 style="margin-top:16px;margin-bottom:8px">${t.label}</h3>
      <span class="readmore">Learn More »</span></a>`,
    ).join("")}
@@ -129,7 +131,7 @@ const blocks: BlockType[] = [
   <p style="margin-top:28px">We hire for the job, not for the industry. If yours is not on this list, that does not mean we cannot staff it — <a href="${u("/industries/other-industries")}">tell us what your site makes or moves</a> and we will give you a straight answer.</p>
   <div class="note"><b>Ten tiles: ${LIVE_TILES.length} industries a visitor can read today, ${NEW_TILES.length} new URLs with nothing behind them yet</b> — ${NEW_TILES.map((t) => `<a href="${u(t.route)}">${t.label}</a>`).join(", ")}. Two of the ${LIVE_TILES.length} are live under the slug the split retires rather than their own: <a href="${u("/industries/chemicals")}">Chemicals</a> answers at <code>/chemicals-plastics/</code> and <a href="${u("/industries/oil-gas")}">Oil &amp; Gas</a> at <code>/oil-energy/</code>, so <b>their tiles cannot go up before the 301s do</b>.</div>
   <div class="note stop"><b>This grid used to draw five tiles where the live page carries seven.</b> It looked <code>EXISTING</code> up by each industry's new slug, and the two split pages are recorded under their old ones, so Chemicals and Oil &amp; Gas silently dropped out. It now reads the redirect map, which is the thing that knows. <b>Worth a look anywhere else the two slugs are matched by name.</b></div>`,
-    spec: `<b>Elementor:</b> Container (3-col) · EK Image Box ×10. Ten into a 3-col grid leaves an orphan on the last row — a 4-col grid or a fifth row of two. <b>The live page builds seven</b>; the other three go up with their pages.`,
+    spec: `<b>Tile images are each industry’s own hero photograph</b>, cropped to 16:10, placed 17 Nov 2026. No separate tile set was delivered, and using the hero means the tile shows exactly what the page opens on. <b>Elementor:</b> Container (3-col) · EK Image Box ×10. Ten into a 3-col grid leaves an orphan on the last row — a 4-col grid or a fifth row of two. <b>The live page builds seven</b>; the other three go up with their pages.`,
   },
 
   {

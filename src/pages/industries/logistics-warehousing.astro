@@ -14,7 +14,7 @@ import Prototype from "../../layouts/Prototype.astro";
 import Block from "../../components/Block.astro";
 import { u } from "../../lib/base";
 import { B } from "../../data/nav";
-import { photo, figure, artPair, stationFlow } from "../../lib/wireframe";
+import { photo, figure, artPair, stationFlow, shot } from "../../lib/wireframe";
 import { INDUSTRIES } from "../../data/industries";
 import { STAT_BAND } from "../../lib/industry-page";
 import { LOG_DEPLOY } from "../../data/graphics";
@@ -33,6 +33,13 @@ const INSIGHTS = [
   "The peak-season playbook: how warehouses protect SLAs through demand surges",
   "Ready on day one: the case for skilled travel labor at your next DC launch",
   "Why warehouse labor gaps become operational problems",
+];
+
+/** Block 08 thumbnails, in INSIGHTS order. Delivered 17 Nov 2026 as Industries Logistics Warehouse C, D and E. */
+const INSIGHT_PHOTOS = [
+  { src: "/photos/afimac-log-insight-1.jpg", alt: "A worker unloading boxes from a truck trailer at a loading dock", caption: "Industries Logistics Warehouse C, 17 Nov 2026." },
+  { src: "/photos/afimac-insight-tech-laptop.jpg", alt: "A technician in a hard hat and hi-vis vest working on a laptop on a factory floor", caption: "Industries Logistics Warehouse D, 17 Nov 2026. The same photograph the shared manufacturing post uses on the other industry pages." },
+  { src: "/photos/afimac-insight-phone-call.jpg", alt: "A man in a suit on a phone call", caption: "Industries Logistics Warehouse E, 17 Nov 2026. The same photograph the shared workforce post uses on the other industry pages." },
 ];
 
 const blocks: BlockType[] = [
@@ -120,7 +127,13 @@ const blocks: BlockType[] = [
     h: `
   <h2>Client success</h2>
   <div class="g2" style="margin-top:22px">
-   <div>${photo("Featured case image · pickers, packers, or a forklift operator mid-task on the floor · authentic, not stock-posed · portrait-ish crop (4:5)")}</div>
+   <div>${shot({
+     src: "/photos/afimac-log-featured-case.jpg",
+     alt: "A worker in a hard hat and hi-vis vest beside a forklift loading a trailer",
+     width: 1200,
+     height: 800,
+     note: `Delivered 17 Nov 2026 as Industries Logistics Warehouse B. Matches the brief: a forklift operator mid-task, not posed. <b>Delivered landscape (1200×800) rather than the portrait-ish 4:5 the brief asked for</b>, which is the size every other industry page's case slot takes, so it runs uncropped.`,
+   })}</div>
    <div><h3>Featured case</h3><ul class="tick"><li><b>Situation:</b> the client (DC, fulfillment center, 3PL) and the labor problem they faced</li><li><b>What AFIMAC did:</b> roles deployed, speed, shift coverage</li><li><b>Result:</b> the outcome, with KPIs — call-to-crew days, shifts covered, ship windows protected, backlog cleared</li></ul></div>
   </div>
   <div class="note stop"><b>Blocked, and this is the page it hurts most.</b> The deck asks for real logistics engagements from AFIMAC's records — one featured plus two or three supporting, ideally a peak-season surge, a DC launch, and an SLA recovery. <b>None of AFIMAC's published cases are logistics.</b> Four are manufacturing, one food, one building materials. This is the only page in the cluster with no case it can borrow, so it needs original material or it ships without proof.</div>`,
@@ -132,7 +145,7 @@ const blocks: BlockType[] = [
     h: `
   <h2>Related insights</h2>
   <div class="g3" style="margin-top:22px">
-   ${INSIGHTS.map((t) => `<div class="card">${photo("1280×720 (16:9) · editorial thumbnail")}<h3 style="margin-top:16px">${t}</h3><a class="readmore" href="${u("/overview")}">Read More »</a></div>`).join("")}
+   ${INSIGHTS.map((t, i) => `<div class="card">${shot({ ...INSIGHT_PHOTOS[i], width: 1280, height: 720, note: INSIGHT_PHOTOS[i].caption })}<h3 style="margin-top:16px">${t}</h3><a class="readmore" href="${u("/overview")}">Read More »</a></div>`).join("")}
   </div>
   <div class="note stop"><b>The deck says these titles “map to existing articles”. They do not.</b> There is no peak-season playbook post and no DC-launch post. The third is closest to <b>“Why <i>Manufacturing Workforce</i> Gaps Become Operational Problems”</b> — a real post, but about manufacturing, not warehousing. <b>All three need commissioning or re-pointing</b>, and this page has no logistics blog content to fall back on.</div>`,
     spec: `<b>Elementor:</b> EK Post Grid (3-up, category filter). Needs a Logistics blog category before it can filter — which needs logistics posts first.`,

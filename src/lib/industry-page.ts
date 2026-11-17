@@ -198,7 +198,7 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
     ? c.insights
         .map(
           ([t, cat], i) =>
-            `<div class="card">${o.insightPhotos?.[i] ? shot({ ...o.insightPhotos[i], note: o.insightPhotos[i].caption }) : photo("1280×720")}<h3 style="margin-top:16px;font-size:17px">${t}</h3><p style="font-size:12.5px;color:var(--spec)">${cat}</p></div>`,
+            `<div class="card">${o.insightPhotos?.[i] ? shot({ ...o.insightPhotos[i]!, note: o.insightPhotos[i]!.caption }) : photo("1280×720")}<h3 style="margin-top:16px;font-size:17px">${t}</h3><p style="font-size:12.5px;color:var(--spec)">${cat}</p></div>`,
         )
         .join("")
     : "";
@@ -320,7 +320,7 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
     {
       n: "BLOCK 08 · RELATED INSIGHTS",
       h: `<h2>Related insights</h2>
-  <div class="g3" style="margin-top:22px">${c ? insightCards : [1, 2, 3].map(() => `<div class="card">${photo("1280×720")}<div class="ph t" style="margin-top:16px"></div>${bars(2)}</div>`).join("")}</div>
+  <div class="g3" style="margin-top:22px">${c ? insightCards : [0, 1, 2].map((i) => `<div class="card">${o.insightPhotos?.[i] ? shot({ ...o.insightPhotos[i]!, note: o.insightPhotos[i]!.caption }) : photo("1280×720")}<div class="ph t" style="margin-top:16px"></div>${bars(2)}</div>`).join("")}</div>
   ${c ? `<div class="note"><b>The three titles are the deck’s own, and it says they map to existing articles</b> — “Pull the three most relevant live posts from the AFIMAC blog”. <b>None of the three has been matched to a live URL yet</b>, so they are shown as written and need checking against the blog before the rail is built.</div>` : ""}`,
       spec: `<b>Elementor:</b> EK Post Grid (3-up, category filter). Needs a “${o.short}” blog category before it can filter.`,
     },

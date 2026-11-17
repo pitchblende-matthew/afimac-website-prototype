@@ -96,13 +96,11 @@ const blocks: BlockType[] = [
     <p>That is a different proposition from a staffing agency filling requisitions one at a time. Everyone arrives to a plan agreed on before anyone travels, and they are managed on your floor by AFIMAC rather than handed to your supervisors to absorb.</p>
    </div>
    ${shot({
-     src: "/photos/cstl-who-we-deploy_crew-arriving_photo.jpg",
-     alt: "Four workers in hard hats and navy coveralls with reflective stripes, seen from behind as they walk into a plant",
-     width: 1600,
-     height: 1000,
-     ratio: "4/5",
-     focus: "50% center",
-     note: `Delivered 16 Nov 2026 as Who We Deploy C. Matches the brief: a crew arriving at the plant in their gear, nothing posed. <b>Delivered at 1600×1000 (8:5), not the 1200×1500 (4:5) the slot specs</b>, so it is cropped to 4:5 on the centre of the crew.`,
+     src: "/photos/cstl-who-we-deploy_crew-lineup_photo.jpg",
+     alt: "Four crew members in hard hats, safety glasses and hi-vis workwear standing together on a plant floor",
+     width: 1200,
+     height: 1500,
+     note: `Delivered as Who We Deploy B, placed here 17 Nov 2026 because it is cut to this slot (1200×1500, 4:5) and runs uncropped. A crew in full gear on the plant floor. <b>The brief says “no staged poses”, and this is a posed line-up</b>, so it is the one judgement call left in the section.`,
    })}
   </div>
   <div class="note"><b>This block is new copy.</b> The cluster explains travel labor on <a href="${u("/what-is-travel-labor")}">What Is Travel Labor</a> and <a href="${u("/vs-local-staffing")}">Travel vs. Local Staffing</a>; this is the two-paragraph version for people who arrive at the section from the nav rather than from the pillar. <b>Check it against the approved pillar copy before build</b> so the three do not drift.</div>`,
@@ -160,7 +158,13 @@ const blocks: BlockType[] = [
     h: `
   <h2>Deployments that kept Fortune 500 operations running</h2>
   <div class="casecard">
-   ${photo("1600×1000 JPG (8:5) on the featured card · a full production floor mid-shift, crew at stations, a working shot")}
+   ${shot({
+     src: "/photos/cstl-who-we-deploy_crew-arriving_photo.jpg",
+     alt: "Four workers in hard hats and navy coveralls with reflective stripes, seen from behind as they walk into a plant",
+     width: 1600,
+     height: 1000,
+     note: `Delivered as Who We Deploy C, placed here 17 Nov 2026 because it is cut to this slot (1600×1000, 8:5) and runs uncropped. It moved from Block 02, where it had been cropped to 4:5. <b>The brief asks for a production floor mid-shift with the crew at stations</b>; this is a crew walking in, so it shows the people rather than the work.`,
+   })}
    <div class="body">
     <div class="blocknum">FEATURED CASE</div>
     <p>A Fortune 500 manufacturer faced mounting production delays, with past-due orders peaking at $5.76 million. AFIMAC deployed skilled labor, including assemblers, CNC machinists, and welders. Past-due sales fell by 73.4% and performance returned to previously high levels.</p>
