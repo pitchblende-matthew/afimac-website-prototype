@@ -245,20 +245,31 @@ body.nodots .subnav .ddhead{display:none}
 
 /* hero — full-bleed photo, centred, as live */
 .block.hero{padding:0;background:var(--deep)}
-.heroimg{min-height:520px;display:flex;align-items:center;justify-content:center;text-align:center;
-  background:repeating-linear-gradient(135deg,#0f4066,#0f4066 14px,#123f61 14px,#123f61 28px);position:relative}
-.heroimg .wrap{padding-top:70px;padding-bottom:70px;position:relative;z-index:1}
+.heroimg{min-height:520px;display:flex;align-items:center;position:relative;
+  background:repeating-linear-gradient(135deg,#0f4066,#0f4066 14px,#123f61 14px,#123f61 28px)}
+.heroimg .wrap{width:100%;padding-top:84px;padding-bottom:84px;position:relative;z-index:1}
+/* Hold the copy to a column, the same way the photo heroes do, so the open
+   half of the frame stays close to the footage as shot. */
+.heroimg .wrap>*{max-width:var(--hero-copy,640px)}
 
 /* Hero background video, as the Webflow build runs it: the clip covers the
    band, a scrim sits over it, the copy above both. */
 .herovid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   pointer-events:none;border:0;display:block}
-/* An even wash, not the 90deg gradient the photo heroes use. That gradient is
-   built for a left-hand copy column; this hero centres its text, so the right
-   of the band has to carry type too. 0.68 is measured, not picked: sampled
-   across the clip, the brightest text-sized patch under the copy composites to
-   4.78:1 against white, clear of the 4.5:1 floor. 0.65 drops it to 4.39. */
-.heroscrim{position:absolute;inset:0;background:rgba(9,54,90,.68)}
+/* The same 90deg scrim the photo heroes use, now that this hero holds its copy
+   in a left column like they do. Measured against the clip rather than assumed:
+   sampled at 4fps across the footage, the brightest text-sized patch anywhere
+   under the copy column composites to 6.70:1 against white, well clear of the
+   4.5:1 floor — better than the 4.78:1 the flat wash gave when the copy was
+   centred and had to survive the open right-hand side too. */
+.heroscrim{position:absolute;inset:0;background:linear-gradient(90deg,
+  rgba(9,54,90,.82) 0%,rgba(9,54,90,.80) 46%,rgba(9,54,90,.40) 76%,rgba(9,54,90,.16) 100%)}
+@media(max-width:940px){
+  /* The copy covers most of the frame on a phone, so the gradient flattens to
+     an even wash — the same value and the same reasoning as .block.hasbg. */
+  .heroscrim{background:rgba(9,54,90,.68)}
+  .heroimg .wrap>*{max-width:none}
+}
 .heroimg .herospec{z-index:1}
 /* Reduced motion: hold the poster frame rather than loop footage at someone
    who has asked the browser not to. The still carries the same scrim. */
