@@ -36,7 +36,7 @@ export interface FamilyPageData {
   /** Path under /who-we-deploy/, no slashes. */
   slug: string;
 
-  hero: { h1: string; sub: string; body: string; cta2: string; img: string; note?: string };
+  hero: { h1: string; sub: string; body: string; cta2: string; img: string; note?: string; bg?: { src: string; focus?: string; note: string } };
   /**
    * Block 02 — why the seats are hard to fill, in this family's terms.
    *
@@ -108,6 +108,7 @@ export function familyPage(d: FamilyPageData): BlockType[] {
       cta2: d.hero.cta2,
       cta2Href: "#process",
       img: d.hero.img,
+      bg: d.hero.bg,
       note: d.hero.note ? `${FAMILY_RETITLE}<br><br>${d.hero.note}` : FAMILY_RETITLE,
       spec: SPEC.hero,
     }),
