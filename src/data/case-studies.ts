@@ -1,11 +1,28 @@
 /**
- * THE SIX CLIENT CASES, as the approved sales sheet carries them.
+ * THE SIX CLIENT CASES, as the designed v1 sheet carries them.
  *
- * Source: "AFIMAC — Client Success Stories", the Critical Situation Travel
- * Labor case-study sheet, supplied 17 Nov 2026. `body` is that sheet's wording
- * verbatim: these are sentences AFIMAC has already approved, so the rule here
- * is the same as the copy decks — use them as they stand rather than improving
- * them, and raise a change rather than making one.
+ * Source: "AFIMAC Client Success Stories v1", the designed Critical Situation
+ * Travel Labor case sheet, supplied 17 Nov 2026. It supersedes the redacted
+ * draft supplied the same day. `body` is that sheet's wording verbatim: these
+ * are sentences AFIMAC has already approved, so the rule here is the same as
+ * the copy decks — use them as they stand rather than improving them, and
+ * raise a change rather than making one.
+ *
+ * WHAT v1 CHANGED from the redacted draft, all of it followed here:
+ *
+ *   - **"past-due sales" became "past-due orders"** in the first case. The
+ *     draft used both wordings in the same paragraph; v1 uses orders twice.
+ *   - **The fourth case is labelled correctly.** The draft headed it "Fortune
+ *     500 Agricultural Equipment Manufacturer" over a body about switchgear
+ *     and wiring technicians. v1 heads it Switchgear, which is what the
+ *     prototype had already corrected it to.
+ *   - **The order changed**: switchgear moves ahead of the first food case.
+ *   - **Every case gained two category tags** and a fuller figure label.
+ *   - **The standfirst changed**: "Clients rely on CSTL" became "Clients rely
+ *     on AFIMAC's flexible workforce solutions".
+ *   - **The isometric illustrations are gone**, replaced by photography. That
+ *     retires the live carousel's art problem rather than fixing it: three of
+ *     those six illustrations sit on the wrong case today.
  *
  * Until now the cases lived in three places and agreed in none of them: two
  * bodies hard-typed into the overview carousel, five shorter paraphrases on the
@@ -13,14 +30,8 @@
  * plus a one-line gist in CASE_ART. This file is the single copy, and the other
  * three read from it.
  *
- * WHAT THE SHEET GETS WRONG, and what is done about it here:
+ * WHAT IS STILL WORTH KNOWING:
  *
- *   - **The fourth case is mislabelled on the sheet itself.** Its heading says
- *     "Fortune 500 Agricultural Equipment Manufacturer" — copied from the
- *     second case — while its body describes a switchgear manufacturer and a
- *     team of wiring technicians. The body is the substantive description, so
- *     `label` follows the body and `sheetLabel` records what the sheet says.
- *     The live site repeats the sheet's error in its carousel alt text.
  *   - **Two labels appear twice**, which is a consequence of anonymising the
  *     clients rather than a mistake: there are two Global Food Manufacturer
  *     cases and, once the fourth is corrected, one agricultural equipment case.
@@ -47,10 +58,12 @@ export type IndustrySlug =
 export interface CaseStudy {
   /** Stable key. `label` is not unique — two cases share each of two labels. */
   id: string;
-  /** Client descriptor, corrected where the sheet contradicts itself. */
+  /** Client descriptor, as the sheet heads the case. */
   label: string;
-  /** What the sheet's heading says, where that differs from `label`. */
-  sheetLabel?: string;
+  /** The two category tags above the client name on the sheet. */
+  tags: [string, string];
+  /** Small kicker above the figure, where the sheet runs one ("UP TO"). */
+  kicker?: string;
   /** The sheet's paragraph, verbatim. */
   body: string;
   /** The single number the case turns on, for a stat or a row heading. */
@@ -73,9 +86,10 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     id: "f500-manufacturer",
     label: "Fortune 500 Manufacturer",
-    body: "A Fortune 500 manufacturer faced mounting production delays, with past-due orders peaking at $5.76 million. AFIMAC responded by deploying skilled labor — including assemblers, CNC machinists, and welders — supported by on-site security teams. This strategic intervention led to a 73.4% reduction in past-due sales, restoring performance to previously high levels. The turnaround was credited to increased contract labor and seamless collaboration across departments.",
+    tags: ["Production recovery", "Skilled trades + security"],
+    body: "A Fortune 500 manufacturer faced mounting production delays, with past-due orders peaking at $5.76 million. AFIMAC responded by deploying skilled labor, including assemblers, CNC machinists, and welders, supported by on-site security teams. This strategic intervention led to a 73.4% reduction in past-due orders, restoring performance to previously high levels. The turnaround was credited to increased contract labor and seamless collaboration across departments.",
     figure: "73.4%",
-    figureLabel: "Cut in past-due sales",
+    figureLabel: "reduction in past-due orders",
     roles: ["Assemblers", "CNC machinists", "Welders", "On-site security"],
     industries: [],
     placement:
@@ -84,19 +98,32 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     id: "f500-agricultural-equipment",
     label: "Fortune 500 Agricultural Equipment Manufacturer",
-    body: "Confronted with a significant customer order backlog, this Fortune 500 agricultural equipment manufacturer brought in multiple staffing providers. AFIMAC quickly distinguished itself as the sole non-local partner retained, supplying skilled assemblers and machinists. Over a two-year engagement, AFIMAC’s workforce helped stabilize operations and return the company to on-time order fulfillment.",
-    figure: "Two years",
-    figureLabel: "To on-time fulfillment",
+    tags: ["Backlog recovery", "Specialized trades"],
+    body: "Confronted with a significant customer order backlog, this Fortune 500 agricultural equipment manufacturer brought in multiple staffing providers. AFIMAC quickly distinguished itself as the sole non-local partner retained, supplying skilled assemblers and machinists. Over a two-year engagement, AFIMAC\u2019s workforce helped stabilize operations and return the company to on-time order fulfillment.",
+    figure: "2-year",
+    figureLabel: "engagement as the sole non-local partner retained",
     roles: ["Assemblers", "Machinists"],
     industries: ["industrial-equipment"],
     placement: "Agricultural equipment is built on an industrial equipment floor; the roles match that page's own.",
   },
   {
+    id: "f500-switchgear",
+    label: "Fortune 500 Switchgear Manufacturer",
+    tags: ["Capacity increase", "Specialized skills"],
+    body: "Faced with a growing backlog of orders, a Fortune 500 switchgear manufacturer partnered with AFIMAC for specialized support. A team of 12 experienced wiring technicians was deployed for a multi-month assignment. By the end of the engagement, the backlog was fully cleared, and surplus inventory was built to meet future demand.",
+    figure: "12",
+    figureLabel: "experienced wiring technicians deployed",
+    roles: ["Wiring technicians"],
+    industries: ["power-energy"],
+    placement: "Switchgear assemblers are on the Power & Energy page's own role list.",
+  },
+  {
     id: "global-food-99",
     label: "Global Food Manufacturer",
-    body: "A major labor disruption at a global food production facility threatened safety and halted operations. AFIMAC deployed 99 personnel, including security and skilled workers such as packaging operators, forklift drivers, boiler operators, and wastewater treatment technicians. With AFIMAC’s support, the client maintained full production and avoided operational downtime throughout the crisis.",
+    tags: ["Continuity", "Labor disruption"],
+    body: "A major labor disruption at a global food production facility threatened safety and halted operations. AFIMAC deployed 99 personnel, including security and skilled workers such as packaging operators, forklift drivers, boiler operators, and wastewater treatment technicians. With AFIMAC\u2019s support, the client maintained full production and avoided operational downtime throughout the crisis.",
     figure: "99",
-    figureLabel: "Personnel deployed",
+    figureLabel: "personnel deployed, including security and skilled workers",
     roles: [
       "Packaging operators",
       "Forklift drivers",
@@ -107,22 +134,12 @@ export const CASE_STUDIES: CaseStudy[] = [
     industries: ["food-beverage"],
   },
   {
-    id: "f500-switchgear",
-    label: "Fortune 500 Switchgear Manufacturer",
-    sheetLabel: "Fortune 500 Agricultural Equipment Manufacturer",
-    body: "Faced with a growing backlog of orders, a Fortune 500 switchgear manufacturer partnered with AFIMAC for specialized support. A team of 12 experienced wiring technicians was deployed for a multi-month assignment. By the end of the engagement, the backlog was fully cleared, and surplus inventory was built to meet future demand.",
-    figure: "12",
-    figureLabel: "Wiring technicians",
-    roles: ["Wiring technicians"],
-    industries: ["power-energy"],
-    placement: "Switchgear assemblers are on the Power & Energy page's own role list.",
-  },
-  {
     id: "building-materials",
     label: "Large Building Materials Manufacturer",
+    tags: ["Continuity", "Staffing shortfall"],
     body: "A staffing shortfall at this building materials manufacturer jeopardized critical production lines. AFIMAC stepped in with a team of 24 personnel, including material handlers, fiber formers, and wastewater treatment operators. Their presence ensured uninterrupted production until the client could reestablish normal staffing levels.",
     figure: "24",
-    figureLabel: "Personnel deployed",
+    figureLabel: "personnel deployed to critical production lines",
     roles: ["Material handlers", "Fiber formers", "Wastewater treatment operators"],
     industries: [],
     placement:
@@ -131,9 +148,11 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     id: "global-food-forklift",
     label: "Global Food Manufacturer",
+    tags: ["Capacity", "Long-term support"],
+    kicker: "Up to",
     body: "Struggling with persistent hiring challenges, this food production facility turned to AFIMAC for long-term support. Over a two-year period, AFIMAC provided up to 20 experienced forklift operators, helping the client maintain stable output and meet operational targets despite local labor shortages.",
-    figure: "Up to 20",
-    figureLabel: "Forklift operators",
+    figure: "20",
+    figureLabel: "experienced forklift operators over two years",
     roles: ["Forklift operators"],
     industries: ["food-beverage"],
     placement:
@@ -143,7 +162,28 @@ export const CASE_STUDIES: CaseStudy[] = [
 
 /** The sheet's own standfirst, for the Case Studies page. */
 export const CASE_SHEET_LEAD =
-  "When labor shortages threaten operations, AFIMAC’s Critical Situation Travel Labor (CSTL) service delivers fast, effective workforce solutions. Whether for line start-ups, production gaps, plant moves, or unexpected absences, CSTL provides skilled teams to keep manufacturing and logistics running smoothly.";
+  "When labor shortages threaten operations, AFIMAC’s Critical Situation Travel Labor (CSTL) service delivers fast, effective workforce solutions. Whether for line start-ups, production gaps, plant moves, or unexpected absences, CSTL provides skilled teams to keep manufacturing and logistics running smoothly. Clients rely on AFIMAC’s flexible workforce solutions to maintain productivity, protect their reputation, and avoid costly delays, proving the value of having the right support, exactly when it’s needed.";
+
+/**
+ * One case rendered as the v1 sheet lays it out. Every surface that shows a
+ * case uses this, so the design cannot drift between the three of them.
+ */
+export const caseCard = (c: CaseStudy): string =>
+  [
+    '<div class="casestudy">',
+    '<div class="cs-fig">',
+    c.kicker ? `<span class="cs-kicker">${c.kicker}</span>` : "",
+    `<div class="cs-num">${c.figure}</div>`,
+    `<div class="cs-numlabel">${c.figureLabel}</div>`,
+    "</div>",
+    '<div class="cs-rule"></div>',
+    "<div>",
+    `<div class="cs-tags">${c.tags.join(" &nbsp;|&nbsp; ")}</div>`,
+    `<h3>${c.label}</h3>`,
+    `<p>${c.body}</p>`,
+    "</div>",
+    "</div>",
+  ].join("");
 
 /** The cases placed on a given industry page, featured first. */
 export const casesFor = (slug: string): CaseStudy[] =>

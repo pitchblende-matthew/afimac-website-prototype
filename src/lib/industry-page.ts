@@ -13,7 +13,7 @@ import { u } from "./base";
 import { B } from "../data/nav";
 import { INDUSTRY_REDIRECTS, type Industry } from "../data/industries";
 import { INDUSTRY_COPY } from "../data/industry-copy";
-import { casesFor } from "../data/case-studies";
+import { casesFor, caseCard } from "../data/case-studies";
 import type { Block, PageProps } from "./types";
 
 /**
@@ -293,20 +293,15 @@ export function industryPage(o: Industry): PageProps & { blocks: Block[] } {
         const [featured, ...rest] = cases;
         return `
   <h2>${c ? c.successTitle : "Client success"}</h2>
-  <div class="g2" style="margin-top:22px">
-   <div>${o.casePhoto ? shot({ ...o.casePhoto, note: o.casePhoto.caption }) : photo("Featured case image · 1200×800")}</div>
-   <div><h3 style="margin-top:0">${featured.label}</h3><p>${featured.body}</p>
-    <div class="g2" style="margin-top:20px"><div><div class="stat">${featured.figure}</div><div class="statlabel">${featured.figureLabel}</div></div></div></div>
-  </div>
-  <p style="margin-top:26px"><b>Who AFIMAC sent:</b> ${featured.roles.join(" &middot; ")}</p>
+  <div style="margin-top:22px">${o.casePhoto ? shot({ ...o.casePhoto, note: o.casePhoto.caption }) : photo("Featured case image · 1200×800")}</div>
+  <div style="margin-top:24px">${caseCard(featured)}</div>
+  <p style="margin-top:22px"><b>Who AFIMAC sent:</b> ${featured.roles.join(" &middot; ")}</p>
   ${
     rest.length
-      ? `<div style="margin-top:30px"><div class="blocknum">ALSO ON THIS KIND OF FLOOR</div>${rest
-          .map((r) => `<div class="card" style="margin-top:14px"><h3 style="font-size:18px;margin:0 0 8px">${r.label} &middot; ${r.figure} ${r.figureLabel.toLowerCase()}</h3><p style="margin:0">${r.body}</p></div>`)
-          .join("")}</div>`
+      ? `<div style="margin-top:30px"><div class="blocknum">ALSO ON THIS KIND OF FLOOR</div>${rest.map(caseCard).join("")}</div>`
       : ""
   }
-  <div class="note"><b>Real cases, from the approved sheet.</b> The wording is that sheet's, verbatim — <code>src/data/case-studies.ts</code> — so this block, the <a href="${u("/resources/case-studies")}">Case Studies</a> page and the overview carousel cannot drift. <b>The client is not named</b>, here or anywhere: every case in the set is anonymised, and naming one needs written permission on file. <b>The roles line is read from the case\u2019s own sentence</b> rather than written, so it cannot claim a role the case does not. The deck asks for three supporting cards under the featured case; <b>the sheet has no second and third figure to fill them with</b>, so that row is a decision for the build rather than something to invent here.</div>
+  <div class="note"><b>Real cases, from the approved v1 sheet.</b> The wording and the card design are both that sheet's — <code>src/data/case-studies.ts</code> — so this block, the <a href="${u("/resources/case-studies")}">Case Studies</a> page and the overview carousel cannot drift on either. <b>The client is not named</b>, here or anywhere: every case in the set is anonymised, and naming one needs written permission on file. <b>The roles line is read from the case\u2019s own sentence</b> rather than written, so it cannot claim a role the case does not. The deck asks for three supporting cards under the featured case; <b>the sheet has no second and third figure to fill them with</b>, so that row is a decision for the build rather than something to invent here.</div>
   <div class="note"><b>A featured case plus a photograph is the shape the deck asks for.</b> ${o.casePhoto ? "The photograph is placed." : "<b>The featured image is still outstanding</b> for this industry."}</div>`;
       })(),
       spec: `<b>Elementor:</b> Heading · Text Editor · EK Funfact ×3 · Image · EK Icon Box ×3.`,
