@@ -153,8 +153,13 @@ export const INDUSTRIES: Record<string, Industry> = {
       caption: "Delivered as Industries FB B, 17 Nov 2026. Matches the slot size (1200×800).",
     },
     insightPhotos: [
-      // C was not in the delivery: the first card is left as it was.
-      undefined,
+      {
+        src: "/photos/afimac-fb-insight-1.jpg",
+        alt: "A quality technician in a hairnet, mask and gloves checking a clipboard beside food processing equipment",
+        width: 1280,
+        height: 720,
+        caption: "Industries FB C, 18 Nov 2026.",
+      },
       {
         src: "/photos/afimac-fb-insight-2.jpg",
         alt: "Cans moving along a conveyor",
