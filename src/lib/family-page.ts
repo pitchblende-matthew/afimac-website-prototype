@@ -18,7 +18,10 @@
  * What a page supplies is copy. What it cannot vary is the order, the
  * devices, or the parts of the service that are the same whoever is deployed.
  */
-import { photo, artPair, figure } from "./wireframe";
+import { photo, artPair, figure, shot } from "./wireframe";
+
+/** A delivered photograph that fills a slot in place of its brief. */
+type SlotPhoto = { src: string; alt: string; width: number; height: number; note?: string };
 import type { Art, ArtPair } from "../data/graphics";
 import { u } from "./base";
 import {
@@ -44,7 +47,7 @@ export interface FamilyPageData {
    * block of their own. It rides inside the gap rather than being dropped:
    * a template that loses approved content is not a template, it is a cut.
    */
-  gap: { h2: string; paras: string[]; photo: string; triggers?: { label: string; items: string[] } };
+  gap: { h2: string; paras: string[]; photo: string; img?: SlotPhoto; triggers?: { label: string; items: string[] } };
   /** Block 03 — heading only; the grid and its flag come from the family. */
   rolesHeading: string;
   /** Block 04 — the same four phases, in this family's words. */
@@ -58,7 +61,7 @@ export interface FamilyPageData {
    */
   included: { h2: string; lead: string; context?: string; photo: string; art?: Art | ArtPair };
   /** Block 06 — one featured case, optionally a supporting one. */
-  proof: { h2: string; photo: string; featured: string; supporting?: string; note: string };
+  proof: { h2: string; photo: string; img?: SlotPhoto; featured: string; supporting?: string; note: string };
   faq: { h2: string; items: [string, string][] };
   insights: { titles: string[]; note?: string };
   form: { h2: string; bullets: string[]; illo: string };
@@ -119,7 +122,7 @@ export function familyPage(d: FamilyPageData): BlockType[] {
   <h2>${d.gap.h2}</h2>
   <div class="g2" style="margin-top:24px">
    <div>${d.gap.paras.map((p) => `<p>${p}</p>`).join("")}</div>
-   ${photo(d.gap.photo)}
+   ${d.gap.img ? shot(d.gap.img) : photo(d.gap.photo)}
   </div>
   ${
     d.gap.triggers
@@ -186,7 +189,7 @@ export function familyPage(d: FamilyPageData): BlockType[] {
       h: `
   <h2>${d.proof.h2}</h2>
   <div class="casecard">
-   ${photo(d.proof.photo)}
+   ${d.proof.img ? shot(d.proof.img) : photo(d.proof.photo)}
    <div class="body">
     <div class="blocknum">FEATURED CASE</div>
     <p>${d.proof.featured}</p>
